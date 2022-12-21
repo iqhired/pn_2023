@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<div class="rowitem_4"><br/>
+    <div class="contextMenu">
+        <button class="btn" id="moveup" type="button"><i class="fa fa-angle-up"></i></button>
+        <button class="btn" id="movedown" type="button"><i class="fa fa-angle-down"></i></button>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse" href="#collapse4">Form Item 4</a>
+                <button class="btn btn-danger btn-xs remove_btn" data-id="4" id="btn_id4" name="remove_btn"
+                        type="button">-
+                </button>
+            </h4>
+        </div>
+        <div class="panel-collapse collapse in" id="collapse4">
+            <div class="panel-body">
+                <div class="qry_section" id="section_4">
+                    <div class="row">
+                        <div class="col-md-2"><input class="checkbx" id="optional_4[]" name="optional_4[]"
+                                                     style="margin-right:15px;" type="checkbox"/>Optional
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row"><label class="col-lg-2 control-label" for="query_text">Item Description :</label>
+                        <div class="col-md-6"><input autocomplete="off" class="form-control" id="query_text"
+                                                     name="query_text[]" placeholder="Form Item Description" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row"><label class="col-lg-2 control-label" for="item_class">Form Item Type:</label>
+                        <div class="col-md-6">
+                            <div class="form-check form-check-inline"><input checked class="form-check-input"
+                                                                             data-name="numeric_4" id="numeric_4"
+                                                                             name="item_4[]" type="radio"
+                                                                             value="numeric"> <label class="item_label"
+                                                                                                     for="numeric">Numeric</label>
+                                <input class="form-check-input" data-name="binary_4" id="binary_4" name="item_4[]"
+                                       type="radio" value="binary"> <label class="item_label"
+                                                                           for="binary">Binary</label> <input
+                                        class="form-check-input" data-name="text_4" id="text_4_4" name="item_4[]"
+                                        type="radio" value="text"> <label class="item_label" for="text">Text</label>
+                                <input class="form-check-input" data-name="header_4" id="header" name="item_4[]"
+                                       type="radio" value="header"> <label class="item_label"
+                                                                           for="header">Header</label><input
+                                        class="form-check-input" data-name="list_4" id="list_4" name="item_4[]" type="radio"
+                                        value="list"><label class="item_label" for="list">List</label></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="numeric_section" id="numericsection_4">
+                        <div class="row"><label class="col-lg-2 control-label" for="measurement">Measurement
+                            Unit:</label>
+                            <div class="col-md-6"><select class="form-control" id="unit_of_measurement4"
+                                                          name="unit_of_measurement[]"></select></div>
+                        </div>
+                        <br/>
+                        <div class="row"><label class="col-lg-2 control-label" for="normal">Nominal:</label>
+                            <div class="col-md-6"><input autocomplete="off" class="form-control" id="normal"
+                                                         name="normal[]"></div>
+                        </div>
+                        <br>
+                        <div class="row"><label class="col-lg-2 control-label"
+                                                for="lower_tolerance">LowerTolerance:</label>
+                            <div class="col-md-6"><input autocomplete="off" class="form-control" id="lower_tolerance"
+                                                         name="lower_tolerance[]"></div>
+                        </div>
+                        <br>
+                        <div class="row"><label class="col-lg-2 control-label"
+                                                for="upper_tolerance">UpperTolerance:</label>
+                            <div class="col-md-6"><input autocomplete="off" class="form-control" id="upper_tolerance"
+                                                         name="upper_tolerance[]"></div>
+                        </div>
+                        <br></div>
+                    <div class="binary_section" id="binarysection_4">
+                        <div class="row"><label class="col-lg-2 control-label" for="default">Default:</label>
+                            <div class="col-md-6">
+                                <div class="form-check form-check-inline"><input checked class="form-check-input"
+                                                                                 id="none" name="default_binary_4[]"
+                                                                                 type="radio" value="none"> <label
+                                        class="item_label" for="none">None</label> <input class="form-check-input"
+                                                                                          id="yes"
+                                                                                          name="default_binary_4[]"
+                                                                                          type="radio" value="yes">
+                                    <label class="item_label" for="yes">Yes</label><input name="bansi_row_click[]"
+                                                                                          type="hidden" value=4> <input
+                                            class="form-check-input" id="no" name="default_binary_4[]" type="radio"
+                                            value="no"> <label class="item_label" for="no">No</label></div>
+                            </div>
+                        </div>
+                        <div class="row"><label class="col-lg-2 control-label" for="normal">Nominal:</label>
+                            <div class="col-md-6">
+                                <div class="form-check form-check-inline"><input checked class="form-check-input"
+                                                                                 id="yes" name="normal_binary_4[]"
+                                                                                 type="radio" value="yes"> <label
+                                        class="item_label" for="yes">Yes</label> <input class="form-check-input" id="no"
+                                                                                        name="normal_binary_4[]"
+                                                                                        type="radio" value="no"> <label
+                                        class="item_label" for="no">No</label></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><label for="yes_alias">Yes Alias:</label></div>
+                            <div class="col-md-6"><input autocomplete="off" class="form-control" id="yes_alias"
+                                                         name="yes_alias[]"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><label for="no_alias">No Alias:</label></div>
+                            <div class="col-md-6"><input autocomplete="off" class="form-control" id="no_alias"
+                                                         name="no_alias[]"></div>
+                        </div>
+                    </div>
+                    <br></div>
+                <div class="list_section" id="listsection_4">
+                    <div class="row"><label class="col-lg-2 control-label" for="default">Values:</label>
+                        <div class="col-md-6">
+                            <div class="form-check form-check-inline"><input name="bansi_row_click[]" type="hidden"
+                                                                             value=4><input checked class="form-check-input custom-control-input"
+                                                                                            id="none"
+                                                                                            name="default_list_4[]"
+                                                                                            type="radio"
+                                                                                            value="none"><input class="radio_input"
+                                                                                                           id="radio_list_none"
+                                                                                                           name="radio_list_none"
+                                                                                                           placeholder="Option1"
+                                                                                                           type="search"><input
+                                    class="form-check-input custom-control-input" id="yes" name="default_list_4[]" type="radio"
+                                    value="yes"><input class="radio_input"
+                                                                                         id="radio_list_yes"
+                                                                                         name="radio_list_yes"
+                                                                                         placeholder="Option2"
+                                                                                         type="search"><input
+                                    class="form-check-input custom-control-input" id="no" name="default_list_4[]" type="radio"
+                                    value="no"><input class="radio_input"
+                                                                                         id="radio_list_no"
+                                                                                         name="radio_list_no"
+                                                                                         placeholder="Option3"
+                                                                                         type="search"></div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2"><label for="notes">Notes:</label></div>
+                    <div class="col-md-6"><textarea aria-label="With textarea" autocomplete="off" class="form-control"
+                                                    id="notes" name="form_item_notes[]"></textarea></div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-2"><label for="notes">Discription:</label></div>
+                    <div class="col-md-6"><textarea aria-label="With textarea" autocomplete="off" class="form-control"
+                                                    id="disc" name="form_item_disc[]"></textarea></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
