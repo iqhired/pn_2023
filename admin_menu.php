@@ -61,7 +61,9 @@ if (!empty($is_cell_login) && $is_cell_login == 1) {
         .show {
             display: grid !important;
         }
-
+        .fs-6 {
+            font-size: 1rem!important;
+        }
         /*.navbar{*/
         /*    z-index: 0!important;*/
         /*}*/
@@ -72,6 +74,9 @@ if (!empty($is_cell_login) && $is_cell_login == 1) {
         .ms-2.fw-light {
             font-size: 18px;
         }
+            .fs-6 {
+                font-size: 1rem!important;
+            }
         }
     </style>
 </head>
