@@ -1456,10 +1456,10 @@ include("../admin_menu.php");
             var fileReader = new FileReader();
             fileReader.onload = (function(e) {
                 var file = e.target;
-                $("<div class=\"file-image-1 pip\"><div class=\"product-image\">"+
-                    "<img src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>"+
-                  "<ul class=\"icons\"><li><a class=\"remove bg-danger\"><i class=\"fa fa-trash\"></i></a></li></ul></div>"+
-                 "</div>").insertAfter("#image");
+                $("<span class=\"pip\">" +
+                    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                    "<br/><span class=\"remove\">Remove image</span>" +
+                    "</span>").insertAfter("#image");
                 $(".remove").click(function(){
                     $(this).parent(".pip").remove();
                 });
