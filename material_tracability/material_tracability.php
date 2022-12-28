@@ -178,11 +178,11 @@ $logo = $rowccus['logo'];
             float: right;
         }
         .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
-       /* @media (min-width: 768px)
-            .app-content {
-                margin-left: 4em!important;
-                margin-right: 3em!important;
-            }*/
+        /* @media (min-width: 768px)
+             .app-content {
+                 margin-left: 4em!important;
+                 margin-right: 3em!important;
+             }*/
         @media screen and (min-device-width: 480px)
         and (max-device-width: 768px) {
             .row-sm {
@@ -267,7 +267,7 @@ include("../heading_banner.php");
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
                                     <?php $form_id = $_GET['id'];
-                                      ?>
+                                    ?>
                                     <input type="hidden" name="station_event_id"
                                            value="<?php echo $station_event_id ?>">
                                     <input type="hidden" name="customer_account_id" value="<?php echo $account_id ?>">
@@ -328,7 +328,7 @@ include("../heading_banner.php");
                                             }
                                             ?>
                                         </select>
-                                   </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -342,15 +342,15 @@ include("../heading_banner.php");
                             </div>
                             <br/>
                             <?php
-                               $m_type = $_POST['material_type'];
+                            $m_type = $_POST['material_type'];
 
-                               $sql = "SELECT serial_num_required FROM `material_config` where material_type = '$m_type'";
-                               $row = mysqli_query($db, $sql);
-                               $se_row = mysqli_fetch_assoc($row);
+                            $sql = "SELECT serial_num_required FROM `material_config` where material_type = '$m_type'";
+                            $row = mysqli_query($db, $sql);
+                            $se_row = mysqli_fetch_assoc($row);
 
-                               $serial = $se_row['serial_num_required'];
+                            $serial = $se_row['serial_num_required'];
 
-                             ?>
+                            ?>
                             <div class="row row-xs align-items-center mg-b-20" id = "serial_num">
 
                             </div>
@@ -370,10 +370,10 @@ include("../heading_banner.php");
                                     </div>
                                 </div>
                             </div>
-                        <br/>
-                        <div id="rej_fail" style="display: none;">
+                            <br/>
+                            <div id="rej_fail" style="display: none;">
 
-                        </div>
+                            </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Notes :</label>
