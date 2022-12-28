@@ -66,86 +66,183 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $sitename; ?> | 10x Log</title>
+    <title>
+        <?php echo $sitename; ?> |10x Log</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-          type="text/css">
-    <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
     <!-- Theme JS files -->
     <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/notifications/sweet_alert.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
+    <!-- //data tables links-->
+    <script type="text/javascript" src="../assets/js/form_js/dataTables.bootstrap5.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/responsive.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/custom.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/select2.full.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/select2.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/index1.js"></script>
+    <script type="text/javascript" src="../assets/css/form_css/buttons.bootstrap5.min.css"></script>
+    <script type="text/javascript" src="../assets/css/form_css/dataTables.bootstrap5.css"></script>
+    <script type="text/javascript" src="../assets/css/form_css/responsive.bootstrap5.css"></script>
+    <script type="text/javascript" src="../assets/css/form_css/bootstrap.min.css"></script>
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
 
     <style>
-        .col-md-2{
-            width:auto!important;
-            float: left;
+        .navbar {
+
+            padding-top: 0px!important;
         }
-        .col-lg-2 {
-            max-width: 30%!important;
-            float: left;
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
         }
-        .row_date {
-            padding-top: 22px;
-            margin-left: -9px;
-            padding-bottom: 20px;
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
 
         }
-        @media
-        only screen and (max-width: 760px),
-        (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-md-3 {
-                width: 30%;
-                float: left;
-            }
-            .col-md-2 {
-                width: 20%;
-                float: left;
-            }
-            .col-lg-8 {
-                float: right;
-                width: 58%;
-            }
-            label.col-lg-3.control-label {
-                width: 42%;
-            }
-            .col-md-6.date {
-                width: 100%;
-                float: left;
-            }
-            .col-md-2 {
-                width: 30%!important;
-                float: left;
-            }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
         }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
     </style>
-    <script>
-        window.onload = function () {
-            history.replaceState("", "", "<?php echo $scriptName; ?>log_module/10x_log.php");
-        }
-    </script>
-
 </head>
-
-<!-- Main navbar -->
 <?php
 $cust_cam_page_header = "10x Log";
 include("../header_folder.php");
@@ -153,30 +250,28 @@ include("../header_folder.php");
 include("../admin_menu.php");
 include("../heading_banner.php");
 ?>
-<body class="alt-menu sidebar-noneoverflow">
-<!-- /main navbar -->
-<!-- Page container -->
-<div class="page-container">
-
-    <!-- Content area -->
-    <div class="content">
-        <!-- Main charts -->
-        <!-- Basic datatable -->
-        <div class="panel panel-flat">
-            <form action="" id="10x_form" class="form-horizontal" method="post">
-                <div class="panel-heading">
-                    <!--							<h5 class="panel-title">Stations</h5>-->
-                    <!--							<hr/>-->
-
-                    <div class="row">
-                        <div class="col-md-6 mobile">
-
-
-                            <label class="col-lg-2 control-label">Station :</label>
-
-                            <div class="col-lg-8">
-                                <select name="station" id="station" class="select"
-                                        style="float: left;width: initial;">
+<body class="ltr main-body app sidebar-mini">
+<div class="main-content app-content">
+    <div class="breadcrumb-header justify-content-between">
+        <div class="justify-content-center mt-2">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
+                <li class="breadcrumb-item active" aria-current="page">10x Log</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row row-sm">
+        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+            <div class="card  box-shadow-0">
+                <div class="card-body pt-0">
+                    <form action="" id="10x_form" class="form-horizontal" method="post">
+                    <div class="pd-30 pd-sm-20">
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0">Station : </label>
+                            </div>
+                            <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                     <option value="" selected disabled>--- Select Station ---</option>
                                     <?php
                                     $st_dashboard = $_POST['station'];
@@ -199,14 +294,11 @@ include("../heading_banner.php");
 
                                 </select>
                             </div>
-
-                        </div>
-                        <div class="col-md-6 mobile">
-
-                            <label class="col-lg-3 control-label" >Part Family *  :</label>
-
-                            <div class="col-lg-8">
-                                <select name="part_family" id="part_family" class="select" data-style="bg-slate" >
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0">Part Family *  : </label>
+                            </div>
+                            <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                     <option value="" selected disabled>--- Select Part Family ---</option>
                                     <?php
                                     $st_dashboard = $_POST['part_family'];
@@ -230,13 +322,12 @@ include("../heading_banner.php");
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6 mobile">
-                            <label class="col-lg-3 control-label">Part Number *  :</label>
-                            <div class="col-lg-8">
-                                <select name="part_number" id="part_number" class="select" data-style="bg-slate" >
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0">Part Number *  : </label>
+                            </div>
+                            <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                     <option value="" selected disabled>--- Select Part Number ---</option>
                                     <?php
                                     $st_dashboard = $_POST['part_number'];
@@ -259,116 +350,100 @@ include("../heading_banner.php");
                                 </select>
                             </div>
                         </div>
-
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6 date">
-
-                            <label class="control-label"
-                                   style="float: left;padding-top: 10px; font-weight: 500;">&nbsp;&nbsp;&nbsp;&nbsp;Date
-                                From : &nbsp;&nbsp;</label>
-                            <input type="date" name="date_from" id="date_from" class="form-control"
-                                   value="<?php echo $datefrom; ?>" style="float: left;width: initial;"
-                                   required>
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0">Date From : </label>
+                            </div>
+                            <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                    </div>
+                                    <input class="form-control fc-datepicker"  name="date_from" id="date_from" placeholder="MM/DD/YYYY" value="<?php echo $datefrom; ?>" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0">Date To : </label>
+                            </div>
+                            <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                    </div>
+                                    <input class="form-control fc-datepicker"  name="date_to" id="date_to" placeholder="MM/DD/YYYY" value="<?php echo $dateto; ?>" type="text">
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 date">
-                            <label class="control-label"
-                                   style="float: left;padding-top: 10px; font-weight: 500;">&nbsp;&nbsp;&nbsp;&nbsp;Date
-                                To: &nbsp;&nbsp;</label>
-                            <input type="date" name="date_to" id="date_to" class="form-control"
-                                   value="<?php echo $dateto; ?>" style="float: left;width: initial;" required>
+                            <div class="row row-xs">
+                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Search</button>
+                                <button type="clear" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
+                            </div>
 
-                        </div>
-
-                    </div>
-                    <br/>
-                    <?php
-                    //                    if (!empty($import_status_message)) {
-                    //                        echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                    //                    }
-                    //                    ?>
-                    <!--                    --><?php
-                    //                    if (!empty($_SESSION[import_status_message])) {
-                    //                        echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                    //                        $_SESSION['message_stauts_class'] = '';
-                    //                        $_SESSION['import_status_message'] = '';
-                    //                    }
-                    ?>
-
+                    </form>
                 </div>
-                <div class="panel-footer p_footer">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary"
-                                    style="background-color:#1e73be;">
-                                Submit
-                            </button>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" onclick='window.location.reload();'
-                                    style="background-color:#1e73be;">Reset
-                            </button>
-                        </div>
+                </div>
+                </div>
+            </div>
+<?php
+if(count($_POST) > 0)
+{
+    ?>
+    <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+        <div class="card  box-shadow-0">
+            <div class="card-body pt-0">
+                 <form action="" id="deleteform" method="post" class="form-horizontal">
+                        <div class="table-responsive" style="text-align: center">
+                                        <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                            <thead>
+                                            <tr>
+                                                <th>Action</th>
+                                                <th>Station</th>
+                                                <th>Part</th>
 
-            </form>
+                                                <th>Time</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
 
+
+                                            $q = ("SELECT pn.part_name ,pn.part_number,pn.part_name, cl.line_name ,xx.part_family_id,xx.created_at,xx.10x_id  FROM  10x as xx inner join cam_line as cl on xx.line_no = cl.line_id inner join pm_part_family as pf on xx.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on xx.part_no=pn.pm_part_number_id where DATE_FORMAT(xx.created_at,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(xx.created_at,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station'");
+                                            $qur = mysqli_query($db, $q);
+
+
+                                            while ($rowc = mysqli_fetch_array($qur)) {
+
+
+                                                ?>
+                                                <tr>
+                                                    <?php
+                                                    $un = $rowc['line_no'];
+                                                    $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$station' ");
+                                                    while ($rowc04 = mysqli_fetch_array($qur04)) {
+                                                        $lnn = $rowc04["line_name"];
+                                                    }
+                                                    ?>
+                                                    <td>
+
+                                                        <a href="../10x/view_10x.php?id=<?php echo $rowc['10x_id'];?>&station=<?php echo $station;?>" class="btn btn-primary legitRipple" style="background-color:#1e73be;" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    </td>
+                                                    <td><?php echo $lnn; ?></td>
+                                                    <td><?php echo $rowc['part_number']." - ".$rowc['part_name']; ?></td>
+                                                    <td><?php echo dateReadFormat($rowc['created_at']); ?></td>
+
+                                                </tr>
+                                            <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                  </form>
+            </div>
         </div>
     </div>
 </div>
-<div class="panel panel-flat">
-    <table class="table datatable-basic">
-        <thead>
-        <tr>
-<th>Action</th>
-            <th>Station</th>
-            <th>Part</th>
-
-            <th>Time</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-
-
-        $q = ("SELECT pn.part_name ,pn.part_number,pn.part_name, cl.line_name ,xx.part_family_id,xx.created_at,xx.10x_id  FROM  10x as xx inner join cam_line as cl on xx.line_no = cl.line_id inner join pm_part_family as pf on xx.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on xx.part_no=pn.pm_part_number_id where DATE_FORMAT(xx.created_at,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(xx.created_at,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station'");
-        $qur = mysqli_query($db, $q);
-
-
-        while ($rowc = mysqli_fetch_array($qur)) {
-
-
-            ?>
-            <tr>
-                <?php
-                $un = $rowc['line_no'];
-                $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$station' ");
-                while ($rowc04 = mysqli_fetch_array($qur04)) {
-                    $lnn = $rowc04["line_name"];
-                }
-                ?>
-                <td>
-
-                    <a href="../10x/view_10x.php?id=<?php echo $rowc['10x_id'];?>&station=<?php echo $station;?>" class="btn btn-primary legitRipple" style="background-color:#1e73be;" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                </td>
-                <td><?php echo $lnn; ?></td>
-                <td><?php echo $rowc['part_number']." - ".$rowc['part_name']; ?></td>
-                <td><?php echo dateReadFormat($rowc['created_at']); ?></td>
-
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
-</div>
-</div>
-
-<!-- /content area -->
-
-</div>
-<!-- /main content -->
-
-<!-- /page content -->
-
+    <?php
+}
+?>
 <script>
     $('#station').on('change', function (e) {
         $("#10x_form").submit();
@@ -388,4 +463,3 @@ include("../heading_banner.php");
 
 <?php include('../footer.php') ?>
 </body>
-</html>

@@ -513,7 +513,7 @@ include("../heading_banner.php");
 </script>
 <script>
     window.onload = function() {
-        history.replaceState("", "", "<?php echo $scriptName; ?>log_module/assign_crew_log1.php");
+        history.replaceState("", "", "<?php echo $scriptName; ?>log_module/assign_crew_log.php");
         // $('#timezone').prop('disabled', true);
 
     }

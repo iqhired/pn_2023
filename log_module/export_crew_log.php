@@ -35,11 +35,11 @@ if ($station != null) {
 }
 
 if($datefrom != "" && $dateto != ""){
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(assign_time,'%Y-%m-%d') <= '$dateto' ";
+    $q = $q . " AND DATE_FORMAT(assign_time,'%m-%d-%Y') >= '$datefrom' and DATE_FORMAT(assign_time,'%m-%d-%Y') <= '$dateto' ";
 }else if($datefrom != "" && $dateto == ""){
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') >= '$datefrom' ";
+    $q = $q . " AND DATE_FORMAT(assign_time,'%m-%d-%Y') >= '$datefrom' ";
 }else if($datefrom == "" && $dateto != ""){
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') <= '$dateto' ";
+    $q = $q . " AND DATE_FORMAT(assign_time,'%m-%d-%Y') <= '$dateto' ";
 }
 
 $q = $q . " ORDER BY assign_time  DESC";
