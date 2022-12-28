@@ -66,6 +66,19 @@ if ($i != "super" && $i != "admin") {
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
 
+   <!-- //data tables links-->
+    <script type="text/javascript" src="../assets/js/form_js/dataTables.bootstrap5.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/responsive.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/custom.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/select2.full.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/select2.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/index1.js"></script>
+    <script type="text/javascript" src="../assets/css/form_css/buttons.bootstrap5.min.css"></script>
+    <script type="text/javascript" src="../assets/css/form_css/dataTables.bootstrap5.css"></script>
+    <script type="text/javascript" src="../assets/css/form_css/responsive.bootstrap5.css"></script>
+    <script type="text/javascript" src="../assets/css/form_css/bootstrap.min.css"></script>
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
@@ -417,8 +430,11 @@ include("../admin_menu.php");
                     </h4>
                 </div>
 
-                <div class="card-body pt-0">
+                <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
+                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
                         <table class="table  table-bordered text-nowrap mb-0" id="example2">
                             <thead>
                             <tr>
@@ -488,6 +504,9 @@ include("../admin_menu.php");
                             <?php } ?>
                             </tbody>
                         </table>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
