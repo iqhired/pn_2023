@@ -62,11 +62,6 @@ if ($button == "button1") {
 }
 //$exportData = mysqli_query($db, "SELECT user_name,firstname,lastname,email,role,hiring_date,job_title_description,shift_location FROM users where users_id !='1' ");
 $header = "Taskboard" . "\t" . "Assign To" . "\t" . "Equipment" . "\t" . "Property" . "\t" . "Building" . "\t" . "Estimated Duration" . "\t" . "Assign Time" . "\t" . "Finished Time" . "\t" . "Total Duration" . "\t";
-$result = '';
-/*$fields = mysqli_num_fields($db, $exportData);
-for ($i = 0; $i < $fields; $i++) {
-    $header .= mysqli_field_name($db, $exportData, $i) . "\t";
-}*/
 while ($row = mysqli_fetch_row($exportData)) {
     $line = '';
     $j = 1;

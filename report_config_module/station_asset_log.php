@@ -5,8 +5,6 @@ $temp = "";
 if (!isset($_SESSION['user'])) {
     header('location: logout.php');
 }
-
-
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
 //Read the request time of the user

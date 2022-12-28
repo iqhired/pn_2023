@@ -1,5 +1,4 @@
-<?php
-include("../config.php");
+<?php include("../config.php");
 $curdate = date('m-d-Y');
 //$dateto = $curdate;
 //$datefrom = $curdate;
