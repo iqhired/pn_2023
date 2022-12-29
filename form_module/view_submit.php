@@ -1,5 +1,4 @@
-<?php
-include("../config.php");
+<?php include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 ?>
@@ -10,7 +9,7 @@ $temp = "";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> | View Form</title>
+        <?php echo $sitename; ?> |Submit Form</title>
     <!-- Global stylesheets -->
 
 
@@ -71,6 +70,7 @@ $temp = "";
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+
     <style>
         .navbar {
 
@@ -110,31 +110,90 @@ $temp = "";
         .remove_btn{
             float: right;
         }
-        .form-label {
-            display: block;
-            font-size: .875rem;
-            font-weight: 500;
-            margin-bottom: 0.375rem;
-            /*margin-top: 9px;*/
-        }
         .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .file-image-1 .icons li a {
+            height: 30px;
+            width: 30px;
+        }
+        .remove {
+            display: block;
+            background: #444;
+            border: 1px solid black;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+        .remove:hover {
+            background: white;
+            color: black;
+        }
+        input[type="file"] {
+            display: block;
+        }
+        .imageThumb {
+            max-height: 100px;
+            border: 2px solid;
+            padding: 1px;
+            cursor: pointer;
+        }
+        .pip {
+            display: inline-block;
+            margin: 10px 10px 0 0;
+        }
+
+        button.remove {
+            margin-left: 15px;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
         .red-star {
             color: red;
-            padding-right: 10px;
         }
-        .form-label {
-            display: block;
-            font-size: .875rem;
-            font-weight: 500;
-            margin-bottom: 0.375rem;
+        #sub_app {
+            padding: 20px 40px;
+            color: red;
+            font-size: initial;
         }
+
 
     </style>
 </head>
-
-<!-- Main navbar -->
 <?php
-$cam_page_header = "View Form";
 include("../hp_header.php");
 if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
     include("../tab_menu.php");
@@ -142,57 +201,40 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
     include("../admin_menu.php");
 }
 ?>
-
 <body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
 <div class="main-content app-content">
-    <!-- container -->
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Form View</li>
-            </ol>
-
+    <div class="row-body row-sm">
+        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+            <div class="breadcrumb-header justify-content-between">
+                <div class="left-content">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Form View</li>
+                    </ol>
+                </div>
+            </div>
         </div>
-
     </div>
-    <!-- /breadcrumb -->
-    <!-- row -->
     <?php
     $id = $_GET['id'];
     $fill_op_data = $_GET['optional'];
-
     $querymain = sprintf("SELECT * FROM `form_user_data` where form_user_data_id = '$id' ");
     $qurmain = mysqli_query($db, $querymain);
-
     while ($rowcmain = mysqli_fetch_array($qurmain)) {
     $formname = $rowcmain['form_name'];
-
     ?>
-
-    <!-- <div class="card-body pt-0">
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Notes : </label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="text" name="notes" class="form-control" id="notes" value="<?php /*echo $notes; */?>" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
     <form action="edit_user_form_backend.php" id="form_settings" enctype="multipart/form-data"
           class="form-horizontal" method="post" autocomplete="off">
-        <div class="row row-sm">
-            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+        <div class="row-body row-sm">
+            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $rowcmain['form_name']; ?></span>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Form View</span>
                     </div>
                     <div class="card-body pt-0">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $rowcmain['form_name']; ?></span>
+                        </div>
                         <div class="pd-30 pd-sm-20">
                             <input type="hidden" name="name" id="name"
                                    value="<?php echo $rowcmain['form_name']; ?>">
@@ -408,34 +450,39 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Images : </label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="text-wrap pb-3">
+                                                        <?php
+                                                        $query1 = sprintf("SELECT form_create_id FROM  form_create where form_type = '$get_form_type' and station = '$get_station' and part_family = '$get_part_family' and part_number = '$get_part_number' and name = '$formname'");
+                                                        $qur1 = mysqli_query($db, $query1);
+                                                        $rowc1 = mysqli_fetch_array($qur1);
+                                                        $item_id = $rowc1['form_create_id'];
 
-                                <?php
-                                $query1 = sprintf("SELECT form_create_id FROM  form_create where form_type = '$get_form_type' and station = '$get_station' and part_family = '$get_part_family' and part_number = '$get_part_number' and name = '$formname'");
-                                $qur1 = mysqli_query($db, $query1);
-                                $rowc1 = mysqli_fetch_array($qur1);
-                                $item_id = $rowc1['form_create_id'];
+                                                        $qurimage = mysqli_query($db, "SELECT * FROM  form_images where form_create_id = '$item_id'");
+                                                        while ($rowcimage = mysqli_fetch_array($qurimage)) {
+                                                            ?>
 
-                                $qurimage = mysqli_query($db, "SELECT * FROM  form_images where form_create_id = '$item_id'");
-                                while ($rowcimage = mysqli_fetch_array($qurimage)) {
-                                    ?>
-
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="thumbnail">
-                                            <div class="thumb">
-                                                <img src="../form_images/<?php echo $rowcimage['image_name']; ?>"
-                                                     alt="">
-                                                <div class="caption-overflow">
-														<span>
-															<a href="../form_images/<?php echo $rowcimage['image_name']; ?>"
-                                                               data-popup="lightbox" rel="gallery"
-                                                               class="btn border-white text-white btn-flat btn-icon btn-rounded"><i
-                                                                        class="icon-plus3"></i></a>
-														</span>
+                                                            <div class="file-image-1">
+                                                                <div class="product-image">
+                                                                    <img src="../form_images/<?php echo $rowcimage['image_name']; ?>" class="br-5" alt="">
+                                                                </div>
+                                                                <span class="file-name-1"><?php echo $image; ?></span>
+                                                            </div>
+                                                            <?php
+                                                            $i++;} ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
+                                </div>
                             </div>
                             <div class="card-header">
                                 <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Form Information</center></span>
@@ -464,9 +511,8 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                             if ($item_val == "header") {
 
                                 ?>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="card-title mb-1"><?php echo htmlspecialchars($rowc['item_desc']); ?></div>
-                                </div>
+                                <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo htmlspecialchars($rowc['item_desc']); ?></span>
+                                </br>
                             <?php }
                             if ($item_val == "numeric") {
                                 $checked = $itemVal;
@@ -491,7 +537,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
 
                                 <div class="row row-xs align-items-center mg-b-20">
 
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-7">
                                         <?php if ($rowc['optional'] != '1') {
                                             echo '<span class="red-star">★</span>';
                                         }
@@ -502,7 +548,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                         ?>
                                     </div>
                                     <?php if ($checked >= $final_lower && $checked <= $final_upper) { ?>
-                                        <div class="col-md-2"><?php if ($rowc['optional'] != '1') { ?>
+                                        <div class="col-md-2 mg-t-5 mg-md-t-0"><?php if ($rowc['optional'] != '1') { ?>
                                                 <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
                                                        id="<?php echo $rowc['form_item_id']; ?>"
                                                        class="form-control compare_text pn_none" style="background-color: #90EE90" required step="any"
@@ -521,7 +567,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                             <?php } ?>
                                         </div>
                                     <?php } else { ?>
-                                        <div class="col-md-2"><?php if ($rowc['optional'] != '1') { ?>
+                                        <div class="col-md-2 mg-t-5 mg-md-t-0"><?php if ($rowc['optional'] != '1') { ?>
                                                 <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
                                                        id="<?php echo $rowc['form_item_id']; ?>"
                                                        class="form-control compare_text pn_none" style="background-color: #ffadad" required step="any"
@@ -540,7 +586,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                             <?php } ?>
                                         </div>
                                     <?php } ?>
-                                    <div class="col-md-1"  style="padding-top: 15px;">
+                                    <div class="col-md-1 mg-t-5 mg-md-t-0"  style="padding-top: 15px;">
                                         <?php
                                         $unit_of_measurement_id = $rowc['unit_of_measurement'];
                                         $sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
@@ -566,7 +612,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 $checked = $itemVal;
                                 ?>
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-7">
                                         <input type="hidden" class="binary_compare"
                                                value="<?php echo $bin_def; ?>"
                                                data-id="<?php echo $rowc['form_item_id']; ?>"/>
@@ -578,7 +624,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                             <div style="font-size: medium;font-color:#c1c1c1"><?php echo "(" . htmlspecialchars($rowc['discription']) . ")" ?></div>
                                         <?php } ?>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-5 mg-t-5 mg-md-t-0">
                                         <input type="hidden" name="form_item_array[]"
                                                value="<?php echo $rowc['form_item_id']; ?>"/>
                                         <div class="form-check form-check-inline">
@@ -681,7 +727,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 $checked = $itemVal;
                                 ?>
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-7">
                                         <?php if ($rowc['optional'] != '1') {
                                             echo '<span class="red-star">★</span>';
                                         }
@@ -689,7 +735,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                     </div>
 
                                     <input type="hidden"  name="form_item_array[]" value="<?php echo $rowc['form_item_id']; ?>">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5 mg-t-5 mg-md-t-0">
                                         <div class="form-check form-check-inline">
 
                                             <?php
@@ -903,7 +949,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
 
                             ?>
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <div class="col-md-7">
                                     <?php
                                     if ($rowc['optional'] != '1') {
                                         echo '<span class="red-star">★</span>';
@@ -913,7 +959,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                         <div style="font-size: medium;font-color:#c1c1c1"><?php echo "(" . $rowc['discription'] . ")" ?></div>
                                     <?php } ?>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5 mg-t-5 mg-md-t-0">
                                     <input type="hidden" name="form_item_array[]"
                                            value="<?php echo $rowc['form_item_id']; ?>">
                                     <?php if ($rowc['optional'] != '1') { ?>
@@ -972,10 +1018,8 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                             if ($item_val == "header") {
 
                                 ?>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <h4 class="panel-title ">
-                                        <b><u><?php echo htmlspecialchars($rowc['item_desc']); ?></u></b></h4>
-                                </div>
+                                <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo htmlspecialchars($rowc['item_desc']); ?></span>
+                                </br>
                             <?php }
                             if ($item_val == "numeric") {
                                 $checked = $itemVal;
@@ -994,21 +1038,20 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 $final_upper = $numeric_normal + $numeric_upper_tol1; // final upper value
 
                                 ?>
-
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0"><?php if ($rowc['optional'] != '1') {
+                                    <div class="col-md-7"><?php if ($rowc['optional'] != '1') {
                                             echo '<span class="red-star">★</span>';
                                         }
                                         echo htmlspecialchars($rowc['item_desc']); ?></div>
                                     <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
                                         <div style="font-size: medium;font-color:#c1c1c1"><?php echo "(" . $rowc['discription'] . ")" ?></div>
                                     <?php } ?>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mg-t-5 mg-md-t-0">
                                         <input type="text" name="<?php echo $rowc['form_item_id']; ?>"
                                                id="<?php echo $rowc['form_item_id']; ?>" value="<?php echo $checked; ?>"
                                                class="form-control pn_none">
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2 mg-t-5 mg-md-t-0">
                                         <?php
                                         $unit_of_measurement_id = $rowc['unit_of_measurement'];
                                         $sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
@@ -1017,13 +1060,9 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                         echo $row1['unit_of_measurement'];
                                         ?>
                                     </div>
-                                    <!--										<div class="col-md-3 form_col_item"><u><b>-->
-                                    <?php //echo $rowc['discription'];
-                                    ?><!-- </b></u></div>-->
-
                                     <input type="hidden" name="form_item_array[]"
                                            value="<?php echo $rowc['form_item_id']; ?>">
-                                </div><br/>
+                                </div>
                                 <?php
                                 $aray_item_cnt++;
                             }
@@ -1031,7 +1070,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 $checked = $itemVal;
                                 ?>
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-7">
                                         <?php if ($rowc['optional'] != '1') {
                                             echo '<span class="red-star">★</span>';
                                         }
@@ -1040,7 +1079,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
 
                                     <input type="hidden" name="form_item_array[]"
                                            value="<?php echo $rowc['form_item_id']; ?>">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5 mg-t-5 mg-md-t-0">
                                         <div class="form-check form-check-inline">
 
 
@@ -1099,7 +1138,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 $checked = $itemVal;
                                 ?>
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-7">
                                         <?php if ($rowc['optional'] != '1') {
                                             echo '<span class="red-star">★</span>';
                                         }
@@ -1107,7 +1146,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                     </div>
 
                                     <input type="hidden"  name="form_item_array[]" value="<?php echo $rowc['form_item_id']; ?>">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5 mg-t-5 mg-md-t-0">
                                         <div class="form-check form-check-inline">
 
                                             <?php
@@ -1191,7 +1230,6 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 <div class="row row-xs align-items-center mg-b-20">
                                     <div class="card-title mb-1"><?php echo $rowc['discription']; ?></div>
                                 </div>
-                                <br/>
                                 <?php
                                 $aray_item_cnt++;
 
@@ -1199,24 +1237,24 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                             if ($item_val == "text") {
 
                                 ?>
-                                <div class="form_row_item row">
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-7">
                                         <?php
                                         if ($rowc['optional'] != '1') {
                                             echo '<span class="red-star">★</span>';
                                         }
                                         echo htmlspecialchars($rowc['item_desc']); ?> </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-5 mg-t-5 mg-md-t-0">
                                         <input type="hidden" name="form_item_array[]"
                                                value="<?php echo $rowc['form_item_id']; ?>">
                                         <input type="text" name="<?php echo $rowc['form_item_id']; ?>"
                                                id="<?php echo $rowc['form_item_id']; ?>" autocomplete="off"
                                                value="<?php echo $itemVal; ?>"
                                                class="form-control pn_none"></div>
-                                    <div class="col-md-3 form_col_item">
-                                        <u><b><?php echo $rowc['discription']; ?> </b></u></div>
-
-                                </div><br/>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="card-title mb-1"><?php echo $rowc['discription']; ?></div>
+                                </div>
                                 <?php
                                 $aray_item_cnt++;
 
@@ -1225,7 +1263,6 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
 
                     }
                     ?>
-                    <br/>
                     <?php
                     $qur05 = mysqli_query($db, "SELECT * FROM  form_approval where form_user_data_id = '$id' ");
                     $rowc05 = mysqli_fetch_array($qur05);
@@ -1238,41 +1275,34 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                     $reject_status = $rowc05["reject_status"];
 
                     if (empty($approval_status) && empty($reject_status)){ ?>
-                        <div class="card-header" style="background-color: #4caf507a;">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1" ><center><b>Auto Approved by System</b></center></span>
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Auto Approved by System</span>
                         </div>
                     <?php }else{ ?>
-
-                        <b><h4 class="panel-title form_panel_title">Approval List</h4></b>
-                        <table class="form_table">
-                            <tr class="form_tab_tr">
-                                <th class="form_tab_th">Department</th>
-                                <th class="form_tab_th">Form Status</th>
-                                <th class="form_tab_th">Approver</th>
-                                <th class="form_tab_th">Approval/Rejection Time</th>
-                            </tr>
-
-
-                            <?php
-                            $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$item_id'");
-                            $qur1 = mysqli_query($db, $query1);
-                            $i = 0;
-                            while ($rowc1 = mysqli_fetch_array($qur1)) {
-                                $approval_dept_array = $rowcmain['approval_dept'];
-                                $approval_dept = explode(',', $approval_dept_array);
-                                $approval_initials_array = $rowcmain['approval_initials'];
-                                $approval_initials = explode(',', $approval_initials_array);
-                                $passcode_array = $rowcmain['passcode'];
-                                $passcode = explode(',', $passcode_array);
-                                $approval_by_array = $rowc1['approval_by'];
-                                $arrteam = explode(',', $approval_by_array);
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Approval List</span>
+                        </div>
+                        <br/>
+                        <?php
+                        $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$item_id'");
+                        $qur1 = mysqli_query($db, $query1);
+                        $i = 0;
+                        while ($rowc1 = mysqli_fetch_array($qur1)) {
+                            $approval_dept_array = $rowcmain['approval_dept'];
+                            $approval_dept = explode(',', $approval_dept_array);
+                            $approval_initials_array = $rowcmain['approval_initials'];
+                            $approval_initials = explode(',', $approval_initials_array);
+                            $passcode_array = $rowcmain['passcode'];
+                            $passcode = explode(',', $passcode_array);
+                            $approval_by_array = $rowc1['approval_by'];
+                            $arrteam = explode(',', $approval_by_array);
 
 
-                                foreach ($arrteam as $arr) {
-                                    if ($arr != "") {
-                                        ?>
-                                        <tr class="form_tab_tr">
-                                            <!--								<div class="form_row_item row">-->
+                            foreach ($arrteam as $arr) {
+                                if ($arr != "") {
+                                    ?>
+                                    <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+                                        <div class="table-responsive">
                                             <?php
                                             $qurtemp = mysqli_query($db, "SELECT group_name FROM `sg_group` where group_id = '$arr' ");
                                             $rowctemp = mysqli_fetch_array($qurtemp);
@@ -1299,156 +1329,54 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                             $fullnnm = $rowc04["firstname"] . " " . $rowc04["lastname"];
 
                                             ?>
-                                            <!--								</div>-->
-                                            <td class="form_tab_td">
-                                                <?php echo $groupname; ?>
-                                            </td>
-                                            <td class="form_tab_td">
-                                                <?php echo $form_status; ?>
-                                            </td>
-                                            <td class="form_tab_td">
-                                                <input type="text" name="approve_initial[]" id=""
-                                                       value="<?php echo $rowc04["firstname"] . " " . $rowc04["lastname"];; ?>"
-                                                       class="form-control pn_none">
-                                            </td>
+                                            <div class="row row-xs align-items-center mg-b-20">
+                                                <div class="col-md-2">
+                                                    <label class="form-label mg-b-0">Department</label>
+                                                </div>
+                                                <div class="col-md-4 mg-t-5 mg-md-t-0">   <?php echo $groupname; ?></div>
+                                                <div class="col-md-2">
+                                                    <label class="form-label mg-b-0">Form Status</label>
+                                                </div>
+                                                <div class="col-md-4 mg-t-5 mg-md-t-0">     <?php echo $form_status; ?></div>
+                                            </div>
+                                            <div class="row row-xs align-items-center mg-b-20">
+                                                <div class="col-md-2">
+                                                    <label class="form-label mg-b-0">Approver</label>
+                                                </div>
+                                                <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                                    <input type="text" name="approve_initial[]" id=""
+                                                           value="<?php echo $rowc04["firstname"] . " " . $rowc04["lastname"]; ?>"
+                                                           class="form-control pn_none"></div>
+                                                <?php
 
-                                            <?php
-
-                                            $qur_pin = mysqli_query($db, "SELECT pin FROM  cam_users where users_id = '$id' ");
-                                            $row_pin = mysqli_fetch_assoc($qur_pin);
-                                            //  $full_pin = $row_pin["pin"];
-
-
-                                            ?>
-
-                                            <td class="form_tab_td">
-                                                <input type="text" name="approval_time" id="approval_time"
-                                                       value="<?php echo date('d-M-Y h:i:s', $date_time); ?>"
-                                                       class="form-control pn_none">
-                                            </td>
-
-                                        </tr>
-                                        <?php if ($form_status == 'Rejected') { ?>
-                                            <tr id="rej_reason_div" style="display: table-row;border: 1px solid red;">
-                                                <td class="form_tab_td" colspan="4"> Reject Reason :
-                                                    <textarea class="form-control pn_none" name="rej_reason" rows="1" ><?php echo $rowc05['reject_reason']; ?>
-
-                                                                </textarea>
-                                                </td>
-                                            </tr>
-                                        <?php } else if ($form_status == 'Approved') {
-                                            if ($rowc05['reject_reason'] != ""){?>
-                                                <tr id="rej_reason_div" style="display: table-row;border: 1px solid green;">
-                                                    <td class="form_tab_td" colspan="4"> Approve Reason :
-                                                        <textarea class="form-control pn_none" name="rej_reason" rows="1"><?php echo $rowc05['reject_reason']; ?>
-
-                                                                </textarea>
+                                                $qur_pin = mysqli_query($db, "SELECT pin FROM  cam_users where users_id = '$id' ");
+                                                $row_pin = mysqli_fetch_assoc($qur_pin);
+                                                ?>
+                                                <div class="col-md-2">
+                                                    <label class="form-label mg-b-0">Time</label>
+                                                </div>
+                                                <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                                    <input type="text" name="approval_time" id="approval_time"
+                                                           value="<?php echo date('d-M-Y h:i:s', $date_time); ?>"
+                                                           class="form-control pn_none">
+                                                </div>
+                                            </div>
+                                            <?php if ($form_status == 'Rejected') { ?>
+                                                <div id="rej_reason_div" style="border: 1px solid red;padding: 10px;">
+                                                    <td class="form_tab_td pn_none" colspan="4">Reject Reason : <textarea
+                                                                placeholder="<?php echo $rowc05['reject_reason']; ?>"
+                                                                style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
                                                     </td>
-                                                </tr>
-                                            <?php  } }
-                                        $fullnnm = "";
-                                        $passcd = "";
-                                    }
-                                }
-                            }
-                            ?>
-
-
-                        </table>
-
-                        <?php
-                        $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$item_id'");
-                        $qur1 = mysqli_query($db, $query1);
-                        $i = 0;
-                        while ($rowc1 = mysqli_fetch_array($qur1)) {
-                            $approval_dept_array = $rowcmain['approval_dept'];
-                            $approval_dept = explode(',', $approval_dept_array);
-                            $approval_initials_array = $rowcmain['approval_initials'];
-                            $approval_initials = explode(',', $approval_initials_array);
-                            $passcode_array = $rowcmain['passcode'];
-                            $passcode = explode(',', $passcode_array);
-                            $approval_by_array = $rowc1['approval_by'];
-                            $arrteam = explode(',', $approval_by_array);
-
-
-                            foreach ($arrteam as $arr) {
-                                if ($arr != "") {
-                                    ?>
-                                    <div class="form_table_mobile">
-                                        <?php
-                                        $qurtemp = mysqli_query($db, "SELECT group_name FROM `sg_group` where group_id = '$arr' ");
-                                        $rowctemp = mysqli_fetch_array($qurtemp);
-                                        $groupname = $rowctemp["group_name"];
-
-                                        $qur05 = mysqli_query($db, "SELECT * FROM  form_approval where approval_dept = '$arr' and form_user_data_id = '$id' ");
-                                        $rowc05 = mysqli_fetch_array($qur05);
-                                        $app_in = $rowc05["approval_initials"];
-                                        $passcd = $rowc05["passcode"];
-                                        $datetime = $rowc05["created_at"];
-                                        $date_time = strtotime($datetime);
-
-                                        $approval_status = $rowc05["approval_status"];
-                                        $reject_status = $rowc05["reject_status"];
-
-                                        if ($approval_status == '0' && $reject_status == '1') {
-                                            $form_status = "Rejected";
-                                        } else {
-                                            $form_status = "Approved";
-                                        }
-
-                                        $qur04 = mysqli_query($db, "SELECT firstname,lastname FROM  cam_users where users_id = '$app_in' ");
-                                        $rowc04 = mysqli_fetch_array($qur04);
-                                        $fullnnm = $rowc04["firstname"] . " " . $rowc04["lastname"];
-
-                                        ?>
-                                        <div class="row row-xs align-items-center mg-b-20">
-                                            <label class="form-label mg-b-0">Department</label>
-                                            <div class="col-lg-8 mobile">   <?php echo $groupname; ?></div>
+                                                </div>
+                                            <?php }  else if ($form_status == 'Approved') { ?>
+                                                <div id="rej_reason_div" style="border: 1px solid green;padding: 10px;">
+                                                    <td class="form_tab_td pn_none" colspan="4">Approve Reason : <textarea
+                                                                placeholder="<?php echo $rowc05['reject_reason']; ?>"
+                                                                style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
+                                                    </td>
+                                                </div>
+                                            <?php  } ?>
                                         </div>
-                                        <div class="row row-xs align-items-center mg-b-20">
-                                            <label class="form-label mg-b-0">Form Status</label>
-                                            <div class="col-lg-8 mobile">     <?php echo $form_status; ?></div>
-
-                                        </div>
-                                        <div class="row row-xs align-items-center mg-b-20">
-                                            <label class="form-label mg-b-0">Approver</label>
-                                            <div class="col-lg-8 mobile">
-                                                <input type="text" name="approve_initial[]" id=""
-                                                       value="<?php echo $rowc04["firstname"] . " " . $rowc04["lastname"];; ?>"
-                                                       class="form-control pn_none"></div>
-                                            <?php
-
-                                            $qur_pin = mysqli_query($db, "SELECT pin FROM  cam_users where users_id = '$id' ");
-                                            $row_pin = mysqli_fetch_assoc($qur_pin);
-                                            //  $full_pin = $row_pin["pin"];
-
-
-                                            ?>
-                                        </div>
-                                        <div class="row row-xs align-items-center mg-b-20">
-                                            <label class="form-label mg-b-0">Time</label>
-                                            <div class="col-lg-8 mobile">
-                                                <input type="text" name="approval_time" id="approval_time"
-                                                       value="<?php echo date('d-M-Y h:i:s', $date_time); ?>"
-                                                       class="form-control pn_none">
-                                            </div>
-                                        </div>
-
-                                        <?php if ($form_status == 'Rejected') { ?>
-                                            <div id="rej_reason_div" style="border: 1px solid red;padding: 10px;">
-                                                <td class="form_tab_td pn_none" colspan="4">Reject Reason : <textarea
-                                                            placeholder="<?php echo $rowc05['reject_reason']; ?>"
-                                                            style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
-                                                </td>
-                                            </div>
-                                        <?php }  else if ($form_status == 'Approved') { ?>
-                                            <div id="rej_reason_div" style="border: 1px solid green;padding: 10px;">
-                                                <td class="form_tab_td pn_none" colspan="4">Approve Reason : <textarea
-                                                            placeholder="<?php echo $rowc05['reject_reason']; ?>"
-                                                            style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
-                                                </td>
-                                            </div>
-                                        <?php  } ?>
                                     </div>
                                     <?php     $fullnnm = "";
                                     $passcd = "";
@@ -1457,7 +1385,6 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                         }
                         ?>
                     <?php  } ?>
-                    <br/>
                 </div>
             </div>
         </div>

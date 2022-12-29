@@ -186,11 +186,8 @@ if ($ps != "") {
 </head>
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "Assign Unassign Crew Members";
 include("../header.php");
-
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
@@ -205,6 +202,8 @@ include("../heading_banner.php");
             </ol>
         </div>
     </div>
+    <div class="row row-sm">
+        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
     <?php
     if (!empty($_SESSION['import_status_message'])) {
         echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
@@ -212,17 +211,22 @@ include("../heading_banner.php");
         $_SESSION['import_status_message'] = '';
     }
     ?>
+        </div>
+    </div>
     <form action="" method="post"  class="form-horizontal">
         <div class="row row-sm">
             <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">Select Station</span>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Assign Unassign Crew Members</span>
                     </div>
                     <div class="card-body pt-0">
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-8">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Select station :</label>
+                                </div>
+                                <div class="col-md-6">
                                     <select name="assign_line" id="assign_line" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
                                         <option value="" selected disabled>Select Station</option>
                                         <?php
@@ -549,7 +553,6 @@ include("../heading_banner.php");
                 </div>
             </div>
         </form>
-        <br/>
         <?php
         if (!empty($import_status_message)) {
             echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
@@ -557,7 +560,6 @@ include("../heading_banner.php");
         ?>
     <?php } ?>
 </div>
-
 <script>
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);

@@ -177,12 +177,8 @@ $datefrom = $yesdate;
     </style>
 </head>
 <?php
-$cust_cam_page_header = "Assigned Crew Log";
 include("../header.php");
-
 include("../admin_menu.php");
-include("../heading_banner.php");
-
 ?>
 
 <body class="ltr main-body app sidebar-mini">
@@ -205,6 +201,9 @@ include("../heading_banner.php");
                 <div class="card">
                     <div class="card-body">
                         <form action="" id="user_form" class="form-horizontal" method="post">
+                            <div class="card-header">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">Assigned Crew Log</span>
+                            </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-1">

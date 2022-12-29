@@ -69,7 +69,7 @@ if(empty($datefrom)){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |edit Form</title>
+        <?php echo $sitename; ?> |Task Crew Log</title>
     <!-- Global stylesheets -->
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
@@ -269,10 +269,8 @@ if(empty($datefrom)){
     ?>
 </head>
 <?php
-$cust_cam_page_header = "Task Crew Log";
 include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
@@ -290,6 +288,9 @@ include("../heading_banner.php");
         <div class="card-body">
             <div class="card-body pt-0">
                 <form action="" id="user_form" class="form-horizontal" method="post">
+                    <div class="card-header">
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Task Crew Log</span>
+                    </div>
                 <div class="pd-30 pd-sm-20">
                     <div class="row row-xs align-items-center mg-b-20">
                         <div class="col-md-2 mg-t-5 mg-md-t-0">
@@ -558,12 +559,10 @@ include("../heading_banner.php");
 </script>
 <script>
     window.onload = function() {
-        history.replaceState("", "", "<?php echo $scriptName; ?>log_module/task_crew_log1.php");
-        // $('#timezone').prop('disabled', true);
-
+        history.replaceState("", "", "<?php echo $scriptName; ?>log_module/task_crew_log.php");
     }
 </script>
 <!-- /page container -->
-<?php include('../footer1.php') ?>
+<?php include('../footer.php') ?>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php include("../config.php");
-$curdate = date('Y-m-d');
+$curdate = date('m-d-Y');
 $button = "";
 $temp = "";
 if (!isset($_SESSION['user'])) {
@@ -24,8 +24,8 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
-$curdate = date('Y-m-d');
-$dfrom =   date('Y-m-d',strtotime("-1 days"));
+$curdate = date('m-d-Y');
+$dfrom =   date('m-d-Y',strtotime("-1 days"));
 $dateto = $curdate;
 $datefrom = $dfrom;
 $temp = "";
@@ -69,10 +69,7 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     <title>
         <?php echo $sitename; ?> |10x Log</title>
     <!-- Global stylesheets -->
-
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-
-
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
@@ -244,11 +241,8 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     </style>
 </head>
 <?php
-$cust_cam_page_header = "10x Log";
 include("../header_folder.php");
-
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
@@ -263,6 +257,9 @@ include("../heading_banner.php");
     <div class="row row-sm">
         <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
             <div class="card  box-shadow-0">
+                <div class="card-header">
+                    <span class="main-content-title mg-b-0 mg-b-lg-1">10x Log</span>
+                </div>
                 <div class="card-body pt-0">
                     <form action="" id="10x_form" class="form-horizontal" method="post">
                     <div class="pd-30 pd-sm-20">
@@ -375,8 +372,8 @@ include("../heading_banner.php");
                             </div>
                         </div>
                             <div class="row row-xs">
-                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Search</button>
-                                <button type="clear" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
+                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
+                                <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
                             </div>
 
                     </form>
@@ -407,7 +404,7 @@ if(count($_POST) > 0)
                                             <?php
 
 
-                                            $q = ("SELECT pn.part_name ,pn.part_number,pn.part_name, cl.line_name ,xx.part_family_id,xx.created_at,xx.10x_id  FROM  10x as xx inner join cam_line as cl on xx.line_no = cl.line_id inner join pm_part_family as pf on xx.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on xx.part_no=pn.pm_part_number_id where DATE_FORMAT(xx.created_at,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(xx.created_at,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station'");
+                                            $q = ("SELECT pn.part_name ,pn.part_number,pn.part_name, cl.line_name ,xx.part_family_id,xx.created_at,xx.10x_id  FROM  10x as xx inner join cam_line as cl on xx.line_no = cl.line_id inner join pm_part_family as pf on xx.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on xx.part_no=pn.pm_part_number_id where DATE_FORMAT(xx.created_at,'%m-%d-%Y') >= '$datefrom' and DATE_FORMAT(xx.created_at,'%m-%d-%Y') <= '$dateto' and cl.line_id='$station'");
                                             $qur = mysqli_query($db, $q);
 
 
@@ -458,8 +455,10 @@ if(count($_POST) > 0)
 
 
 </script>
-
-<!-- /dashboard content -->
-
+<script>
+    window.onload = function () {
+        history.replaceState("", "", "<?php echo $scriptName; ?>log_module/10x_log.php");
+    }
+</script>
 <?php include('../footer.php') ?>
 </body>
