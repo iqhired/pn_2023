@@ -76,7 +76,7 @@ $logo = $rowccus['logo'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Add / Create Form</title>
+        <?php echo $sitename; ?> |Material Traceability</title>
     <!-- Global stylesheets -->
 
 
@@ -195,10 +195,8 @@ $logo = $rowccus['logo'];
     </style>
 </head>
 <?php
-$cust_cam_page_header = "Material Tracabilty";
 include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
@@ -226,20 +224,24 @@ include("../heading_banner.php");
             </ol>
         </div>
     </div>
+    <div class="row row-sm">
+        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
     <?php if ($temp == "one") { ?>
-        <br/>
-        <div class="alert alert-success no-border">
-            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
-                        class="sr-only">Close</span></button>
-            <span class="text-semibold">Material Tracability.</span> Created Successfully.
+        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+            <div class="alert alert-success no-border">
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                            class="sr-only">Close</span></button>
+                <span class="text-semibold">Material Tracability.</span> Created Successfully.
+            </div>
         </div>
     <?php } ?>
     <?php if ($temp == "two") { ?>
-        <br/>
-        <div class="alert alert-success no-border">
-            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
-                        class="sr-only">Close</span></button>
-            <span class="text-semibold">Material Tracability.</span> Updated Successfully.
+        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+            <div class="alert alert-success no-border">
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                            class="sr-only">Close</span></button>
+                <span class="text-semibold">Material Tracability.</span> Updated Successfully.
+            </div>
         </div>
     <?php } ?>
     <?php
@@ -254,12 +256,19 @@ include("../heading_banner.php");
         $_SESSION['import_status_message'] = '';
     }
     ?>
+        </div>
+    </div>
     <form action="material_backend.php" id="material_setting" enctype="multipart/form-data"
           class="form-horizontal" method="post">
+
         <div class="row row-sm">
             <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+
                 <div class="card  box-shadow-0">
                     <div class="card-body pt-0">
+                        <div class="card-header">
+                          <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability</span>
+                        </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
