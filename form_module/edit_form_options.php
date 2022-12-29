@@ -306,6 +306,7 @@ include("../admin_menu.php");
                                     ?>
                                 </select>
                             </div>
+                            <div class="col-md-1"></div>
                             <div class="col-md-1">
                                 <label class="form-label mg-b-0">Part Family</label>
                             </div>
@@ -366,6 +367,7 @@ include("../admin_menu.php");
                                     ?>
                                 </select>
                             </div>
+                            <div class="col-md-1"></div>
                             <div class="col-md-1">
                                 <label class="form-label mg-b-0">Form Type</label>
                             </div>
