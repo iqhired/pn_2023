@@ -215,11 +215,8 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     </style>
 </head>
 <?php
-$cust_cam_page_header = "Station Asset Log";
 include("../header_folder.php");
-
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
@@ -239,6 +236,9 @@ include("../heading_banner.php");
         <form action="" id="asset_form" class="form-horizontal" method="post">
             <div class="card  box-shadow-0">
             <div class="card-body pt-0">
+                <div class="card-header">
+                    <span class="main-content-title mg-b-0 mg-b-lg-1">Station Asset Log</span>
+                </div>
                 <div class="pd-30 pd-sm-20">
                     <div class="row row-xs align-items-center mg-b-20">
                         <label class="form-label mg-b-0">Station : </label>
@@ -371,9 +371,9 @@ include("../heading_banner.php");
 </script>
 <script>
     window.onload = function () {
-        history.replaceState("", "", "<?php echo $scriptName; ?>report_config_module/station_asset_log1.php");
+        history.replaceState("", "", "<?php echo $scriptName; ?>report_config_module/station_asset_log.php");
     }
 </script>
-<?php include('../footer1.php') ?>
+<?php include('../footer.php') ?>
 </body>
 </html>
