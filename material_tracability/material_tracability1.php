@@ -76,7 +76,7 @@ $logo = $rowccus['logo'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Material Traceability</title>
+        <?php echo $sitename; ?> |Add / Create Form</title>
     <!-- Global stylesheets -->
 
 
@@ -178,11 +178,11 @@ $logo = $rowccus['logo'];
             float: right;
         }
         .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
-        /* @media (min-width: 768px)
-             .app-content {
-                 margin-left: 4em!important;
-                 margin-right: 3em!important;
-             }*/
+       /* @media (min-width: 768px)
+            .app-content {
+                margin-left: 4em!important;
+                margin-right: 3em!important;
+            }*/
         @media screen and (min-device-width: 480px)
         and (max-device-width: 768px) {
             .row-sm {
@@ -195,8 +195,10 @@ $logo = $rowccus['logo'];
     </style>
 </head>
 <?php
+$cust_cam_page_header = "Material Tracabilty";
 include("../header.php");
 include("../admin_menu.php");
+include("../heading_banner.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
@@ -224,24 +226,20 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-    <div class="row row-sm">
-        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
     <?php if ($temp == "one") { ?>
-        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-            <div class="alert alert-success no-border">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
-                            class="sr-only">Close</span></button>
-                <span class="text-semibold">Material Tracability.</span> Created Successfully.
-            </div>
+        <br/>
+        <div class="alert alert-success no-border">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                        class="sr-only">Close</span></button>
+            <span class="text-semibold">Material Tracability.</span> Created Successfully.
         </div>
     <?php } ?>
     <?php if ($temp == "two") { ?>
-        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-            <div class="alert alert-success no-border">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
-                            class="sr-only">Close</span></button>
-                <span class="text-semibold">Material Tracability.</span> Updated Successfully.
-            </div>
+        <br/>
+        <div class="alert alert-success no-border">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                        class="sr-only">Close</span></button>
+            <span class="text-semibold">Material Tracability.</span> Updated Successfully.
         </div>
     <?php } ?>
     <?php
@@ -256,19 +254,12 @@ include("../admin_menu.php");
         $_SESSION['import_status_message'] = '';
     }
     ?>
-        </div>
-    </div>
     <form action="material_backend.php" id="material_setting" enctype="multipart/form-data"
           class="form-horizontal" method="post">
-
         <div class="row row-sm">
             <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-
                 <div class="card  box-shadow-0">
                     <div class="card-body pt-0">
-                        <div class="card-header">
-                          <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability</span>
-                        </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
@@ -276,7 +267,7 @@ include("../admin_menu.php");
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
                                     <?php $form_id = $_GET['id'];
-                                    ?>
+                                      ?>
                                     <input type="hidden" name="station_event_id"
                                            value="<?php echo $station_event_id ?>">
                                     <input type="hidden" name="customer_account_id" value="<?php echo $account_id ?>">
@@ -337,7 +328,7 @@ include("../admin_menu.php");
                                             }
                                             ?>
                                         </select>
-                                    </div>
+                                   </div>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -351,15 +342,15 @@ include("../admin_menu.php");
                             </div>
                             <br/>
                             <?php
-                            $m_type = $_POST['material_type'];
+                               $m_type = $_POST['material_type'];
 
-                            $sql = "SELECT serial_num_required FROM `material_config` where material_type = '$m_type'";
-                            $row = mysqli_query($db, $sql);
-                            $se_row = mysqli_fetch_assoc($row);
+                               $sql = "SELECT serial_num_required FROM `material_config` where material_type = '$m_type'";
+                               $row = mysqli_query($db, $sql);
+                               $se_row = mysqli_fetch_assoc($row);
 
-                            $serial = $se_row['serial_num_required'];
+                               $serial = $se_row['serial_num_required'];
 
-                            ?>
+                             ?>
                             <div class="row row-xs align-items-center mg-b-20" id = "serial_num">
 
                             </div>
@@ -379,10 +370,10 @@ include("../admin_menu.php");
                                     </div>
                                 </div>
                             </div>
-                            <br/>
-                            <div id="rej_fail" style="display: none;">
+                        <br/>
+                        <div id="rej_fail" style="display: none;">
 
-                            </div>
+                        </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Notes :</label>

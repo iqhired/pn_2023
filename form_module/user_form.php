@@ -3,11 +3,11 @@ include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 if (!isset($_SESSION['user'])) {
-	if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
-		header($redirect_tab_logout_path);
-	} else {
-		header($redirect_logout_path);
-	}
+    if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
+        header($redirect_tab_logout_path);
+    } else {
+        header($redirect_logout_path);
+    }
 }
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
@@ -15,890 +15,913 @@ $duration = $auto_logout_duration;
 $time = $_SERVER['REQUEST_TIME'];
 //Check the user's session exist or not
 if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-	//Unset the session variables
-	session_unset();
-	//Destroy the session
-	session_destroy();
-	if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
-		header($redirect_tab_logout_path);
-	} else {
-		header($redirect_logout_path);
-	}
+    //Unset the session variables
+    session_unset();
+    //Destroy the session
+    session_destroy();
+    if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
+        header($redirect_tab_logout_path);
+    } else {
+        header($redirect_logout_path);
+    }
 
 //	header('location: ../logout.php');
-	exit;
+    exit;
 }
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
+$is_tab_login = $_SESSION['is_tab_user'];
+$is_cell_login = $_SESSION['is_cell_login'];
 $i = $_SESSION["role_id"];
 if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1) {
-	header('location: ../dashboard.php');
+    header('location: ../dashboard.php');
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-		<?php echo $sitename; ?> | User Form</title>
+        <?php echo $sitename; ?> |Submit Form</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-          type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/style_main.css" rel="stylesheet" type="text/css">
+
+
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.6.0.min.js"> </script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/media/fancybox.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_select2.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/gallery.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
 
     <style>
+        .navbar {
+
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .file-image-1 .icons li a {
+            height: 30px;
+            width: 30px;
+        }
+        .remove {
+            display: block;
+            background: #444;
+            border: 1px solid black;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+        .remove:hover {
+            background: white;
+            color: black;
+        }
+        input[type="file"] {
+            display: block;
+        }
+        .imageThumb {
+            max-height: 100px;
+            border: 2px solid;
+            padding: 1px;
+            cursor: pointer;
+        }
+        .pip {
+            display: inline-block;
+            margin: 10px 10px 0 0;
+        }
+
+        button.remove {
+            margin-left: 15px;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+        .red-star {
+            color: red;
+        }
         #sub_app {
             padding: 20px 40px;
             color: red;
             font-size: initial;
         }
 
-        #approve_msg {
-            color: red;
-            font-size: x-small;;
-        }
-        #success_msg{
-            font-size: large;
-            padding: 12px;
-            width: 30%;
 
-        }
-        #success_msg_app{
-            font-size: large;
-            padding: 12px;
-            width: 30%;
-            width: 30%;
-
-        }
-        .form-control[disabled]{
-            color: #000 !important;
-        }
-        #rej_reason_div_{
-            display: none;
-        }
-        .select2-container {
-            width: auto !important;
-            float: left !important;
-        }
-
-        .select2-container--disabled .select2-selection--single:not([class*=bg-]) {
-            color: #060818!important;
-            border-block-start: none;
-            border-bottom-color: #191e3a!important;
-        }
-        .select2-container--disabled .select2-selection--single:not([class*=bg-]) {
-            color: #999;
-            border-bottom-style: none;
-        }
-        .approve {
-            background-color: #1e73be;
-            font-size: 12px;
-            margin-left: 16px;
-            margin-top: 1px;
-        }
-        .reject {
-            background-color: #1e73be;
-            font-size: 12px;
-            margin-left: 16px;
-            margin-top: 1px;
-        }
-
-
-
-
-
-        @media
-        only screen and (max-width: 760px),
-        (min-device-width: 768px) and (max-device-width: 1024px) {
-            #success_msg{
-                width: 45%;
-            }
-            #success_msg_app{
-                width: 45%;
-            }
-
-            .form_row_item{
-                width: 100%;
-            }
-
-            .col-md-3.mob{
-                width:40%;
-            }
-            .form_tab_td{
-                padding: 10px 100px;
-            }
-
-            textarea.form-control {
-                height: auto;
-                font-size: 15px;
-            }
-        }
-        @media
-        only screen and (max-width: 400px),
-        (min-device-width: 400px) and (max-device-width: 670px)  {
-            #success_msg{
-                width: 45%;
-            }
-            #success_msg_app{
-                width: 45%;
-            }
-            .form_tab_td{
-                padding: 0px 0px;
-            }
-        }
-        .select2-container--default .select2-selection--single .select2-selection__rendered{
-            line-height: 21px!important;
-        }
-        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-lg-3{
-                width: 35%!important;
-            }
-
-            .select2-selection--single{
-                border-block-start: inherit;
-            }
-
-        }
     </style>
 </head>
 
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Submit Form";
-$get_form_name = $_GET['form_name'];
-$timedisplay = $chicagotime;
-//echo $timedisplay;
 include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
-<body class="alt-menu sidebar-noneoverflow">
-<!-- Main content -->
-<div class="page-container">
-    <div class="content">
-        <!-- Page header -->
-        <div class="panel panel-flat">
-            <div id ="success_msg"></div>
-            <div id ="success_msg_app"></div>
-            <!--            <h5 style="text-align: left;width: 90%;">--><?php //echo date('d-M-Y h:m'); ?><!--</h5>-->
-            <div class="panel-heading ">
-                <b><h4 class="panel-title form_panel_title"><?php echo $get_form_name; ?></h4></b>
-				<?php if ($temp == "one") { ?>
-                    <br/>
-                    <div class="alert alert-success no-border">
-                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
-                                    class="sr-only">Close</span></button>
-                        <span class="text-semibold">Group</span> Created Successfully.
-                    </div>
-				<?php } ?>
-				<?php if ($temp == "two") { ?>
-                    <br/>
-                    <div class="alert alert-success no-border">
-                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
-                                    class="sr-only">Close</span></button>
-                        <span class="text-semibold">Group</span> Updated Successfully.
-                    </div>
-				<?php } ?>
-				<?php
-				if (!empty($import_status_message)) {
-					echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-				}
-				?>
-				<?php
-				if (!empty($_SESSION[$import_status_message])) {
-					echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-					$_SESSION['message_stauts_class'] = '';
-					$_SESSION['import_status_message'] = '';
-				}
-				?>
-                <div class="row ">
-                    <div class="col-md-12">
-                        <form action="" id="form_settings" enctype="multipart/form-data"  class="form-horizontal" method="post" autocomplete="off">
-							<?php
-							$form_createid = $_GET['id'];
-							$query1 = sprintf("SELECT form_create_id,need_approval,approval_list FROM  form_create where form_create_id = '$form_createid' ");
-							$qur1 = mysqli_query($db, $query1);
-							$rowc1 = mysqli_fetch_array($qur1);
-							$item_id = $rowc1['form_create_id'];
-							$need_approval = $rowc1['need_approval'];
-							$bypass_approval = $rowc1['approval_list'];
-							?>
 
+<body class="ltr main-body app sidebar-mini">
+<!-- main-content -->
+<div class="main-content app-content">
+    <!-- container -->
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Submit Form</li>
+            </ol>
+
+        </div>
+
+    </div>
+    <!-- /breadcrumb -->
+    <form action="" id="form_settings" enctype="multipart/form-data"  class="form-horizontal" method="post" autocomplete="off">
+        <div class="row-body row-sm">
+            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+                <div class="card  box-shadow-0">
+                    <div class="card-header">
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">FORM SUBMIT</span>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="pd-30 pd-sm-20">
+                            <?php
+                            $form_createid = $_GET['id'];
+                            $query1 = sprintf("SELECT form_create_id,need_approval,approval_list FROM  form_create where form_create_id = '$form_createid' ");
+                            $qur1 = mysqli_query($db, $query1);
+                            $rowc1 = mysqli_fetch_array($qur1);
+                            $item_id = $rowc1['form_create_id'];
+                            $need_approval = $rowc1['need_approval'];
+                            $bypass_approval = $rowc1['approval_list'];
+                            ?>
                             <input type="hidden" name="name" id="name" value="<?php echo $_GET['form_name']; ?>">
                             <input type="hidden" name="formcreateid" id="formcreateid"  value="<?php echo $_GET['id']; ?>">
                             <input type="hidden" name="bypass_approve" id="bypass_approve" value="<?php echo $rowc1['approval_list']; ?>">
-                            <div class="form_row row">
-                                <label class="col-lg-3 control-label">Form Type : </label>
-                                <div class="col-md-7">
-									<?php
-									$get_form_type = $_GET['form_type'];
-									if ($get_form_type != '') {
-										$disabled = 'disabled';
-									} else {
-										$disabled = '';
-									}
-									?>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Form Type</label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <?php
+                                    $get_form_type = $_GET['form_type'];
+                                    if ($get_form_type != '') {
+                                        $disabled = 'disabled';
+                                    } else {
+                                        $disabled = '';
+                                    }
+                                    ?>
+                                    <input type="hidden" name="form_type" id="form_type" value="<?php echo $get_form_type; ?>">
+                                    <select name="form_type1" id="form_type" class="form-control form-select select2" data-bs-placeholder="Select Country" disabled>
+                                        <?php
 
-                                    <input type="hidden" name="form_type" id="form_type"
-                                           value="<?php echo $get_form_type; ?>">
-                                    <select name="form_type1" id="form_type"
-                                            class="select form-control select-border-color" <?php echo $disabled; ?>>
-                                        <option value="" selected disabled>--- Select Form Type ---</option>
-										<?php
-
-										$sql1 = "SELECT * FROM `form_type` ";
-										$result1 = $mysqli->query($sql1);
-										//                                            $entry = 'selected';
-										while ($row1 = $result1->fetch_assoc()) {
-											if ($get_form_type == $row1['form_type_id']) {
-												$entry = 'selected';
-											} else {
-												$entry = '';
-											}
-											echo "<option value='" . $row1['form_type_id'] . "'  $entry>" . $row1['form_type_name'] . "</option>";
-										}
-										?>
+                                        $sql1 = "SELECT * FROM `form_type` ";
+                                        $result1 = $mysqli->query($sql1);
+                                        //                                            $entry = 'selected';
+                                        while ($row1 = $result1->fetch_assoc()) {
+                                            if ($get_form_type == $row1['form_type_id']) {
+                                                $entry = 'selected';
+                                            } else {
+                                                $entry = '';
+                                            }
+                                            echo "<option value='" . $row1['form_type_id'] . "'  $entry>" . $row1['form_type_name'] . "</option>";
+                                        }
+                                        ?>
                                     </select>
                                 </div>
+
                             </div>
-                            <br/>
-                            <div class="form_row row">
-                                <label class="col-lg-3 control-label">Station : </label>
-                                <div class="col-md-7">
-
-									<?php
-									$get_station = $_GET['station'];
-									if ($get_station != '') {
-										$disabled = 'disabled';
-									} else {
-										$disabled = '';
-									}
-									?>
-
-                                    <input type="hidden" name="station" id="station"
-                                           value="<?php echo $get_station; ?>">
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Station</label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <?php
+                                    $get_station = $_GET['station'];
+                                    if ($get_station != '') {
+                                        $disabled = 'disabled';
+                                    } else {
+                                        $disabled = '';
+                                    }
+                                    ?>
+                                    <input type="hidden" name="station" id="station" value="<?php echo $get_station; ?>">
                                     <select name="station1" id="station1"
-                                            class="select form-control select-border-color" <?php echo $disabled; ?>>
+                                            class="form-control form-select select2" <?php echo $disabled; ?>>
                                         <option value="" selected disabled>--- Select Station ---</option>
-										<?php
-										$sql1 = "SELECT * FROM `cam_line` where enabled = '1' ORDER BY `line_name` ASC ";
-										$result1 = $mysqli->query($sql1);
-										//                                            $entry = 'selected';
-										while ($row1 = $result1->fetch_assoc()) {
-											if ($get_station == $row1['line_id']) {
-												$entry = 'selected';
-											} else {
-												$entry = '';
-											}
-											echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
-										}
-										?>
+                                        <?php
+                                        $sql1 = "SELECT * FROM `cam_line` where enabled = '1' ORDER BY `line_name` ASC ";
+                                        $result1 = $mysqli->query($sql1);
+                                        //                                            $entry = 'selected';
+                                        while ($row1 = $result1->fetch_assoc()) {
+                                            if ($get_station == $row1['line_id']) {
+                                                $entry = 'selected';
+                                            } else {
+                                                $entry = '';
+                                            }
+                                            echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
+                                        }
+                                        ?>
                                     </select>
                                 </div>
+
+
                             </div>
-                            <br/>
-							<?php
-							$get_part_family = $_GET['part_family'];
-							if ($get_part_family != '') {
-								$disabled = 'disabled';
-								?>
-                                <div class="form_row row">
-                                    <label class="col-lg-3 control-label">Part Family : </label>
-                                    <div class="col-md-7">
-                                        <input type="hidden" name="part_family" id="part_family"
-                                               value="<?php echo $get_part_family; ?>">
+                            <?php
+                            $get_part_family = $_GET['part_family'];
+                            if ($get_part_family != '') {
+                                $disabled = 'disabled';
+                                ?>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Part Family</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="hidden" name="part_family" id="part_family" value="<?php echo $get_part_family; ?>">
                                         <select name="part_family1" id="part_family1"
-                                                class="select form-control select-border-color" <?php echo $disabled; ?>>
+                                                class="sform-control form-select select2" <?php echo $disabled; ?>>
                                             <option value="" selected disabled>--- Select Part Family ---</option>
-											<?php
-											$sql1 = "SELECT * FROM `pm_part_family` ";
-											$result1 = $mysqli->query($sql1);
-											//                                            $entry = 'selected';
-											while ($row1 = $result1->fetch_assoc()) {
-												if ($get_part_family == $row1['pm_part_family_id']) {
-													$entry = 'selected';
-												} else {
-													$entry = '';
-												}
-												echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
-											}
-											?>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `pm_part_family` ";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($get_part_family == $row1['pm_part_family_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
-                                <br/>
-								<?php
-							}
-							?>
-							<?php
-							$get_part_number = $_GET['part_number'];
-							if ($get_part_number != '') {
-								$disabled = 'disabled'; ?>
-                                <div class="form_row row">
-                                    <label class="col-lg-3 control-label">Part Number : </label>
-                                    <div class="col-md-7">
-                                        <input type="hidden" name="part_number" id="part_number"
-                                               value="<?php echo $get_part_number; ?>">
+                            <?php }
+                            ?>
+                            <?php
+                            $get_part_number = $_GET['part_number'];
+                            if ($get_part_number != '') {
+                                $disabled = 'disabled'; ?>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Part Number</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="hidden" name="part_number" id="part_number" value="<?php echo $get_part_number; ?>">
                                         <select name="part_number1" id="part_number1"
-                                                class="select form-control select-border-color" <?php echo $disabled; ?>>
+                                                class="form-control form-select select2" <?php echo $disabled; ?>>
                                             <option value="" selected disabled>--- Select Part Number ---</option>
-											<?php
-											$sql1 = "SELECT * FROM `pm_part_number` ";
-											$result1 = $mysqli->query($sql1);
-											//                                            $entry = 'selected';
-											while ($row1 = $result1->fetch_assoc()) {
-												if ($get_part_number == $row1['pm_part_number_id']) {
-													$entry = 'selected';
-												} else {
-													$entry = '';
-												}
-												echo "<option style=\"word-wrap:break-word;\" value='" . $row1['pm_part_number_id'] . "'  $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
-											}
-											?>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `pm_part_number` ";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($get_part_number == $row1['pm_part_number_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option style=\"word-wrap:break-word;\" value='" . $row1['pm_part_number_id'] . "'  $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
-                                <br/>
-								<?php
-							}
-							?>
-							<?php
-							$sql_wol = "SELECT wol FROM `form_type` where form_type_id = '$get_form_type' ";
-							$res_wol = $mysqli->query($sql_wol);
-							$r=$res_wol->fetch_assoc();
-							$wol = $r['wol'];
-							?>
-							<?php if($wol != 0){  ?>
-                                <div class="form_row row">
-                                    <label class="col-lg-3 control-label">Work Order/Lot<span class="red-star" style="font-size: 10px; padding-left:10px;">★ </span>
-                                    </label>
-                                    <div class="col-md-7">
+                            <?php  }  ?>
+                            <?php
+                            $sql_wol = "SELECT wol FROM `form_type` where form_type_id = '$get_form_type' ";
+                            $res_wol = $mysqli->query($sql_wol);
+                            $r=$res_wol->fetch_assoc();
+                            $wol = $r['wol'];
+                            ?>
+                            <?php if($wol != 0){  ?>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Work Order/Lot</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
                                         <textarea class="form-control" name = "wol" id="wol" rows="1" required></textarea>
                                     </div>
-
                                 </div>
-							<?php } ?>
-                            <div class="form_row row">
-                                <label class="col-lg-3 control-label">Notes : </label>
-                                <div class="col-md-7">
-
+                            <?php } ?>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Notes</label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
                                     <textarea class="form-control" id ="notes" name="notes" rows="2"></textarea>
                                 </div>
                             </div>
-                            <br/>
-                            <div class="form_row row">
-								<?php
-								$qurimage = mysqli_query($db, "SELECT * FROM  form_images where form_create_id = '$item_id'");
-								while ($rowcimage = mysqli_fetch_array($qurimage)) { ?>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="thumbnail">
-                                            <div class="thumb">
-                                                <img src="../form_images/<?php echo $rowcimage['image_name']; ?>"
-                                                     alt="">
-                                                <div class="caption-overflow">
-														<span>
-															<a href="../form_images/<?php echo $rowcimage['image_name']; ?>"
-                                                               data-popup="lightbox" rel="gallery"
-                                                               class="btn border-white text-white btn-flat btn-icon btn-rounded"><i
-                                                                        class="icon-plus3"></i></a>
-
-														</span>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Images</label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="text-wrap pb-3">
+                                                        <?php
+                                                        $qurimage = mysqli_query($db, "SELECT * FROM  form_images where form_create_id = '$item_id'");
+                                                        while ($rowcimage = mysqli_fetch_array($qurimage)) { ?>
+                                                            <div class="file-image-1">
+                                                                <div class="product-image">
+                                                                    <img src="../form_images/<?php echo $rowcimage['image_name']; ?>" class="br-5" alt="">
+                                                                </div>
+                                                                <span class="file-name-1"><?php echo $image; ?></span>
+                                                            </div>
+                                                            <?php
+                                                            $i++;} ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-								<?php } ?>
+                                </div>
                             </div>
 
-                            <b><h4 class="panel-title form_panel_title">Form Information</h4></b>
-							<?php
-							$query = sprintf("SELECT * FROM  form_item where form_create_id = '$item_id' order by form_item_seq+0 ASC ");
-							$qur = mysqli_query($db, $query);
-							while ($rowc = mysqli_fetch_array($qur)) {
-								$item_val = $rowc['item_val'];
-								if ($item_val == "header") {
-									?>
-                                    <div class="row form_row_item" style="background-color: #e5f3ff;">
-                                        <b>
-                                            <h4 class="panel-title form_sub_header"><?php echo htmlspecialchars($rowc['item_desc']); ?></h4>
-                                        </b>
-                                    </div>
-								<?php }
-								if ($item_val == "numeric") {
-									$numeric_normal = $rowc['numeric_normal'];
-									$numeric_lower_tol1 = $rowc['numeric_lower_tol'];
-									$numeric_upper_tol1 = $rowc['numeric_upper_tol'];
+                            <div class="card-header">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">FORM INFORMATION</span>
+                            </div>
+                            <?php
+                            $query = sprintf("SELECT * FROM  form_item where form_create_id = '$item_id' order by form_item_seq+0 ASC ");
+                            $qur = mysqli_query($db, $query);
+                            while ($rowc = mysqli_fetch_array($qur)) {
+                                $item_val = $rowc['item_val'];
+                                if ($item_val == "header") {
+                                    ?>
 
-									$numeric_lower_tol1 = str_replace(' ', '', $numeric_lower_tol1); // Replaces all spaces with hyphens.
-									$numeric_lower_tol1 = preg_replace('/[^A-Za-z0-9]/', '', $numeric_lower_tol1); // Removes special chars.
-									$final_lower = $numeric_normal - $numeric_lower_tol1; // final lower value
+                                    <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo htmlspecialchars($rowc['item_desc']); ?></span>
 
-									$numeric_upper_tol1 = str_replace(' ', '', $numeric_upper_tol1); // Replaces all spaces with hyphens.
-									$numeric_upper_tol1 = preg_replace('/[^A-Za-z0-9]/', '', $numeric_upper_tol1); // Removes special chars.
-									$final_upper = $numeric_normal + $numeric_upper_tol1; // final upper value
+                                    </br>
+                                <?php }
+                                if ($item_val == "numeric") {
+                                    $numeric_normal = $rowc['numeric_normal'];
+                                    $numeric_lower_tol1 = $rowc['numeric_lower_tol'];
+                                    $numeric_upper_tol1 = $rowc['numeric_upper_tol'];
 
-									?>
+                                    $numeric_lower_tol1 = str_replace(' ', '', $numeric_lower_tol1); // Replaces all spaces with hyphens.
+                                    $numeric_lower_tol1 = preg_replace('/[^A-Za-z0-9]/', '', $numeric_lower_tol1); // Removes special chars.
+                                    $final_lower = $numeric_normal - $numeric_lower_tol1; // final lower value
+
+                                    $numeric_upper_tol1 = str_replace(' ', '', $numeric_upper_tol1); // Replaces all spaces with hyphens.
+                                    $numeric_upper_tol1 = preg_replace('/[^A-Za-z0-9]/', '', $numeric_upper_tol1); // Removes special chars.
+                                    $final_upper = $numeric_normal + $numeric_upper_tol1; // final upper value
+
+                                    ?>
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>" class="lower_compare" value="<?php echo $final_lower; ?>">
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>" class="upper_compare" value="<?php echo $final_upper; ?>">
-                                    <div class="row form_row_item">
-                                        <div class="col-md-7 form_col_item">
-                                            <div><?php if ($rowc['optional'] != '1') {
-													echo '<span class="red-star">★</span>';
-												}
-												echo htmlspecialchars($rowc['item_desc']); ?></div>
-											<?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                                <div style="font-size: medium;font-color:#c1c1c1"><?php echo "(" . $rowc['discription'] . ")" ?></div>
-											<?php }
-											?>
-                                        </div>
-                                        <div class="col-md-3 mob">
 
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-7">
+                                            <label class="form-label mg-b-0">
+                                                <?php if ($rowc['optional'] != '1') {
+                                                    echo '<span class="red-star">★</span>';
+                                                }
+                                                echo htmlspecialchars($rowc['item_desc']); ?>
+                                                <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
+                                                    <?php echo "(" . $rowc['discription'] . ")" ?>
+                                                <?php }
+                                                ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3 mg-t-5 mg-md-t-0">
                                             <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
                                                    id="<?php echo $rowc['form_item_id']; ?>"
                                                    class="form-control compare_text" required step="any">
                                         </div>
-                                        <div class="col-md-1 form_col_item">
-											<?php
-											$unit_of_measurement_id = $rowc['unit_of_measurement'];
-											$sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
-											$result1 = $mysqli->query($sql1);
-											$row1 = $result1->fetch_assoc();
-											echo $row1['unit_of_measurement'];
-											?>
-                                        </div>
-                                        <!--											<div class="col-md-3 form_col_item"><u><b>-->
-										<?php //echo $rowc['discription']; ?><!-- </b></u></div>-->
-
-                                        <input type="hidden" name="form_item_array[]"
-                                               value="<?php echo $rowc['form_item_id']; ?>">
-                                    </div>
-									<?php
-								}
-								if ($item_val == "binary") {
-
-									$bin_def = $rowc['binary_normal'];
-									$bnf = $rowc['binary_default'];
-									?>
-
-                                    <div class="row form_row_item">
-
-                                        <div class="col-md-7 form_col_item">
-                                            <input type="hidden" class="binary_compare"
-                                                   value="<?php echo $bin_def; ?>"
-                                                   data-id="<?php echo $rowc['form_item_id']; ?>"/>
-											<?php if ($rowc['optional'] != '1') {
-												echo '<span class="red-star">★</span>';
-											}
-											echo htmlspecialchars($rowc['item_desc']); ?>
-											<?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                                <div style="font-size: medium;font-color:#c1c1c1"><?php echo "(" . $rowc['discription'] . ")" ?></div>
-											<?php } ?>
-                                        </div>
-
-                                        <div class="col-md-4">
+                                        <div class="col-md-2 mg-t-5 mg-md-t-0">
+                                            <?php
+                                            $unit_of_measurement_id = $rowc['unit_of_measurement'];
+                                            $sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
+                                            $result1 = $mysqli->query($sql1);
+                                            $row1 = $result1->fetch_assoc();
+                                            echo $row1['unit_of_measurement'];
+                                            ?>
                                             <input type="hidden" name="form_item_array[]"
-                                                   value="<?php echo $rowc['form_item_id']; ?>"/>
-                                            <div class="form-check form-check-inline form_col_option">
-                                                <input type="radio" id="yes"
-                                                       name="<?php echo $rowc['form_item_id']; ?>"
-                                                       value="yes"
-                                                       class="form-check-input" <?php if ($bnf == 'yes') {
-													echo 'checked';
-												}
-												if ($rowc['optional'] != '1') {
-													echo 'required';
-												} ?> />
-                                                <label for="yes"
-                                                       class="item_label <?php echo $rowc['form_item_id']; ?>"
-                                                       id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['binary_yes_alias'];
-													echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></label>
-                                                <input type="radio" id="no"
-                                                       name="<?php echo $rowc['form_item_id']; ?>"
-                                                       value="no"
-                                                       class="form-check-input" <?php if ($bnf == "no") {
-													echo 'checked';
-												}
-												if ($rowc['optional'] != '1') {
-													echo 'required';
-												} ?> />
-                                                <label for="no"
-                                                       class="item_label <?php echo $rowc['form_item_id']; ?>"
-                                                       id="<?php echo $rowc['form_item_id']; ?>"><?php $no_alias = $rowc['binary_no_alias'];
-													echo (($no_alias != null) || ($no_alias != '')) ? $no_alias : "No" ?></label>
-												<?php if ($rowc['optional'] == '1') {
-													echo '<span style="color: #a1a1a1; font-size: small;">(Optional)</span>';
-												} ?>
+                                                   value="<?php echo $rowc['form_item_id']; ?>">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-7">
+                                            <label class="form-label mg-b-0">
+                                                <input type="hidden" class="binary_compare"
+                                                       value="<?php echo $bin_def; ?>"
+                                                       data-id="<?php echo $rowc['form_item_id']; ?>"/>
+                                                <?php if ($rowc['optional'] != '1') {
+                                                    echo '<span class="red-star">★</span>';
+                                                }
+                                                echo htmlspecialchars($rowc['item_desc']); ?>
+                                                <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
+                                                    <?php echo "(" . $rowc['discription'] . ")" ?>
+                                                <?php } ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3 mg-t-5 mg-md-t-0">
+                                            <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
+                                                   id="<?php echo $rowc['form_item_id']; ?>"
+                                                   class="form-control compare_text" required step="any">
+                                        </div>
+                                        <div class="col-md-2 mg-t-5 mg-md-t-0">
+
+                                            <?php
+                                            $unit_of_measurement_id = $rowc['unit_of_measurement'];
+                                            $sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
+                                            $result1 = $mysqli->query($sql1);
+                                            $row1 = $result1->fetch_assoc();
+                                            echo $row1['unit_of_measurement'];
+
+                                            ?>
+                                            <input type="hidden" name="form_item_array[]"
+                                                   value="<?php echo $rowc['form_item_id']; ?>">
+
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                if ($item_val == "binary") {
+                                    $bin_def = $rowc['binary_normal'];
+                                    $bnf = $rowc['binary_default'];
+                                    ?>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-7">
+                                            <label class="form-label mg-b-0">
+                                                <input type="hidden" class="binary_compare"
+                                                       value="<?php echo $bin_def; ?>"
+                                                       data-id="<?php echo $rowc['form_item_id']; ?>"/>
+                                                <?php if ($rowc['optional'] != '1') {
+                                                    echo '<span class="red-star">★</span>';
+                                                }
+                                                echo htmlspecialchars($rowc['item_desc']); ?>
+                                                <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
+                                                    <?php echo "(" . $rowc['discription'] . ")" ?>
+                                                <?php } ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5 mg-t-5 mg-md-t-0">
+                                            <div class="row mg-t-15">
+                                                <input type="hidden" name="form_item_array[]"
+                                                       value="<?php echo $rowc['form_item_id']; ?>"/>
+                                                <div class="col-lg-3">
+                                                    <label class="rdiobox">
+                                                        <input type="radio" id="yes"
+                                                               name="<?php echo $rowc['form_item_id']; ?>"
+                                                               value="yes"
+                                                            <?php if ($bnf == 'yes') {
+                                                                echo 'checked';
+                                                            }
+                                                            if ($rowc['optional'] != '1') {
+                                                                echo 'required';
+                                                            } ?> />
+                                                        <span  class="item_label <?php echo $rowc['form_item_id']; ?>"
+                                                               id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['binary_yes_alias'];
+                                                            echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                                    <label class="rdiobox">
+                                                        <input type="radio" id="no"
+                                                               name="<?php echo $rowc['form_item_id']; ?>"
+                                                               value="no"
+                                                            <?php if ($bnf == "no") {
+                                                                echo 'checked';
+                                                            }
+                                                            if ($rowc['optional'] != '1') {
+                                                                echo 'required';
+                                                            } ?> />
+                                                        <span class="item_label <?php echo $rowc['form_item_id']; ?>"
+                                                              id="<?php echo $rowc['form_item_id']; ?>"><?php $no_alias = $rowc['binary_no_alias'];
+                                                            echo (($no_alias != null) || ($no_alias != '')) ? $no_alias : "No" ?></span>
+                                                    </label>
+                                                </div>
+
                                             </div>
                                         </div>
-                                        <!--<div class="col-md-3 form_col_item"><u></u></div>-->
                                     </div>
-								<?php }
-								if ($item_val == "list") {
-									$list_def = $rowc['list_normal'];
-									$lnf = $rowc['list_name1'];
-									$lnf1 = $rowc['list_name2'];
-									$lnf2 = $rowc['list_name2'];
-									$list_enabled =  $rowc['list_enabled'];
-									$extra_enabled =  $rowc['radio_extra'];
-									?>
-                                    <div class="row form_row_item">
-                                        <div class="col-md-7 form_col_item">
-                                            <input type="hidden" class="list_enabled" name="list_enabled" data-id="<?php echo $rowc['form_item_id']; ?>" value="<?php echo $list_enabled; ?>"/>
-                                            <input type="hidden" class="binary_compare"
-                                                   value="<?php echo $list_def; ?>"
-                                                   data-id="<?php echo $rowc['form_item_id']; ?>"/>
-											<?php if ($rowc['optional'] != '1') {
-												echo '<span class="red-star">★</span>';
-											}
-											echo htmlspecialchars($rowc['item_desc']); ?>
-											<?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                                <div style="font-size: medium;font-color:#c1c1c1"><?php echo "(" . $rowc['discription'] . ")" ?></div>
-											<?php } ?>
+
+                                <?php }
+                                if ($item_val == "list") {
+                                    $list_def = $rowc['list_normal'];
+                                    $lnf = $rowc['list_name1'];
+                                    $lnf1 = $rowc['list_name2'];
+                                    $lnf2 = $rowc['list_name2'];
+                                    $list_enabled =  $rowc['list_enabled'];
+                                    $extra_enabled =  $rowc['radio_extra'];
+                                    ?>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-7">
+                                            <label class="form-label mg-b-0">
+                                                <input type="hidden" class="list_enabled" name="list_enabled" data-id="<?php echo $rowc['form_item_id']; ?>" value="<?php echo $list_enabled; ?>"/>
+                                                <input type="hidden" class="binary_compare"
+                                                       value="<?php echo $list_def; ?>"
+                                                       data-id="<?php echo $rowc['form_item_id']; ?>"/>
+                                                <?php if ($rowc['optional'] != '1') {
+                                                    echo '<span class="red-star">★</span>';
+                                                }
+                                                echo htmlspecialchars($rowc['item_desc']); ?>
+                                                <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
+                                                    <?php echo "(" . $rowc['discription'] . ")" ?>
+                                                <?php } ?>
+                                            </label>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5 mg-t-5 mg-md-t-0">
                                             <input type="hidden" name="form_item_array[]"
                                                    value="<?php echo $rowc['form_item_id']; ?>"/>
-                                            <div class="form-check form-check-inline form_col_option">
-                                                <input type="radio" id="yes"
-                                                       name="<?php echo $rowc['form_item_id']; ?>"
-                                                       value="yes"
-                                                       class="form-check-input" <?php if ($list_def == 'yes') {
-													echo 'checked';
-												}
-												if ($rowc['optional'] != '1') {
-													echo 'required';
-												} ?> />
-                                                <label for="yes"
-                                                       class="item_label <?php echo $rowc['form_item_id']; ?>"
-                                                       id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['list_name2'];
-													$none_alias = $rowc['list_name1'];
-													echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></label>
-                                                <input type="radio" id="no"
-                                                       name="<?php echo $rowc['form_item_id']; ?>"
-                                                       value="no"
-                                                       class="form-check-input" <?php if ($list_def == "no") {
-													echo 'checked';
-												}
-												if ($rowc['optional'] != '1') {
-													echo 'required';
-												} ?> />
-                                                <label for="no"
-                                                       class="item_label <?php echo $rowc['form_item_id']; ?>"
-                                                       id="<?php echo $rowc['form_item_id']; ?>"><?php $no_alias = $rowc['list_name3'];
-													echo (($no_alias != null) || ($no_alias != '')) ? $no_alias : "No" ?></label>
+                                            <div class="row mg-t-15">
+                                                <div class="col-lg-3">
+                                                    <label class="rdiobox">
+                                                        <input type="radio" id="yes"
+                                                               name="<?php echo $rowc['form_item_id']; ?>"
+                                                               value="yes"
+                                                            <?php if ($list_def == 'yes') {
+                                                                echo 'checked';
+                                                            }
+                                                            if ($rowc['optional'] != '1') {
+                                                                echo 'required';
+                                                            } ?> />
+                                                        <span class="item_label <?php echo $rowc['form_item_id']; ?>"
+                                                              id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['list_name2'];
+                                                            $none_alias = $rowc['list_name1'];
+                                                            echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                                    <label class="rdiobox">
+                                                        <input type="radio" id="no"
+                                                               name="<?php echo $rowc['form_item_id']; ?>"
+                                                               value="no"
+                                                            <?php if ($list_def == "no") {
+                                                                echo 'checked';
+                                                            }
+                                                            if ($rowc['optional'] != '1') {
+                                                                echo 'required';
+                                                            } ?> />
+                                                        <span class="item_label <?php echo $rowc['form_item_id']; ?>"
+                                                              id="<?php echo $rowc['form_item_id']; ?>"><?php $no_alias = $rowc['list_name3'];
+                                                            echo (($no_alias != null) || ($no_alias != '')) ? $no_alias : "No" ?></span>
+                                                    </label>
+                                                </div>
+                                                <?php if ($list_enabled == 1 && !empty($none_alias)) { ?>
+                                                    <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                                        <label class="rdiobox">
+                                                            <input type="radio" id="none"
+                                                                   name="<?php echo $rowc['form_item_id']; ?>"
+                                                                   value="none"
+                                                                <?php if ($list_def == 'none') {
+                                                                    echo 'checked';
+                                                                }
+                                                                if ($rowc['optional'] != '1') {
+                                                                    echo 'required';
+                                                                } ?> />
+                                                            <span class="item_label <?php echo $rowc['form_item_id']; ?>"
+                                                                  id="<?php echo $rowc['form_item_id']; ?>"><?php $none_alias = $rowc['list_name1'];
+                                                                echo (($none_alias != null) || ($none_alias != '')) ? $none_alias : "None" ?></span>
+                                                        </label>
+                                                    </div>
+                                                <?php } ?>
 
-												<?php if ($list_enabled == 1 && !empty($none_alias)) { ?>
-                                                    <input type="radio" id="none"
-                                                           name="<?php echo $rowc['form_item_id']; ?>"
-                                                           value="none"
-                                                           class="form-check-input" <?php if ($list_def == 'none') {
-														echo 'checked';
-													}
-													if ($rowc['optional'] != '1') {
-														echo 'required';
-													} ?> />
-                                                    <label for="none"
-                                                           class="item_label <?php echo $rowc['form_item_id']; ?>"
-                                                           id="<?php echo $rowc['form_item_id']; ?>"><?php $none_alias = $rowc['list_name1'];
-														echo (($none_alias != null) || ($none_alias != '')) ? $none_alias : "None" ?></label>
+                                                <?php $list_extra =  $rowc['list_name_extra'];
+                                                if(!empty($list_extra)){
+                                                    $arrteam = explode(',', $list_extra);
+                                                    $radiocount = 1;
+                                                    foreach ($arrteam as $arr) { ?>
+                                                        <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                                            <label class="rdiobox">
+                                                                <input type="radio" id="extra"
+                                                                       name="<?php echo $rowc['form_item_id']; ?>"
+                                                                       value="extra_<?php echo $radiocount; ?>"
+                                                                    <?php if ($list_def == "extra_$radiocount") {
+                                                                        echo 'checked';
+                                                                    }
+                                                                    if ($rowc['optional'] != '1') {
+                                                                        echo 'required';
+                                                                    } ?> />
+                                                                <span class="item_label <?php echo $rowc['form_item_id']; ?>"
+                                                                      id="<?php echo $rowc['form_item_id']; ?>"><?php $extra_alias = "$arr";
+                                                                    echo (($extra_alias != null) || ($extra_alias != '')) ? $extra_alias : "Extra" ?></span>
+                                                                <?php if ($rowc['optional'] == '1') {
+                                                                    echo '<span style="color: #a1a1a1; font-size: small;">(Optional)</span>';
 
-
-												<?php } ?>
-
-                                                 <?php $list_extra =  $rowc['list_name_extra'];
-                                                 if(!empty($list_extra)){
-													 $arrteam = explode(',', $list_extra);
-													 $radiocount = 1;
-													 foreach ($arrteam as $arr) { ?>
-                                                         <input type="radio" id="extra"
-                                                                name="<?php echo $rowc['form_item_id']; ?>"
-                                                                value="extra_<?php echo $radiocount; ?>"
-                                                                class="form-check-input" <?php if ($list_def == "extra_$radiocount") {
-															 echo 'checked';
-														 }
-														 if ($rowc['optional'] != '1') {
-															 echo 'required';
-														 } ?> />
-                                                         <label for="extra"
-                                                                class="item_label <?php echo $rowc['form_item_id']; ?>"
-                                                                id="<?php echo $rowc['form_item_id']; ?>"><?php $extra_alias = "$arr";
-															 echo (($extra_alias != null) || ($extra_alias != '')) ? $extra_alias : "Extra" ?></label>
-														 <?php if ($rowc['optional'] == '1') {
-															 echo '<span style="color: #a1a1a1; font-size: small;">(Optional)</span>';
-
-														 }   $radiocount++; }
-                                                 }
-                                                  ?>
+                                                                }   ?>
+                                                            </label>
+                                                        </div>
+                                                        <?php     $radiocount++;
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </div>
-
                                     </div>
-
-								<?php }
-								if ($item_val == "text") {
-									?>
-                                    <div class="row form_row_item">
-                                        <div class="col-md-7 form_col_item">
-                                            <div><?php
-												if ($rowc['optional'] != '1') {
-													echo '<span class="red-star">★</span>';
-												}
-												echo htmlspecialchars($rowc['item_desc']); ?></div>
-											<?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                                <div style="font-size: medium;font-color:#c1c1c1"><?php echo "(" . $rowc['discription'] . ")" ?></div>
-											<?php } ?>
+                                <?php }
+                                if ($item_val == "text") {
+                                    ?>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-7">
+                                            <label class="form-label mg-b-0">
+                                                <?php
+                                                if ($rowc['optional'] != '1') {
+                                                    echo '<span class="red-star">★</span>';
+                                                }
+                                                echo htmlspecialchars($rowc['item_desc']); ?>
+                                            </label>
                                         </div>
-                                        <!-- <div class="col-md-4 form_col_item">-->
-										<?php //echo $rowc['item_desc']; ?><!-- </div>-->
-                                        <div class="col-md-3 form">
+                                        <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
+                                            <label class="form-label mg-b-0"><?php echo "(" . $rowc['discription'] . ")" ?></label>
+                                        <?php } ?>
+                                        <div class="col-md-5 mg-t-5 mg-md-t-0">
                                             <input type="hidden" name="form_item_array[]"
                                                    value="<?php echo $rowc['form_item_id']; ?>"/>
                                             <input type="text" class="form-control text_num" name="<?php echo $rowc['form_item_id']; ?>" autocomplete="off"
                                                    id="<?php echo $rowc['form_item_id']; ?>" <?php if ($rowc['optional'] != '1') {
-												echo 'required';
-											} ?> />
+                                                echo 'required';
+                                            } ?> />
+                                            <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
+                                                <div class="col-md-3 form_col_item">
+                                                    <u><b><?php echo $rowc['discription']; ?> </b></u></div>
+                                            <?php } ?>
                                         </div>
-										<?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                            <div class="col-md-3 form_col_item">
-                                                <u><b><?php echo $rowc['discription']; ?> </b></u></div>
-										<?php } ?>
                                     </div>
-									<?php
-								}
-							}
-							?>
-                            <hr class="form_hr"/>
-							<?php if($need_approval == "yes") { ?>
-                                <div class="row form_row_item">
-                                    <input type="hidden" name="click_id" id="click_id">
-                                    <div class="col-md-2">
-                                        <button id="btnSubmit" class="btn btn-primary"
-                                                style="background-color:#1e73be;">
-                                            Submit
-                                        </button>
-                                    </div>
+
+                                <?php } }?>
+                            <?php if($need_approval == "yes") { ?>
+
+                                <input type="hidden" name="click_id" id="click_id">
+                                <div class="card-body pt-0">
+                                    <button type="submit" id="btnSubmit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Submit</button>
                                 </div>
-							<?php } else { ?>
-                                <div class="row form_row_item">
-                                    <input type="hidden" name="click_id" id="click_id">
-                                    <div class="col-md-2">
-                                        <button id="btnSubmit_app" class="btn btn-primary"
-                                                style="background-color:#1e73be;">
-                                            Submit
-                                        </button>
-                                    </div>
+                            <?php } else { ?>
+                                <input type="hidden" name="click_id" id="click_id">
+                                <div class="card-body pt-0">
+                                    <button type="submit" id="btnSubmit_app" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Submit</button>
                                 </div>
-							<?php } ?>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                            <div id="approve_sec" style="display: none">
-								<?php
-								if ($need_approval == "yes") {
-								?>
-                                <div id="sub_app">The form needs to be approved before submitting</div>
-                                <br/>
-                                <!-- Approval List-->
+        <div class="row-body row-sm" style="display: none" id="approve_sec">
+            <?php
+            if ($need_approval == "yes") {
+                ?>
+                <div id="sub_app">The form needs to be approved before submitting</div>
+                <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12" id="app_list">
+                    <div class="card box-shadow-0">
 
-                                <div id="app_list">
-                                    <b><h4 class="panel-title form_panel_title">Approval List</h4></b>
-                                    <form action="" id="approve_form" class="form-horizontal" method="post" autocomplete="off">
-                                        <div class="form_table">
-                                            <!--                                        <tr class="form_tab_tr">-->
-                                            <!--                                            <th class="form_tab_th">Department</th>-->
-                                            <!--                                            <th class="form_tab_th">Approver</th>-->
-                                            <!--                                            <th class="form_tab_th">Digital Signature</th>-->
-                                            <!--                                            <th class="form_tab_th">Actions</th>-->
-                                            <!--                                        </tr>-->
-											<?php
-											$query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$item_id' and need_approval = 'yes'");
-											$qur1 = mysqli_query($db, $query1);
-											$i = 0;
-											while ($rowc1 = mysqli_fetch_array($qur1)) {
-												$approval_by_array = $rowc1['approval_by'];
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">APPROVAL LIST</span>
+                        </div>
+                        <form action="" id="approve_form" class="form-horizontal" method="post" autocomplete="off">
+                            <div class="card-body pt-0">
+                                <div class="pd-30 pd-sm-20">
+                                    <?php
+                                    $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$item_id' and need_approval = 'yes'");
+                                    $qur1 = mysqli_query($db, $query1);
+                                    $i = 0;
+                                    while ($rowc1 = mysqli_fetch_array($qur1)) {
+                                        $approval_by_array = $rowc1['approval_by'];
 
-												$arrteam = explode(',', $approval_by_array);
-												$j = 0;	$k = 0;
-												foreach ($arrteam as $arr) {
-													if ($arr != "") {
-														?>
-                                                        <div class="form_tab_tr" style="margin-bottom: 30px;">
-															<?php
-															$qurtemp = mysqli_query($db, "SELECT group_name FROM `sg_group` where group_id = '$arr' ");
-															$rowctemp = mysqli_fetch_array($qurtemp);
-															$groupname = $rowctemp["group_name"]
+                                        $arrteam = explode(',', $approval_by_array);
+                                        $j = 0;	$k = 0;
+                                        foreach ($arrteam as $arr) {
+                                            if ($arr != "") {
+                                                ?>
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <?php
+                                                    $qurtemp = mysqli_query($db, "SELECT group_name FROM `sg_group` where group_id = '$arr' ");
+                                                    $rowctemp = mysqli_fetch_array($qurtemp);
+                                                    $groupname = $rowctemp["group_name"]
 
-															?>
-                                                            <div style="margin-bottom: 10px;">
-                                                                <input type="hidden" name="approval_dept"
-                                                                       id="approval_dept_<?php echo $j ?>"
-                                                                       value="<?php echo $arr; ?>">
-																<?php echo $groupname; ?>
-                                                            </div>
-                                                            <div style="font-size: small !important;">
-                                                                <select class="select-border-color"
-                                                                        name="approval_initials"
-                                                                        id="approval_initials_<?php echo $j ?>"
-                                                                        class="select" data-style="bg-slate">
-                                                                    <option value="" selected disabled>--- Select Approver
-                                                                        ---
-                                                                    </option>
-																	<?php
-																	$sql1 = "SELECT * FROM `sg_user_group` where group_id = '$arr'";
-																	$result1 = $mysqli->query($sql1);
-																	while ($row1 = $result1->fetch_assoc()) {
+                                                    ?>
+                                                    <div class="col-md-3">
+                                                        <input type="hidden" name="approval_dept"
+                                                               id="approval_dept_<?php echo $j ?>"
+                                                               value="<?php echo $arr; ?>">
+                                                        <?php echo $groupname; ?>
+                                                    </div>
+                                                    <div class="col-md-3">
 
-																		$user_id = $row1['user_id'];
-																		$qurtemp = mysqli_query($db, "SELECT firstname,lastname FROM `cam_users` where users_id = '$user_id' and pin_flag = '1' ");
-																		$rowctemp = mysqli_fetch_array($qurtemp);
-																		if ($rowctemp != NULL) {
-																			$fullnn = $rowctemp["firstname"] . " " . $rowctemp["lastname"];
+                                                        <select  name="approval_initials"
+                                                                 id="approval_initials_<?php echo $j ?>" class="form-control form-select select2">
+                                                            <?php
+                                                            $sql1 = "SELECT * FROM `sg_user_group` where group_id = '$arr'";
+                                                            $result1 = $mysqli->query($sql1);
+                                                            while ($row1 = $result1->fetch_assoc()) {
 
-																			echo "<option value='" . $user_id . "' >" . $fullnn . "</option>";
-																		}
-																		$fullnm = "";
-																	}
-																	?>
-                                                                </select>
-                                                                <span style="font-size: x-small;color: darkred;display: none;" id="u_error_<?php echo $j; ?>">Select User.</span>
+                                                                $user_id = $row1['user_id'];
+                                                                $qurtemp = mysqli_query($db, "SELECT firstname,lastname FROM `cam_users` where users_id = '$user_id' and pin_flag = '1' ");
+                                                                $rowctemp = mysqli_fetch_array($qurtemp);
+                                                                if ($rowctemp != NULL) {
+                                                                    $fullnn = $rowctemp["firstname"] . " " . $rowctemp["lastname"];
 
-                                                                <span class="form_tab_td" id="approve_msg" style="float: left !important;width: 40% !important;padding: 0px 30px !important;">
+                                                                    echo "<option value='" . $user_id . "' >" . $fullnn . "</option>";
+                                                                }
+                                                                $fullnm = "";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <span style="font-size: x-small;color: darkred;display: none;" id="u_error_<?php echo $j; ?>">Select User.</span>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                            <span class="form_tab_td" id="approve_msg" style="float: left !important;width: 40% !important;padding: 0px 30px !important;">
                                                             <input type="password" name="pin[]" id="pin_<?php echo $j ?>"
                                                                    class="form-control" style=" margin-bottom: 5px;width: auto !important;"
                                                                    placeholder="Enter Pin..."  autocomplete="off" >
                                                             <span style="font-size: x-small;color: darkred; display: none;" id="pin_error_<?php echo $j; ?>">Invalid Pin.</span>
                                                         </span>
+                                                    </div>
 
-                                                                <span class="form_tab_td ">
-                                                            <input type="hidden" id="form_user_data_id"
-                                                                   name="form_user_data_id" value=""/>
-                                                            <input type="hidden" id="approval_dept_cnt"
-                                                                   name="approval_dept_cnt" value=""/>
-                                                            <button type="submit" id="approve_<?php echo $j ?>"
-                                                                    name="approve"
-                                                                    class="btn btn-primary approve">
-                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                    <div class="col-md-1">
+                                                        <input type="hidden" id="form_user_data_id"
+                                                               name="form_user_data_id" value=""/>
+                                                        <input type="hidden" id="approval_dept_cnt"
+                                                               name="approval_dept_cnt" value=""/>
+                                                        <button type="submit" id="approve_<?php echo $j ?>"
+                                                                name="approve"
+                                                                class="btn btn-primary approve">
+                                                            <i class="fa fa-check" aria-hidden="true"></i>
 
-                                                            </button>
-                                                            <button type="submit" id="reject_<?php echo $k ?>"
-                                                                    name="reject"
-                                                                    class="btn btn-primary reject">
-                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
 
-                                                            </button>
-                                                                    <!--                                                        </td>-->
-                                                                    <!--                                                        <td class="form_tab_td" style="padding: 0px;">-->
-                                                            <input type="hidden" id="rejected_dept_cnt"
-                                                                   name="rejected_dept_cnt" value=""/>
-                                                            <input type="hidden" id="reject_dept_cnt"
-                                                                   name="reject_dept_cnt" value=""/>
+                                                    <div class="col-md-1">
+                                                        <button type="submit" id="reject_<?php echo $k ?>"
+                                                                name="reject"
+                                                                class="btn btn-primary reject">
+                                                            <i class="fa fa-times" aria-hidden="true"></i>
 
-                                                        </span>
-                                                            </div>
-                                                        </div>
+                                                        </button>
+                                                        <input type="hidden" id="rejected_dept_cnt"
+                                                               name="rejected_dept_cnt" value=""/>
+                                                        <input type="hidden" id="reject_dept_cnt"
+                                                               name="reject_dept_cnt" value=""/>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-12">
                                                         <div class="reason" id="rej_reason_div_<?php echo $j ?>" style="display: none">
-                                                        <span class="form_tab_td" id="rej_reason_td_<?php echo $j ?>" >
-<!--                                                            <textarea class="form-control reason" id="rej_reason_td_--><?php //echo $j ?><!--" >  </textarea>-->
+                                                             <span class="form_tab_td" id="rej_reason_td_<?php echo $j ?>" >
                                                         </div>
-                                                        <hr/>
-														<?php
-														$j++;
-														$k++;
-													}
-												}
-												?>
-                                                <input type="hidden" name="tot_approval_dept" id="tot_approval_dept"
-                                                       value="<?php echo ($j); ?>">
-                                                <input type="hidden" name="tot_rejected_dept" id="tot_rejected_dept"
-                                                       value="<?php echo ($k); ?>">
-												<?php
-											}
-											?>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                                $j++;
+                                                $k++;
+                                            }
+                                        }
+                                        ?>
+                                        <input type="hidden" name="tot_approval_dept" id="tot_approval_dept"
+                                               value="<?php echo ($j); ?>">
+                                        <input type="hidden" name="tot_rejected_dept" id="tot_rejected_dept"
+                                               value="<?php echo ($k); ?>">
+                                        <?php
+                                    }
+                                    ?>
 
+                                    <div>
+                                        <hr class="form_hr"/>
+                                    </div>
+
+                                    <div class="row form_row_item">
+                                        <input type="hidden" name="click_id_1" id="click_id_1">
+                                        <div class="col-md-2">
+                                            <button type="button" id="btnSubmit_1" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 legitRipple" disabled>
+                                                Submit
+                                            </button>
                                         </div>
-                                        <div>
-                                            <hr class="form_hr"/>
-                                        </div>
-                                        <!--                                    </form>-->
-                                        <div class="row form_row_item">
-                                            <input type="hidden" name="click_id_1" id="click_id_1">
-                                            <div class="col-md-2">
-                                                <button type="button" id="btnSubmit_1" class="btn btn-primary" disabled
-                                                        style="background-color:#1e73be;">
-                                                   Submit
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
-						<?php
-						}
-						?>
-                            <br/>
                         </form>
                     </div>
                 </div>
-            </div>
+                <?php
+            }
+            ?>
         </div>
-        <!-- /main charts -->
-        <!-- edit modal -->
-        <!-- Dashboard content -->
-        <!-- /dashboard content -->
-        <!-- /content area -->
-    </div>
-    <!-- /main content -->
+    </form>
 </div>
-<!-- <script>
-$('#reject').on('change', function () {
-
-        var selected_val = this.value.split("_")[1];
-        if (selected_val == 3) {
-            document.getElementById("reject_div").innerHTML +="<div class=\"col-md-12\">\n" +
-                "                                        <div class=\"form-group\">\n" +
-                "                                            <label class=\"col-lg-4 control-label\">Reason * :</label>\n" +
-                "                                            <div class=\"col-lg-8\">\n" +
-                "                                                <textarea id=\"edit_reason\" name=\"edit_reason\" rows=\"2\" class=\"form-control\" required></textarea>\n" +
-                "                                            </div>\n" +
-                "                                        </div>\n" +
-                "                                    </div>";
-                // $('#reason_div').attr('required', true);
-            // $('#reason_div').prop('required',true);
-            // document.getElementById("reason_div").required = true;
-            // $("#reason_div").show();
-        } else {
-            document.getElementById("reject_div").innerHTML ="";
-            // document.getElementById("reason_div").required = false;
-            // $("#reason_div").hide();
-        }
-    });
-</script> -->
-</body>
 <script>
     $("#btnSubmit").click(function (e) {
         if ($("#form_settings")[0].checkValidity()){
@@ -1157,7 +1180,7 @@ $('#reject').on('change', function () {
         if (bypass_approve == 'yes') {
             document.getElementById("app_list").style.display = "none"
             document.getElementById("sub_app").style.display = "none"
-           // $('#success_msg_app').text('Form submitted Successfully').css('background-color', '#0080004f');
+            // $('#success_msg_app').text('Form submitted Successfully').css('background-color', '#0080004f');
         }
     });
 </script>
@@ -1248,6 +1271,5 @@ $('#reject').on('change', function () {
     });
 </script>
 
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
-</html>

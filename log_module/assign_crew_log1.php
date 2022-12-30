@@ -1,4 +1,5 @@
-<?php include("../config.php");
+<?php
+include("../config.php");
 $curdate = date('m-d-Y');
 //$dateto = $curdate;
 //$datefrom = $curdate;
@@ -73,9 +74,13 @@ $datefrom = $yesdate;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Assign Crew Log</title>
+        <?php echo $sitename; ?> |Add / Create Form</title>
     <!-- Global stylesheets -->
+
+
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
@@ -93,6 +98,7 @@ $datefrom = $yesdate;
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
@@ -177,8 +183,12 @@ $datefrom = $yesdate;
     </style>
 </head>
 <?php
+$cust_cam_page_header = "Assigned Crew Log";
 include("../header.php");
+
 include("../admin_menu.php");
+include("../heading_banner.php");
+
 ?>
 
 <body class="ltr main-body app sidebar-mini">
@@ -200,10 +210,7 @@ include("../admin_menu.php");
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <form action="" id="user_form" class="form-horizontal" method="post">
-                            <div class="card-header">
-                                <span class="main-content-title mg-b-0 mg-b-lg-1">Assigned Crew Log</span>
-                            </div>
+                        <form action="export_crew_log.php" id="user_form" class="form-horizontal" method="post">
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-1">
@@ -301,20 +308,18 @@ include("../admin_menu.php");
                             }
                             ?>
                             </div>
-
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
                                     <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Search</button>
-                                    <button type="clear" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
-
+                                    <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
+                                    <form action="export_crew_log.php" method="post" name="export_excel">
+                                        <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn" id="export" name="export"   data-loading-text="Loading...">Export Data</button>
+                                    </form>
+                                </div>
+                            </div>
                         </form>
-                        <form action="export_crew_log.php" method="post" name="export_excel">
-                            <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn" id="export" name="export"   data-loading-text="Loading...">Export Data</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
-                    </div>
-                </div>
                 </div>
         <!-- row  -->
         <?php
@@ -481,6 +486,15 @@ include("../admin_menu.php");
     });
 </script>
 <script>
+
+    // $('#usr').on('change', function (e) {
+    //     $("#user_form").submit();
+    // });
+    // $('#station').on('change', function (e) {
+    //     $("#user_form").submit();
+    // });
+</script>
+<script>
     $(document).on("click","#submit_btn",function() {
 
         var station = $("#station").val();
@@ -512,7 +526,7 @@ include("../admin_menu.php");
 </script>
 <script>
     window.onload = function() {
-        history.replaceState("", "", "<?php echo $scriptName; ?>log_module/assign_crew_log.php");
+        history.replaceState("", "", "<?php echo $scriptName; ?>log_module/assign_crew_log1.php");
         // $('#timezone').prop('disabled', true);
 
     }
