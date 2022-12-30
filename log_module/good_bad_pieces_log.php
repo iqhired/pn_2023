@@ -5,7 +5,7 @@ $curdate = date('Y-m-d');
 $button = "";
 $temp = "";
 if (!isset($_SESSION['user'])) {
-	header('location: logout.php');
+    header('location: logout.php');
 }
 
 
@@ -15,25 +15,25 @@ $duration = $auto_logout_duration;
 $time = $_SERVER['REQUEST_TIME'];
 //Check the user's session exist or not
 if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-	//Unset the session variables
-	session_unset();
-	//Destroy the session
-	session_destroy();
-	header($redirect_logout_path);
+    //Unset the session variables
+    session_unset();
+    //Destroy the session
+    session_destroy();
+    header($redirect_logout_path);
 //	header('location: ../logout.php');
-	exit;
+    exit;
 }
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
 if (empty($dateto)) {
-	$curdate = date('Y-m-d');
-	$dateto = $curdate;
+    $curdate = date('Y-m-d');
+    $dateto = $curdate;
 }
 
 if (empty($datefrom)) {
-	$yesdate = date('Y-m-d', strtotime("-1 days"));
-	$datefrom = $yesdate;
+    $yesdate = date('Y-m-d', strtotime("-1 days"));
+    $datefrom = $yesdate;
 }
 $button = "";
 $temp = "";
@@ -52,97 +52,97 @@ $_SESSION['pf'] = "";
 $_SESSION['pn'] = "";
 
 if (count($_POST) > 0) {
-	$_SESSION['station'] = $_POST['station'];
-	$_SESSION['date_from'] = $_POST['date_from'];
-	$_SESSION['date_to'] = $_POST['date_to'];
-	$_SESSION['button'] = $_POST['button'];
-	$_SESSION['timezone'] = $_POST['timezone'];
-	$_SESSION['button_event'] = $_POST['button_event'];
-	$_SESSION['event_type'] = $_POST['event_type'];
-	$_SESSION['event_category'] = $_POST['event_category'];
-	$button_event = $_POST['button_event'];
-	$event_type = $_POST['event_type'];
-	$event_category = $_POST['event_category'];
-	$station = $_POST['station'];
-	$dateto = $_POST['date_to'];
-	$datefrom = $_POST['date_from'];
-	$button = $_POST['button'];
-	$timezone = $_POST['timezone'];
+    $_SESSION['station'] = $_POST['station'];
+    $_SESSION['date_from'] = $_POST['date_from'];
+    $_SESSION['date_to'] = $_POST['date_to'];
+    $_SESSION['button'] = $_POST['button'];
+    $_SESSION['timezone'] = $_POST['timezone'];
+    $_SESSION['button_event'] = $_POST['button_event'];
+    $_SESSION['event_type'] = $_POST['event_type'];
+    $_SESSION['event_category'] = $_POST['event_category'];
+    $button_event = $_POST['button_event'];
+    $event_type = $_POST['event_type'];
+    $event_category = $_POST['event_category'];
+    $station = $_POST['station'];
+    $dateto = $_POST['date_to'];
+    $datefrom = $_POST['date_from'];
+    $button = $_POST['button'];
+    $timezone = $_POST['timezone'];
 }
 if (count($_POST) > 0) {
-	$station1 = $_POST['station'];
-	$sta = $_POST['station'];
-	$pf = $_POST['part_family'];
-	$pn = $_POST['part_number'];
-	if ($station1 == "all") {
-		$qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where enabled = '1' and is_deleted != 1 ");
-		while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-			$station1 = $rowctemp["line_name"];
-		}
-	} else {
-		$qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$station1' ");
-		while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-			$station1 = $rowctemp["line_name"];
-		}
-	}
+    $station1 = $_POST['station'];
+    $sta = $_POST['station'];
+    $pf = $_POST['part_family'];
+    $pn = $_POST['part_number'];
+    if ($station1 == "all") {
+        $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where enabled = '1' and is_deleted != 1 ");
+        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+            $station1 = $rowctemp["line_name"];
+        }
+    } else {
+        $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$station1' ");
+        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+            $station1 = $rowctemp["line_name"];
+        }
+    }
 
 }
 
 if (empty($dateto)) {
-	$curdate = date('Y-m-d');
-	$dateto = $curdate;
+    $curdate = date('Y-m-d');
+    $dateto = $curdate;
 }
 
 if (empty($datefrom)) {
-	$yesdate = date('Y-m-d', strtotime("-1 days"));
-	$datefrom = $yesdate;
+    $yesdate = date('Y-m-d', strtotime("-1 days"));
+    $datefrom = $yesdate;
 }
 
 $wc = '';
 
 if (isset($station)) {
-	if ($station != 'all') {
-		$wc = $wc . " and sg_station_event.line_id = '$station'";
-	}
+    if ($station != 'all') {
+        $wc = $wc . " and sg_station_event.line_id = '$station'";
+    }
 }
 if (isset($pf)) {
-	$_SESSION['pf'] = $pf;
-	$wc = $wc . " and sg_station_event.part_family_id = '$pf'";
+    $_SESSION['pf'] = $pf;
+    $wc = $wc . " and sg_station_event.part_family_id = '$pf'";
 }
 if (isset($pn)) {
-	$_SESSION['pn'] = $pn;
-	$wc = $wc . " and sg_station_event.part_number_id = '$pn'";
+    $_SESSION['pn'] = $pn;
+    $wc = $wc . " and sg_station_event.part_number_id = '$pn'";
 }
 
 /* If Data Range is selected */
 if ($button == "button1") {
-	if (isset($datefrom)) {
-		$wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' ";
-	}
-	if (isset($dateto)) {
-		$wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
-	}
+    if (isset($datefrom)) {
+        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' ";
+    }
+    if (isset($dateto)) {
+        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
+    }
 } else if ($button == "button2") {
-	/* If Date Period is Selected */
-	$curdate = date('Y-m-d');
-	if ($timezone == "7") {
-		$countdate = date('Y-m-d', strtotime('-7 days'));
-	} else if ($timezone == "1") {
-		$countdate = date('Y-m-d', strtotime('-1 days'));
-	} else if ($timezone == "30") {
-		$countdate = date('Y-m-d', strtotime('-30 days'));
-	} else if ($timezone == "90") {
-		$countdate = date('Y-m-d', strtotime('-90 days'));
-	} else if ($timezone == "180") {
-		$countdate = date('Y-m-d', strtotime('-180 days'));
-	} else if ($timezone == "365") {
-		$countdate = date('Y-m-d', strtotime('-365 days'));
-	}
-	if (isset($countdate)) {
-		$wc = $wc . " AND DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$countdate' and DATE_FORMAT(created_at,'%Y-%m-%d') <= '$curdate' ";
-	}
+    /* If Date Period is Selected */
+    $curdate = date('Y-m-d');
+    if ($timezone == "7") {
+        $countdate = date('Y-m-d', strtotime('-7 days'));
+    } else if ($timezone == "1") {
+        $countdate = date('Y-m-d', strtotime('-1 days'));
+    } else if ($timezone == "30") {
+        $countdate = date('Y-m-d', strtotime('-30 days'));
+    } else if ($timezone == "90") {
+        $countdate = date('Y-m-d', strtotime('-90 days'));
+    } else if ($timezone == "180") {
+        $countdate = date('Y-m-d', strtotime('-180 days'));
+    } else if ($timezone == "365") {
+        $countdate = date('Y-m-d', strtotime('-365 days'));
+    }
+    if (isset($countdate)) {
+        $wc = $wc . " AND DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$countdate' and DATE_FORMAT(created_at,'%Y-%m-%d') <= '$curdate' ";
+    }
 } else {
-	$wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
+    $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
 }
 
 $sql = "SELECT SUM(good_pieces) AS good_pieces,SUM(bad_pieces)AS bad_pieces,SUM(rework) AS rework FROM `good_bad_pieces`  INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id where 1 " . $wc;
@@ -152,9 +152,9 @@ $result = mysqli_query($db, $sql);
 //$result = $mysqli->query($sql);
 $data = array();
 if (null != $result) {
-	while ($row = $result->fetch_assoc()) {
-		$posts[] = array('good_pieces' => $row['good_pieces'], 'bad_pieces' => $row['bad_pieces'], 'rework' => $row['rework']);
-	}
+    while ($row = $result->fetch_assoc()) {
+        $posts[] = array('good_pieces' => $row['good_pieces'], 'bad_pieces' => $row['bad_pieces'], 'rework' => $row['rework']);
+    }
 }
 
 $response['posts'] = $posts;
@@ -162,7 +162,7 @@ $response['posts'] = $posts;
 //fwrite($fp, json_encode($response));
 //fclose($fp);
 if (null == $sta) {
-	$sta = '';
+    $sta = '';
 }
 $fp = fopen('results.json', 'w');
 fwrite($fp, json_encode($response));
@@ -176,10 +176,10 @@ $result1 = mysqli_query($db, $sql1);
 //$result = $mysqli->query($sql);
 $data = array();
 if (null != $result1) {
-	while ($row = $result1->fetch_assoc()) {
+    while ($row = $result1->fetch_assoc()) {
 //	$posts1[] = array( 'bad_pieces'=> $row['bad_pieces'], 'rework'=> $row['rework'],'defect_name'=> $row['defect_name']);
-		$posts1[] = array($row['defect_name'], $row['bad_pieces'], $row['rework']);
-	}
+        $posts1[] = array($row['defect_name'], $row['bad_pieces'], $row['rework']);
+    }
 }
 
 $response1['posts1'] = $posts1;
@@ -193,11 +193,31 @@ fclose($fp);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $sitename; ?> | Good Bad Pieces Log</title>
+    <title>
+        <?php echo $sitename; ?> | Good Bad Pieces Log</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-          type="text/css">
-    <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+    <!-- Anychart-->
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-ui.min.js"></script>
@@ -207,100 +227,157 @@ fclose($fp);
     <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css"
           rel="stylesheet">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/notifications/sweet_alert.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
 
     <style>
-        .anychart-credits {
-            display: none !important;
+        .navbar {
+
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
         }
 
-        .datatable-scroll {
-            width: 100%;
-            overflow-x: scroll;
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
         }
 
-        .col-md-6.date {
-            width: 25%;
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
         }
 
-        .col-md-2 {
-            width: 8.666667% !important;
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
         }
 
-        @media only screen and (max-width: 760px),
-        (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-md-3 {
-                width: 30%;
-                float: left;
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
             }
 
-            .col-md-2 {
-                width: 20%;
-                float: left;
-            }
-
-            .col-lg-8 {
-                float: right;
-                width: 58%;
-            }
-
-            label.col-lg-3.control-label {
-                width: 42%;
-            }
-
-            .col-md-6.date {
-                width: 100%;
-                float: left;
-            }
-
-            .col-md-2 {
-                width: 30% !important;
-                float: left;
-            }
-            .media{
-                width: 100% !important;
-            }
-            .media_gf{
-                width: 100% !important;
-            }
-            .media_eff{
-                width: 100% !important;
-            }
-            .media_bsr{
-                width: 100% !important;
-            }
         }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .anychart-credits{
+            display: none;
+        }
+
     </style>
-    <script>
-        window.onload = function () {
-            history.replaceState("", "", "<?php echo $scriptName; ?>log_module/good_bad_pieces_log.php");
-        }
-    </script>
-
-	<?php
-	if ($button == "button2") {
-		?>
+    <?php
+    if ($button == "button2") {
+        ?>
         <script>
             $(function () {
                 $('#date_from').prop('disabled', true);
@@ -308,9 +385,9 @@ fclose($fp);
                 $('#timezone').prop('disabled', false);
             });
         </script>
-	<?php
-	} else {
-	?>
+    <?php
+    } else {
+    ?>
         <script>
             $(function () {
                 $('#date_from').prop('disabled', false);
@@ -318,275 +395,259 @@ fclose($fp);
                 $('#timezone').prop('disabled', true);
             });
         </script>
-		<?php
-	}
-	?>
+        <?php
+    }
+    ?>
 
 
     <!-- event -->
-	<?php
-	if ($button_event == "button4") {
-		?>
+    <?php
+    if ($button_event == "button4") {
+        ?>
         <script>
             $(function () {
                 $('#event_type').prop('disabled', true);
                 $('#event_category').prop('disabled', false);
             });
         </script>
-	<?php
-	} else {
-	?>
+    <?php
+    } else {
+    ?>
         <script>
             $(function () {
                 $('#event_type').prop('disabled', false);
                 $('#event_category').prop('disabled', true);
             });
         </script>
-		<?php
-	}
-	?>
-
-
+        <?php
+    }
+    ?>
 </head>
-<body class="alt-menu sidebar-noneoverflow">
+
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "Good Bad Pieces Log";
-include("../header_folder.php");
-
+$cust_cam_page_header = "Add / Create Form";
+include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
+<body class="ltr main-body app sidebar-mini">
+<!-- main-content -->
+<div class="main-content app-content">
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Good Bad Piece Log</li>
+            </ol>
+        </div>
 
-<!-- /main navbar -->
-<!-- Page container -->
-<div class="page-container">
+    </div>
 
-    <!-- Content area -->
-    <div class="content">
-        <!-- Main charts -->
-        <!-- Basic datatable -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <!--							<h5 class="panel-title">Stations</h5>-->
-                <!--							<hr/>-->
-                <form action="" id="good_bad_piece_form" class="form-horizontal" method="post">
-                    <div class="row">
-                        <div class="col-md-6 mobile">
-
-
-                            <label class="col-lg-2 control-label">Station :</label>
-
-                            <div class="col-lg-8">
-                                <select name="station" id="station" class="select"
-                                        style="float: left;width: initial;">
-									<?php
-									$entry = '';
-									$st_dashboard = $_POST['station'];
-									$sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_id` ASC";
-									$result1 = $mysqli->query($sql1);
-									while ($row1 = $result1->fetch_assoc()) {
-										if ($st_dashboard == $row1['line_id']) {
-											$entry = 'selected';
-										} else {
-											$entry = '';
-
-										}
-										echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
-									}
-									?>
-
-                                </select>
+         <div class="row-body">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <form action="" id="user_form" class="form-horizontal" method="post">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">GOOD BAD PIECE LOG</span>
                             </div>
-                            <!--
-														 <div class="col-md-1"></div>-->
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Station</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                            <option value="" selected> Select Station </option>
+                                            <?php
+                                            $entry = '';
+                                            $st_dashboard = $_POST['station'];
+                                            $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_id` ASC";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($st_dashboard == $row1['line_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+
+                                                }
+                                                echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Part Family</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                            <option value="" selected> Select Part Family </option>
+                                            <?php
+                                            $st_dashboard = $_POST['part_family'];
+                                            $station = $_POST['station'];
+                                            $ss = ((isset($station) && ($station != 'all')) ? ' and station = ' . $station : '');
+                                            $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1" . $ss;
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($st_dashboard == $row1['pm_part_family_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+
+                                                }
+                                                echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Part Number</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Part Number">
+                                            <option value="" selected> Select Part Number </option>
+                                            <?php
+                                            $st_dashboard = $_POST['part_number'];
+                                            $part_family = $_POST['part_family'];
+                                            $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1 ";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($st_dashboard == $row1['pm_part_number_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+
+                                                }
+                                                echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1"></div>
+
+                                </div>
+
+                            </div>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Date From</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
+                                        </div><!-- input-group -->
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Date To</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
+                                        </div><!-- input-group -->
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="col-md-6 mobile">
 
-                            <label class="col-lg-3 control-label">Part Family * :</label>
 
-                            <div class="col-lg-8">
-                                <select name="part_family" id="part_family" class="select" data-style="bg-slate">
-                                    <option value="" selected disabled>--- Select Part Family ---</option>
-									<?php
-									$st_dashboard = $_POST['part_family'];
-									$station = $_POST['station'];
-									$ss = ((isset($station) && ($station != 'all')) ? ' and station = ' . $station : '');
-									$sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1" . $ss;
-									$result1 = $mysqli->query($sql1);
-									while ($row1 = $result1->fetch_assoc()) {
-										if ($st_dashboard == $row1['pm_part_family_id']) {
-											$entry = 'selected';
-										} else {
-											$entry = '';
 
-										}
-										echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
-									}
-									?>
-                                </select>
+                            <div class="card-body pt-0">
+                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
+                                <button type="clear" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
+                            </form>
+                                <form action="export_good_bad_piece.php" method="post" name="export_excel">
+                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="export" name="export">Export Data</button>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+         </div>
+
+           <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">GRAPH</span>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div id="gf_container" style="height: 500px; width: 100%;"></div>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <div id="gf_container1" style="height: 500px; width: 100%;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6 mobile">
+                </div>
+            </div>
+         </div>
+          <?php if($pn != "" && $pf != ""){ ?>
+           <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
 
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
 
-                            <label class="col-lg-3 control-label">Part Number * :</label>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div id="bsr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px; "></div>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div id="npr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div id="eff_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
+                                </div>
 
-                            <div class="col-lg-8">
-                                <select name="part_number" id="part_number" class="select" data-style="bg-slate">
-                                    <option value="" selected disabled>--- Select Part Number ---</option>
-									<?php
-									$st_dashboard = $_POST['part_number'];
-									$part_family = $_POST['part_family'];
-									$sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1 ";
-									$result1 = $mysqli->query($sql1);
-									while ($row1 = $result1->fetch_assoc()) {
-										if ($st_dashboard == $row1['pm_part_number_id']) {
-											$entry = 'selected';
-										} else {
-											$entry = '';
-
-										}
-										echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
-									}
-									?>
-                                </select>
                             </div>
                         </div>
-                        <div class="col-md-6 date">
-
-
-                            <!--                                    <label class="col-lg-3  control-label" >Date Range  :</label>-->
-                            <!--                                 	--><?php
-							//									if ($button = "button1") {
-							//										$checked = "checked";
-							//									} else {
-							//										$checked == "";
-							//									}
-							//									?>
-                            <!--                                    <input type="radio" name="button" id="button1" class="form-control" value="button1"-->
-                            <!--                                           style="float: left;width: initial;"-->
-							<?php //echo $checked; ?><!---->
-                            <label class="control-label"
-                                   style="float: left;padding-top: 10px; font-weight: 500;">&nbsp;&nbsp;&nbsp;&nbsp;Date
-                                From : &nbsp;&nbsp;</label>
-                            <input type="date" name="date_from" id="date_from" class="form-control"
-                                   value="<?php echo $datefrom; ?>" style="float: left;width: initial;"
-                                   required>
-                        </div>
-                        <div class="col-md-6 date">
-                            <label class="control-label"
-                                   style="float: left;padding-top: 10px; font-weight: 500;">&nbsp;&nbsp;&nbsp;&nbsp;Date
-                                To: &nbsp;&nbsp;</label>
-                            <input type="date" name="date_to" id="date_to" class="form-control"
-                                   value="<?php echo $dateto; ?>" style="float: left;width: initial;" required>
-
-                        </div>
-
                     </div>
-                    <br/>
-					<?php
-					if (!empty($import_status_message)) {
-						echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-					}
-					?>
-					<?php
-					if (!empty($_SESSION['import_status_message'])) {
-						echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-						$_SESSION['message_stauts_class'] = '';
-						$_SESSION['import_status_message'] = '';
-					}
-					?>
-
-                    <div class="panel-footer p_footer">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary"
-                                        style="background-color:#1e73be;">
-                                    Submit
-                                </button>
+                </div>
+            </div>
+        </div>
+          <?php } ?>
+            <div class="row-body">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">SHIFT WISE GOOD PIECES, BAD PIECES & REWORK</span>
                             </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-primary" onclick='window.location.reload();'
-                                        style="background-color:#1e73be;">Reset
-                                </button>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div id="container" style="height: 500px; width: 100%;"></div>
+                                    </div>
+                                </div>
                             </div>
-                </form>
-
-                <div class="col-md-2">
-                    <form action="export_good_bad_piece.php" method="post" name="export_excel">
-                        <button type="submit" class="btn btn-primary"
-                                style="background-color:#1e73be;width:120px;"
-                                id="export" name="export" data-loading-text="Loading...">Export Data
-                        </button>
-                    </form>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4 col-md-8 media_gf">
-            <div id="gf_container" style="height: 500px; width: 100%;"></div>
-        </div>
-        <div class="col-md-8">
-            <div id="gf_container1" style="height: 500px; width: 100%;"></div>
-        </div>
-
-    </div>
-    <br/>
-    <div class="row">
-        <?php if($pn != "" && $pf != ""){ ?>
-        <div class="col-md-4 col-md-8 media_bsr">
-            <div id="" style="padding: 10px 20px;height: 500px;background-color: #f7f7f7; margin-top: 10px">
-                <!--<h8 style="font-size: large;padding : 5px; text-align: center;"
-					class="text-semibold no-margin">Budget Scrap Rate</h8>-->
-                <div id="bsr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px; "></div>
-
-            </div>
-        </div>
-        <div class="col-md-4 col-md-8 media">
-            <div class="media">
-                <div id="" style="padding: 10px 20px;height: 500px;background-color: #f7f7f7; margin-top: 10px">
-
-                    <!--<h8 style="font-size: large;padding : 5px; text-align: center;"
-                        class="text-semibold no-margin">Budget Scrap Rate</h8>-->
-                    <div id="npr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-4 col-md-8 media_eff">
-            <div id="" style="padding: 10px 20px;height: 500px;background-color: #f7f7f7; margin-top: 10px">
-                <!--<h8 style="font-size: large;padding : 5px; text-align: center;"
-					class="text-semibold no-margin">Budget Scrap Rate</h8>-->
-                <div id="eff_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
-
-            </div>
-        </div>
-        <?php } ?>
-    </div>
-    <br/>
-    <div class="row">
-            <div class="col-md-4 col-md-8 media_ex">
-                <div id="container" style="height: 500px; width: 100%;"></div>
-            </div>
-    </div>
-
-
-    <!-- /content area -->
 
 </div>
-<!-- /main content -->
-</br>
-
-</div>
-<!-- /page content -->
 
 <script>
     $('#station').on('change', function (e) {
@@ -1425,6 +1486,6 @@ include("../heading_banner.php");
     });
 
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
 </html>

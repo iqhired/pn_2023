@@ -3,11 +3,11 @@ $chicagotime = date("Y-m-d H:i:s");
 
 $temp = "";
 if (!isset($_SESSION['user'])) {
-	if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-		header($redirect_tab_logout_path);
-	}else{
-		header($redirect_logout_path);
-	}
+    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
+        header($redirect_tab_logout_path);
+    }else{
+        header($redirect_logout_path);
+    }
 }
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
@@ -15,25 +15,25 @@ $duration = $auto_logout_duration;
 $time = $_SERVER['REQUEST_TIME'];
 //Check the user's session exist or not
 if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-	//Unset the session variables
-	session_unset();
-	//Destroy the session
-	session_destroy();
-	if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-		header($redirect_tab_logout_path);
-	}else{
-		header($redirect_logout_path);
-	}
+    //Unset the session variables
+    session_unset();
+    //Destroy the session
+    session_destroy();
+    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
+        header($redirect_tab_logout_path);
+    }else{
+        header($redirect_logout_path);
+    }
 
 //	header('location: ../logout.php');
-	exit;
+    exit;
 }
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 
 $i = $_SESSION["role_id"];
 if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-	header('location: ../line_status_overview_dashboard.php');
+    header('location: ../line_status_overview_dashboard.php');
 }
 $user_id = $_SESSION["id"];
 $def_ch = $_POST['def_ch'];
@@ -57,7 +57,7 @@ $individualenabled = $rowcnumber['indivisual_label'];
 
 $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 |fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i"
-	, $_SERVER["HTTP_USER_AGENT"]);
+    , $_SERVER["HTTP_USER_AGENT"]);
 
 $sqlnumber = "SELECT * FROM `pm_part_number` where `pm_part_number_id` = '$part_number'";
 $resultnumber = $mysqli->query($sqlnumber);
@@ -67,10 +67,10 @@ $pm_part_name = $rowcnumber['part_name'];
 $pm_npr= $rowcnumber['npr'];
 if(empty($pm_npr))
 {
-	$npr = 0;
-	$pm_npr = 0;
+    $npr = 0;
+    $pm_npr = 0;
 }else{
-	$npr = $pm_npr;
+    $npr = $pm_npr;
 }
 $sqlfamily = "SELECT * FROM `pm_part_family` where `pm_part_family_id` = '$part_family'";
 $resultfamily = $mysqli->query($sqlfamily);
@@ -99,33 +99,33 @@ $result3 = mysqli_query($db,$sql3);
 $ttot = null;
 $tt = null;
 while ($row3 = $result3->fetch_assoc()) {
-	$ct = $row3['created_on'];
-	$tot = $row3['total_time'];
-	if(!empty($row3['total_time'])){
-		$ttot = explode(':' , $row3['total_time']);
-		$i = 0;
-		foreach($ttot as $t_time) {
-			if($i == 0){
-				$total_time += ( $t_time * 60 * 60 );
-			}else if( $i == 1){
-				$total_time += ( $t_time * 60 );
-			}else{
-				$total_time += $t_time;
-			}
-			$i++;
-		}
-	}else{
-		$total_time +=  strtotime($chicagotime) - strtotime($ct);
-	}
+    $ct = $row3['created_on'];
+    $tot = $row3['total_time'];
+    if(!empty($row3['total_time'])){
+        $ttot = explode(':' , $row3['total_time']);
+        $i = 0;
+        foreach($ttot as $t_time) {
+            if($i == 0){
+                $total_time += ( $t_time * 60 * 60 );
+            }else if( $i == 1){
+                $total_time += ( $t_time * 60 );
+            }else{
+                $total_time += $t_time;
+            }
+            $i++;
+        }
+    }else{
+        $total_time +=  strtotime($chicagotime) - strtotime($ct);
+    }
 }
 $total_time = (($total_time/60)/60);
 $b = round($total_time);
 $target_eff = round($pm_npr * $b);
 $actual_eff = $total_gp;
 if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
-	$eff = 0;
+    $eff = 0;
 }else{
-	$eff = round(100 * ($actual_eff/$target_eff));
+    $eff = round(100 * ($actual_eff/$target_eff));
 }
 
 ?>
@@ -135,7 +135,31 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $sitename; ?> </title>
+    <title>
+        <?php echo $sitename; ?> |Good Bad Piece</title>
+    <!-- Global stylesheets -->
+
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
           type="text/css">
@@ -150,673 +174,447 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
     <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css"
           rel="stylesheet">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="assets/js/core/app.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/notifications/sweet_alert.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="/js/jquery/jquery-1.3.2.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<script>
-    $('#eff_container').load('../gbp_dashboard.php #eff_container');
-</script>
-<script>
 
-</script>
-<style> .sidebar-default .navigation li > a {
-        color: #f5f5f5
-    }
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
 
-    ;
-    a:hover {
-        background-color: #20a9cc;
-    }
+    <style>
+        .navbar {
 
-    .sidebar-default .navigation li > a:focus, .sidebar-default .navigation li > a:hover {
-        background-color: #20a9cc;
-    }
-
-    .content-wrapper {
-        display: block !important;
-        vertical-align: top;
-        padding: 20px !important;
-    }
-
-
-
-    .bg-primary {
-        background-color: #606060!important;
-    }
-
-    .red {
-        color: red;
-        display: none;
-    }
-    .graph_media{
-        width: 47%;
-        border: 1px solid gray;
-        margin: 2% 0% 2% 2%;
-        height: 380px;
-    }
-    .img-circle {
-        border-radius: 50%;
-        height: 36vh;
-        width: 68vh;
-        background-color: #fff;
-    }
-    .media_details{
-        margin-top: -40px;
-    }
-    .media-left, .media>.pull-left {
-        padding-right: 0px;
-    }
-    @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-        .modal-dialog {
-            position: relative;
-            width: auto;
-            margin: 80px;
-            margin-top: 200px;
+            padding-top: 0px!important;
         }
-        .graph_media{
-            width: 96%;
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
             border: 1px solid gray;
-            margin: 2% 0% 2% 2%;
-            height: 442px;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .widget-user .widget-user-image {
+            left: 84%;
+            margin-left: -45px;
+            position: absolute;
+            top: 0px;
+        }.bg-primary {
+             background-color: #fff!important;
+         }
+        .widget-user .widget-user-username{
+            color: #1c273c;
+            font-size: 20px;
+        }
+        .widget-user .widget-user-image>img {
+            width: 110px;
+        }
+        .widget-user .widget-user-header {
+            height: auto;
+            padding: 20px;
+            width: 78%;
+        }
+        .card-title{
+            font-size: 25px;
+        }
+        .anychart-credits{
+            display: none;
         }
         .img-circle {
             border-radius: 50%;
-            height: 58vh;
-            width: 78vh;
+            height: 32vh;
+            width: 42vh;
             background-color: #fff;
         }
-    }
-    @media only screen and (max-width: 914px), (min-device-width: 412px) and (max-device-width: 1024px) {
-        .img-circle {
-            border-radius: 50%;
-            height: 20vh;
-            width: 34vh;
-            background-color: #fff;
+        .widget-user-graph {
+            left: 54%;
+            margin-left: -45px;
+            position: absolute;
+            top: 2px;
         }
-    }
-    body.alt-menu.sidebar-noneoverflow.pace-done {
-        background-color: #ccc !important;
-    }
+        .card .card{
+            height: 245px;
+        }
+        .circle-icon {
+            border-radius: 0px;
+            height: 50px;
+            position: absolute;
+            right: 60px;
+            top: 0px;
+            width: 40px;
+        }
 
-    .anychart-credits {
-        display: none !important;
-    }
+        .box-shadow-primary {
+            box-shadow: none;
+        }
+        .tx-20 {
+            font-size: 32px!important;
+        }
+        .text-center {
+            text-align: center!important;
+            background-image: none!important;
+        }
 
-    .datatable-scroll {
-        width: 100%;
-        overflow-x: scroll;
-    }
 
-    .container {
-        margin: 0 auto;
-    }
-    .content_img {
-        width: 113px;
-        float: left;
-        margin-right: 5px;
-        border: 1px solid gray;
-        border-radius: 3px;
-        padding: 5px;
-        margin-top: 10px;
-    }
-
-    /* Delete */
-    .content_img span {
-        border: 2px solid red;
-        display: inline-block;
-        width: 99%;
-        text-align: center;
-        color: red;
-    }
-
-    .content_img span:hover {
-        cursor: pointer;
-    }
-    input[type="file"] {
-        display: block;
-    }
-    .imageThumb {
-        max-height: 100px;
-        border: 2px solid;
-        padding: 1px;
-        cursor: pointer;
-    }
-    .pip {
-        display: inline-block;
-        margin: 10px 10px 0 0;
-    }
-    .remove {
-        display: block;
-        background: #444;
-        border: 1px solid black;
-        color: white;
-        text-align: center;
-        cursor: pointer;
-    }
-    .remove:hover {
-        background: white;
-        color: black;
-    }
-</style>
+    </style>
 </head>
-<body>
+
+
 <!-- Main navbar -->
 <?php
-$cam_page_header = "Good & Bad Pieces";
-include("../header_folder.php");
-if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
-	include("../tab_menu.php");
-} else {
-	include("../admin_menu.php");
-}
-
+$cust_cam_page_header = "Good Bad Piece";
+include("../header.php");
+include("../admin_menu.php");
 ?>
-<!-- Content area -->
-<div class="content">
-    <!--			<div style="background-color: #fff;" class="row">-->
-    <div style="background-color: #fff;padding-bottom: 50px; margin-left:0px !important; margin-right: 0px !important;" class="row">
-        <!--<div class="col-lg-3 col-md-8"></div>-->
-        <div class="col-lg-6 col-md-8 graph_media">
-            <!--							<div class="panel panel-body">-->
-            <div class="media">
-                <h5 style="font-size: xx-large;background-color: #009688; color: #ffffff;padding : 5px; text-align: center;" class="text-semibold no-margin"><?php if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} ?> </h5>
 
-                <div class="media-left">
-                    <!--                                    <a target="_blank" href="../supplier_logo/--><?php //if($logo != ""){ echo $logo; }else{ echo "user.png"; } ?><!--" data-popup="lightbox">-->
-                    <img src="../supplier_logo/<?php if($logo != ""){ echo $logo; }else{ echo "user.png"; } ?>" style=" height: 20vh;width:20vh;margin : 15px 25px 5px 5px;background-color: #ffffff;" class="img-circle" alt="">
-                    <!--                                    </a>-->
-                </div>
-                <div class="media-body">
-                    <small style="font-size: 22px; margin-top: 15px;" class="display-block"><b>Part Family :-</b> <?php echo $pm_part_family_name; ?></small>
-                    <small style="font-size: 22px;" class="display-block"><b>Part Number :-</b> <?php echo $pm_part_number; ?></small>
-                    <small style="font-size: 22px;" class="display-block"><b>Part Name :-</b> <?php echo $pm_part_name; ?></small>
+<body class="ltr main-body app sidebar-mini">
+<!-- main-content -->
+<div class="main-content app-content">
+    <!-- container -->
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Events Module</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Good Bad Piece</li>
+            </ol>
 
-                </div>
-            </div>
         </div>
-        <div class="col-lg-6 col-md-8 graph_media">
-            <div class="media">
-                <h5 style="font-size: xx-large;background-color: #009688; color: #ffffff;padding : 5px; text-align: center;" class="text-semibold no-margin">Current Staff Efficiency</h5>
 
-                <div class="media-left">
-
-                    <div id="eff_container" class="img-circle"></div>
-                </div>
-            </div>
-            <div class="media_details">
-                <div class="media-body">
-                    <small style="font-size: 22px ;margin-top: 15px;padding-left: 14px;"><b>Target Pieces :-</b> <?php echo $target_eff; ?></small>
-                    <small style="font-size: 22px;padding-left: 17px;" ><b>Actual Pieces :-</b> <?php echo $actual_eff; ?></small>
-                    <small style="font-size: 22px;padding-left: 17px;"><b>Efficiency :-</b> <?php echo $eff; ?>%</small>
-
-                </div>
-
-            </div>
-        </div>
     </div>
-	<?php
-	if (!empty($import_status_message)) {
-		echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-	}
-	?>
-	<?php
-	if (!empty($_SESSION['import_status_message'])) {
-		echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-		$_SESSION['message_stauts_class'] = '';
-		$_SESSION['import_status_message'] = '';
-	}
-	?>
-</div>
-<div class="panel panel-flat">
-	<?php
-	$sql = "select SUM(good_pieces) as good_pieces,SUM(bad_pieces) AS bad_pieces,SUM(rework) as rework from good_bad_pieces_details where station_event_id ='$station_event_id' ";
-	$result1 = mysqli_query($db, $sql);
-	$rowc = mysqli_fetch_array($result1);
-	$gp = $rowc['good_pieces'];
-	if(empty($gp)){
-		$g = 0;
-	}else{
-		$g = $gp;
-	}
-	$bp = $rowc['bad_pieces'];
-	if(empty($bp)){
-		$b = 0;
-	}else{
-		$b = $bp;
-	}
-	$rwp = $rowc['rework'];
-	if(empty($rwp)){
-		$r = 0;
-	}else{
-		$r = $rwp;
-	}
-	$tp = $gp + $bp+ $rwp;
-	if(empty($tp)){
-		$t = 0;
-	}else{
-		$t = $tp;
-	}
-	?>
-    <div class="row" style="background-color: #f3f3f3;margin: 0px">
-        <div class="col-md-3" style="height: 10vh; padding-top: 3vh; font-size: x-large; text-align: center;">
-            <span>Total Pieces : <?php echo $t ?></span>
-        </div>
-        <div class="col-md-3" style="height: 10vh; padding-top: 3vh; padding-bottom: 3vh; font-size: x-large; text-align: center;background-color:#a8d8a8;">
-            <span>Total Good Pieces : <?php echo $g ?></span>
-        </div>
-        <div class="col-md-3" style="height: 10vh; padding-top: 3vh; padding-bottom: 3vh; font-size: x-large; text-align: center;background-color:#eca9a9;">
-            <span>Total Bad Pieces : <?php echo $b ?></span>
-        </div>
-        <div class="col-md-3" style="height: 10vh; padding-top: 3vh; padding-bottom: 3vh; font-size: x-large; text-align: center;background-color:#b1cdff;">
-            <span>Rework : <?php echo $r ?></span>
-        </div>
-    </div>
-    <div class="panel-heading" style="padding: 50px;">
-        <div class="row">
-            <div class="search_container"  style="margin-right:10px;">
-                <input id="search" class="search__input"  type="text" placeholder="Search Defect" style="margin-left: 15px;padding: 12px 24px;background-color: transparent;transition: transform 250ms ease-in-out;line-height: 18px;color: #000000;font-size: 18px;background-color: transparent; background-repeat: no-repeat;
-        background-size: 18px 18px;
-        background-position: 95% center;
-        border-radius: 50px;
-        border: 1px solid #575756;
-        transition: all 250ms ease-in-out;
-        backface-visibility: hidden;
-        transform-style: preserve-3d;
-        " >
-            </div>
-        </div>
-        </br>
-        <div class="row">
-            <div class="col-md-12">
-				<?php if(($idddd != 0) && ($printenabled == 1)){?>
-                    <iframe height="100" id="resultFrame" style="display: none;" src="./pp.php"></iframe>
-				<?php }?>
-                <a href="<?php echo $siteURL; ?>events_module/add_good_piece.php?station_event_id=<?php echo $station_event_id; ?>"  class="btn btn-primary" style="background-color:#177b09 !important;margin-top: 10px;width: 100%;height: 10vh; padding-top: 3vh; font-size: large; text-align: center;"> IN-SPEC</a>
-            </div>
-        </div>
-        <div class="row"  >
-			<?php
-			$i = 1;
-			$def_list_arr = array();
-			$sql1 = "SELECT * FROM `defect_list` ORDER BY `defect_list_name` ASC";
-			$result1 = $mysqli->query($sql1);
-			while ($row1 = $result1->fetch_assoc()) {
-				$pnums = $row1['part_number_id'];
-				$arr_pnums = explode(',', $pnums);
-				if (in_array($part_number, $arr_pnums)) {
-					array_push($def_list_arr, $row1['defect_list_id']);
-				}
-			}
-
-			$sql1 = "SELECT sdd.defect_list_id as dl_id FROM sg_defect_group as sdg inner join sg_def_defgroup as sdd on sdg.d_group_id = sdd.d_group_id WHERE FIND_IN_SET('$part_number',sdg.part_number_id) > 0";
-			$result1 = $mysqli->query($sql1);
-			while ($row1 = $result1->fetch_assoc()) {
-				array_push($def_list_arr, $row1['dl_id']);
-			}
-			$def_list_arr = array_unique($def_list_arr);
-			$def_lists = implode("', '", $def_list_arr);
-			$sql1 = "SELECT * FROM `defect_list` where  defect_list_id IN ('$def_lists') ORDER BY `defect_list_name` ASC";
-			$result1 = $mysqli->query($sql1);
-			while ($row1 = $result1->fetch_assoc()) {
-				?>
-                <div class="col-md-3" style="padding-top: 10px;">
-                    <a  href="<?php echo $siteURL; ?>events_module/add_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&defect_list_id=<?php echo $row1['defect_list_id']; ?>" class="btn btn-primary view_gpbp"  data-buttonid="<?php echo $row1['defect_list_id']; ?>"
-                        data-defect_name="<?php echo $row1['defect_list_name']; ?>" style="white-space: normal;background-color:#BE0E31 !important;height: 8vh; width:98% ; padding-top: 2vh; font-size: medium; text-align: center;">
-						<?php echo $row1['defect_list_name']; ?></a>
-
+    <!-- row -->
+    <div class="row row-body">
+        <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+            <div class="card  box-shadow-0">
+                <div class="card-header">
+                    <h4 class="card-title mb-1"><?php if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} ?></h4>
                 </div>
-				<?php
-				if($i == 4)
-				{
-					echo "<br/>";
-					echo "<br/>";
-					echo "<br/>";
-					$i = 0;
-				}
+                <div class="card-body pt-0">
+                    <div class="card user-wideget user-wideget-widget widget-user">
+                        <div class="widget-user-header br-te-5  br-ts-5  bg-primary">
+                            <h3 class="widget-user-username">Part Family - <?php echo $pm_part_family_name; ?></h3>
+                            <h3 class="widget-user-username">Part Number - <?php echo $pm_part_number; ?></h3>
+                            <h3 class="widget-user-username">Part Name - <?php echo $pm_part_name; ?></h3>
+                        </div>
+                        <div class="widget-user-image">
+                            <img  src="../supplier_logo/<?php if($logo != ""){ echo $logo; }else{ echo "user.png"; } ?>" class="brround" alt="User Avatar">
+                        </div>
 
-				$i++;
-			}
-			?>
-
-        </div>
-    </div>
-
-</div>
-
-
-<!-- Basic datatable -->
-
-
-<form action="delete_good_bad_piece.php" method="post" class="form-horizontal">
-    <input type="hidden" name="station_event_id" value="<?php echo $_GET['station_event_id']; ?>">
-
-    <div class="row">
-        <div class="col-md-3">
-            <button type="submit" class="btn btn-primary" style="background-color:#1e73be;" >Delete</button>
-        </div>
-    </div>
-    <br/>
-    <!-- Content area -->
-    <!-- Main charts -->
-    <!-- Basic datatable -->
-    <div class="panel panel-flat">
-        <!--						<div class="panel-heading">
-														</div>
-		-->
-        <table class="table datatable-basic">
-            <thead>
-            <tr>
-                <th><input type="checkbox" id="checkAll" ></th>
-                <th>S.No</th>
-                <th>Good Pieces</th>
-                <th>Defect Name</th>
-                <th>Bad Pieces</th>
-                <th>Re-Work</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-			<?php
-			$station_event_id = $_GET['station_event_id'];
-			$query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' order by gbpd.bad_pieces_id DESC");
-			$qur = mysqli_query($db, $query);
-			while ($rowc = mysqli_fetch_array($qur)) {
-				$bad_pieces_id = $rowc['bad_pieces_id'];
-				$good_pieces = $rowc['good_pieces'];
-				$bad_pieces = $rowc['bad_pieces'];
-				$rework = $rowc['rework'];
-				$style = "";
-				if($rowc['good_pieces'] != ""){
-					$style = "style='background-color:#a8d8a8;'";
-				}
-				if($rowc['bad_pieces'] != ""){
-					$style = "style='background-color:#eca9a9;'";
-				}
-				if($rowc['rework'] != ""){
-					$style = "style='background-color:#b1cdff;'";
-				}
-				?>
-                <tr <?php echo $style; ?>>
-                    <td><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["bad_pieces_id"]; ?>"></td>
-                    <td><?php echo ++$counter; ?></td>
-                    <td><?php if($rowc['good_pieces'] != ""){echo $rowc['good_pieces']; }else{ echo $line; } ?></td>
-                    <td><?php $un = $rowc['defect_name']; if($un != ""){ echo $un; }else{ echo $line; } ?></td>
-                    <td><?php if($rowc['bad_pieces'] != ""){echo $rowc['bad_pieces'];}else{ echo $line; } ?></td>
-
-                    <td><?php if($rowc['rework'] != ""){echo $rowc['rework']; }else{ echo $line; } ?></td>
-
-					<?php
-					$qur04 = mysqli_query($db, "SELECT * FROM good_bad_pieces_details where station_event_id= '$station_event_id' ORDER BY `bad_pieces_id` DESC LIMIT 1");
-					$rowc04 = mysqli_fetch_array($qur04);
-					$bad_trace_id = $rowc04["bad_pieces_id"];
-
-					$query1 = sprintf("SELECT bad_piece_id,good_image_name FROM  good_piece_images where bad_piece_id = '$bad_trace_id'");
-					$qur1 = mysqli_query($db, $query1);
-					$rowc1 = mysqli_fetch_array($qur1);
-					$item_id = $rowc1['bad_piece_id'];
-					$image_name = $rowc1['good_image_name'];
-
-					?>
-                    <td>
-						<?php   if($rowc['good_pieces'] != ""){ ?>
-                            <a  href="<?php echo $siteURL; ?>events_module/edit_good_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                                data-image_name="<?php echo $image_name; ?>" class="btn btn-info btn-xs" id="edit"><i class="fa fa-edit"></i>
-                            </a> <?php } elseif($rowc['bad_pieces'] != ""){?>
-                            <a href="<?php echo $siteURL; ?>events_module/edit_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                               data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                               data-image_name="<?php echo $image_name; ?>" class="btn btn-info btn-xs" id="edit"><i class="fa fa-edit"></i>
-                            </a>
-                            <?php if($rowc['bad_pieces'] != "")  { ?>
-                                <a href="<?php echo $siteURL; ?>events_module/view_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                   data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>" class="btn btn-info btn-xs" id="edit"><i class="fa fa-eye" aria-hidden="true"></i>
-                                </a> <?php }else{ echo $line; } ?>
-						<?php } else{ ?>
-                            <a href="<?php echo $siteURL; ?>events_module/rework_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                               data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                               data-image_name="<?php echo $image_name; ?>" class="btn btn-info btn-xs" id="edit"><i class="fa fa-edit"></i>
-                            </a>
-						<?php } ?>
-                    </td>
-                </tr>
-			<?php } ?>
-            </tbody>
-        </table>
-</form>
-
-<!-- /basic datatable -->
-<div id="view_modal_theme_primary" class="modal ">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">
-                    Add Bad Piece
-                </h6>
+                    </div>
+                </div>
             </div>
-            <form action="" id="bad_form" enctype="multipart/form-data" class="form-horizontal"
-                  method="post">
-                <input type="hidden" name="station_event_id" value="<?php echo $_GET['station_event_id']; ?>">
-                <input type="hidden" name="line_id" value="<?php echo $p_line_id; ?>">
-                <input type="hidden" name="pe" value="<?php echo $printenabled; ?>">
-                <input type="hidden" name="time" value="<?php echo time(); ?>">
-                <input type="hidden" name="line_name" value="<?php echo $p_line_name; ?>">
-                <input type="hidden" name="ipe" value="<?php echo $individualenabled; ?>">
-                <div class="modal-body">
-                    <!--Part Number-->
+        </div>
+        <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+            <div class="card  box-shadow-0 ">
+                <div class="card-header">
+                    <h4 class="card-title mb-1">Current Staff Efficiency</h4>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="card user-wideget user-wideget-widget widget-user">
+                        <div class="widget-user-header br-te-5  br-ts-5  bg-primary">
+                            <h6>Target Pieces - <?php echo $target_eff; ?></h6>
+                            <h6>Actual Pieces - <?php echo $actual_eff; ?></h6>
+                            <h6>Efficiency - <?php echo $eff; ?>%</h6>
+                        </div>
+                        <div class="widget-user-graph">
+                        <div id="eff_container" class="img-circle"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!-- row -->
+    </div>
+    <!-- row -->
+    <div class="row row-body">
+        <?php
+        $sql = "select SUM(good_pieces) as good_pieces,SUM(bad_pieces) AS bad_pieces,SUM(rework) as rework from good_bad_pieces_details where station_event_id ='$station_event_id' ";
+        $result1 = mysqli_query($db, $sql);
+        $rowc = mysqli_fetch_array($result1);
+        $gp = $rowc['good_pieces'];
+        if(empty($gp)){
+            $g = 0;
+        }else{
+            $g = $gp;
+        }
+        $bp = $rowc['bad_pieces'];
+        if(empty($bp)){
+            $b = 0;
+        }else{
+            $b = $bp;
+        }
+        $rwp = $rowc['rework'];
+        if(empty($rwp)){
+            $r = 0;
+        }else{
+            $r = $rwp;
+        }
+        $tp = $gp + $bp+ $rwp;
+        if(empty($tp)){
+            $t = 0;
+        }else{
+            $t = $tp;
+        }
+        ?>
+        <div class="col-lg-6 col-xl-3 col-md-6 col-12">
+            <div class="card bg-primary-gradient text-white ">
+                <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Select Type * : </label>
-                                <div class="col-lg-8">
-                                    <div class="form-group">
-                                        <label class="radio-inline">
-                                            <input type="radio" name="bad_type" value="bad_piece" class="styled" checked="checked">
-                                            Bad Piece
-                                        </label>
-
-                                        <label class="radio-inline">
-                                            <input type="radio" name="bad_type" value="rework" class="styled">
-                                            Re-Work
-                                        </label>
-                                    </div>
-                                </div>
+                        <div class="col-6">
+                            <div class="circle-icon widget bg-primary-gradient text-center align-self-center shadow-primary overflow-hidden box-shadow-primary">
+                                <i class="fa fa-cogs tx-20 lh-lg text-white"></i>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Defect Name * : </label>
-                                <div class="col-lg-8">
-                                    <input type="text" name="add_defect_name" id="add_defect_name" class="form-control" readonly
-                                           required >
-                                    <!--                                                <select  name="add_defect_name" id="add_defect_name"-->
-                                    <!--                                                        class="form-control">-->
-                                    <!--                                                    <option value="" selected disabled>--- Select Defect Name ----->
-                                    <!--                                                    </option>-->
-                                    <!--													-->
-                                    <!--													--><?php
-									//                                                                $sql1 = "SELECT * FROM `defect_list` where part_family_id = '$part_family' ORDER BY `defect_list_name` ASC";
-									//                                                                $result1 = $mysqli->query($sql1);
-									//                                                                while ($row1 = $result1->fetch_assoc()) {
-									//                                                                    echo "<option value='" . $row1['defect_list_id'] . "'>" . $row1['defect_list_name'] . "</option>";
-									//                                                                }
-									//                                                    ?>
-                                    <!--                                                </select>-->
-
-                                </div>
+                        <div class="col-6">
+                            <div class="mt-0 text-center">
+                                <span class="text-white">Total Pieces</span>
+                                <h2 class="text-white mb-0"><?php echo $t ?></h2>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">No of Pieces * : </label>
-                                <div class="col-lg-8">
-                                    <input type="number" name="good_bad_piece_name" id="good_bad_piece_name" class="form-control" placeholder="Enter Pieces..." value="1" required>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="submitForm_bad"  style="background-color:#1e73be;">Save</button>
-
                     </div>
                 </div>
-        </div>
-
-        </form>
-    </div>
-</div>
-
-<!-- /IN-SPEC Modal -->
-
-<div id="view_good_modal_theme_primary" class="modal ">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">
-                    Add Good Piece
-                </h6>
             </div>
-            <form action="" id="good_form" enctype="multipart/form-data" class="form-horizontal"
-                  method="post">
-                <input type="hidden" name="station_event_id" value="<?php echo $_GET['station_event_id']; ?>">
-                <input type="hidden" name="line_id" value="<?php echo $p_line_id; ?>">
-                <input type="hidden" name="pe" value="<?php echo $printenabled; ?>">
-                <input type="hidden" name="time" value="<?php echo time(); ?>">
-                <input type="hidden" name="line_name" value="<?php echo $p_line_name; ?>">
-                <input type="hidden" name="ipe" id="ipe" value="<?php echo $individualenabled; ?>">
-
-                <div class="modal-body">
-                    <!--Part Number-->
-
+        </div>
+        <div class="col-lg-6 col-xl-3 col-md-6 col-12">
+            <div class="card bg-success-gradient text-white">
+                <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">No of Pieces * : </label>
-                                <div class="col-lg-8">
-                                    <input type="number" name="good_name" id="good_name" class="form-control" placeholder="Enter Pieces..." value="1" required>
-
-                                </div>
+                        <div class="col-6">
+                            <div class="circle-icon widget bg-primary-gradient text-center align-self-center shadow-primary overflow-hidden box-shadow-primary">
+                                <i class="fa fa-cogs tx-20 lh-lg text-white"></i>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mt-0 text-center">
+                                <span class="text-white">Total Good Pieces</span>
+                                <h2 class="text-white mb-0"><?php echo $g ?></h2>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                        <!--                            <button type="submit" class="btn btn-primary" onclick="submitForm_good('create_good_bad_piece.php')"  style="background-color:#1e73be;">Save</button>-->
-                        <button type="submit" class="btn btn-primary" id="submitForm_good"  style="background-color:#1e73be;">Save</button>
-                    </div>
                 </div>
-        </div>
-
-        </form>
-    </div>
-</div>
-<!-- /main charts -->
-<!-- edit modal -->
-<div id="edit_modal_theme_primary" class="modal ">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">Update Good & Bad Pieces</h6>
             </div>
-            <form action="" id="edit_form" class="form-horizontal" method="post">
-                <div class="modal-body">
-                    <div class="row" id="goodpiece">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Good Pieces * : </label>
-                                <div class="col-lg-8">
-                                    <input type="number" name="editgood_name" min="1" id="editgood_name" class="form-control" placeholder="Enter Pieces..." value="1" required>
-
-                                </div>
+        </div>
+        <div class="col-lg-6 col-xl-3 col-md-6 col-12">
+            <div class="card bg-danger-gradient text-white">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="circle-icon widget bg-primary-gradient text-center align-self-center shadow-primary overflow-hidden box-shadow-primary">
+                                <i class="fa fa-cogs tx-20 lh-lg text-white"></i>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mt-0 text-center">
+                                <span class="text-white">Total Bad Pieces</span>
+                                <h2 class="text-white mb-0"><?php echo $b ?></h2>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row" id="badpiece">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Defect Name * : </label>
-                                <div class="col-lg-8">
-                                    <input type="text" name="editdefect_name" id="editdefect_name" class="form-control"  required readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="badpiece1">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Bad Pieces * : </label>
-                                <div class="col-lg-8">
-                                    <input type="number" name="editbad_name" min="1" id="editbad_name" class="form-control" placeholder="Enter Pieces..." value="1" >
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="badpiece2">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Re-Work * : </label>
-                                <div class="col-lg-8">
-                                    <input type="number" name="editre_work" min="1" id="editre_work" class="form-control" placeholder="Enter Pieces..." value="1" >
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $good_trace_id; ?>">
-                    <input type="hidden" name="edit_gbid" id="edit_gbid" >
-                    <input type="hidden" name="edit_seid" id="edit_seid" >
-                    <input type="hidden" name="good_bad_piece_id" id="good_bad_piece_id" value="<?php echo $good_trace_id; ?>">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" onclick="submitForm_edit('create_good_bad_piece.php')"  style="background-color:#1e73be;">Save</button>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-3 col-md-6 col-12">
+            <div class="card bg-warning-gradient text-white">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="circle-icon widget bg-primary-gradient text-center align-self-center shadow-primary overflow-hidden box-shadow-primary">
+                                <i class="fa fa-cogs tx-20 lh-lg text-white"></i>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mt-0 text-center">
+                                <span class="text-white">Rework</span>
+                                <h2 class="text-white mb-0"><?php echo $r ?></h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="row row-body">
+        <div class="col-sm-12 col-md-12">
+          <div class="card custom-card">
+            <div class="card-body pb-0">
+                <div class="input-group mb-2">
+                    <input id="search" type="text" class="form-control" placeholder="Searching....." fdprocessedid="yoj6yn">
+                    <span class="input-group-append">
+                           <button class="btn ripple btn-primary" type="button" fdprocessedid="jzln6h">Search</button>
+                    </span>
+                </div>
+                <div class="text-wrap">
+                    <div class="example">
+                        <div class="btn-list">
+
+                            <?php
+                            $i = 1;
+                            $def_list_arr = array();
+                            $sql1 = "SELECT * FROM `defect_list` ORDER BY `defect_list_name` ASC";
+                            $result1 = $mysqli->query($sql1);
+                            while ($row1 = $result1->fetch_assoc()) {
+                                $pnums = $row1['part_number_id'];
+                                $arr_pnums = explode(',', $pnums);
+                                if (in_array($part_number, $arr_pnums)) {
+                                    array_push($def_list_arr, $row1['defect_list_id']);
+                                }
+                            }
+
+                            $sql1 = "SELECT sdd.defect_list_id as dl_id FROM sg_defect_group as sdg inner join sg_def_defgroup as sdd on sdg.d_group_id = sdd.d_group_id WHERE FIND_IN_SET('$part_number',sdg.part_number_id) > 0";
+                            $result1 = $mysqli->query($sql1);
+                            while ($row1 = $result1->fetch_assoc()) {
+                                array_push($def_list_arr, $row1['dl_id']);
+                            }
+                            $def_list_arr = array_unique($def_list_arr);
+                            $def_lists = implode("', '", $def_list_arr);
+                            $sql1 = "SELECT * FROM `defect_list` where  defect_list_id IN ('$def_lists') ORDER BY `defect_list_name` ASC";
+                            $result1 = $mysqli->query($sql1);
+                            while ($row1 = $result1->fetch_assoc()) {
+                            ?>
+
+                            <a href="<?php echo $siteURL; ?>events_module/add_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&defect_list_id=<?php echo $row1['defect_list_id']; ?>" class="btn btn-secondary-gradient "><?php echo $row1['defect_list_name']; ?></a>
+                                <?php
+                                if($i == 4)
+                                {
+                                    $i = 0;
+                                }
+
+                                $i++;
+                            }
+                            ?>
+
+                        </div>
+                    </div>
+                </div>
+             </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 <script>
     //Efficiency
@@ -1302,17 +1100,12 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                 image.src    = this.result;
                 preview.appendChild(image);
             });
-
             reader.readAsDataURL(file);
-
         }
-
     }
-
     document.querySelector('#file-input').addEventListener("change", previewImages);
 </script>
-
-<?php include('../footer.php') ?>
-<!--<script type="text/javascript" src="../assets/js/core/app.js">-->
 </body>
 </html>
+
+
