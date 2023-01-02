@@ -77,9 +77,8 @@ if ($ps != "") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Add / Create Form</title>
+        <?php echo $sitename; ?> | Station Events</title>
     <!-- Global stylesheets -->
-
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
 
@@ -178,9 +177,76 @@ if ($ps != "") {
         .remove_btn{
             float: right;
         }
-
         .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
 
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
 
     </style>
 </head>
@@ -191,15 +257,16 @@ include("../admin_menu.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <span class="main-content-title mg-b-0 mg-b-lg-1"></span>
-        </div>
-        <div class="justify-content-center mt-2">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
-            </ol>
+    <div class="row row-body">
+        <div class="col-lg-12 col-md-12">
+            <div class="breadcrumb-header justify-content-between">
+                <div class="left-content">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Crews</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Assign Unassign Crew Members</li>
+                    </ol>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row row-sm">
@@ -214,9 +281,9 @@ include("../admin_menu.php");
         </div>
     </div>
     <form action="" method="post"  class="form-horizontal">
-        <div class="row row-sm">
-            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-                <div class="card  box-shadow-0">
+        <div class="row-body">
+            <div class="col-12 col-sm-12">
+                <div class="card">
                     <div class="card-header">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">Assign Unassign Crew Members</span>
                     </div>
