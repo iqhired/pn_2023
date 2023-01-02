@@ -269,7 +269,7 @@ include("../admin_menu.php");
                         <div class="col-md-3 mg-t-5 mg-md-t-0">
                             <div class="input-group">
                                 <div class="input-group-text">
-                                    <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                    <i class="fa fa-calendar"></i>
                                 </div>
                                 <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
                             </div>
@@ -278,7 +278,7 @@ include("../admin_menu.php");
                         <div class="col-md-3 mg-t-5 mg-md-t-0">
                             <div class="input-group">
                                 <div class="input-group-text">
-                                    <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                    <i class="fa fa-calendar"></i>
                                 </div>
                                 <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>" placeholder="MM/DD/YYYY" type="text">
                             </div>
