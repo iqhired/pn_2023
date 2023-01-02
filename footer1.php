@@ -7,7 +7,23 @@
 </div>
 <!-- Footer closed -->
 <!-- BACK-TO-TOP -->
-<a href="#top" id="back-to-top"><i class="las la-arrow-up"></i></a>
+<a href="#top" id="back-to-top"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+
+<!--Internal  index js -->
+<script src="<?php echo $siteURL;?>assets/js/form_js/index1.js"></script>
+
+<!-- Internal Data tables -->
+<script src="<?php echo $siteURL;?>assets/js/form_js/jquery.dataTables.min.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/dataTables.bootstrap5.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/dataTables.responsive.min.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/responsive.bootstrap5.min.js"></script>
+
+<!-- INTERNAL Select2 js -->
+<script src="<?php echo $siteURL;?>assets/js/form_js/select2.full.min.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/select2.js"></script>
+
+<!-- CUSTOM JS -->
+<script src="<?php echo $siteURL;?>assets/js/form_js/custom.js"></script>
 <?php  //include the timing configuration file
 include("timings_config.php"); ?>
 <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/time_display.js"></script>
@@ -73,7 +89,7 @@ include("timings_config.php"); ?>
 	$message .= "<br/>";
 	$signature = "- USPL Process Control Team";
 
-	$link = "form_module/user_form.php?id=" . $form_create_id . "&station=" . $station . "&form_type=" . $form_type . "&part_family=" . $part_family . "&part_number=" . $part_number . "&form_name=" . $form_name;
+	$link = "form_module/user_form_old.php?id=" . $form_create_id . "&station=" . $station . "&form_type=" . $form_type . "&part_family=" . $part_family . "&part_number=" . $part_number . "&form_name=" . $form_name;
 	$time = $to_time - $from_time;
 
 	$days = floor($time / (24 * 60 * 60));
