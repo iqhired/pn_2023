@@ -257,8 +257,6 @@ include("../admin_menu.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
-    <div class="row row-body">
-        <div class="col-lg-12 col-md-12">
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
@@ -267,10 +265,8 @@ include("../admin_menu.php");
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row row-sm">
-        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+    <div class="row row-body">
+        <div class="col-lg-12 col-md-12">
     <?php
     if (!empty($_SESSION['import_status_message'])) {
         echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
@@ -282,7 +278,7 @@ include("../admin_menu.php");
     </div>
     <form action="" method="post"  class="form-horizontal">
         <div class="row-body">
-            <div class="col-12 col-sm-12">
+            <div class="col-lg-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">Assign Unassign Crew Members</span>

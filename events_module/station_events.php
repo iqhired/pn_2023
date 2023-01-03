@@ -90,44 +90,44 @@ if (count($_POST) > 0) {
 
 
 
-		$res_event = "select event_type_id from sg_station_event where station_event_id = '$station_event_id'";
-		$sta_res = mysqli_query($db,$res_event);
-		$event_row = mysqli_fetch_array($sta_res);
-		$is_present = $event_row['event_type_id'];
+        $res_event = "select event_type_id from sg_station_event where station_event_id = '$station_event_id'";
+        $sta_res = mysqli_query($db,$res_event);
+        $event_row = mysqli_fetch_array($sta_res);
+        $is_present = $event_row['event_type_id'];
 
-		if ($is_present == '7' ){
+        if ($is_present == '7' ){
             $message_stauts_class = 'alert-success';
             $import_status_message = 'Event cycle was already Ended.';
         }else{
             if ($edit_event_id == $fr_event_type_id) {
-				$sql = "update sg_station_event set event_status = '0' ,event_type_id='$edit_event_id', modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
-				$result1 = mysqli_query($db, $sql);
-				if ($result1) {
-					$message_stauts_class = 'alert-success';
-					$import_status_message = 'Event Cycle Completed for the Station.';
-				} else {
-					$message_stauts_class = 'alert-danger';
-					$import_status_message = 'Error: Please Insert valid data';
-				}
+                $sql = "update sg_station_event set event_status = '0' ,event_type_id='$edit_event_id', modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
+                $result1 = mysqli_query($db, $sql);
+                if ($result1) {
+                    $message_stauts_class = 'alert-success';
+                    $import_status_message = 'Event Cycle Completed for the Station.';
+                } else {
+                    $message_stauts_class = 'alert-danger';
+                    $import_status_message = 'Error: Please Insert valid data';
+                }
 
                 $sql = "INSERT INTO `sg_station_event_log`(`station_event_id`  ,`reason`,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',0,'$chicagotime','$user_id')";
-				$result0 = mysqli_query($db, $sql);
+                $result0 = mysqli_query($db, $sql);
 
 
 
             } else {
-				$sql = "update sg_station_event set event_type_id='$edit_event_id', reason='$reason' ,modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
-				$result1 = mysqli_query($db, $sql);
-				if ($result1) {
+                $sql = "update sg_station_event set event_type_id='$edit_event_id', reason='$reason' ,modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
+                $result1 = mysqli_query($db, $sql);
+                if ($result1) {
 
-					$message_stauts_class = 'alert-success';
-					$import_status_message = 'Event status Updated successfully.';
-				} else {
-					$message_stauts_class = 'alert-danger';
-					$import_status_message = 'Error: Please Insert valid data';
-				}
+                    $message_stauts_class = 'alert-success';
+                    $import_status_message = 'Event status Updated successfully.';
+                } else {
+                    $message_stauts_class = 'alert-danger';
+                    $import_status_message = 'Error: Please Insert valid data';
+                }
                 $sql = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`reason`,`event_seq` , `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',1,'$chicagotime','$user_id')";
-				$result0 = mysqli_query($db, $sql);
+                $result0 = mysqli_query($db, $sql);
 
 
             }
@@ -205,100 +205,229 @@ if (count($_POST) > 0) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $sitename; ?>
-        | Station Events</title>
+    <title>
+        <?php echo $sitename; ?> | Station Events</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-          type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/style_main.css" rel="stylesheet" type="text/css">
+
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.6.0.min.js"> </script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/notifications/sweet_alert.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/components_modals.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+
     <style>
+        .navbar {
 
-        .sidebar-default .navigation li > a {
-            color: #f5f5f5;
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
         }
 
-
-
-        .sidebar-default .navigation li > a:focus, .sidebar-default .navigation li > a:hover {
-            background-color: #20a9cc;
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
         }
 
-        .red {
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
             color: red;
-            display: none;
         }
-        label.col-lg-4.control-label {
-            color: #333;
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
         }
 
-        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-lg-8 {
-                float: right;
-                width: 60% !important;
-            }
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
 
-            label.col-lg-3.control-label {
-                width: 40%;
+                margin-left: -15rem;
+                margin-right: 0rem;
             }
-            label.col-lg-4.control-label {
-                width: 40%;
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
             }
         }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+
     </style>
 </head>
 
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Station Events";
-include("../header_folder.php");
-
-if (($is_tab_login || $is_cell_login)) {
-    include("../tab_menu.php");
-} else {
-    include("../admin_menu.php");
-}
-include("../heading_banner.php");
+include("../header.php");
+include("../admin_menu.php");
 ?>
-<body class="alt-menu sidebar-noneoverflow">
-<div class="page-container">
-    <!-- Content area -->
-    <div class="content">
-        <!-- Basic datatable -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <!--							<hr/>-->
-                <form action="" id="station_event_form" class="form-horizontal" method="post">
-                    <div class="row">
-                        <!--Station-->
-                        <div class="col-md-6 mobile">
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Station * : </label>
-                                <div class="col-lg-8">
-                                    <select name="station" id="station" class="select form-control" data-style="bg-slate">
+
+<body class="ltr main-body app sidebar-mini">
+<!-- main-content -->
+<div class="main-content app-content">
+    <!-- container -->
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Events</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Station Events</li>
+            </ol>
+        </div>
+    </div>
+    <form action="" id="station_event_form" class="form-horizontal" method="post">
+        <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                <?php
+                if (!empty($import_status_message)) {
+                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                }
+                ?>
+                <?php
+                if (!empty($_SESSION['import_status_message'])) {
+                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+                    $_SESSION['message_stauts_class'] = '';
+                    $_SESSION['import_status_message'] = '';
+                }
+                ?>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Station Events</span>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Station * : </label>
+                                </div>
+                                <div class="col-md-5 mg-t-10 mg-md-t-0">
+                                    <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                        <option value="" selected disabled>--- Select Station ---</option>
                                         <option value="" selected disabled>--- Select Station ---</option>
                                         <?php
                                         if($is_tab_login){
@@ -366,17 +495,12 @@ include("../heading_banner.php");
 
                                         ?>
                                     </select>
-                                    <!-- <div id="error1" class="red">Please Select Station</div> -->
                                 </div>
-                            </div>
-                        </div>
-                        <!--Part Family-->
-                        <div class="col-md-6 mobile">
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Part Family  : </label>
-                                <div class="col-lg-8">
-                                    <select name="part_family" id="part_family" class="select form-control"
-                                            data-style="bg-slate">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Part Family  : </label>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled>--- Select Part Family ---</option>
                                         <?php
                                         if(empty($station)){
@@ -400,19 +524,16 @@ include("../heading_banner.php");
                                         }
                                         ?>
                                     </select>
-                                    <!-- <div id="error2" class="red">Please Select Part Family</div> -->
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <!--Part Number-->
-                        <div class="col-md-6 mobile">
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Part Number  : </label>
-                                <div class="col-lg-8">
-                                    <select name="part_number" id="part_number" class="select form-control"
-                                            data-style="bg-slate">
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Part Number  : </label>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled>--- Select Part Number ---</option>
                                         <?php
                                         $part_number = $_POST['part_number'];
@@ -433,19 +554,12 @@ include("../heading_banner.php");
                                         }
                                         ?>
                                     </select>
-                                    <!--                                            <input type="text" name="part_number" id="part_number" class="form-control"-->
-                                    <!--                                                   placeholder="Enter Part Number" required>-->
-                                    <!-- <div id="error3" class="red">Please Select Part Number</div> -->
                                 </div>
-                            </div>
-                        </div>
-                        <!--Event Type-->
-                        <div class="col-md-6 mobile">
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Event Type  : </label>
-                                <div class="col-lg-8">
-                                    <select name="event_type_id" id="event_type_id" class="select form-control"
-                                            data-style="bg-slate">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Event Type  : </label>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled>--- Select Event Type ---</option>
                                         <?php
                                         $event_type_id = $_POST['event_type_id'];
@@ -476,167 +590,142 @@ include("../heading_banner.php");
 
                                         ?>
                                     </select>
-                                    <!-- <div id="error4" class="red">Please Select Event Type</div> -->
-
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Create Station Event</button>
+                                    <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+<!-- row  -->
+<?php
+if(count($_POST) > 0)
+{
+    ?>
+    <div class="row-body">
 
-                    <br/>
-                    <br/>
-                    <?php
-                    if (!empty($import_status_message)) {
-                        echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                    }
-                    ?>
-                    <?php
-                    if (!empty($_SESSION[$import_status_message])) {
-                        echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                        $_SESSION['message_stauts_class'] = '';
-                        $_SESSION['import_status_message'] = '';
-                    }
-                    ?>
+        <div class="col-12 col-sm-12">
+            <div class="card">
 
-                    <div class="panel-footer p_footer">
-                        <button type="submit" class="btn btn-primary submit_btn" style="background-color:#1e73be;">Create
-                            Station Event
-                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="clear" id="btn" class="btn btn-primary"
-                                style="background-color:#1e73be;margin-right: 20px;width:120px;">Reset
-                        </button>
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                            <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Actions</th>
+                                <th>Station</th>
+                                <th>Part Family</th>
+                                <th>Part Number</th>
+                                <th>Event Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $query = sprintf("SELECT * FROM  sg_station_event  where event_status = 1 and line_id = '$station' order by modified_on DESC ;  ");
+                            $qur = mysqli_query($db, $query);
+                            while ($rowc = mysqli_fetch_array($qur)) {
+
+                                $station_event_id = $rowc['station_event_id'];
+                                $station_id = $rowc['line_id'];
+                                $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id  = '$station_id' ");
+                                while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                                    $station_name = $rowctemp["line_name"];
+                                }
+                                $part_family_id = $rowc['part_family_id'];
+                                $qurtemp = mysqli_query($db, "SELECT * FROM  pm_part_family where pm_part_family_id  = '$part_family_id' ");
+                                while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                                    $part_family_name = $rowctemp["part_family_name"];
+                                }
+                                $part_number_id = $rowc['part_number_id'];
+                                $qurtemp = mysqli_query($db, "SELECT * FROM  pm_part_number where pm_part_number_id  = '$part_number_id' ");
+                                while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                                    $part_number = $rowctemp["part_number"];
+                                }
+                                $event_type_id = $rowc['event_type_id'];
+                                $qurtemp = mysqli_query($db, "SELECT * FROM  event_type where event_type_id  = '$event_type_id' ");
+                                while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                                    $event_type_name = $rowctemp["event_type_name"];
+                                    $event_cat_id = $rowctemp["event_cat_id"];
+                                }
+                                ?>
+                                <tr>
+                                    <td><?php echo ++$counter; ?></td>
+                                    <td>
+                                        <button type="button" id="edit" class="btn btn-info btn-xs"
+                                                data-id="<?php echo $station_event_id ?>"
+                                                data-station="<?php echo $station_id ?>"
+                                                data-part_family="<?php echo $part_family_id ?>"
+                                                data-part_number="<?php echo $part_number_id ?>"
+                                                data-event_type_id="<?php echo $event_type_id ."_".$event_cat_id ?>"
+                                                data-reason=""
+                                                data-toggle="modal"
+                                                data-target="#edit_modal_theme_primary">Update
+                                        </button>
+                                    </td>
+                                    <td><?php echo $station_name; ?></td>
+                                    <td><?php echo $part_family_name; ?></td>
+                                    <td><?php echo $part_number; ?></td>
+                                    <td><?php echo $event_type_name; ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
-                </form>
+                </div>
             </div>
-
         </div>
-
-
-        <form action="" id="update-form" method="post" class="form-horizontal">
-            <br/>
-            <!-- Main charts -->
-            <!-- Basic datatable -->
-            <div class="panel panel-flat">
-                <table class="table datatable-basic">
-                    <thead>
-                    <tr>
-                        <!--                                <th>-->
-                        <!--                                    <input type="checkbox" id="checkAll">-->
-                        <!--                                </th>-->
-                        <th>S.No</th>
-                        <th>Actions</th>
-                        <th>Station</th>
-                        <th>Part Family</th>
-                        <th>Part Number</th>
-                        <th>Event Type</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    $query = sprintf("SELECT * FROM  sg_station_event  where event_status = 1 and line_id = '$station' order by modified_on DESC ;  ");
-                    $qur = mysqli_query($db, $query);
-                    while ($rowc = mysqli_fetch_array($qur)) {
-
-                        $station_event_id = $rowc['station_event_id'];
-                        $station_id = $rowc['line_id'];
-                        $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id  = '$station_id' ");
-                        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-                            $station_name = $rowctemp["line_name"];
-                        }
-                        $part_family_id = $rowc['part_family_id'];
-                        $qurtemp = mysqli_query($db, "SELECT * FROM  pm_part_family where pm_part_family_id  = '$part_family_id' ");
-                        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-                            $part_family_name = $rowctemp["part_family_name"];
-                        }
-                        $part_number_id = $rowc['part_number_id'];
-                        $qurtemp = mysqli_query($db, "SELECT * FROM  pm_part_number where pm_part_number_id  = '$part_number_id' ");
-                        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-                            $part_number = $rowctemp["part_number"];
-                        }
-                        $event_type_id = $rowc['event_type_id'];
-                        $qurtemp = mysqli_query($db, "SELECT * FROM  event_type where event_type_id  = '$event_type_id' ");
-                        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-                            $event_type_name = $rowctemp["event_type_name"];
-                            $event_cat_id = $rowctemp["event_cat_id"];
-                        }
-                        ?>
-                        <tr>
-                            <td><?php echo ++$counter; ?>
-                                <!--                                        <input type="text" id="station_event_id" hidden name="station_event_id" value="-->
-                                <?php //echo $rowc['station_event_id']; ?><!--">-->
-                            </td>
-                            <td>
-                                <button type="button" id="edit" class="btn btn-info btn-xs"
-                                        data-id="<?php echo $station_event_id ?>"
-                                        data-station="<?php echo $station_id ?>"
-                                        data-part_family="<?php echo $part_family_id ?>"
-                                        data-part_number="<?php echo $part_number_id ?>"
-                                        data-event_type_id="<?php echo $event_type_id ."_".$event_cat_id ?>"
-                                        data-reason=""
-                                        data-toggle="modal" style="background-color:#1e73be;"
-                                        data-target="#edit_modal_theme_primary">Update
-                                </button>
-                                <!--&nbsp;	<button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['users_id']; ?>">Delete </button>
-                                                    -->
-                            </td>
-
-                            <td><?php echo $station_name; ?></td>
-
-                            <td><?php echo $part_family_name; ?></td>
-
-                            <td><?php echo $part_number; ?></td>
-
-                            <td><?php echo $event_type_name; ?></td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-        </form>
-
-        <!-- /basic datatable -->
-        <!-- /main charts -->
-        <!-- edit modal -->
-
-        <div id="edit_modal_theme_primary" class="modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h6 class="modal-title">
-                            Update Event Status
-                        </h6>
-                    </div>
-                    <form action="" id="edit_station_event_form" enctype="multipart/form-data" class="form-horizontal"
-                          method="post">
-                        <div class="modal-body" style="color: #fff">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Station * : </label>
-                                        <div class="col-lg-8">
-                                            <select name="edit_station" id="edit_station"
-                                                    class="form-control f_disabled">
-                                                <option value="" selected disabled>--- Select Station ---</option>
-                                                <?php
-                                                $sql1 = "SELECT * FROM `cam_line` ORDER BY `line_name` ASC ";
-                                                $result1 = $mysqli->query($sql1);
-                                                while ($row1 = $result1->fetch_assoc()) {
-                                                    echo "<option value='" . $row1['line_id'] . "'  >" . $row1['line_name'] . "</option>";
-                                                }
-                                                ?>
-                                            </select>
+    </div>
+    <div id="edit_modal_theme_primary" class="modal col-lg-12 col-md-12">
+        <div class="modal-dialog" style="width: 1180px!important;">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">
+                        Update Event Status
+                    </h6>
+                </div>
+                <form action="" id="edit_station_event_form" enctype="multipart/form-data" class="form-horizontal"
+                      method="post">
+                    <div class="card-body" style="">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-4">
+                                            <label class="form-label mg-b-0">Station  : </label>
+                                        </div>
+                                        <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                        <select name="edit_station" id="edit_station"
+                                                class="form-control f_disabled" disabled>
+                                            <option value="" selected disabled>--- Select Station ---</option>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `cam_line` ORDER BY `line_name` ASC ";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                echo "<option value='" . $row1['line_id'] . "'  >" . $row1['line_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Part Family * :</label>
-                                        <div class="col-lg-8">
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-4">
+                                            <label class="form-label mg-b-0">Part Family * :</label>
+                                        </div>
+                                        <div class="col-md-8 mg-t-10 mg-md-t-0">
                                             <select name="edit_part_family" id="edit_part_family"
-                                                    class="form-control f_disabled">
+                                                    class="form-control f_disabled" disabled>
                                                 <option value="" selected disabled>--- Select Part Family ---
                                                 </option>
                                                 <?php
@@ -651,14 +740,14 @@ include("../heading_banner.php");
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Part Number  :</label>
-                                        <div class="col-lg-8">
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-4">
+                                            <label class="form-label mg-b-0">Part Number  :</label>
+                                        </div>
+                                        <div class="col-md-8 mg-t-10 mg-md-t-0">
                                             <select name="edit_part_number" id="edit_part_number"
-                                                    class="form-control f_disabled">
+                                                    class="form-control f_disabled" disabled>
                                                 <option value="" selected disabled>--- Select Part Number ---
                                                 </option>
                                                 <?php
@@ -672,12 +761,12 @@ include("../heading_banner.php");
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Event Type * :</label>
-                                        <div class="col-lg-8">
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-4">
+                                            <label class="form-label mg-b-0">Event Type * :</label>
+                                        </div>
+                                        <div class="col-md-8 mg-t-10 mg-md-t-0">
                                             <select name="edit_event_type" id="edit_event_type"
                                                     class="form-control">
                                                 <!-- <option value="" disabled>--- Select Event Type ----->
@@ -695,7 +784,6 @@ include("../heading_banner.php");
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row" id="reason_div">
                             </div>
 
@@ -706,21 +794,18 @@ include("../heading_banner.php");
                             <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                             <button type="submit" id="edit_save" class="btn btn-primary ">Save</button>
                         </div>
-                    </form>
-                </div>
+                            </div>
+                </form>
             </div>
         </div>
-        <!-- Dashboard content -->
     </div>
-    <!-- /dashboard content -->
-</div>
+    <?php
+}
+?>
 <script>
-
     $("#edit_save").click(function (e) {
         if ($("#edit_station_event_form")[0].checkValidity()){
-
         }
-        // e.preventDefault();
     });
     $(document).on('click', '#delete', function () {
         var element = $(this);
@@ -766,14 +851,8 @@ include("../heading_banner.php");
                 "                                            </div>\n" +
                 "                                        </div>\n" +
                 "                                    </div>";
-            // $('#reason_div').attr('required', true);
-            // $('#reason_div').prop('required',true);
-            // document.getElementById("reason_div").required = true;
-            // $("#reason_div").show();
         } else {
             document.getElementById("reason_div").innerHTML ="";
-            // document.getElementById("reason_div").required = false;
-            // $("#reason_div").hide();
         }
     });
 </script>
@@ -861,27 +940,6 @@ include("../heading_banner.php");
         var part_family = $("#part_family").val();
         var part_number = $("#part_number").val();
         var event_type_id = $("#event_type_id").val();
-// var flag= 0;
-// if(station == null){
-// 	$("#error1").show();
-// 	var flag= 1;
-// }
-// if(part_family == null){
-// 	$("#error2").show();
-// 	var flag= 1;
-// }
-// if(part_number == null){
-// 	$("#error3").show();
-// 	var flag= 1;
-// }
-// if(event_type_id == null){
-// 	$("#error4").show();
-// 	var flag= 1;
-// }
-// if (flag == 1) {
-//        return false;
-//        }
-
     });
 </script>
 <script type="text/javascript">
@@ -894,7 +952,5 @@ include("../heading_banner.php");
         });
     });
 </script>
-<?php include('../footer.php') ?>
-<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/core/app.js"></script>
+<?php include('../footer1.php') ?>
 </body>
-</html>
