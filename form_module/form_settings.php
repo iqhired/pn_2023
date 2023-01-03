@@ -508,7 +508,7 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control fc-datepicker" name="valid_till" id="valid_till" placeholder="MM/DD/YYYY" type="text">
+                                        <input class="form-control" name="valid_till" id="valid_till" placeholder="MM/DD/YYYY" type="date">
                                     </div><!-- input-group -->
                                 </div>
                             </div>

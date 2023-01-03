@@ -224,6 +224,11 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             color: red;
             font-size: initial;
         }
+        .col-md-1 {
+            flex: 0 0 8.33333%;
+            max-width: 2.33333%;
+            padding-top: 8px;
+        }
 
 
     </style>
@@ -412,8 +417,12 @@ include("../admin_menu.php");
                             <?php if($wol != 0){  ?>
                                 <div class="row row-xs align-items-center mg-b-20">
                                     <div class="col-md-4">
-                                        <label class="form-label mg-b-0">Work Order/Lot</label>
+                                        <label class="form-label mg-b-0">Work Order/Lot
+                                            <span class="red-star">★</span>
+                                        </label>
+
                                     </div>
+
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
                                         <textarea class="form-control" name = "wol" id="wol" rows="1" required></textarea>
                                     </div>
@@ -489,11 +498,15 @@ include("../admin_menu.php");
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>" class="upper_compare" value="<?php echo $final_upper; ?>">
 
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-7">
+                                        <div class="col-md-1">
+                                            <?php
+                                            if ($rowc['optional'] != '1') {
+                                                echo '<span class="red-star">★</span>';
+                                            } ?>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label mg-b-0">
-                                                <?php if ($rowc['optional'] != '1') {
-                                                    echo '<span class="red-star">★</span>';
-                                                }
+                                                <?php
                                                 echo htmlspecialchars($rowc['item_desc']); ?>
                                                 <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
                                                     <?php echo "(" . $rowc['discription'] . ")" ?>
@@ -520,41 +533,7 @@ include("../admin_menu.php");
                                         </div>
                                     </div>
 
-                                    <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-7">
-                                            <label class="form-label mg-b-0">
-                                                <input type="hidden" class="binary_compare"
-                                                       value="<?php echo $bin_def; ?>"
-                                                       data-id="<?php echo $rowc['form_item_id']; ?>"/>
-                                                <?php if ($rowc['optional'] != '1') {
-                                                    echo '<span class="red-star">★</span>';
-                                                }
-                                                echo htmlspecialchars($rowc['item_desc']); ?>
-                                                <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                                    <?php echo "(" . $rowc['discription'] . ")" ?>
-                                                <?php } ?>
-                                            </label>
-                                        </div>
-                                        <div class="col-md-3 mg-t-5 mg-md-t-0">
-                                            <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
-                                                   id="<?php echo $rowc['form_item_id']; ?>"
-                                                   class="form-control compare_text" required step="any">
-                                        </div>
-                                        <div class="col-md-2 mg-t-5 mg-md-t-0">
 
-                                            <?php
-                                            $unit_of_measurement_id = $rowc['unit_of_measurement'];
-                                            $sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
-                                            $result1 = $mysqli->query($sql1);
-                                            $row1 = $result1->fetch_assoc();
-                                            echo $row1['unit_of_measurement'];
-
-                                            ?>
-                                            <input type="hidden" name="form_item_array[]"
-                                                   value="<?php echo $rowc['form_item_id']; ?>">
-
-                                        </div>
-                                    </div>
                                     <?php
                                 }
                                 if ($item_val == "binary") {
@@ -562,14 +541,18 @@ include("../admin_menu.php");
                                     $bnf = $rowc['binary_default'];
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-7">
+                                        <div class="col-md-1">
+                                            <?php
+                                            if ($rowc['optional'] != '1') {
+                                                echo '<span class="red-star">★</span>';
+                                            } ?>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label mg-b-0">
                                                 <input type="hidden" class="binary_compare"
                                                        value="<?php echo $bin_def; ?>"
                                                        data-id="<?php echo $rowc['form_item_id']; ?>"/>
-                                                <?php if ($rowc['optional'] != '1') {
-                                                    echo '<span class="red-star">★</span>';
-                                                }
+                                                <?php
                                                 echo htmlspecialchars($rowc['item_desc']); ?>
                                                 <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
                                                     <?php echo "(" . $rowc['discription'] . ")" ?>
@@ -627,15 +610,19 @@ include("../admin_menu.php");
                                     $extra_enabled =  $rowc['radio_extra'];
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-7">
+                                        <div class="col-md-1">
+                                            <?php
+                                            if ($rowc['optional'] != '1') {
+                                                echo '<span class="red-star">★</span>';
+                                            } ?>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label mg-b-0">
                                                 <input type="hidden" class="list_enabled" name="list_enabled" data-id="<?php echo $rowc['form_item_id']; ?>" value="<?php echo $list_enabled; ?>"/>
                                                 <input type="hidden" class="binary_compare"
                                                        value="<?php echo $list_def; ?>"
                                                        data-id="<?php echo $rowc['form_item_id']; ?>"/>
-                                                <?php if ($rowc['optional'] != '1') {
-                                                    echo '<span class="red-star">★</span>';
-                                                }
+                                                <?php
                                                 echo htmlspecialchars($rowc['item_desc']); ?>
                                                 <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
                                                     <?php echo "(" . $rowc['discription'] . ")" ?>
@@ -734,18 +721,21 @@ include("../admin_menu.php");
                                 if ($item_val == "text") {
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-7">
+                                        <div class="col-md-1">
+                                            <?php
+                                            if ($rowc['optional'] != '1') {
+                                            echo '<span class="red-star">★</span>';
+                                            } ?>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label mg-b-0">
-                                                <?php
-                                                if ($rowc['optional'] != '1') {
-                                                    echo '<span class="red-star">★</span>';
-                                                }
-                                                echo htmlspecialchars($rowc['item_desc']); ?>
+                                                <?php echo htmlspecialchars($rowc['item_desc']); ?>
+
+                                            <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
+                                                <span><?php echo "(" . $rowc['discription'] . ")" ?></span>
+                                            <?php } ?>
                                             </label>
                                         </div>
-                                        <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                            <label class="form-label mg-b-0"><?php echo "(" . $rowc['discription'] . ")" ?></label>
-                                        <?php } ?>
                                         <div class="col-md-5 mg-t-5 mg-md-t-0">
                                             <input type="hidden" name="form_item_array[]"
                                                    value="<?php echo $rowc['form_item_id']; ?>"/>
@@ -753,10 +743,7 @@ include("../admin_menu.php");
                                                    id="<?php echo $rowc['form_item_id']; ?>" <?php if ($rowc['optional'] != '1') {
                                                 echo 'required';
                                             } ?> />
-                                            <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                                <div class="col-md-3 form_col_item">
-                                                    <u><b><?php echo $rowc['discription']; ?> </b></u></div>
-                                            <?php } ?>
+
                                         </div>
                                     </div>
 
@@ -935,7 +922,7 @@ include("../admin_menu.php");
                 data: data,
                 success: function (data) {
                     $('#btnSubmit').attr('disabled', 'disabled');
-                    $('form input[type="radio"]').css('pointer-events','none');
+                    $('form input[type="radio"]').attr('disabled', 'disabled');
                     $('form input[type="number"]').css('pointer-events','none');
                     $('form input[type="text"]').css('pointer-events','none');
                     $("label[for='yes']").css('pointer-events','none');
