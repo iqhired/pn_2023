@@ -310,7 +310,7 @@ if(empty($datefrom)){
 
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "Add / Create Form";
+$cust_cam_page_header = "Station event log";
 include("../header.php");
 include("../admin_menu.php");
 ?>
@@ -320,16 +320,12 @@ include("../admin_menu.php");
 <div class="main-content app-content">
     <!-- container -->
     <!-- breadcrumb -->
-    <div class="row-body">
-        <div class="col-lg-12 col-md-12">
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
                 <li class="breadcrumb-item active" aria-current="page"> Station event log</li>
             </ol>
-        </div>
-    </div>
         </div>
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
@@ -481,6 +477,18 @@ include("../admin_menu.php");
                             </div>
 
                         </div>
+                        <?php
+                        if (!empty($import_status_message)) {
+                            echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                        }
+                        ?>
+                        <?php
+                        if (!empty($_SESSION['import_status_message'])) {
+                            echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+                            $_SESSION['message_stauts_class'] = '';
+                            $_SESSION['import_status_message'] = '';
+                        }
+                        ?>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-1">
@@ -508,18 +516,6 @@ include("../admin_menu.php");
     <?php
     if(count($_POST) > 0)
     {
-        ?>
-        <?php
-        if (empty($import_status_message)) {
-            echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-        }
-        ?>
-        <?php
-        if (empty($_SESSION['import_status_message'])) {
-            echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-            $_SESSION['message_stauts_class'] = '';
-            $_SESSION['import_status_message'] = '';
-        }
         ?>
         <div class="row-body">
 

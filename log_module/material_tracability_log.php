@@ -254,8 +254,6 @@ include("../admin_menu.php");
 <div class="main-content app-content">
     <!-- container -->
     <!-- breadcrumb -->
-    <div class="row-body">
-        <div class="col-lg-12 col-md-12">
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
@@ -264,8 +262,6 @@ include("../admin_menu.php");
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
@@ -548,6 +544,6 @@ if(count($_POST) > 0)
         history.replaceState("", "", "<?php echo $siteURL; ?>log_module/material_tracability_log.php");
     }
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 
 </body>

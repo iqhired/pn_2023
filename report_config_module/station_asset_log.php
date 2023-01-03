@@ -1,10 +1,12 @@
 <?php include("../config.php");
-$curdate = date('m-d-Y');
+$curdate = date('Y-m-d');
 $button = "";
 $temp = "";
 if (!isset($_SESSION['user'])) {
     header('location: logout.php');
 }
+
+
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
 //Read the request time of the user
@@ -22,8 +24,8 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
-$curdate = date('m-d-Y');
-$dfrom =   date('m-d-Y',strtotime("-1 days"));
+$curdate = date('Y-m-d');
+$dfrom =   date('Y-m-d',strtotime("-1 days"));
 $dateto = $curdate;
 $datefrom = $dfrom;
 $temp = "";
@@ -57,9 +59,12 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Asset Log</title>
+        <?php echo $sitename; ?> | Station Assets Log</title>
     <!-- Global stylesheets -->
+
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
@@ -77,6 +82,7 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
@@ -113,6 +119,7 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+
     <style>
         .navbar {
 
@@ -212,168 +219,203 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
             margin-right: 112px;
             display: block;
         }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+
     </style>
 </head>
+
+<!-- Main navbar -->
 <?php
-include("../header_folder.php");
+$cust_cam_page_header = "Station Assets Log";
+include("../header.php");
 include("../admin_menu.php");
 ?>
+
 <body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
     <!-- breadcrumb -->
-
-    <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-        <div class="breadcrumb-header justify-content-between">
-            <div class="left-content">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Station assets</li>
-                </ol>
-            </div>
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> Station Assets Log</li>
+            </ol>
         </div>
-        <form action="" id="asset_form" class="form-horizontal" method="post">
-            <div class="card  box-shadow-0">
-            <div class="card-body pt-0">
-                <div class="card-header">
-                    <span class="main-content-title mg-b-0 mg-b-lg-1">Station Asset Log</span>
-                </div>
-                <div class="pd-30 pd-sm-20">
-                    <div class="row row-xs align-items-center mg-b-20">
-                        <label class="form-label mg-b-0">Station : </label>
-                        <div class="col-md-3 mg-t-5 mg-md-t-0">
-                            <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
-                                <option value="" selected disabled>--- Select Station ---</option>
-                                <?php
-                                $st_dashboard = $_POST['station'];
-                                $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC ";
-                                $result1 = $mysqli->query($sql1);
-                                //                                            $entry = 'selected';
-                                while ($row1 = $result1->fetch_assoc()) {
-                                    if($st_dashboard == $row1['line_id'])
-                                    {
-                                        $entry = 'selected';
-                                    }
-                                    else
-                                    {
-                                        $entry = '';
+    </div>
+    <form action="" id="asset_form" class="form-horizontal" method="post">
+        <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Station Assets Log</span>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Station : </label>
+                                </div>
+                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                        <option value="" selected disabled>--- Select Station ---</option>
+                                        <?php
+                                        $st_dashboard = $_POST['station'];
+                                        $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC ";
+                                        $result1 = $mysqli->query($sql1);
+                                        //                                            $entry = 'selected';
+                                        while ($row1 = $result1->fetch_assoc()) {
+                                            if($st_dashboard == $row1['line_id'])
+                                            {
+                                                $entry = 'selected';
+                                            }
+                                            else
+                                            {
+                                                $entry = '';
 
-                                    }
-                                    echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <label class="form-label mg-b-0">Date From : </label>
-                        <div class="col-md-3 mg-t-5 mg-md-t-0">
-                            <div class="input-group">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
-                            </div>
-                        </div>
-                        <label class="form-label mg-b-0">Date To : </label>
-                        <div class="col-md-3 mg-t-5 mg-md-t-0">
-                            <div class="input-group">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>" placeholder="MM/DD/YYYY" type="text">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
-                <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
-            </div>
-            </div>
-        </form>
-        <?php
-                                        if (!empty($import_status_message)) {
-                                            echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                                            }
+                                            echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
                                         }
                                         ?>
-        <?php
-        if (!empty($_SESSION['import_status_message'])) {
-            echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-            $_SESSION['message_stauts_class'] = '';
-            $_SESSION['import_status_message'] = '';
-        }
-        ?>
-        <?php
-            if(count($_POST) > 0)
-              {
-                  ?>
-        <form action="" id="asset_data" method="post" class="form-horizontal">
-            <div class="card  box-shadow-0">
-                        <div class="card-body pt-0">
-                            <div class="table-responsive">
-                                <table class="table  table-bordered text-nowrap mb-0" id="example2">
-                                    <thead style="text-align: center">
-                                    <tr>
-                                        <th>Action</th>
-                                        <th>Station</th>
-                                        <th>Asset name</th>
-                                        <th>Time</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody style="text-align: center">
-                                    <?php
-                                    $q = ("SELECT xx.asset_name,xx.created_date,xx.submit_id  FROM  submit_assets as xx inner join cam_line as cl on xx.line_id = cl.line_id where DATE_FORMAT(xx.created_date,'%m-%d-%Y') >= '$datefrom' and DATE_FORMAT(xx.created_date,'%m-%d-%Y') <= '$dateto' and cl.line_id='$station'");
-                                    $qur = mysqli_query($db, $q);
-                                    while ($rowc = mysqli_fetch_array($qur)) {
-                                        ?>
-                                        <tr>
-                                            <?php
-                                            $un = $rowc['line_no'];
-                                            $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$station' ");
-                                            while ($rowc04 = mysqli_fetch_array($qur04)) {
-                                                $lnn = $rowc04["line_name"];
-                                            }
-                                            ?>
-                                            <td>
 
-                                                <a href="<?php echo $siteURL; ?>report_config_module/view_assets_config.php?id=<?php echo $rowc['submit_id'];?>" class="btn btn-primary legitRipple" target="_blank"><!--style="background-color:#1e73be;"--> <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            </td>
-                                            <td><?php echo $lnn; ?></td>
-                                            <td><?php echo $rowc['asset_name']; ?></td>
-                                            <td><?php echo  dateReadFormat($rowc['created_date']); ?></td>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Date From : </label>
+                                </div>
+                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
+                                    </div><!-- input-group -->
+                                </div>
 
-                                        </tr>
-                                    <?php } ?>
-                                    </tbody>
-                                </table>
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Date To : </label>
+                                </div>
+                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
+                                    </div><!-- input-group -->
+                                </div>
+
+                        </div>
+                        <?php
+                        if (!empty($import_status_message)) {
+                            echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                        }
+                        ?>
+                        <?php
+                        if (!empty($_SESSION['import_status_message'])) {
+                            echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+                            $_SESSION['message_stauts_class'] = '';
+                            $_SESSION['import_status_message'] = '';
+                        }
+                        ?>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
+                                    <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
+                                </div>
                             </div>
                         </div>
+                        </div>
                     </div>
-            </form>
+                </div>
+            </div>
+        </div>
+    </form>
+
+<!-- row  -->
+<?php
+if(count($_POST) > 0)
+{
+    ?>
+    <div class="row-body">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                            <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Station</th>
+                                <th>Asset name</th>
+                                <th>Time</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+
+
+                            $q = ("SELECT xx.asset_name,xx.created_date,xx.submit_id  FROM  submit_assets as xx inner join cam_line as cl on xx.line_id = cl.line_id where DATE_FORMAT(xx.created_date,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(xx.created_date,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station'");
+                            $qur = mysqli_query($db, $q);
+                            while ($rowc = mysqli_fetch_array($qur)) {
+                                ?>
+                                <tr>
+                                    <?php
+                                    $un = $rowc['line_no'];
+                                    $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$station' ");
+                                    while ($rowc04 = mysqli_fetch_array($qur04)) {
+                                        $lnn = $rowc04["line_name"];
+                                    }
+                                    ?>
+                                    <td>
+
+                                        <a href="<?php echo $siteURL; ?>report_config_module/view_assets_config.php?id=<?php echo $rowc['submit_id'];?>" class="btn btn-primary legitRipple" style="background-color:#1e73be;" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </td>
+                                    <td><?php echo $lnn; ?></td>
+                                    <td><?php echo $rowc['asset_name']; ?></td>
+                                    <td><?php echo  dateReadFormat($rowc['created_date']); ?></td>
+
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php
 }
 ?>
-    </div>
-</div>
 
+<!-- /dashboard content -->
 <script>
     $('#station').on('change', function (e) {
-        $("#10x_form").submit();
+        $("#asset_form").submit();
     });
 
     $('#part_family').on('change', function (e) {
-        $("#10x_form").submit();
+        $("#asset_form").submit();
     });
     $('#part_number').on('change', function (e) {
-        $("#10x_form").submit();
+        $("#asset_form").submit();
     });
-
-
 </script>
 <script>
     window.onload = function () {
-        history.replaceState("", "", "<?php echo $scriptName; ?>report_config_module/station_asset_log.php");
+        history.replaceState("", "", "<?php echo $siteURL; ?>report_config_module/station_asset_log.php");
     }
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
+
 </body>
-</html>

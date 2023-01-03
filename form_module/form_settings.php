@@ -508,8 +508,8 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control" name="valid_till" id="valid_till" placeholder="MM/DD/YYYY" type="date">
-                                    </div><!-- input-group -->
+                                        <input class="form-control fc-datepicker" name="valid_till" id="valid_till" placeholder="MM-DD-YYYY" value="<?php echo $datetill;?>" type="text">
+                                    </div>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -544,11 +544,10 @@ include("../admin_menu.php");
                                         <option value="22">22</option>
                                         <option value="23">23</option>
                                     </select>
-                                </div>
-                                <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                </div>/hrs
+                                <div class="col-md-3 mg-t-5 mg-md-t-0">
                                     <select name="duration_mm" id="duration_mm" class="form-control form-select select2" data-bs-placeholder="Select Minutes">
-                                        <option value="" selected>--Select Minutes--</option>
-                                        <option value="00">00</option>
+                                        <option value="00" selected>00</option>
                                         <option value="01">01</option>
                                         <option value="02">02</option>
                                         <option value="03">03</option>
@@ -573,7 +572,7 @@ include("../admin_menu.php");
                                         <option value="22">22</option>
                                         <option value="23">23</option>
                                     </select>
-                                </div>
+                                </div>/min
                             </div>
                         </div>
                     </div>

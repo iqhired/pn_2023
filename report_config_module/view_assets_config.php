@@ -46,9 +46,8 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Add / Create Form</title>
+        <?php echo $sitename; ?> |View Station Assets Log</title>
     <!-- Global stylesheets -->
-
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
 
@@ -151,6 +150,72 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         .collapse.in {
             display: block!important;
         }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
 
     </style>
 </head>
@@ -158,12 +223,9 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 $cust_cam_page_header = "View Line Asset";
 include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
 <body>
 <div class="main-content app-content">
-<div class="row">
-    <div class="col-md-12 col-lg-12 col-xl-10 col-sm-10">
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
@@ -183,14 +245,21 @@ include("../heading_banner.php");
         $created_by = $rowcmain['created_by'];
         $notes = $rowcmain["notes"];
         ?>
-        <div class="card">
+    <div class="row-body">
+        <div class="col-lg-12 col-md-12">
+          <div class="card">
             <div class="card-body">
+                <div class="card-header">
+                    <div class="main-content-label mg-b-2">
+                        View Line Asset</center>
+                    </div>
+                </div><br/>
                 <?php
                 $qurtemp = mysqli_query($db, "SELECT * FROM cam_line where line_id = '$line_id' ");
                 $rowctemp = mysqli_fetch_array($qurtemp);
                 $line_name = $rowctemp["line_name"];
                 ?>
-                <div class="card-header">
+                <div class="card-header" style="background: aliceblue;">
                     <div class="main-content-label mg-b-2">
                        <center><?php echo $line_name; ?> - <?php echo $asset_name; ?></center>
                     </div>
@@ -217,7 +286,7 @@ include("../heading_banner.php");
                             <div class="col-lg-3 col-sm-6">
                                 <div class="thumbnail">
                                     <div class="thumb">
-                                        <?php echo '<img src="data:image/gif;base64,' . $image . '" style="height:150px;width:250px;" />'; ?>
+                                        <?php echo '<img src="data:image/gif;base64,' . $image . '" style="height:150px;width:280px;" />'; ?>
                                         <div class="caption-overflow">
                                                         <span>
 															<center><a href="<?php echo $image ?>"
