@@ -493,7 +493,7 @@ include("../admin_menu.php");
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>" class="upper_compare" value="<?php echo $final_upper; ?>">
 
                                     <div class="row row-xs align-items-center mg-b-20" style="margin-top: 20px;">
-                                        <div class="col-md-1">
+                                        <div class="col-md-0.5">
                                             <?php
                                             if ($rowc['optional'] != '1') {
                                                 echo '<span class="red-star">★</span>';
@@ -536,7 +536,7 @@ include("../admin_menu.php");
                                     $bnf = $rowc['binary_default'];
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-1">
+                                        <div class="col-md-0.5">
                                             <?php
                                             if ($rowc['optional'] != '1') {
                                                 echo '<span class="red-star">★</span>';
@@ -605,7 +605,7 @@ include("../admin_menu.php");
                                     $extra_enabled =  $rowc['radio_extra'];
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-1">
+                                        <div class="col-md-0.5">
                                             <?php
                                             if ($rowc['optional'] != '1') {
                                                 echo '<span class="red-star">★</span>';
@@ -716,7 +716,7 @@ include("../admin_menu.php");
                                 if ($item_val == "text") {
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-1">
+                                        <div class="col-md-0.5">
                                             <?php
                                             if ($rowc['optional'] != '1') {
                                             echo '<span class="red-star">★</span>';
