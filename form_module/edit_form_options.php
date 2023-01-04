@@ -440,11 +440,12 @@ include("../admin_menu.php");
                             <tr>
                                 <th><label class="ckbox"><input type="checkbox" id="checkAll" ><span></span></label></th>
                                 <th class="text-center">Sl. No</th>
+                                <th>Action</th>
                                 <th>Form Name</th>
                                 <th>Form Type</th>
                                 <th>PO Number</th>
                                 <th>DA Number</th>
-                                <th>Action</th>
+
                             </tr>
                             </thead>
                             <tbody><?php
@@ -479,6 +480,15 @@ include("../admin_menu.php");
                             <tr>
                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_create_id"]; ?>"><span></span></label></td>
                                 <td class="text-center"><?php echo ++$counter; ?></td>
+                                <td class="">
+                                    <?php $finalid = $rowc['form_create_id']; ?>
+                                    <a class="btn btn-success btn-sm br-5 me-2" href="form_edit.php?id=<?php echo $finalid ?>">
+                                        <i>
+                                            <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                        </i>
+                                    </a>
+
+                                </td>
                                 <td><?php echo $rowc["name"]; ?></td>
                                 <td><?php
                                     $station1 = $rowc['form_type'];
@@ -490,15 +500,7 @@ include("../admin_menu.php");
                                 <td><?php echo $rowc["po_number"]; ?></td>
                                 <td><?php echo $rowc["da_number"]; ?></td>
 
-                                <td class="">
-                                    <?php $finalid = $rowc['form_create_id']; ?>
-                                    <a class="btn btn-success btn-sm br-5 me-2" href="form_edit.php?id=<?php echo $finalid ?>">
-                                        <i>
-                                            <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                        </i>
-                                    </a>
 
-                                </td>
                             </tr>
 
                             <?php } ?>
