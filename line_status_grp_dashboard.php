@@ -624,7 +624,6 @@ include("admin_menu.php");
         $countervariable = 0;
         $logo_path = $siteURL . 'supplier_logo/';
 
-
         while ($rowc = mysqli_fetch_array($qur)) {
         $grp_line_array = array();
         $arr_grp_stations = explode(',', $rowc['stations']);
