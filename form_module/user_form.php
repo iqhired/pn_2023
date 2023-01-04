@@ -256,8 +256,8 @@ include("../admin_menu.php");
     </div>
     <!-- /breadcrumb -->
     <form action="" id="form_settings" enctype="multipart/form-data"  class="form-horizontal" method="post" autocomplete="off">
-        <div class="row-body row-sm">
-            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+        <div class="row row-sm">
+            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-header">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">FORM SUBMIT</span>
@@ -764,12 +764,12 @@ include("../admin_menu.php");
             </div>
         </div>
 
-        <div class="row-body row-sm" style="display: none" id="approve_sec">
+        <div class="row row-sm" style="display: none" id="approve_sec">
             <?php
             if ($need_approval == "yes") {
                 ?>
                 <div id="sub_app">The form needs to be approved before submitting</div>
-                <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12" id="app_list">
+                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12" id="app_list">
                     <div class="card box-shadow-0">
 
                         <div class="card-header">
