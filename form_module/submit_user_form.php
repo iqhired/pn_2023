@@ -43,7 +43,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Submit Form</title>
+        <?php echo $sitename; ?> |Add / Create Form</title>
     <!-- Global stylesheets -->
 
 
@@ -148,6 +148,68 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
         .collapse.in {
             display: block!important;
         }
+        .breadcrumb-header {
+            margin-left: 0;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=WindSong&display=swap');
+
+        .signature {
+
+            font-family: 'WindSong', swap;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+
+        .pn_none {
+            pointer-events: none;
+            color: #050505;
+        }
+        .form_table_mobile {
+            display: none;
+        }
+        .navbar {
+
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
         .file-image-1 .icons li a {
             height: 30px;
             width: 30px;
@@ -181,40 +243,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
         button.remove {
             margin-left: 15px;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
         .red-star {
             color: red;
         }
@@ -223,7 +251,72 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             color: red;
             font-size: initial;
         }
+        .col-md-0\.5 {
+            padding-top: 10px;
+        }
 
+        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            .col-lg-2{
+                width: 35%!important;
+            }
+            .content:first-child {
+                padding-top: 90px!important;
+            }
+            .col-md-8.form_col_item {
+                float: left;
+                width: 100%;
+                padding-bottom: 10px;
+            }
+            .border-primary {
+                border-color: #ffffff;
+            }
+            .form_table_mobile {
+                display: block;
+            }
+            table.form_table {
+                display: none;
+            }
+            .form_table_mobile {
+                width: 100%;
+                background-color: #eee;
+                margin-top: 12px;
+            }
+            .form_table_mobile {
+                width: 100%;
+                background-color: #eee;
+                margin-top: 12px;
+            }
+            .form_row_mobile {
+                width: 100%;
+                height: auto;
+            }
+            .col-lg-8.mobile {
+                width: 58%;
+                float: right;
+                padding: 10px 30px 10px 26px;
+            }
+            label.col-lg-3.control-label.mobile {
+                width: 42%;
+                float: left;
+                padding: 10px 30px 10px 26px;
+            }
+            .col-md-2 {
+                width: 50%;
+                float: left;
+            }
+            .red-star {
+                color: red;
+            }
+            #sub_app {
+                padding: 20px 40px;
+                color: red;
+                font-size: initial;
+            }
+            .col-md-0\.5 {
+                padding-top: 10px;
+            }
+
+        }
 
     </style>
 </head>
@@ -238,8 +331,6 @@ include("../admin_menu.php");
 <div class="main-content app-content">
     <!-- container -->
     <!-- breadcrumb -->
-    <div class="row-body row-sm">
-        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
@@ -248,8 +339,6 @@ include("../admin_menu.php");
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
     <!-- /breadcrumb -->
     <!-- row -->
     <?php
@@ -266,7 +355,7 @@ include("../admin_menu.php");
         <form action="edit_user_form_backend.php" id="form_settings" enctype="multipart/form-data"
               class="form-horizontal" method="post" autocomplete="off">
             <div class="row-body row-sm">
-                <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                     <div class="card  box-shadow-0">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Form View</span>
@@ -523,7 +612,7 @@ include("../admin_menu.php");
                                 </div>
                                 <div class="card-header">
                                     <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Form Information</center></span>
-                                </div><br/>
+                                </div>
                                 <?php
                                 $is_form_editable = ($rowcmain['form_comp_status'] == '0');
                                 $query = sprintf("SELECT * FROM  form_item where form_create_id = '$item_id' order by form_item_seq+0 ASC ");
@@ -574,7 +663,7 @@ include("../admin_menu.php");
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>"
                                            class="upper_compare" value="<?php echo $final_upper; ?>">
 
-                                    <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="row row-xs align-items-center mg-b-20" style="margin-top: 20px;">
 
                                         <div class="col-md-7">
                                             <?php if ($rowc['optional'] != '1') {
@@ -1250,17 +1339,17 @@ include("../admin_menu.php");
                                                     </div>
                                                 </div>
                                                 <?php if ($form_status == 'Rejected') { ?>
-                                                    <div id="rej_reason_div" style="border: 1px solid red;padding: 10px;">
+                                                    <div id="rej_reason_div" style="border: 1px solid red;padding: 10px;" disabled="disabled">
                                                         <td class="form_tab_td pn_none" colspan="4">Reject Reason : <textarea
                                                                     placeholder="<?php echo $rowc05['reject_reason']; ?>"
-                                                                    style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
+                                                                    style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1" disabled></textarea>
                                                         </td>
                                                     </div>
                                                 <?php }  else if ($form_status == 'Approved') { ?>
-                                                    <div id="rej_reason_div" style="border: 1px solid green;padding: 10px;">
+                                                    <div id="rej_reason_div" style="border: 1px solid green;padding: 10px;" disabled="disabled">
                                                         <td class="form_tab_td pn_none" colspan="4">Approve Reason : <textarea
                                                                     placeholder="<?php echo $rowc05['reject_reason']; ?>"
-                                                                    style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
+                                                                    style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1" disabled></textarea>
                                                         </td>
                                                     </div>
                                                 <?php  } ?>
@@ -1296,9 +1385,9 @@ include("../admin_menu.php");
             if ($.isNumeric(text_val)) {
 
                 if (text_val >= lower_compare && text_val <= upper_compare) {
-                    $(this).css("background-color", "#abf3ab !important");
+                    $(this).css("background-color", "green");
                 } else {
-                    $(this).attr('style', 'background-color: #ffadad !important');
+                    $(this).css("background-color", "red");
                 }
             }
         }
@@ -1314,13 +1403,13 @@ include("../admin_menu.php");
 
 
         if (exact_val == binary_compare) {
-            $("." + radio_id).css("background-color", "#abf3ab !important");
+            $("." + radio_id).css("background-color", "green");
         } else {
-            $("." + radio_id).css("background-color", "#ffadad !important");
+            $("." + radio_id).css("background-color", "red");
         }
 
 
-    });
+    })
 
     $("#form_save_btn").click(function (e) {
         //          $(':input[type="button"]').prop('disabled', true);
@@ -1331,16 +1420,156 @@ include("../admin_menu.php");
             async: false,
             data: data,
             success: function (data) {
-                event.preventDefault()
-                $("form :input").prop("disabled", true);
-                window.scrollTo(0, 0);
+                e.preventDefault()
+                $("#form_save_btn").prop("disabled", true);
+                //  $("form :input").prop("disabled", true);
+                //  window.scrollTo(0, 0);
             }
         });
 
         // e.preventDefault();
     });
 
+
+    $("#btnSubmit_1").click(function (e) {
+        document.getElementById("form_save_btn").required = true;
+        var data_1 = "update_fud=1"+"&form_user_data_id=" + document.getElementById("form_user_data_id").value ;
+        $.ajax({
+            type: 'POST',
+            url: 'user_form_backend.php',
+            // dataType: "json",
+            // context: this,
+            // async: false,
+            data: data_1,
+            success: function (response) {
+                $('#btnSubmit_1').attr('disabled', 'disabled');
+                // $('#form_save_btn').attr('disabled', 'disabled');
+                var x = document.getElementById("sub_app");
+                x.style.display = "none";
+                $('#success_msg').text('Form submitted Successfully').css('background-color','#0080004f');
+                $("form :input").prop("disabled", true);
+                window.scrollTo(0, 0);
+            }
+        });
+    });
+
+    $(".approve").click(function (e) {
+        e.preventDefault();
+        var index = this.id.split("_")[1];
+        //  alert(index);
+        var x = document.getElementById("u_error_"+index);
+        x.style.display = "none";
+        var y = document.getElementById("pin_error_"+index);
+        y.style.display = "none";
+        var data_1 = "index="+index+"&approval_dept_cnt=" + document.getElementById("approval_dept_cnt").value + "&form_user_data_id=" + document.getElementById("form_user_data_id").value + "&app_dept=" + document.getElementById("approval_dept" + "_" + this.id.split("_")[1]).value + "&app_id=" + document.getElementById("approval_initials" + "_" + this.id.split("_")[1]).value + "&pin=" + document.getElementById("pin" + "_" + this.id.split("_")[1]).value;
+        // alert(data_1);
+        $.ajax({
+            type: "POST",
+            context: this,
+            url: "approve_store_backend.php",
+            data: data_1,
+            //  cache: false,
+            success: function (response) {
+                // button manipulation here
+                var arr_data = JSON.parse(response);
+                if(arr_data["error_type"] === "user_error"){
+                    var id = "u_error_"+ arr_data["err_row"];
+                    var x = document.getElementById(id);
+                    if (x.style.display === "none") {
+                        x.style.display = "block";
+                    }
+                }else if (arr_data["error_type"] === "pin_error"){
+                    var id = "pin_error_"+ arr_data["err_row"];
+                    var x = document.getElementById(id);
+                    if (x.style.display === "none") {
+                        x.style.display = "block";
+                    }
+                }else if (arr_data["all_dept_approved"] == 1) {
+                    $('#' + this.id).attr('disabled', 'disabled').text('Approved');
+                    $('#pin_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                    $('#reject_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                    $('#approval_initials_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                    $('#btnSubmit_1').removeAttr('disabled');
+                }else if(arr_data["all_dept_approved"] == 0){
+                    $('#' + this.id).attr('disabled', 'disabled').text('Approved');
+                    $('#pin_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                    $('#reject_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                    $('#approval_initials_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                    $('#btnSubmit_1').removeAttr('disabled');
+                }
+            },
+
+        });
+    });
+
+    $(".reject").click(function (e) {
+        e.preventDefault();
+        var index = this.id.split("_")[1];
+        //  alert(index);
+        var x = document.getElementById("u_error_"+index);
+        x.style.display = "none";
+        var y = document.getElementById("pin_error_"+index);
+        y.style.display = "none";
+
+        var z = document.getElementById("rej_reason_div_"+index);
+        if (z.style.display === "none") {
+            z.style.display = "table-row";
+        }
+        if(document.getElementById("rej_reason_"+index).value){
+            var data_1 = "index="+index+"&rejected_dept_cnt=" + document.getElementById("rejected_dept_cnt").value + "&form_user_data_id=" + document.getElementById("form_user_data_id").value + "&app_dept=" + document.getElementById("approval_dept" + "_" + this.id.split("_")[1]).value + "&app_id=" + document.getElementById("approval_initials" + "_" + this.id.split("_")[1]).value + "&pin=" + document.getElementById("pin" + "_" + this.id.split("_")[1]).value + "&reject_reason=" + document.getElementById("rej_reason_" + this.id.split("_")[1]).value;
+            $.ajax({
+                type: "POST",
+                context: this,
+                url: "reject_store_backend.php",
+                data: data_1,
+                //  cache: false,
+                success: function (response) {
+                    // button manipulation here
+                    var arr_data = JSON.parse(response);
+                    if(arr_data["error_type"] === "user_error"){
+                        var id = "u_error_"+ arr_data["err_row"];
+                        var x = document.getElementById(id);
+                        if (x.style.display === "none") {
+                            x.style.display = "block";
+                        }
+                    }else if (arr_data["error_type"] === "pin_error"){
+                        var id = "pin_error_"+ arr_data["err_row"];
+                        var x = document.getElementById(id);
+                        if (x.style.display === "none") {
+                            x.style.display = "block";
+                        }
+                    }else  if (arr_data["all_dept_rejected"] == 1) {
+                        $('#' + this.id).attr('disabled', 'disabled').text('Rejected');
+                        $('#rej_reason_div_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+
+                        $('#pin_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                        $('#approve_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+
+                        $('#approval_initials_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                        $('#btnSubmit_1').removeAttr('disabled');
+                    }else if(arr_data["all_dept_rejected"] == 0){
+                        $('#' + this.id).attr('disabled', 'disabled').text('Rejected');
+                        $('#rej_reason_div_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+
+                        $('#pin_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+
+                        $('#approve_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                        $('#approval_initials_'+this.id.split("_")[1]).attr('disabled', 'disabled');
+                        $('#btnSubmit_1').removeAttr('disabled');
+                    }
+                },
+
+            });
+        }else{
+
+        }
+        // alert(x);
+        // var y = document.getElementById("pin_error_"+index);
+        // y.style.display = "none";
+
+    });
+
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
 </html>
