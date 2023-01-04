@@ -1,6 +1,8 @@
 <?php
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
+$datefrom = date("Y-m-d");
+$datetill = date('Y-m-d', strtotime('+365 days'));
 $temp = "";
 if (!isset($_SESSION['user'])) {
     if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
@@ -497,7 +499,7 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control" name="valid_from" id="valid_from" placeholder="MM/DD/YYYY" type="date">
+                                        <input class="form-control" name="valid_from" id="valid_from" value="<?php echo $datefrom;?>" placeholder="MM/DD/YYYY" type="date">
                                     </div><!-- input-group -->
                                 </div>
                             </div>
@@ -523,7 +525,7 @@ include("../admin_menu.php");
                                         <option value=""  selected>--Select Hours--</option>
                                         <option value="00">00</option>
                                         <option value="01">01</option>
-                                        <option value="02">02</option>
+                                        <option value="02" selected>02</option>
                                         <option value="03">03</option>
                                         <option value="04">04</option>
                                         <option value="05">05</option>
