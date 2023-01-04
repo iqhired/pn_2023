@@ -189,7 +189,78 @@ $temp = "";
             color: red;
             font-size: initial;
         }
+        @import url('https://fonts.googleapis.com/css2?family=WindSong&display=swap');
 
+        .signature {
+
+            font-family: 'WindSong', swap;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+
+        .pn_none {
+            pointer-events: none;
+            color: #050505;
+        }
+        .form_table_mobile {
+            display: none;
+        }
+        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            .col-lg-2{
+                width: 35%!important;
+            }
+            .content:first-child {
+                padding-top: 90px!important;
+            }
+            .col-md-8.form_col_item {
+                float: left;
+                width: 100%;
+                padding-bottom: 10px;
+            }
+            .border-primary {
+                border-color: #ffffff;
+            }
+            .form_table_mobile {
+                display: block;
+            }
+            table.form_table {
+                display: none;
+            }
+            .form_table_mobile {
+                width: 100%;
+                background-color: #eee;
+                margin-top: 12px;
+            }
+            .form_table_mobile {
+                width: 100%;
+                background-color: #eee;
+                margin-top: 12px;
+            }
+            .form_row_mobile {
+                width: 100%;
+                height: auto;
+            }
+            .col-lg-8.mobile {
+                width: 58%;
+                float: right;
+                padding: 10px 30px 10px 26px;
+            }
+            label.col-lg-3.control-label.mobile {
+                width: 42%;
+                float: left;
+                padding: 10px 30px 10px 26px;
+            }
+            .col-md-2 {
+                width: 50%;
+                float: left;
+            }
+
+
+        }
+        .breadcrumb-header {
+            margin-left: 0;
+        }
 
     </style>
 </head>
@@ -203,8 +274,6 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
-    <div class="row-body row-sm">
-        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
@@ -213,8 +282,6 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
     <?php
     $id = $_GET['id'];
     $fill_op_data = $_GET['optional'];
@@ -225,9 +292,9 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
     ?>
     <form action="edit_user_form_backend.php" id="form_settings" enctype="multipart/form-data"
           class="form-horizontal" method="post" autocomplete="off">
-        <div class="row-body row-sm">
-            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
-                <div class="card  box-shadow-0">
+        <div class="row row-sm">
+            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                <div class="card box-shadow-0">
                     <div class="card-header">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">Form View</span>
                     </div>
@@ -1365,14 +1432,14 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                 <div id="rej_reason_div" style="border: 1px solid red;padding: 10px;">
                                                     <td class="form_tab_td pn_none" colspan="4">Reject Reason : <textarea
                                                                 placeholder="<?php echo $rowc05['reject_reason']; ?>"
-                                                                style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
+                                                                style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1" disabled></textarea>
                                                     </td>
                                                 </div>
                                             <?php }  else if ($form_status == 'Approved') { ?>
                                                 <div id="rej_reason_div" style="border: 1px solid green;padding: 10px;">
                                                     <td class="form_tab_td pn_none" colspan="4">Approve Reason : <textarea
                                                                 placeholder="<?php echo $rowc05['reject_reason']; ?>"
-                                                                style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
+                                                                style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1" disabled></textarea>
                                                     </td>
                                                 </div>
                                             <?php  } ?>
