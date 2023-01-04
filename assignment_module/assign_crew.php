@@ -326,8 +326,8 @@ include("../admin_menu.php");
         $cnt = 1;
         ?>
         <form action="" method="post" id="update-form" class="form-horizontal">
-            <div class="row row-sm">
-                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+            <div class="row row-body">
+                <div class="col-lg-12 col-md-12">
                     <div class="card  box-shadow-0">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Select Crew for <?php echo $lnname; ?> - Positions</span>
