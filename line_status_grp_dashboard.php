@@ -18,27 +18,31 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 }
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
-$_SESSION['timestamp_id'] = '';
-$_SESSION['f_type'] = '';
+
 $timestamp = date('H:i:s');
 $message = date("Y-m-d H:i:s");
 $is_cust_dash = $_SESSION['is_cust_dash'];
 $line_cust_dash = $_SESSION['line_cust_dash'];
-$cellID = $_GET['cell_id'];
-$c_name = $_GET['c_name'];
-if (isset($cellID)) {
-    $sql = "select stations from `cell_grp` where c_id = '$cellID'";
-    $result1 = mysqli_query($db, $sql);
-    $ass_line_array = array();
-    while ($rowc = mysqli_fetch_array($result1)) {
-        $arr_stations = explode(',', $rowc['stations']);
-        foreach ($arr_stations as $station) {
-            if (isset($station) && $station != '') {
-                array_push($ass_line_array, $station);
-            }
+
+$sql = "select stations from `cell_grp`";
+$result1 = mysqli_query($db, $sql);
+$ass_line_array = array();
+while ($rowc = mysqli_fetch_array($result1)) {
+    $arr_stations = explode(',', $rowc['stations']);
+    foreach ($arr_stations as $station){
+        if(isset($station) && $station != ''){
+            array_push($ass_line_array , $station);
         }
     }
 }
+
+$sql = "select line_id from `cam_line` where enabled = 1";
+$result1 = mysqli_query($db, $sql);
+$act_line_array = array();
+while ($rowc = mysqli_fetch_array($result1)) {
+    array_push($act_line_array , $rowc['line_id']);
+}
+$rem_line_array = array_diff($act_line_array, $ass_line_array);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,280 +50,122 @@ if (isset($cellID)) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?php echo $sitename; ?> |Line Dashboard</title>
+    <title><?php echo $sitename; ?> | Dashboard</title>
     <!-- Global stylesheets -->
-
-    <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
-
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+          type="text/css">
+    <link href="./assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/colors.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/style_main.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/blockui.min.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="./assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="./assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- /core JS files -->
     <!-- Theme JS files -->
-
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
-
-
-    <!--Internal  Datetimepicker-slider css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
-    <!--Bootstrap-datepicker css-->
-    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
-    <!-- Internal Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
-    <!-- STYLES CSS -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-    <!---Internal Fancy uploader css-->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
-    <!--Internal  Datepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
-    <!-- Internal Select2.min js -->
-    <!--Internal  jquery.maskedinput js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
-    <!-- Ionicons js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
-    <!--Internal  pickerjs js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
-    <!--internal color picker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
-    <!--Bootstrap-datepicker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
-    <!-- Internal form-elements js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
-
+    <script type="text/javascript" src="./assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/forms/selects/select2.min.js"></script>
+    <!--    <script type="text/javascript" src="./assets/js/core/app.js"></script>-->
+    <script type="text/javascript" src="./assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/ui/ripple.min.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script type="text/javascript" src="./assets/js/pages/components_modals.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/ui/ripple.min.js"></script>
+    <!--chart -->
     <style>
-        .navbar {
-
-            padding-top: 0px!important;
+        .open>.dropdown-menu{
+            min-width: 200px !important;
         }
-        .dropdown .arrow {
-
-            margin-top: -25px!important;
-            width: 1.5rem!important;
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-top: 2px solid #999;
         }
-        #ic .arrow {
-            margin-top: -22px!important;
-            width: 1.5rem!important;
+        table{
+            height: 100px;
         }
-        .fs-6 {
-            font-size: 1rem!important;
+        #t01{
+            height: 120px !important;
         }
-
-        .content_img {
-            width: 113px;
-            float: left;
-            margin-right: 5px;
-            border: 1px solid gray;
-            border-radius: 3px;
-            padding: 5px;
-            margin-top: 10px;
+        .col-container {
+            display: table; /* Make the container element behave like a table */
+            width: 100%; /* Set full-width to expand the whole page */
         }
 
-        /* Delete */
-        .content_img span {
-            border: 2px solid red;
-            display: inline-block;
-            width: 99%;
+        .col {
+            display: table-cell; /* Make elements inside the container behave like table cells */
+        }
+        td{
+            width:50% !important;
+        }
+        .heading-elements {
+            background-color: transparent;
+        }
+
+        .line_card{
+            background-color: #181d50;
+        }
+        .bg-blue-400 {
+            background-color: #181d50;
+        }
+
+        .bg-orange-400 {
+            background-color: #dc6805;
+        }
+
+        .bg-teal-400 {
+            background-color: #218838;
+        }
+
+        .bg-pink-400 {
+            background-color: #c9302c;
+        }
+        .text_white{
+            color: #fff;
+        }
+        .dashboard_line_heading {
             text-align: center;
-            color: red;
-        }
-        .remove_btn{
-            float: right;
-        }
-        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
-        .collapse.in {
-            display: block!important;
-        }
-        .mt-4 {
-            margin-top: 0rem!important;
-        }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
-
-        table.dataTable thead .sorting:after {
-            content: ""!important;
-            top: 49%;
-        }
-        .card-title:before{
-            width: 0;
-
-        }
-        .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 238px;
-        }
-        .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
-            display: block;
-        }
-
-        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
-            height: 32px;
-            width: 32px;
-        }
-        .widget-user .widget-user-image {
-            left: 84%;
-            margin-left: -45px;
-            position: absolute;
-            top: 0px;
-        }.bg-primary {
-             background-color: #fff!important;
-         }
-        .widget-user .widget-user-username{
-            color: #1c273c;
-            font-size: 20px;
-        }
-        .widget-user .widget-user-image>img {
-            width: 110px;
-        }
-        .widget-user .widget-user-header {
-            height: auto;
-            padding: 20px;
-            width: 78%;
-        }
-        .card-title{
-            font-size: 25px;
-        }
-        .anychart-credits{
-            display: none;
-        }
-        .img-circle {
-            border-radius: 50%;
-            height: 32vh;
-            width: 42vh;
-            background-color: #fff;
-        }
-        .widget-user-graph {
-            left: 54%;
-            margin-left: -45px;
-            position: absolute;
-            top: 2px;
-        }
-        .card .card{
-            height: 245px;
-        }
-        .circle-icon {
-            border-radius: 0px;
+            padding-top: 5px;
+            font-size: 22px !important;
+            color: #191e3a;
             height: 50px;
-            position: absolute;
-            right: 60px;
-            top: 0px;
-            width: 40px;
         }
 
-        .box-shadow-primary {
-            box-shadow: none;
-        }
-        .tx-20 {
-            font-size: 32px!important;
-        }
-        .text-center {
-            text-align: center!important;
-            background-image: none!important;
-        }
-        .badge {
-            padding: 0.5em 0.5em!important;
-            width: 100px;
-            height: 23px;
-        }
-        .img-thumbnail{
-            height: 200px;
-            margin-left: 40px;
-        }
-        .card-header:first-child{
-            padding: 14px;
-        }
-        .bg-primary {
-            background-color: green!important;
-        }
-        .wd-sm-200 {
-            width: 200px;
-            height: 200px;
-            margin-left: 40px;
+        @media screen and (min-width: 2560px) {
+            .dashboard_line_heading {
+                font-size: 22px !important;
+                padding-top: 5px;
+            }
         }
 
-
-    </style>
+        .thumb img:not(.media-preview) {
+            height: 150px !important;
+        }
+        .cell_bg{
+            background-color: #fff;
+            color: #333;
+        }
+    </style>    <!-- /theme JS files -->
 </head>
 
-
 <!-- Main navbar -->
+<!-- /main navbar -->
 <?php
-$cust_cam_page_header = "Good Bad Piece";
+$cust_cam_page_header = "Production Cell Overview";
 include("header.php");
 include("admin_menu.php");
+include("heading_banner.php");
 ?>
+<body class="alt-menu sidebar-noneoverflow">
 
-<body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
-<div class="main-content app-content">
-    <!-- container -->
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Pn</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Line Status Grp Dashboard</li>
-            </ol>
-
-        </div>
-
-    </div>
-
-    <div class="row row-body">
+<!-- Content area -->
+<div class="content">
+    <div class="row">
         <?php
         if($is_cust_dash == 1 && isset($line_cust_dash)){
             $line_cust_dash_arr = explode(',', $line_cust_dash);
@@ -653,9 +499,9 @@ include("admin_menu.php");
                 $grp_ststus = "";
                 if(isset($rowc_gd)){
                     if($rowc_gd['act_line_cnt'] > 0){
-                        $grp_ststus = "bg-primary";
+                        $grp_ststus = "<span style=\"float: left;margin: 10px;\" class=\"status-mark bg-success\"></span>";
                     }else{
-                        $grp_ststus = "bg-danger";
+                        $grp_ststus = "<span style=\"float: left;margin: 10px;\" class=\"status-mark bg-danger\"></span>";
                     }
                 }
                 $countervariable++;
@@ -663,55 +509,397 @@ include("admin_menu.php");
                 if ($countervariable % 4 == 0) {
                     ?>
 
-                    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 mg-md-t-0" onclick="cellDB('<?php echo $rowc["c_id"] ?>' , '<?php echo $rowc["c_name"] ?>')">
-                        <div class="card">
-                            <div class="card-header tx-medium bd-0 tx-white <?php echo $grp_ststus ?>">
-                                <?php echo $rowc["c_name"];?>
-                            </div>
-                            <div class="card-body ">
-                                <p class="mg-b-0">
-                                    <?php
-                                    $logo_name = $rowc["cell_logo"];;
-                                    if((null != $logo_name) && ('' != $logo_name)){
-                                        $logo_p = $logo_path . $logo_name;
-                                        ?>
-                                        <img class=" wd-100p wd-sm-200" src = "<?php echo $logo_p?>" />
-                                        <?php
-                                    }else{ ?>
-                                        <img class=" wd-100p wd-sm-200" src = "<?php echo $siteURL . 'assets/images/No_Img_available.png'?>" />
-                                    <?php } ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>            <?php } else { ?>
-                    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 mg-md-t-0" onclick="cellDB('<?php echo $rowc["c_id"] ?>' , '<?php echo $rowc["c_name"] ?>')">
-                        <div class="card">
-                            <div class="card-header tx-medium bd-0 tx-white <?php echo $grp_ststus ?>">
-                                <?php echo $rowc["c_name"];?>
-                            </div>
-                            <div class="card-body ">
-                                <p class="mg-b-0">
-                                    <?php
-                                    $logo_name = $rowc["cell_logo"];;
-                                    if((null != $logo_name) && ('' != $logo_name)){
-                                        $logo_p = $logo_path . $logo_name;
-                                        ?>
-                                        <img class=" wd-100p wd-sm-200" src = "<?php echo $logo_p?>" />
-                                        <?php
-                                    }else{
-                                        ?>
-                                        <img class=" wd-100p wd-sm-200" src = "<?php echo $siteURL . 'assets/images/No_Img_available.png'?>" />
-                                        <?php
-                                    }
+                <div class="col-lg-3" onclick="cellDB('<?php echo $rowc["c_id"] ?>' , '<?php echo $rowc["c_name"] ?>')">
+                    <div class="panel cell_bg">
+                        <div class="panel-body">
+                            <h3 class="no-margin dashboard_line_heading"><?php echo $rowc["c_name"];echo $grp_ststus; ?></h3>
+                            <hr/>
+                            <table class="table" align="center" id="tblMain" >
+                                <tr>
+                                    <td style="border: none">
+                                        <div id = "db_cell_img">
+                                            <?php
+                                            $logo_name = $rowc["cell_logo"];;
+                                            if((null != $logo_name) && ('' != $logo_name)){
+                                                $logo_p = $logo_path . $logo_name;
+                                                ?>
+                                                <img src = "<?php echo $logo_p?>" />
+                                                <?php
+                                            }else{
+                                                ?>
+                                                <img src = "<?php echo $siteURL . 'assets/images/No_Img_available.png'?>" />
+                                                <?php
+                                            }
 
-                                    ?>
-                                </p>
-                            </div>
+                                            ?>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
-                <?php } } }?>
+                    <!--                                </div>-->
+                    </div><?php
+
+                } else {
+                    ?>
+                <div class="col-lg-3" onclick="cellDB('<?php echo $rowc["c_id"] ?>' , '<?php echo $rowc["c_name"] ?>')">
+                    <div class="panel cell_bg">
+                        <div class="panel-body">
+                            <h3 class="no-margin dashboard_line_heading"><?php echo $rowc["c_name"]; echo $grp_ststus; ?></h3>
+                            <hr/>
+                            <table class="table" align="center" id="tblMain" >
+                                <tr>
+                                    <td style="border: none">
+                                        <div id = "db_cell_img">
+                                            <?php
+                                            $logo_name = $rowc["cell_logo"];;
+                                            if((null != $logo_name) && ('' != $logo_name)){
+                                                $logo_p = $logo_path . $logo_name;
+                                                ?>
+                                                <img src = "<?php echo $logo_p?>" />
+                                                <?php
+                                            }else{
+                                                ?>
+                                                <img src = "<?php echo $siteURL . 'assets/images/No_Img_available.png'?>" />
+                                                <?php
+                                            }
+
+                                            ?>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    </div><?php
+                }
+            }
+
+            if(isset($rem_line_array) && sizeof($rem_line_array) > 0){
+                $rem_stations = implode("', '", $rem_line_array);
+                $query = "SELECT * FROM  cam_line where enabled = 1 and line_id IN ('$rem_stations')";
+                $qur = mysqli_query($db, $query);
+
+                while ($rowc = mysqli_fetch_array($qur)) {
+                    $event_status = '';
+                    $line_status_text = '';
+                    $buttonclass = '#000';
+                    $p_num = '';
+                    $p_name = '';
+                    $pf_name = '';
+                    $time = '';
+                    $countervariable++;
+                    $line = $rowc["line_id"];
+                    //$qur01 = mysqli_query($db, "SELECT created_on as start_time , modified_on as updated_time FROM  sg_station_event where line_id = '$line' and event_status = 1 order BY created_on DESC LIMIT 1");
+                    $qur01 = mysqli_query($db, "SELECT pn.part_number as p_num, pn.part_name as p_name , pf.part_family_name as pf_name, et.event_type_name as e_name ,et.color_code as color_code , sg_events.modified_on as updated_time ,sg_events.station_event_id as station_event_id , sg_events.event_status as event_status , sg_events.created_on as e_start_time FROM sg_station_event as sg_events inner join event_type as et on sg_events.event_type_id=et.event_type_id Inner Join pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id inner join pm_part_number as pn on sg_events.part_number_id=pn.pm_part_number_id where sg_events.line_id= '$line' ORDER by sg_events.created_on DESC LIMIT 1");
+                    $rowc01 = mysqli_fetch_array($qur01);
+                    if($rowc01 != null){
+                        $time = $rowc01['updated_time'];
+                        $station_event_id = $rowc01['station_event_id'];
+                        $line_status_text = $rowc01['e_name'];
+                        $event_status = $rowc01['event_status'];
+                        $p_num = $rowc01["p_num"];;
+                        $p_name = $rowc01["p_name"];;
+                        $pf_name = $rowc01["pf_name"];;
+                        $buttonclass = $rowc01["color_code"];
+                    }else{
+
+                    }
+
+                    if ($countervariable % 4 == 0) {
+                        ?>
+                        <div class="row ">
+                        <div class="col-lg-3">
+                            <div class="panel cell_bg">
+                                <div class="panel-body">
+                                    <div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                                            class="icon-cog3"></i> <span class="caret"
+                                                                                         style="color:white;"></span></a>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <?php if($event_status != '0' && $event_status != ''){ ?>
+                                                        <li>
+                                                            <a href="events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>"
+                                                               target="_BLANK"><i class="fa fa-eye"></i>Good & Bad Piece
+                                                            </a></li>
+
+                                                    <?php }  ?><li>
+                                                        <a href="view_station_status.php?station=<?php echo $rowc["line_id"]; ?>"
+                                                           target="_BLANK"><i class="fa fa-eye"></i>View Station
+                                                            Status</a></li>
+                                                    <li>
+                                                        <a href="events_module/station_events.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                           target="_BLANK"><i class="icon-sync"></i>Add / Update
+                                                            Events</a></li>
+                                                    <?php if(($_SESSION['role_id'] == 'admin') || ($_SESSION['role_id'] == 'super')){?>
+                                                        <li>
+                                                            <a href="form_module/form_settings.php?station=<?php echo $rowc["line_id"]; ?>"
+                                                               target="_BLANK"><i class="icon-pie5"></i> Create Form</a>
+                                                        </li>
+                                                    <?php }?>
+                                                    <li>
+                                                        <a href="form_module/options.php?station=<?php echo $rowc["line_id"]; ?>"
+                                                           target="_BLANK"><i class="icon-pie5"></i> Submit Form</a>
+                                                    </li>
+                                                    <?php if(($_SESSION['role_id'] == 'admin') || ($_SESSION['role_id'] == 'super')){?>
+                                                        <li>
+                                                            <a href="assignment_module/assign_crew.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                               target="_BLANK"><i class="icon-sync"></i>Assign/Unassign</a>
+                                                        </li>
+                                                    <?php } ?>
+                                                    <li>
+                                                        <a href="view_assigned_crew.php?station=<?php echo $rowc["line_id"]; ?>"
+                                                           target="_BLANK"><i class="fa fa-eye"></i> View Assigned Crew</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h3 class="no-margin dashboard_line_heading"><?php echo $rowc["line_name"]; ?></h3>
+                                    <hr/>
+
+                                    <table style="width:100%" id="t01">
+                                        <tr>
+                                            <td>
+                                                <div style="padding-top: 5px;font-size: initial; wi">Part Family :
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div><?php echo $pf_name;
+                                                    $pf_name = ''; ?> </div>
+                                                <input type="hidden" id="id<?php echo $countervariable; ?>"
+                                                       value="<?php echo $time; ?>">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div style="padding-top: 5px;font-size: initial;">Part Number :
+                                                </div>
+                                            </td>
+                                            <td><span><?php echo $p_num;
+                                                    $p_num = ''; ?></span></td>
+                                        </tr>
+                                        <!--                                        <tr>-->
+                                        <!--                                            <td><div style="padding-top: 5px;font-size: initial;">Event Type :  </div></td>-->
+                                        <!--                                            <td><span>-->
+                                        <?php //echo $last_assignedby;	$last_assignedby = "";
+                                        ?><!--</span></span></td>-->
+                                        <!--                                        </tr>-->
+                                        <tr>
+                                            <td>
+                                                <div style="padding-top: 5px;font-size: initial;">Part Name :</div>
+                                            </td>
+                                            <td><span><?php echo $p_name;
+                                                    $p_name = ''; ?></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!--                                <h4 style="text-align: center;background-color:#<?php echo $buttonclass; ?>;"><div id="txt" >&nbsp; </div></h4>
+                                        -->
+                                <?php
+                                $variable123 = $time;
+                                if ($variable123 != "") {
+                                    ?>
+                                    <script>
+
+                                        // Set the date we're counting down to
+                                        var iddd<?php echo $countervariable; ?> = $("#id<?php echo $countervariable; ?>").val();
+                                        console.log(iddd<?php echo $countervariable; ?>);
+                                        var countDownDate<?php echo $countervariable; ?> = new Date(iddd<?php echo $countervariable; ?>).getTime();
+                                        // Update the count down every 1 second
+                                        var x = setInterval(function () {
+                                            // Get today's date and time
+                                            // var now = getCurrentTime();
+                                            //new Date().getTime();
+                                            // Find the distance between now and the count down date
+                                            var distance = now - countDownDate<?php echo $countervariable; ?>;
+                                            // Time calculations for days, hours, minutes and seconds
+                                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                            //console.log(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ");
+                                            //console.log("------------------------");
+                                            // Output the result in an element with id="demo"
+                                            document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = days + "d " + hours + "h "
+                                                + minutes + "m " + seconds + "s ";
+                                            // If the count down is over, write some text
+                                            if (distance < 0) {
+                                                clearInterval(x);
+                                                document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = "EXPIRED";
+                                            }
+                                        }, 1000);
+                                    </script>
+                                <?php } ?>
+                                <div style="height: 100%;">
+                                    <h4 class="text_white" style="height:inherit;text-align: center;background-color:<?php echo $buttonclass; ?>;">
+                                        <div style="padding: 10px 0px 5px 0px;"><?php echo $line_status_text; ?> -
+                                            <span style="padding: 0px 0px 10px 0px;"
+                                                  id="demo<?php echo $countervariable; ?>">&nbsp;</span><span
+                                                    id="server-load"></span></div>
+                                        <!--                                        <div style="padding: 0px 0px 10px 0px;" id="demo-->
+                                        <?php //echo $countervariable;
+                                        ?><!--" >&nbsp;</div>-->
+                                    </h4>
+                                </div>
+                            </div>
+                            <!--                                    </div>-->
+                        </div></div><?php
+                    } else {
+                        ?>
+                        <div class="col-lg-3">
+                        <div class="panel cell_bg">
+                            <div class="panel-body">
+                                <div class="heading-elements">
+                                    <ul class="icons-list">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                                        class="icon-cog3"></i> <span class="caret"
+                                                                                     style="color:white;"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <?php if($event_status != '0' && $event_status != ''){ ?>
+                                                    <li>
+                                                        <a href="events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>"
+                                                           target="_BLANK"><i class="fa fa-eye"></i>Good & Bad Piece
+                                                        </a></li>
+
+                                                <?php }  ?>
+                                                <li>
+                                                    <a href="view_station_status.php?station=<?php echo $rowc["line_id"]; ?>"
+                                                       target="_BLANK"><i class="fa fa-eye"></i>View Station Status</a>
+                                                </li>
+                                                <li>
+                                                    <a href="events_module/station_events.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                       target="_BLANK"><i class="icon-sync"></i>Add / Update
+                                                        Events</a></li>
+                                                <?php if(($_SESSION['role_id'] == 'admin') || ($_SESSION['role_id'] == 'super')){?>
+                                                    <li>
+                                                        <a href="form_module/form_settings.php?station=<?php echo $rowc["line_id"]; ?>"
+                                                           target="_BLANK"><i class="icon-pie5"></i> Create Form</a>
+                                                    </li>
+                                                <?php } ?>
+                                                <li>
+                                                    <a href="form_module/options.php?station=<?php echo $rowc["line_id"]; ?>"
+                                                       target="_BLANK"><i class="icon-pie5"></i> Submit Form</a>
+                                                </li>
+                                                <?php if(($_SESSION['role_id'] == 'admin') || ($_SESSION['role_id'] == 'super')){?>
+                                                    <li><a href="assignment_module/assign_crew.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                           target="_BLANK"><i class="icon-sync"></i>Assign/Unassign</a>
+                                                    </li>
+                                                <?php }?>
+                                                <li>
+                                                    <a href="view_assigned_crew.php?station=<?php echo $rowc["line_id"]; ?>"
+                                                       target="_BLANK"><i class="fa fa-eye"></i> View Assigned Crew</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h3 class="no-margin dashboard_line_heading"><?php echo $rowc["line_name"]; ?></h3>
+                                <hr/>
+
+                                <table style="width:100%" id="t01">
+                                    <tr>
+                                        <td>
+                                            <div style="padding-top: 5px;font-size: initial; wi">Part Family :</div>
+                                        </td>
+                                        <td>
+                                            <div><?php echo $pf_name;
+                                                $pf_name = ''; ?> </div>
+                                            <input type="hidden" id="id<?php echo $countervariable; ?>"
+                                                   value="<?php echo $time; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="padding-top: 5px;font-size: initial;">Part Number :</div>
+                                        </td>
+                                        <td><span><?php echo $p_num;
+                                                $p_num = ''; ?></span></td>
+                                    </tr>
+                                    <!--                                        <tr>-->
+                                    <!--                                            <td><div style="padding-top: 5px;font-size: initial;">Event Type :  </div></td>-->
+                                    <!--                                            <td><span>-->
+                                    <?php //echo $last_assignedby;	$last_assignedby = "";
+                                    ?><!--</span></span></td>-->
+                                    <!--                                        </tr>-->
+                                    <tr>
+                                        <td>
+                                            <div style="padding-top: 5px;font-size: initial;">Part Name :</div>
+                                        </td>
+                                        <td><span><?php echo $p_name;
+                                                $p_name = ''; ?></span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--                                <h4 style="text-align: center;background-color:#<?php echo $buttonclass; ?>;"><div id="txt" >&nbsp; </div></h4>
+                                        -->
+                            <?php
+                            $variable123 = $time;
+                            if ($variable123 != "") {
+                                ?>
+                                <script>
+
+                                    // Set the date we're counting down to
+                                    var iddd<?php echo $countervariable; ?> = $("#id<?php echo $countervariable; ?>").val();
+                                    console.log(iddd<?php echo $countervariable; ?>);
+                                    var countDownDate<?php echo $countervariable; ?> = new Date(iddd<?php echo $countervariable; ?>).getTime();
+                                    // Update the count down every 1 second
+                                    var x = setInterval(function () {
+                                        // Get today's date and time
+                                        //var now = getCurrentTime();
+                                        //new Date().getTime();
+                                        // Find the distance between now and the count down date
+                                        var distance = now - countDownDate<?php echo $countervariable; ?>;
+                                        // Time calculations for days, hours, minutes and seconds
+                                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                        //console.log(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ");
+                                        //console.log("------------------------");
+                                        // Output the result in an element with id="demo"
+                                        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = days + "d " + hours + "h "
+                                            + minutes + "m " + seconds + "s ";
+                                        // If the count down is over, write some text
+                                        if (distance < 0) {
+                                            clearInterval(x);
+                                            document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = "EXPIRED";
+                                        }
+                                    }, 1000);
+                                </script>
+                            <?php } ?>
+                            <div style="height: 100%">
+                                <h4 class="text_white" style="height:inherit;text-align: center;background-color:<?php echo $buttonclass; ?>;">
+                                    <div style="padding: 10px 0px 5px 0px;"><?php echo $line_status_text; ?> - <span
+                                                style="padding: 0px 0px 10px 0px;"
+                                                id="demo<?php echo $countervariable; ?>">&nbsp;</span><span
+                                                id="server-load"></span></div>
+                                    <!--                                        <div style="padding: 0px 0px 10px 0px;" id="demo-->
+                                    <?php //echo $countervariable;
+                                    ?><!--" >&nbsp;</div>-->
+                                </h4>
+                            </div>
+
+
+                        </div>
+                        </div><?php
+                    }
+                }
+            }
+
+        }
+
+        ?>
     </div>
 </div>
+
+<!-- new footer here -->
 <?php
 $i = $_SESSION["sqq1"];
 if ($i == "") {
@@ -731,6 +919,6 @@ if ($i == "") {
     //    location.reload();
     // }, 60000);
 </script>
-<?php include("footer1.php");?> <!-- /page container -->
+<?php include("footer.php");?> <!-- /page container -->
 </body>
 </html>
