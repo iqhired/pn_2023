@@ -224,6 +224,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             color: red;
             font-size: initial;
         }
+        .col-md-0\.5 {
+            padding-top: 10px;
+        }
 
 
     </style>
