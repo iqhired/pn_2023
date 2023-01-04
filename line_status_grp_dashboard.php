@@ -18,31 +18,27 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 }
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
-
+$_SESSION['timestamp_id'] = '';
+$_SESSION['f_type'] = '';
 $timestamp = date('H:i:s');
 $message = date("Y-m-d H:i:s");
 $is_cust_dash = $_SESSION['is_cust_dash'];
 $line_cust_dash = $_SESSION['line_cust_dash'];
-
-$sql = "select stations from `cell_grp`";
-$result1 = mysqli_query($db, $sql);
-$ass_line_array = array();
-while ($rowc = mysqli_fetch_array($result1)) {
-    $arr_stations = explode(',', $rowc['stations']);
-    foreach ($arr_stations as $station){
-        if(isset($station) && $station != ''){
-            array_push($ass_line_array , $station);
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
+if (isset($cellID)) {
+    $sql = "select stations from `cell_grp` where c_id = '$cellID'";
+    $result1 = mysqli_query($db, $sql);
+    $ass_line_array = array();
+    while ($rowc = mysqli_fetch_array($result1)) {
+        $arr_stations = explode(',', $rowc['stations']);
+        foreach ($arr_stations as $station) {
+            if (isset($station) && $station != '') {
+                array_push($ass_line_array, $station);
+            }
         }
     }
 }
-
-$sql = "select line_id from `cam_line` where enabled = 1";
-$result1 = mysqli_query($db, $sql);
-$act_line_array = array();
-while ($rowc = mysqli_fetch_array($result1)) {
-    array_push($act_line_array , $rowc['line_id']);
-}
-$rem_line_array = array_diff($act_line_array, $ass_line_array);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -717,7 +713,7 @@ if ($i == "") {
 ?>
 <script>
     function cellDB(cell_ID , c_name) {
-        window.open("<?php echo $siteURL . "cell_overview_dashboard.php?cell_id=" ; ?>" + cell_ID + "<?php echo "&c_name=" ; ?>" + c_name , "_self")
+        window.open("<?php echo $siteURL . "cell_overview_dashboard_old.php?cell_id=" ; ?>" + cell_ID + "<?php echo "&c_name=" ; ?>" + c_name , "_self")
     }
     // setTimeout(function () {
     //    location.reload();
