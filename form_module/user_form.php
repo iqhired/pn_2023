@@ -224,11 +224,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             color: red;
             font-size: initial;
         }
-        .col-md-1 {
-            flex: 0 0 8.33333%;
-            max-width: 2.33333%;
-            padding-top: 8px;
-        }
 
 
     </style>
@@ -497,7 +492,7 @@ include("../admin_menu.php");
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>" class="lower_compare" value="<?php echo $final_lower; ?>">
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>" class="upper_compare" value="<?php echo $final_upper; ?>">
 
-                                    <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="row row-xs align-items-center mg-b-20" style="margin-top: 20px;">
                                         <div class="col-md-1">
                                             <?php
                                             if ($rowc['optional'] != '1') {
@@ -834,7 +829,7 @@ include("../admin_menu.php");
                                                             <input type="password" name="pin[]" id="pin_<?php echo $j ?>"
                                                                    class="form-control" style=" margin-bottom: 5px;width: auto !important;"
                                                                    placeholder="Enter Pin..."  autocomplete="off" >
-                                                            <span style="font-size: x-small;color: darkred; display: none;" id="pin_error_<?php echo $j; ?>">Invalid Pin.</span>
+                                                            <span style="font-size: x-small;color: darkred; display: none;width: 100px;" id="pin_error_<?php echo $j; ?>">Invalid Pin.</span>
                                                         </span>
                                                     </div>
 
