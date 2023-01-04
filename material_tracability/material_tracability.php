@@ -268,8 +268,6 @@ include("../admin_menu.php");
 
     }
     ?>
-    <div class="row row-body">
-        <div class="col-lg-12 col-md-12">
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
@@ -278,8 +276,7 @@ include("../admin_menu.php");
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
+
     <div class="row row-sm">
         <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
     <?php if ($temp == "one") { ?>
