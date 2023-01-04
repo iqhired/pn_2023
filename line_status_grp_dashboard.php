@@ -77,44 +77,6 @@ $rem_line_array = array_diff($act_line_array, $ass_line_array);
     <script type="text/javascript" src="./assets/js/pages/components_modals.js"></script>
     <script type="text/javascript" src="./assets/js/plugins/ui/ripple.min.js"></script>
     <!--chart -->
-
-    <!--Internal  Datetimepicker-slider css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
-    <!--Bootstrap-datepicker css-->
-    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
-    <!-- Internal Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
-    <!-- STYLES CSS -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-    <!---Internal Fancy uploader css-->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
-    <!--Internal  Datepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
-    <!-- Internal Select2.min js -->
-    <!--Internal  jquery.maskedinput js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
-    <!-- Ionicons js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
-    <!--Internal  pickerjs js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
-    <!--internal color picker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
-    <!--Bootstrap-datepicker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
-    <!-- Internal form-elements js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
-
     <style>
         .open>.dropdown-menu{
             min-width: 200px !important;
@@ -188,89 +150,6 @@ $rem_line_array = array_diff($act_line_array, $ass_line_array);
             background-color: #fff;
             color: #333;
         }
-        .navbar {
-
-            padding-top: 0px!important;
-        }
-        .dropdown .arrow {
-
-            margin-top: -25px!important;
-            width: 1.5rem!important;
-        }
-        #ic .arrow {
-            margin-top: -17px!important;
-            width: 1.5rem!important;
-        }
-        .fs-6 {
-            font-size: 1rem!important;
-        }
-
-        .content_img {
-            width: 113px;
-            float: left;
-            margin-right: 5px;
-            border: 1px solid gray;
-            border-radius: 3px;
-            padding: 5px;
-            margin-top: 10px;
-        }
-
-        /* Delete */
-        .content_img span {
-            border: 2px solid red;
-            display: inline-block;
-            width: 99%;
-            text-align: center;
-            color: red;
-        }
-        .remove_btn{
-            float: right;
-        }
-        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
-        .collapse.in {
-            display: block!important;
-        }
-        .mt-4 {
-            margin-top: 0rem!important;
-        }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -12.75rem;
-            margin-right: 12.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-        h3.text-muted.fs-6 {
-            font-size: 1.5rem!important;
-        }
-
     </style>    <!-- /theme JS files -->
 </head>
 
@@ -280,20 +159,13 @@ $rem_line_array = array_diff($act_line_array, $ass_line_array);
 $cust_cam_page_header = "Production Cell Overview";
 include("header.php");
 include("admin_menu.php");
+include("heading_banner.php");
 ?>
-<body class="ltr main-body app sidebar-mini">
+<body class="alt-menu sidebar-noneoverflow">
 
 <!-- Content area -->
-<div class="main-content app-content">
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">PN</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Cell Status Dashboard</li>
-            </ol>
-        </div>
-    </div>
-    <div class="row row-body">
+<div class="content">
+    <div class="row">
         <?php
         if($is_cust_dash == 1 && isset($line_cust_dash)){
             $line_cust_dash_arr = explode(',', $line_cust_dash);
@@ -739,7 +611,7 @@ include("admin_menu.php");
 
                     if ($countervariable % 4 == 0) {
                         ?>
-
+                        <div class="row ">
                         <div class="col-lg-3">
                             <div class="panel cell_bg">
                                 <div class="panel-body">
@@ -877,7 +749,7 @@ include("admin_menu.php");
                                 </div>
                             </div>
                             <!--                                    </div>-->
-                        </div><?php
+                        </div></div><?php
                     } else {
                         ?>
                         <div class="col-lg-3">
@@ -1041,12 +913,12 @@ if ($i == "") {
 ?>
 <script>
     function cellDB(cell_ID , c_name) {
-        window.open("<?php echo $siteURL . "cell_overview_dashboard.php?cell_id=" ; ?>" + cell_ID + "<?php echo "&c_name=" ; ?>" + c_name , "_self")
+        window.open("<?php echo $siteURL . "cell_overview_dashboard_old.php?cell_id=" ; ?>" + cell_ID + "<?php echo "&c_name=" ; ?>" + c_name , "_self")
     }
     // setTimeout(function () {
     //    location.reload();
     // }, 60000);
 </script>
-<?php include("footer1.php");?>  <!-- /page container -->
+<?php include("footer.php");?> <!-- /page container -->
 </body>
 </html>
