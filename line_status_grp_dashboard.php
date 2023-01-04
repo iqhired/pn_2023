@@ -277,6 +277,18 @@ if (isset($cellID)) {
         }
         .img-thumbnail{
             height: 200px;
+            margin-left: 40px;
+        }
+        .card-header:first-child{
+            padding: 14px;
+        }
+        .bg-primary {
+            background-color: green!important;
+        }
+        .wd-sm-200 {
+            width: 200px;
+            height: 200px;
+            margin-left: 40px;
         }
 
 
@@ -367,8 +379,8 @@ include("admin_menu.php");
                                     <ul class="icons-list">
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                                    class="icon-cog3"></i> <span class="caret"
-                                                                                 style="color:white;"></span></a>
+                                                        class="icon-cog3"></i> <span class="caret"
+                                                                                     style="color:white;"></span></a>
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <?php if($event_status != '0' && $event_status != ''){ ?>
                                                     <li>
@@ -478,7 +490,7 @@ include("admin_menu.php");
                                     <div style="padding: 10px 0px 5px 0px;"><?php echo $line_status_text; ?> -
                                         <span style="padding: 0px 0px 10px 0px;"
                                               id="demo<?php echo $countervariable; ?>">&nbsp;</span><span
-                                            id="server-load"></span></div>
+                                                id="server-load"></span></div>
                                     <!--                                        <div style="padding: 0px 0px 10px 0px;" id="demo-->
                                     <?php //echo $countervariable;
                                     ?><!--" >&nbsp;</div>-->
@@ -496,8 +508,8 @@ include("admin_menu.php");
                                 <ul class="icons-list">
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                                class="icon-cog3"></i> <span class="caret"
-                                                                             style="color:white;"></span></a>
+                                                    class="icon-cog3"></i> <span class="caret"
+                                                                                 style="color:white;"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <?php if($event_status != '0' && $event_status != ''){ ?>
                                                 <li>
@@ -604,9 +616,9 @@ include("admin_menu.php");
                         <div style="height: 100%">
                             <h4 class="text_white" style="height:inherit;text-align: center;background-color:<?php echo $buttonclass; ?>;">
                                 <div style="padding: 10px 0px 5px 0px;"><?php echo $line_status_text; ?> - <span
-                                        style="padding: 0px 0px 10px 0px;"
-                                        id="demo<?php echo $countervariable; ?>">&nbsp;</span><span
-                                        id="server-load"></span></div>
+                                            style="padding: 0px 0px 10px 0px;"
+                                            id="demo<?php echo $countervariable; ?>">&nbsp;</span><span
+                                            id="server-load"></span></div>
                                 <!--                                        <div style="padding: 0px 0px 10px 0px;" id="demo-->
                                 <?php //echo $countervariable;
                                 ?><!--" >&nbsp;</div>-->
@@ -619,84 +631,85 @@ include("admin_menu.php");
                 }
             }
         }else{
-        $query = sprintf("SELECT * FROM `cell_grp` where enabled = 1 order by c_name ASC");
-        $qur = mysqli_query($db, $query);
-        $countervariable = 0;
-        $logo_path = $siteURL . 'supplier_logo/';
+            $query = sprintf("SELECT * FROM `cell_grp` where enabled = 1 order by c_name ASC");
+            $qur = mysqli_query($db, $query);
+            $countervariable = 0;
+            $logo_path = $siteURL . 'supplier_logo/';
 
-        while ($rowc = mysqli_fetch_array($qur)) {
-        $grp_line_array = array();
-        $arr_grp_stations = explode(',', $rowc['stations']);
-        foreach ($arr_grp_stations as $station){
-            if(isset($station) && $station != ''){
-                array_push($grp_line_array , $station);
-            }
-        }
 
-        $stationStr = implode("', '", $grp_line_array);
-        $query_gd = sprintf("SELECT count(*) as act_line_cnt from `sg_station_event` where event_status = 1 and line_id in ('$stationStr')");
-        $qur_gd = mysqli_query($db, $query_gd);
-        $rowc_gd = mysqli_fetch_array($qur_gd);
-        $grp_ststus = "";
-        if(isset($rowc_gd)){
-            if($rowc_gd['act_line_cnt'] > 0){
-                $grp_ststus = "<span style=\"float: left;margin-left: 40px;\" class=\"status-mark bg-success\"></span>";
-            }else{
-                $grp_ststus = "<span style=\"float: left;margin-left: 40px;\" class=\"status-mark bg-danger\"></span>";
-            }
-        }
-        $countervariable++;
+            while ($rowc = mysqli_fetch_array($qur)) {
+                $grp_line_array = array();
+                $arr_grp_stations = explode(',', $rowc['stations']);
+                foreach ($arr_grp_stations as $station){
+                    if(isset($station) && $station != ''){
+                        array_push($grp_line_array , $station);
+                    }
+                }
 
-        if ($countervariable % 4 == 0) {
-        ?>
+                $stationStr = implode("', '", $grp_line_array);
+                $query_gd = sprintf("SELECT count(*) as act_line_cnt from `sg_station_event` where event_status = 1 and line_id in ('$stationStr')");
+                $qur_gd = mysqli_query($db, $query_gd);
+                $rowc_gd = mysqli_fetch_array($qur_gd);
+                $grp_ststus = "";
+                if(isset($rowc_gd)){
+                    if($rowc_gd['act_line_cnt'] > 0){
+                        $grp_ststus = "bg-primary";
+                    }else{
+                        $grp_ststus = "bg-danger";
+                    }
+                }
+                $countervariable++;
 
-        <div class="col-xl-3 col-md-6 col-lg-6 col-sm-6" onclick="cellDB('<?php echo $rowc["c_id"] ?>' , '<?php echo $rowc["c_name"] ?>')">
-            <div class="card">
-                <div class="card-body">
-                    <div class="plan-card text-center">
-                        <?php
-                        $logo_name = $rowc["cell_logo"];;
-                        if((null != $logo_name) && ('' != $logo_name)){
-                        $logo_p = $logo_path . $logo_name;
-                        ?>
-                            <img class="img-thumbnail wd-100p wd-sm-200" src = "<?php echo $logo_p?>" />
-                            <?php
-                            }else{ ?>
-                            <img class="img-thumbnail wd-100p wd-sm-200" src = "<?php echo $siteURL . 'assets/images/No_Img_available.png'?>" />
-                            <?php } ?>
+                if ($countervariable % 4 == 0) {
+                    ?>
 
-                        <h6 class="text-drak text-uppercase mt-2"><?php echo $grp_ststus; ?><span class="heading_text"> <?php echo $rowc["c_name"];?></span></h6>
+                    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 mg-md-t-0" onclick="cellDB('<?php echo $rowc["c_id"] ?>' , '<?php echo $rowc["c_name"] ?>')">
+                        <div class="card">
+                            <div class="card-header tx-medium bd-0 tx-white <?php echo $grp_ststus ?>">
+                                <?php echo $rowc["c_name"];?>
+                            </div>
+                            <div class="card-body ">
+                                <p class="mg-b-0">
+                                    <?php
+                                    $logo_name = $rowc["cell_logo"];;
+                                    if((null != $logo_name) && ('' != $logo_name)){
+                                        $logo_p = $logo_path . $logo_name;
+                                        ?>
+                                        <img class=" wd-100p wd-sm-200" src = "<?php echo $logo_p?>" />
+                                        <?php
+                                    }else{ ?>
+                                        <img class=" wd-100p wd-sm-200" src = "<?php echo $siteURL . 'assets/images/No_Img_available.png'?>" />
+                                    <?php } ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>            <?php } else { ?>
+                    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 mg-md-t-0" onclick="cellDB('<?php echo $rowc["c_id"] ?>' , '<?php echo $rowc["c_name"] ?>')">
+                        <div class="card">
+                            <div class="card-header tx-medium bd-0 tx-white <?php echo $grp_ststus ?>">
+                                <?php echo $rowc["c_name"];?>
+                            </div>
+                            <div class="card-body ">
+                                <p class="mg-b-0">
+                                    <?php
+                                    $logo_name = $rowc["cell_logo"];;
+                                    if((null != $logo_name) && ('' != $logo_name)){
+                                        $logo_p = $logo_path . $logo_name;
+                                        ?>
+                                        <img class=" wd-100p wd-sm-200" src = "<?php echo $logo_p?>" />
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <img class=" wd-100p wd-sm-200" src = "<?php echo $siteURL . 'assets/images/No_Img_available.png'?>" />
+                                        <?php
+                                    }
 
+                                    ?>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-            <?php } else { ?>
-        <div class="col-xl-3 col-md-6 col-lg-6 col-sm-6" onclick="cellDB('<?php echo $rowc["c_id"] ?>' , '<?php echo $rowc["c_name"] ?>')">
-            <div class="card">
-                <div class="card-body">
-                    <div class="plan-card text-center">
-                        <?php
-                        $logo_name = $rowc["cell_logo"];;
-                        if((null != $logo_name) && ('' != $logo_name)){
-                            $logo_p = $logo_path . $logo_name;
-                            ?>
-                            <img class="img-thumbnail wd-100p wd-sm-200" src = "<?php echo $logo_p?>" />
-                            <?php
-                        }else{
-                            ?>
-                            <img class="img-thumbnail wd-100p wd-sm-200" src = "<?php echo $siteURL . 'assets/images/No_Img_available.png'?>" />
-                            <?php
-                        }
-
-                        ?>
-                        <h6 class="text-drak text-uppercase mt-2"><?php echo $rowc["c_name"];echo $grp_ststus; ?></h6>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-          <?php } } }?>
+                <?php } } }?>
     </div>
 </div>
 <?php
