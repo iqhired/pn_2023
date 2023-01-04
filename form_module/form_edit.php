@@ -1424,7 +1424,7 @@ include("../admin_menu.php");
             <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-body pt-0">
-                        <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="form_save_btn" class="btn btn-primary submit_btn">Create</button>
+                        <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="form_save_btn" class="btn btn-primary submit_btn">Update</button>
                     </div>
                 </div>
             </div>
