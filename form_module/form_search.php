@@ -460,7 +460,7 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
+                                        <input class="form-control" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="date">
                                     </div><!-- input-group -->
                                 </div>
                                 <div class="col-md-1"></div>
@@ -472,7 +472,7 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
+                                        <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="date">
                                     </div><!-- input-group -->
                                 </div>
 
@@ -506,12 +506,13 @@ include("../admin_menu.php");
                                 <thead>
                                 <tr>
                                     <th class="text-center">Sl. No</th>
+                                    <th>Action</th>
                                     <th>Form Name</th>
                                     <th>Part</th>
                                     <th>Form Type</th>
                                     <th>Form Status</th>
                                     <th>Time</th>
-                                    <th>Action</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -578,6 +579,47 @@ include("../admin_menu.php");
 
                                     <tr>
                                         <td class="text-center"><?php echo ++$counter; ?></td>
+                                        <?php
+                                        $opt_sub = mysqli_query($db, "SELECT form_create_id FROM  form_user_data");
+                                        while ($rowcopt = mysqli_fetch_array($opt_sub)) {
+                                            $opt_id = $rowcopt["form_create_id"];
+                                        }
+                                        $option_submit = mysqli_query($db, "SELECT count(optional) as optional FROM  form_item where form_create_id  = '$opt_id' and optional = 1");
+                                        while ($rowcoptional = mysqli_fetch_array($option_submit)) {
+
+                                            $option = $rowcoptional["optional"];
+                                            if($rowcoptional["optional"] > 0){
+                                                $option = 1;
+                                            }
+                                        }
+                                        if($option == 0){?>
+
+                                            <td class="">
+                                                <?php $finalid = $rowc['form_create_id']; ?>
+                                                <a class="btn btn-success btn-sm br-5 me-2" href="view_user_form_data.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
+                                                    <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
+                                                </a>
+
+                                            </td>
+                                        <?php } else if($option == 1){
+
+                                            if ($check_status != null){  ?>
+                                                <td class="">
+                                                    <?php $finalid = $rowc['form_create_id']; ?>
+                                                    <a class="btn btn-success btn-sm br-5 me-2" href="submit_user_form.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
+                                                        <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
+                                                    </a>
+
+                                                </td>
+                                            <?php } else if($check_status == null) { ?>
+                                                <td class="">
+                                                    <?php $finalid = $rowc['form_create_id']; ?>
+                                                    <a class="btn btn-success btn-sm br-5 me-2" href="view_submit.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
+                                                        <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
+                                                    </a>
+
+                                                </td>
+                                            <?php } } ?>
                                         <td><?php echo $rowc["form_name"]; ?></td>
                                         <td><?php echo $rowc2["part_number"] . '-' . $rowc2["part_name"] ; ?></td>
                                         <td><?php
@@ -614,50 +656,7 @@ include("../admin_menu.php");
                                         } ?>
 
                                         <td><?php   $datetime = $rowc["created_at"];  echo dateReadFormat($datetime); ?></td>
-                                        <?php
 
-                                            $opt_sub = mysqli_query($db, "SELECT form_create_id FROM  form_user_data");
-
-                                            while ($rowcopt = mysqli_fetch_array($opt_sub)) {
-                                                $opt_id = $rowcopt["form_create_id"];
-                                            }
-
-                                            $option_submit = mysqli_query($db, "SELECT count(optional) as optional FROM  form_item where form_create_id  = '$opt_id' and optional = 1");
-                                            while ($rowcoptional = mysqli_fetch_array($option_submit)) {
-
-                                                $option = $rowcoptional["optional"];
-                                                if($rowcoptional["optional"] > 0){
-                                                    $option = 1;
-                                                }
-						                	}
-                                    if($option == 0){?>
-
-                                        <td class="">
-                                            <?php $finalid = $rowc['form_create_id']; ?>
-                                            <a class="btn btn-success btn-sm br-5 me-2" href="view_user_form_data.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
-                                                <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
-                                            </a>
-
-                                        </td>
-                                    <?php } else if($option == 1){
-
-                                    if ($check_status != null){  ?>
-                                    <td class="">
-                                        <?php $finalid = $rowc['form_create_id']; ?>
-                                        <a class="btn btn-success btn-sm br-5 me-2" href="submit_user_form.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
-                                            <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
-                                        </a>
-
-                                    </td>
-                                    <?php } else if($check_status == null) { ?>
-                                    <td class="">
-                                        <?php $finalid = $rowc['form_create_id']; ?>
-                                        <a class="btn btn-success btn-sm br-5 me-2" href="view_submit.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
-                                            <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
-                                        </a>
-
-                                    </td>
-                                    <?php } } ?>
                                     </tr>
 
                                 <?php } ?>

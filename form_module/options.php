@@ -443,11 +443,12 @@ include("../admin_menu.php");
                                     <thead>
                                     <tr>
                                         <th class="text-center">Sl. No</th>
+                                        <th>Action</th>
                                         <th>Form Name</th>
                                         <th>Form Type</th>
                                         <th>PO Number</th>
                                         <th>DA Number</th>
-                                        <th>Action</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -473,6 +474,13 @@ include("../admin_menu.php");
                                         ?>
                                         <tr>
                                             <td class="text-center"><?php echo ++$counter; ?></td>
+                                            <td class="">
+                                                <?php $finalid = $rowc['form_create_id']; ?>
+                                                <a class="btn btn-success btn-sm br-5 me-2" href="user_form.php?id=<?php echo $rowc['form_create_id']; ?>&station=<?php echo $rowc['station']; ?>&form_type=<?php echo $rowc['form_type']; ?>&part_family=<?php echo $rowc['part_family']; ?>&part_number=<?php echo $rowc['part_number']; ?>&form_name=<?php echo $rowc['name']; ?>">
+                                                    <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
+                                                </a>
+
+                                            </td>
                                             <td><?php echo $rowc["name"]; ?></td>
                                             <td><?php
                                                 $station1 = $rowc['form_type'];
@@ -484,13 +492,7 @@ include("../admin_menu.php");
                                             <td><?php echo $rowc["po_number"]; ?></td>
                                             <td><?php echo $rowc["da_number"]; ?></td>
 
-                                            <td class="">
-                                                <?php $finalid = $rowc['form_create_id']; ?>
-                                                <a class="btn btn-success btn-sm br-5 me-2" href="user_form.php?id=<?php echo $rowc['form_create_id']; ?>&station=<?php echo $rowc['station']; ?>&form_type=<?php echo $rowc['form_type']; ?>&part_family=<?php echo $rowc['part_family']; ?>&part_number=<?php echo $rowc['part_number']; ?>&form_name=<?php echo $rowc['name']; ?>">
-                                                    <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
-                                                </a>
 
-                                            </td>
                                         </tr>
 
                                     <?php } ?>
