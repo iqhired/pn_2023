@@ -277,8 +277,8 @@ include("../admin_menu.php");
                 </div>
             </div>
 
-    <div class="row row-sm">
-        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+    <div class="row-body">
+        <div class="col-lg-12 col-md-12">
     <?php if ($temp == "one") { ?>
         <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
             <div class="alert alert-success no-border">
