@@ -16,8 +16,8 @@ if ($request == 1) {
     $temp_fid = $_SESSION['temp_form_id'];
     $_SESSION['temp_form_id'] = $temp_fid . ',' . $form_timestamp;
 
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif") {
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" && $imageFileType != "pdf" && $imageFileType != "JPG" && $imageFileType != "JPEG" && $imageFileType != "PDF") {
         $uploadOk = 0;
     }
     if ($uploadOk == 0) {

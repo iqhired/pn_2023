@@ -59,7 +59,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
     <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/i nteractions.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
@@ -437,7 +437,6 @@ include("../admin_menu.php");
 
                 <div class="col-12 col-sm-12">
                     <div class="card">
-
                         <div class="card-body pt-0">
                             <div class="table-responsive">
                                 <table class="table  table-bordered text-nowrap mb-0" id="example2">

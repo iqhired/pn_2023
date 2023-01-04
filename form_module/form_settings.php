@@ -1,8 +1,6 @@
 <?php
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
-$datefrom = date("Y-m-d");
-$datetill = date('Y-m-d', strtotime('+365 days'));
 $temp = "";
 if (!isset($_SESSION['user'])) {
     if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
@@ -177,8 +175,6 @@ include("../admin_menu.php");
     </div>
     <!-- /breadcrumb -->
     <!-- row -->
-    <div class="row row-sm">
-        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
     <?php
     if (!empty($import_status_message)) {
         echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
@@ -191,8 +187,6 @@ include("../admin_menu.php");
         $_SESSION['import_status_message'] = '';
     }
     ?>
-        </div>
-    </div>
     <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $rowc['sg_communicator_config_id']; ?>">
     <form action="fs_backend.php" id="form_settings" enctype="multipart/form-data" class="form-horizontal" method="post">
         <div class="row row-sm">
@@ -501,8 +495,8 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control fc-datepicker" name="valid_from" id="valid_from" placeholder="MM-DD-YYYY" value="<?php echo $datefrom;?>" type="text">
-                                    </div>
+                                        <input class="form-control fc-datepicker" name="valid_from" id="valid_from" placeholder="MM/DD/YYYY" type="text">
+                                    </div><!-- input-group -->
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -522,11 +516,12 @@ include("../admin_menu.php");
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Frequency</label>
                                 </div>
-                                <div class="col-md-3 mg-t-5 mg-md-t-0">
+                                <div class="col-md-4 mg-t-5 mg-md-t-0">
                                     <select name="duration_hh" id="duration_hh" class="form-control form-select select2" data-bs-placeholder="Select Hours">
+                                        <option value=""  selected>--Select Hours--</option>
                                         <option value="00">00</option>
                                         <option value="01">01</option>
-                                        <option value="02" selected>02</option>
+                                        <option value="02">02</option>
                                         <option value="03">03</option>
                                         <option value="04">04</option>
                                         <option value="05">05</option>

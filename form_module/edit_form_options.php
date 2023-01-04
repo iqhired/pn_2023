@@ -432,11 +432,9 @@ include("../admin_menu.php");
                     </h4>
                 </div>
 
-                <div class="card-body pt-0 example1-table">
+                <div class="card-body pt-0">
                     <div class="table-responsive">
-                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                        <div class="row">
-                            <div class="col-sm-12">
+
                         <table class="table  table-bordered text-nowrap mb-0" id="example2">
                             <thead>
                             <tr>
@@ -506,9 +504,7 @@ include("../admin_menu.php");
                             <?php } ?>
                             </tbody>
                         </table>
-                            </div>
-                        </div>
-                    </div>
+
                     </div>
                 </div>
             </div>
