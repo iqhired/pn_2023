@@ -50,9 +50,9 @@ if (count($_POST) > 0) {
     $_SESSION['date_to_1'] = $_POST['date_to'];
     $_SESSION['timezone_1'] = $_POST['timezone'];
 }else{
-    $curdate = date('Y-m-d');
+    $curdate = date(mdY_FORMAT);
     $dateto = $curdate;
-    $yesdate = date('Y-m-d',strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT,strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 
@@ -464,7 +464,7 @@ include("../admin_menu.php");
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input class="form-control fc-datepicker"  name="date_to" id="date_to" placeholder="MM/DD/YYYY" value="<?php echo $dateto; ?>" type="text">
+                                    <input class="form-control fc-datepicker"  name="date_to" id="date_to" placeholder="MM-DD-YYYY" value="<?php echo $dateto; ?>" type="text">
                                 </div>
                             </div>
                         </div>
@@ -594,6 +594,8 @@ include("../admin_menu.php");
     });
 </script>
 <script>
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
     $(function () {
         $('input:radio').change(function () {
             var abc = $(this).val()
