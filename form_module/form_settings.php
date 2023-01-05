@@ -610,7 +610,7 @@ include("../admin_menu.php");
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Frequency</label>
                                 </div>
-                                <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                <div class="col-md-3 mg-t-5 mg-md-t-0">
                                     <select name="duration_hh" id="duration_hh" class="form-control form-select select2" data-bs-placeholder="Select Hours">
                                         <option value=""  selected>--Select Hours--</option>
                                         <option value="00">00</option>
@@ -639,7 +639,7 @@ include("../admin_menu.php");
                                         <option value="23">23</option>
                                     </select>
                                 </div>/hrs
-                                <div class="col-md-4 mg-t-5 mg-md-t-0">
+                                <div class="col-md-3 mg-t-5 mg-md-t-0">
                                     <select name="duration_mm" id="duration_mm" class="form-control form-select select2" data-bs-placeholder="Select Minutes">
                                         <option value="00" selected>00</option>
                                         <option value="01">01</option>
