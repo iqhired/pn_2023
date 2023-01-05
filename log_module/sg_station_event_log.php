@@ -336,9 +336,9 @@ include("../admin_menu.php");
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Station Event Log</span>
                         </div>
-                        <div class="pd-30 pd-sm-20">
+                        <div class="pd-20 pd-sm-10">
                             <div class="row row-xs">
-                                <div class="col-md-1">
+                                <div class="col-md-2" style="max-width: 9.66667%!important;">
                                     <label class="form-label mg-b-0">Event Type : </label>
                                 </div>
                                 <?php
@@ -348,14 +348,16 @@ include("../admin_menu.php");
                                     $checked = "";
                                 }
                                 ?>
-                                <div class="col-lg-1">
-                                    <input type="radio" name="button_event" id="button3" value="button3"
-                                           class="form-control"
-                                           style="float: left;width: initial;" <?php echo $checked; ?>>
+                                <div class="row mg-t-15" style="margin-top: 8px!important;">
+                                    <div class="col-lg-1">
+                                        <label class="rdiobox"><input type="radio" name="button_event" id="button3" value="button3"
+                                                                      class="form-control"
+                                                                      style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                    </div>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="event_type" id="event_type" class="form-control form-select select2" data-bs-placeholder="Select Station">
-                                        <option value="" selected disabled>--- Select Event Type ---</option>
+                                        <option value="" selected>--- Select Event Type ---</option>
                                         <?php
                                         $ev_ty_post = $_POST['event_type'];
                                         $sql1 = "SELECT * FROM `event_type` where is_deleted != 1 ";
@@ -374,9 +376,8 @@ include("../admin_menu.php");
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-2">
-                                </div>
-                                <div class="col-md-1">
+                                &nbsp; &nbsp; &nbsp;
+                                <div class="col-md-2" style="max-width: 12.66667%!important;">
                                     <label class="form-label mg-b-0">Event Category : </label>
                                 </div>
                                 <?php
@@ -386,11 +387,13 @@ include("../admin_menu.php");
                                     $checked = "";
                                 }
                                 ?>
-                                <div class="col-lg-1">
-                                    <input type="radio" name="button_event" id="button4" value="button4"
-                                           class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>>
+                                <div class="row mg-t-15" style="margin-top: 8px!important;">
+                                    <div class="col-lg-1">
+                                        <label class="rdiobox">  <input type="radio" name="button_event" id="button4" value="button4"
+                                                                        class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                    </div>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="event_category" id="event_category" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled>--- Select Event Catagory ---</option>
                                         <?php
@@ -411,16 +414,14 @@ include("../admin_menu.php");
                                         ?>
                                     </select>
                                 </div>
-
                             </div>
-
                         </div>
-                        <div class="pd-30 pd-sm-20">
+                        <div class="pd-20 pd-sm-10">
                             <div class="row row-xs">
-                                <div class="col-md-1">
+                                <div class="col-md-2" style="max-width: 9.66667%;">
                                     <label class="form-label mg-b-0">Station : </label>
                                 </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div class="col-md-5 mg-t-10 mg-md-t-0" style="max-width: 35.66667%;">
                                     <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled>--- Select Station ---</option>
                                         <?php
@@ -443,7 +444,7 @@ include("../admin_menu.php");
                             </div>
 
                         </div>
-                        <div class="pd-30 pd-sm-20">
+                        <div class="pd-20 pd-sm-10">
                             <div class="row row-xs">
                                 <?php
                                 if ($button != "button2") {
@@ -452,10 +453,10 @@ include("../admin_menu.php");
                                     $checked == "";
                                 }
                                 ?>
-                                <div class="col-md-1">
+                                <div class="col-md-2" style="max-width: 9.66667%;">
                                     <label class="form-label mg-b-0">Date From : </label>
                                 </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div class="col-md-5 mg-t-10 mg-md-t-0" style="max-width: 35.66667%;">
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
@@ -463,12 +464,11 @@ include("../admin_menu.php");
                                         <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
                                     </div><!-- input-group -->
                                 </div>
-                                <div class="col-md-2">
-                                </div>
-                                <div class="col-md-1">
+                                &nbsp; &nbsp; &nbsp;
+                                <div class="col-md-2" style="max-width: 13.66667%;">
                                     <label class="form-label mg-b-0">Date To : </label>
                                 </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div class="col-md-5 mg-t-10 mg-md-t-0" style="max-width: 35.66667%;">
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
@@ -492,7 +492,7 @@ include("../admin_menu.php");
                             $_SESSION['import_status_message'] = '';
                         }
                         ?>
-                        <div class="pd-30 pd-sm-20">
+                        <div class="pd-20 pd-sm-10">
                             <div class="row row-xs">
                                 <div class="col-md-1">
                                     <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
@@ -512,8 +512,6 @@ include("../admin_menu.php");
                 </div>
             </div>
         </div>
-
-
 
     <!-- row  -->
     <?php
@@ -631,7 +629,22 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
         <?php
     }
     ?>
-
+<script>
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $(function () {
+        $('input:radio').change(function () {
+            var abc = $(this).val()
+            //alert(abc)
+            if (abc == "button1")
+            {
+                $('#date_from').prop('disabled', false);
+                $('#date_to').prop('disabled', false);
+                $('#timezone').prop('disabled', true);
+            }
+        });
+    });
+</script>
     <!-- /dashboard content -->
     <script>
         $(function () {
