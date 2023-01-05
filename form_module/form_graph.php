@@ -50,9 +50,9 @@ if (count($_POST) > 0) {
     $_SESSION['date_to_1'] = $_POST['date_to'];
     $_SESSION['timezone_1'] = $_POST['timezone'];
 }else{
-    $curdate = date('Y-m-d');
+    $curdate = date(mdY_FORMAT);
     $dateto = $curdate;
-    $yesdate = date('Y-m-d',strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT,strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 
@@ -273,7 +273,7 @@ include("../admin_menu.php");
                 <div class="card-body pt-0">
                     <div class="pd-30 pd-sm-20">
                         <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <label class="form-label mg-b-0">Station * : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
@@ -348,6 +348,8 @@ include("../admin_menu.php");
                                 </select>
                             </div>
                             <div class="col-md-2">
+                            </div>
+                            <div class="col-md-1">
                                 <label class="form-label mg-b-0">Part Family : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
@@ -388,7 +390,7 @@ include("../admin_menu.php");
                             </div>
                         </div>
                         <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <label class="form-label mg-b-0">Part Number  : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
@@ -417,6 +419,8 @@ include("../admin_menu.php");
                                 </select>
                             </div>
                             <div class="col-md-2">
+                            </div>
+                            <div class="col-md-1">
                                 <label class="form-label mg-b-0">Form Type : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
@@ -445,7 +449,7 @@ include("../admin_menu.php");
                             </div>
                         </div>
                         <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <label class="form-label mg-b-0">Date From : &nbsp;</label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
@@ -457,6 +461,8 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                             <div class="col-md-2">
+                            </div>
+                            <div class="col-md-1">
                                 <label class="form-label mg-b-0">Date To: &nbsp;&nbsp;</label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
@@ -464,7 +470,7 @@ include("../admin_menu.php");
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input class="form-control fc-datepicker"  name="date_to" id="date_to" placeholder="MM/DD/YYYY" value="<?php echo $dateto; ?>" type="text">
+                                    <input class="form-control fc-datepicker"  name="date_to" id="date_to" placeholder="MM-DD-YYYY" value="<?php echo $dateto; ?>" type="text">
                                 </div>
                             </div>
                         </div>
@@ -594,6 +600,8 @@ include("../admin_menu.php");
     });
 </script>
 <script>
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
     $(function () {
         $('input:radio').change(function () {
             var abc = $(this).val()
