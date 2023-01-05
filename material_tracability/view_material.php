@@ -88,19 +88,14 @@ $logo = $rowccus['logo'];
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
-    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+
+
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-          type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">x
     <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/colors.css" rel="stylesheet" type="text/css">
