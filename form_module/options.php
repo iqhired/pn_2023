@@ -500,10 +500,7 @@ include("../admin_menu.php");
                                                 echo $station; ?></td>
                                             <td><?php echo $rowc["po_number"]; ?></td>
                                             <td><?php echo $rowc["da_number"]; ?></td>
-
-
                                         </tr>
-
                                     <?php } ?>
                                     </tbody>
                                 </table>

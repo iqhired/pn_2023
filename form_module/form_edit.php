@@ -182,6 +182,86 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
         button.remove {
             margin-left: 15px;
         }
+        .breadcrumb-header {
+            margin-left: 38px;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+            .row-sm {
+                margin-left: 26px;
+                margin-right: 53px;
+            }
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+            .row-sm {
+                margin-left: 26px;
+                margin-right: 53px;
+            }
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+            .row-sm {
+                margin-left: 26px;
+                margin-right: 53px;
+            }
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+            .row-sm {
+                margin-left: 26px;
+                margin-right: 53px;
+            }
+            .contextMenu {
+                left: 0!important;
+
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+
+        }
 
 
     </style>

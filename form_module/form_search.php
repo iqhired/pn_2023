@@ -191,10 +191,7 @@ if (count($_POST) > 0) {
                 margin-left: -15rem;
                 margin-right: 0rem;
             }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
+
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -202,6 +199,18 @@ if (count($_POST) > 0) {
 
                 margin-left:-15rem;
                 margin-right: 0rem;
+            }
+
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+            .app-content {
+                min-width: 100%;
+                margin-left: 240px;
             }
 
         }
@@ -261,7 +270,7 @@ include("../admin_menu.php");
 
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
