@@ -128,8 +128,6 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/css/demo.css" rel="stylesheet"/>
-
     <style>
         .navbar {
 
@@ -282,13 +280,13 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-    <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        <form action="" id="user_form" class="form-horizontal" method="post">
                         <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Material Tracability Log</span>
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability Log</span>
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
@@ -416,7 +414,7 @@ include("../admin_menu.php");
                                         </div>
                                         <input class="form-control fc-datepicker" name="date_from" id="date_from"
                                                value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
-                                    </div><!-- input-group -->
+                                    </div>
                                 </div>
 
                                 <div class="col-md-1">
@@ -429,7 +427,7 @@ include("../admin_menu.php");
                                         </div>
                                         <input class="form-control fc-datepicker" name="date_to" id="date_to"
                                                value="<?php echo $dateto; ?>" placeholder="MM/DD/YYYY" type="text">
-                                    </div><!-- input-group -->
+                                    </div>
                                 </div>
 
                             </div>
@@ -445,21 +443,22 @@ include("../admin_menu.php");
                                             onclick="window.location.reload();">Reset
                                     </button>
                                 </div>
+
+                    </form>
+                        <form action="export_material.php" method="post" name="export_excel">
+                            <div class="col-md-1">
+                                <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export"
+                                        name="export">Export Data
+                                </button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
+                </div>
+            </div>
         </div>
-    </form>
-    <form action="export_material.php" method="post" name="export_excel">
-        <div class="col-md-1">
-            <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export"
-                    name="export">Export Data
-            </button>
-        </div>
-    </form>
-</div>
+
 
 
 
@@ -468,11 +467,9 @@ include("../admin_menu.php");
 if (count($_POST) > 0) {
 	?>
 
-    <div class="row-body">
-
-        <div class="col-12 col-sm-12">
+    <div class="row row-body">
+        <div class="col-lg-12 col-md-12">
             <div class="card">
-
                 <div class="card-body pt-0">
                     <div class="table-responsive">
                         <table class="table  table-bordered text-nowrap mb-0" id="example2">
@@ -497,14 +494,15 @@ if (count($_POST) > 0) {
 
 							while ($rowc = mysqli_fetch_array($qur)) {
 								$style = "";
-								$m_status = (int)$rowc["material_status"];
+                                $m_status = (int)$rowc["material_status"];
+								/*
 								if ($m_status == 0) {
 									$form_status = "Fail";
 									$style = "style='background-color:#eca9a9;'";
 								} else if ($m_status == 1) {
 									$form_status = "Pass";
 									$style = "style='background-color:#a8d8a8;'";
-								}
+								}*/
 
 								?>
                                 <tr <?php echo $style; ?>>
@@ -518,7 +516,7 @@ if (count($_POST) > 0) {
                                     <td>
 
                                         <a href="../log_module/view_material_log.php?id=<?php echo $rowc['material_id']; ?>&station=<?php echo $station; ?>"
-                                           class="btn btn-primary legitRipple" style="background-color:#1e73be;"
+                                           class="btn btn-primary mg-t-5"
                                            target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>
                                     <td><?php echo $lnn; ?></td>
@@ -530,8 +528,15 @@ if (count($_POST) > 0) {
 											$mty = $rowc04["material_type"];
 										}
 										echo $mty; ?></td>
-                                    <td><?php echo $form_status; ?></td>
-
+                                  <?php if ($m_status == 0) {
+                                      $form_status = "Fail";?>
+                                    <td><span class="badge badge-danger"><?php echo $form_status; ?></span></td>
+                                    <?php }else if ($m_status == 1) {
+                                      $form_status = "Pass"; ?>
+                                        <td><span class="badge badge-success"><?php echo $form_status; ?></span></td>
+                                     <?php } ?>
+                                 <!-- <td><?php /*echo $form_status; */?></td>
+-->
                                     <td><?php echo $rowc['fail_reason']; ?></td>
                                     <td><?php echo dateReadFormat($rowc['created_at']); ?></td>
 
@@ -549,6 +554,23 @@ if (count($_POST) > 0) {
 }
 ?>
 
+</div>
+<script>
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $(function () {
+        $('input:radio').change(function () {
+            var abc = $(this).val()
+            //alert(abc)
+            if (abc == "button1")
+            {
+                $('#date_from').prop('disabled', false);
+                $('#date_to').prop('disabled', false);
+                $('#timezone').prop('disabled', true);
+            }
+        });
+    });
+</script>
 <!-- /dashboard content -->
 <script>
     $('#station').on('change', function (e) {

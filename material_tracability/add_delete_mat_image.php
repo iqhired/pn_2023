@@ -20,7 +20,7 @@ if($request == 1){
 
     // Check image format
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
+        && $imageFileType != "gif" && $imageFileType != "pdf" && $imageFileType != "JPG" && $imageFileType != "JPEG" && $imageFileType != "PDF") {
         $uploadOk = 0;
     }
 
