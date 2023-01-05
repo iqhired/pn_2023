@@ -24,8 +24,10 @@
         //console.log(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ");
         //console.log("------------------------");
         // Output the result in an element with id="demo"
-        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = days + "d " + hours + "h "
-            + minutes + "m " + seconds + "s ";
+        if(document.getElementById("demo<?php echo $countervariable; ?>")){
+            document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+        }
         // If the count down is over, write some text
         if (distance < 0) {
             clearInterval(x);
