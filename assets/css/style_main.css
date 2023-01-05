@@ -20,10 +20,6 @@ a:hover {
     padding: 40px 30px !important;
     background-color: #060818;
 }
-.dataTables_paginate .pagination .page-link {
-    padding: 0.65rem 0rem !important;
-    width: fit-content !important;
-}
 .text_center{
     text-align: center;
 }
