@@ -104,7 +104,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -189,30 +189,139 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             margin-right: 6.25rem;
         }
         @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+            .row-sm {
+                margin-left: 26px;
+                margin-right: 53px;
+            }
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            .col-md-5.mg-t-5.mg-md-t-0 {
+                width: 40%;
+            }
+            .col-md-6 {
+                width: 55%;
+            }
+            .col-md-3.mg-t-5.mg-md-t-0 {
+                width: 30%;
+            }
+            .col-md-2.mg-t-5.mg-md-t-0 {
+                width: 11%;
             }
         }
 
         @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
+            .col-md-4 {
+                width: 30%;
             }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+            .row-sm {
+                margin-left: 26px;
+                margin-right: 53px;
+            }
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            .col-md-5.mg-t-5.mg-md-t-0 {
+                width: 40%;
+            }
+            .col-md-6 {
+                width: 55%;
+            }
+            .col-md-3.mg-t-5.mg-md-t-0 {
+                width: 30%;
+            }
+            .col-md-2.mg-t-5.mg-md-t-0 {
+                width: 11%;
             }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+            .row-sm {
+                margin-left: 26px;
+                margin-right: 53px;
+            }
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            .col-md-5.mg-t-5.mg-md-t-0 {
+                width: 40%;
+            }
+            .col-md-6 {
+                width: 55%;
+            }
+            .col-md-3.mg-t-5.mg-md-t-0 {
+                width: 30%;
+            }
+            .col-md-2.mg-t-5.mg-md-t-0 {
+                width: 11%;
+            }
 
-                margin-left:-15rem;
-                margin-right: 0rem;
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+            .row-sm {
+                margin-left: 26px;
+                margin-right: 53px;
+            }
+            .contextMenu {
+                left: 0!important;
+
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            .col-md-5.mg-t-5.mg-md-t-0 {
+                width: 40%;
+            }
+            .col-md-6 {
+                width: 55%;
+            }
+            .col-md-3.mg-t-5.mg-md-t-0 {
+                width: 30%;
+            }
+            .col-md-2.mg-t-5.mg-md-t-0 {
+                width: 11%;
             }
 
         }
@@ -226,6 +335,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
         }
         .col-md-0\.5 {
             padding-top: 10px;
+        }
+        .breadcrumb-header {
+            margin-left: 0px;
         }
 
 
