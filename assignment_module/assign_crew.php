@@ -373,13 +373,13 @@ include("../admin_menu.php");
                                                 $positionname = $rowc003["position_name"];
                                             }
                                             ?>
-                                            <div class="col-md-2">
+                                            <div class="col-md-1">
                                                 <label class="ckbox">
                                                     <input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $asigncrewid; ?>"><span class="tx-13"></span>
                                                     <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
                                                 </label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
                                             </div>
                                             <div class="col-md-6 mg-t-5 mg-md-t-0">
@@ -395,8 +395,8 @@ include("../admin_menu.php");
                                                 $positionname = $rowc004["position_name"];
                                             }
                                             ?>
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-3">
                                                 <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
                                             </div>
                                             <div class="col-md-6 mg-t-5 mg-md-t-0">
@@ -438,19 +438,19 @@ include("../admin_menu.php");
                                     $priyantcount--;
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <label class="ckbox">
                                                 <input type="checkbox"  id="delete_check[]" name="delete_check[]" value="<?php echo $assigncrewid; ?>"><span class="tx-13"></span>
                                                 <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
                                             </label>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
                                         </div>
                                     </div>
@@ -530,19 +530,19 @@ include("../admin_menu.php");
                                     $priyantcount--;
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <label class="ckbox">
                                                 <input type="checkbox"  id="delete_check[]" name="delete_check[]" value="<?php echo $assigncrewid; ?>"><span class="tx-13"></span>
                                                 <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
                                             </label>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
                                         </div>
                                     </div>
