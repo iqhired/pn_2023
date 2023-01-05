@@ -246,7 +246,6 @@ if (count($_POST) > 0) {
             width: 100px;
             height: 23px;
         }
-
     </style>
 </head>
 

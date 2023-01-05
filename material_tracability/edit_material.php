@@ -221,7 +221,6 @@ $s_event_id = $_GET['station_event_id'];
         #preview {
             padding-top: 20px;
         }
-
     </style>
 </head>
 
