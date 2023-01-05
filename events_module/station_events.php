@@ -425,7 +425,7 @@ include("../admin_menu.php");
                                 <div class="col-md-1">
                                     <label class="form-label mg-b-0">Station * : </label>
                                 </div>
-                                <div class="col-md-5 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
                                         <option value="" selected disabled>--- Select Station ---</option>
                                         <option value="" selected disabled>--- Select Station ---</option>
@@ -496,8 +496,9 @@ include("../admin_menu.php");
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Part Family  : </label>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Part Family : </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
@@ -529,8 +530,9 @@ include("../admin_menu.php");
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Part Number  : </label>
+
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Part Number : </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
@@ -555,7 +557,8 @@ include("../admin_menu.php");
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-1">
                                     <label class="form-label mg-b-0">Event Type  : </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -690,7 +693,7 @@ if(count($_POST) > 0)
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h6 class="modal-title">
+                    <h6 class="modal-title" style="color: #fff">
                         Update Event Status
                     </h6>
                 </div>
