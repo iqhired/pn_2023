@@ -128,8 +128,6 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/css/demo.css" rel="stylesheet"/>
-
     <style>
         .navbar {
 
@@ -282,13 +280,13 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-    <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        <form action="" id="user_form" class="form-horizontal" method="post">
                         <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Material Tracability Log</span>
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability Log</span>
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
@@ -416,7 +414,7 @@ include("../admin_menu.php");
                                         </div>
                                         <input class="form-control fc-datepicker" name="date_from" id="date_from"
                                                value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
-                                    </div><!-- input-group -->
+                                    </div>
                                 </div>
 
                                 <div class="col-md-1">
@@ -429,7 +427,7 @@ include("../admin_menu.php");
                                         </div>
                                         <input class="form-control fc-datepicker" name="date_to" id="date_to"
                                                value="<?php echo $dateto; ?>" placeholder="MM/DD/YYYY" type="text">
-                                    </div><!-- input-group -->
+                                    </div>
                                 </div>
 
                             </div>
@@ -445,21 +443,22 @@ include("../admin_menu.php");
                                             onclick="window.location.reload();">Reset
                                     </button>
                                 </div>
+
+                    </form>
+                        <form action="export_material.php" method="post" name="export_excel">
+                            <div class="col-md-1">
+                                <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export"
+                                        name="export">Export Data
+                                </button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
+                </div>
+            </div>
         </div>
-    </form>
-    <form action="export_material.php" method="post" name="export_excel">
-        <div class="col-md-1">
-            <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export"
-                    name="export">Export Data
-            </button>
-        </div>
-    </form>
-</div>
+
 
 
 
@@ -468,11 +467,9 @@ include("../admin_menu.php");
 if (count($_POST) > 0) {
 	?>
 
-    <div class="row-body">
-
-        <div class="col-12 col-sm-12">
+    <div class="row row-body">
+        <div class="col-lg-12 col-md-12">
             <div class="card">
-
                 <div class="card-body pt-0">
                     <div class="table-responsive">
                         <table class="table  table-bordered text-nowrap mb-0" id="example2">
@@ -518,7 +515,7 @@ if (count($_POST) > 0) {
                                     <td>
 
                                         <a href="../log_module/view_material_log.php?id=<?php echo $rowc['material_id']; ?>&station=<?php echo $station; ?>"
-                                           class="btn btn-primary legitRipple" style="background-color:#1e73be;"
+                                           class="btn btn-primary mg-t-5"
                                            target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>
                                     <td><?php echo $lnn; ?></td>
@@ -548,6 +545,8 @@ if (count($_POST) > 0) {
 	<?php
 }
 ?>
+
+</div>
 
 <!-- /dashboard content -->
 <script>
