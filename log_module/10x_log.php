@@ -479,7 +479,22 @@ if(count($_POST) > 0)
 ?>
 
 <!-- /dashboard content -->
-
+<script>
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $(function () {
+        $('input:radio').change(function () {
+            var abc = $(this).val()
+            //alert(abc)
+            if (abc == "button1")
+            {
+                $('#date_from').prop('disabled', false);
+                $('#date_to').prop('disabled', false);
+                $('#timezone').prop('disabled', true);
+            }
+        });
+    });
+</script>
 <script>
     $('#station').on('change', function (e) {
         $("#10x_form").submit();
