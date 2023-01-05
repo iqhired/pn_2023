@@ -494,14 +494,15 @@ if (count($_POST) > 0) {
 
 							while ($rowc = mysqli_fetch_array($qur)) {
 								$style = "";
-								$m_status = (int)$rowc["material_status"];
+                                $m_status = (int)$rowc["material_status"];
+								/*
 								if ($m_status == 0) {
 									$form_status = "Fail";
 									$style = "style='background-color:#eca9a9;'";
 								} else if ($m_status == 1) {
 									$form_status = "Pass";
 									$style = "style='background-color:#a8d8a8;'";
-								}
+								}*/
 
 								?>
                                 <tr <?php echo $style; ?>>
@@ -527,8 +528,15 @@ if (count($_POST) > 0) {
 											$mty = $rowc04["material_type"];
 										}
 										echo $mty; ?></td>
-                                    <td><?php echo $form_status; ?></td>
-
+                                  <?php if ($m_status == 0) {
+                                      $form_status = "Fail";?>
+                                    <td><span class="badge badge-danger"><?php echo $form_status; ?></span></td>
+                                    <?php }else if ($m_status == 1) {
+                                      $form_status = "Pass"; ?>
+                                        <td><span class="badge badge-success"><?php echo $form_status; ?></span></td>
+                                     <?php } ?>
+                                 <!-- <td><?php /*echo $form_status; */?></td>
+-->
                                     <td><?php echo $rowc['fail_reason']; ?></td>
                                     <td><?php echo dateReadFormat($rowc['created_at']); ?></td>
 
