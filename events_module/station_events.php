@@ -319,34 +319,7 @@ if (count($_POST) > 0) {
             margin-left: -8.75rem;
             margin-right: 6.25rem;
         }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -357,10 +330,7 @@ if (count($_POST) > 0) {
             width: 0;
 
         }
-        .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 238px;
-        }
+
         .main-footer {
             margin-left: -127px;
             margin-right: 112px;
@@ -376,6 +346,7 @@ if (count($_POST) > 0) {
             width: 100px;
             height: 23px;
         }
+
 
     </style>
 </head>
@@ -422,10 +393,10 @@ include("../admin_menu.php");
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label class="form-label mg-b-0">Station * : </label>
                                 </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div class="col-md-3 mg-t-10 mg-md-t-0">
                                     <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
                                         <option value="" selected disabled>--- Select Station ---</option>
                                         <option value="" selected disabled>--- Select Station ---</option>
@@ -497,10 +468,10 @@ include("../admin_menu.php");
                                     </select>
                                 </div>
                                 <div class="col-md-1"></div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label class="form-label mg-b-0">Part Family : </label>
                                 </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div class="col-md-3 mg-t-10 mg-md-t-0">
                                     <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled>--- Select Part Family ---</option>
                                         <?php
@@ -531,10 +502,10 @@ include("../admin_menu.php");
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
 
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label class="form-label mg-b-0">Part Number : </label>
                                 </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div class="col-md-3 mg-t-10 mg-md-t-0">
                                     <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled>--- Select Part Number ---</option>
                                         <?php
@@ -558,10 +529,10 @@ include("../admin_menu.php");
                                     </select>
                                 </div>
                                 <div class="col-md-1"></div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label class="form-label mg-b-0">Event Type  : </label>
                                 </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div class="col-md-3 mg-t-10 mg-md-t-0">
                                     <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled>--- Select Event Type ---</option>
                                         <?php

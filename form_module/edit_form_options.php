@@ -168,43 +168,7 @@ if ($i != "super" && $i != "admin") {
             margin-left: -8.75rem;
             margin-right: 6.25rem;
         }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-        @media (min-width: 482px) and (max-width: 767px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-            .app-content {
-                min-width: 100%;
-                margin-left: 240px;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -251,7 +215,7 @@ include("../admin_menu.php");
 
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-    <div class="row row-body">
+    <div class="row-body">
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
