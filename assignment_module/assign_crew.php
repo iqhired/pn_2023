@@ -238,19 +238,15 @@ include("../admin_menu.php");
                     </ol>
                 </div>
             </div>
-    <div class="row row-body">
-        <div class="col-lg-12 col-md-12">
-    <?php
-    if (!empty($_SESSION['import_status_message'])) {
-        echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-        $_SESSION['message_stauts_class'] = '';
-        $_SESSION['import_status_message'] = '';
-    }
-    ?>
-        </div>
-    </div>
+
     <form action="" method="post"  class="form-horizontal">
         <div class="row-body">
+           <?php if (!empty($_SESSION['import_status_message'])) {
+            echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+            $_SESSION['message_stauts_class'] = '';
+            $_SESSION['import_status_message'] = '';
+            }
+            ?>
             <div class="col-lg-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
@@ -575,10 +571,8 @@ include("../admin_menu.php");
                                     <?php
                                     if ($message_stauts_class == '') {
                                         ?>
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <button type="submit" onclick="submitForm('assign_crew_submit.php')" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">ASSIGN CREW<span class="legitRipple-ripple" style="left: 77.1927%; top: 62.5874%; transform: translate3d(-50%, -50%, 0px); width: 211.636%; opacity: 0;"></span></button>
-                                        </div>
-                                        <div class="col-md-3">
                                             <button type="submit" onclick="submitForm11('assign_crew_unassign_submit.php')" class="btn btn-danger pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">UNASSIGN CREW<span class="legitRipple-ripple" style="left: 77.1927%; top: 62.5874%; transform: translate3d(-50%, -50%, 0px); width: 211.636%; opacity: 0;"></span></button>
                                         </div>
                                     <?php } ?>
@@ -596,6 +590,7 @@ include("../admin_menu.php");
         ?>
     <?php } ?>
 </div>
+
 <script>
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
@@ -684,5 +679,5 @@ include("../admin_menu.php");
         });
     }
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
