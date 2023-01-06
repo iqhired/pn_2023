@@ -1,8 +1,8 @@
 <?php
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
-$datefrom = date("Y-m-d");
-$datetill = date('Y-m-d', strtotime('+365 days'));
+$datefrom = date(mdY_FORMAT);
+$datetill = date(mdY_FORMAT, strtotime('+365 days'));
 $temp = "";
 if (!isset($_SESSION['user'])) {
     if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
@@ -640,7 +640,7 @@ include("../admin_menu.php");
                                         <option value="22">22</option>
                                         <option value="23">23</option>
                                     </select>
-                                </div>/hrs
+                                </div> hrs
                                 <div class="col-md-3 mg-t-5 mg-md-t-0">
                                     <select name="duration_mm" id="duration_mm" class="form-control form-select select2" data-bs-placeholder="Select Minutes">
                                         <option value="00" selected>00</option>
@@ -668,7 +668,7 @@ include("../admin_menu.php");
                                         <option value="22">22</option>
                                         <option value="23">23</option>
                                     </select>
-                                </div>/min
+                                </div> min
                             </div>
                         </div>
                     </div>
@@ -706,6 +706,8 @@ include("../admin_menu.php");
 </div>
 </div>
 <script>
+    $('#valid_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#valid_till').datepicker({ dateFormat: 'mm-dd-yy' });
     $(document).ready(function() {
         $('.select').select2();
     });
