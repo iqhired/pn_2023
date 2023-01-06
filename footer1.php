@@ -98,8 +98,8 @@ include("timings_config.php"); ?>
 	$seconds = ($time - ($days * 24 * 60 * 60) - ($hours * 60 * 60) - ($minutes * 60)) % 60;
 
 	$arrteam1 = explode(':', $freq);
-	$hr = $arrteam1[0];
-	$min = $arrteam1[1];
+	$hr = empty($arrteam1[0])?0:$arrteam1[0];
+	$min = empty($arrteam1[1])?0:$arrteam1[1];
 
 	if($hours >= $hr)
 	{

@@ -61,9 +61,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     <!-- Theme JS files -->
     <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+<!--    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>-->
     <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+<!--    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>-->
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
@@ -101,10 +101,12 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
     <!--Bootstrap-datepicker js-->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+<!--    <script src="--><?php //echo $siteURL; ?><!--assets/js/form_js/select2.min.js"></script>-->
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -461,7 +463,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Out of Tolerance Mail List</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="out_of_tolerance_mail_list[]" id="out_of_tolerance_mail_list" multiple="multiple">
+                                    <select class="form-control select2" name="out_of_tolerance_mail_list[]" id="out_of_tolerance_mail_list" multiple="multiple" data-placeholder="Out Of Tolerance Mail List...">
                                         <?php
                                         $arrteam = explode(',', $rowc["teams"]);
                                         $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
@@ -484,10 +486,10 @@ include("../admin_menu.php");
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
-                                    <label class="form-label mg-b-0">out of Control List</label>
+                                    <label class="form-label mg-b-0">Out of Control List</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="out_of_control_list[]" id="out_of_control_list" multiple="multiple">
+                                    <select class="select2 form-control " name="out_of_control_list[]" id="out_of_control_list" multiple="multiple" data-placeholder="Out of Control List ..." >
                                         <?php
                                         $arrteam = explode(',', $rowc["teams"]);
                                         $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
@@ -513,7 +515,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Notification List</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="notification_list[]" id="notification_list" multiple="multiple">
+                                    <select class="form-control select2" name="notification_list[]" id="notification_list" multiple="multiple" data-placeholder="Notification List ..." >
                                         <?php
                                         $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname` ";
                                         $result1 = $mysqli->query($sql1);
@@ -559,24 +561,24 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Approved By</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="approval_by[]" id="approval_by" multiple="multiple">
-                                        <?php
-                                        $arrteam = explode(',', $rowc["teams"]);
-                                        $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
-                                        $result1 = $mysqli->query($sql1);
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            if (in_array($row1['group_id'], $arrteam)) {
-                                                $selected = "selected";
-                                            } else {
-                                                $selected = "";
-                                            }
-                                            $station1 = $row1['group_id'];
-                                            $qurtemp = mysqli_query($db, "SELECT * FROM  sg_group where group_id = '$station1' ");
-                                            $rowctemp = mysqli_fetch_array($qurtemp);
-                                            $groupname = $rowctemp["group_name"];
-                                            echo "<option value='" . $row1['group_id'] . "' $selected>" . $groupname . "</option>";
-                                        }
-                                        ?>
+                                    <select class="select2 form-control select-border-color select-access-multiple-open" data-style="bg-slate" data-placeholder="Approval By ..." name="approval_by[]" id="approval_by" multiple="multiple">
+										<?php
+										$arrteam = explode(',', $rowc["teams"]);
+										$sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
+										$result1 = $mysqli->query($sql1);
+										while ($row1 = $result1->fetch_assoc()) {
+											if (in_array($row1['group_id'], $arrteam)) {
+												$selected = "selected";
+											} else {
+												$selected = "";
+											}
+											$station1 = $row1['group_id'];
+											$qurtemp = mysqli_query($db, "SELECT * FROM  sg_group where group_id = '$station1' ");
+											$rowctemp = mysqli_fetch_array($qurtemp);
+											$groupname = $rowctemp["group_name"];
+											echo "<option value='" . $row1['group_id'] . "' $selected>" . $groupname . "</option>";
+										}
+										?>
                                     </select>
                                 </div>
                             </div>
@@ -729,22 +731,7 @@ include("../admin_menu.php");
     }
 </script>
 <script>
-    function group1()
-    {
-        $("#out_of_tolerance_mail_list").select2("open");
-    }
-    function group2()
-    {
-        $("#out_of_control_list").select2("open");
-    }
-    function group3()
-    {
-        $("#notification_list").select2("open");
-    }
-    function group4()
-    {
-        $("#approval_by").select2("open");
-    }
+
     $(document).on("click",".submit_btn",function() {
         //$("#form_settings").submit(function() {
 
