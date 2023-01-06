@@ -1,6 +1,7 @@
 <?php
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
+$chicagotime = date("Y-m-d H:i:s");
 $datefrom = date(mdY_FORMAT);
 $datetill = date(mdY_FORMAT, strtotime('+365 days'));
 $temp = "";
