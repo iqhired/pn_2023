@@ -133,3 +133,10 @@ svg.arrow.dropbtn {
         display: none!important;
     }
 }
+.card-header{
+    background-color: #14846f !important;
+}
+
+.card-header .main-content-title{
+    color: #ffffff !important;
+}
