@@ -137,6 +137,6 @@ svg.arrow.dropbtn {
     background-color: #14846f !important;
 }
 
-.card-header .main-content-title{
+.card-header .main-content-title , .card-header a{
     color: #ffffff !important;
 }

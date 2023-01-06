@@ -228,7 +228,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Station</label>
                             </div>
                             <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                     <option value="" selected> Select Station </option>
                                     <?php
                                     if($is_tab_login){
@@ -284,7 +284,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Part Family</label>
                             </div>
                             <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Country">
                                     <option value="" selected> Select Part Family </option>
                                     <?php
                                     $st_dashboard = $_POST['part_family'];
@@ -317,7 +317,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Part Number</label>
                             </div>
                             <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
                                     <option value="" selected> Select Part Number </option>
                                     <?php
                                     $st_dashboard = $_POST['part_number'];
@@ -345,7 +345,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Form Type</label>
                             </div>
                             <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                <select name="form_type" id="form_type" class="form-control form-select select2" data-bs-placeholder="Select form type">
+                                <select name="form_type" id="form_type" class="form-control form-select select2" data-placeholder="Select Form Type">
                                     <option value="" selected > Select Form Type </option>
                                     <?php
                                     $st_dashboard = $_POST['form_type'];

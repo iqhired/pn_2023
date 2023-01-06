@@ -322,7 +322,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Form Type</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select name="form_type" id="form_type" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="form_type" id="form_type" class="form-control form-select select2" data-placeholder="Select Form Type">
                                         <option value="" selected disabled> Select Form Type </option>
                                         <?php
                                         $sql1 = "SELECT * FROM `form_type` where is_deleted != 1";
@@ -340,7 +340,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Station</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                         <option value="" selected disabled> Select Station </option>
                                         <?php
                                         $st_dashboard = $_GET['station'];
@@ -396,7 +396,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Part Family</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Family">
                                         <option value="" selected disabled> Select Part Number </option>
                                         <?php
                                         $st_dashboard = $_GET['station'];
@@ -415,7 +415,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Part Number</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
                                         <option value="" selected disabled> Select Part Number </option>
                                         <?php
                                         $sql1 = "SELECT * FROM `pm_part_number` where is_deleted != 1";

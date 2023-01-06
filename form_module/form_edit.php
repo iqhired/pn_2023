@@ -525,7 +525,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Out of Tolerance Mail List</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="out_of_tolerance_mail_list[]" id="out_of_tolerance_mail_list" data-style="bg-slate" multiple="multiple">
+                                    <select class="form-control select2" name="out_of_tolerance_mail_list[]" id="out_of_tolerance_mail_list" data-style="bg-slate" multiple="multiple" data-placeholder="Out of Tolerance Mail List ..." >
                                         <?php
                                         $arrteam = explode(',', $rowcmain["out_of_tolerance_mail_list"]);
                                         $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
@@ -548,10 +548,10 @@ include("../admin_menu.php");
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
-                                    <label class="form-label mg-b-0">out of Control List</label>
+                                    <label class="form-label mg-b-0">Out of Control List</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="out_of_control_list[]" id="out_of_control_list" multiple="multiple">
+                                    <select class="form-control select2" name="out_of_control_list[]" id="out_of_control_list" multiple="multiple" data-placeholder="Out of Control Mail List ..." >
                                         <?php
                                         $arrteam = explode(',', $rowcmain["out_of_control_list"]);
                                         $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
@@ -577,7 +577,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Notification List</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="notification_list[]" id="notification_list" multiple="multiple">
+                                    <select class="form-control select2" name="notification_list[]" id="notification_list" multiple="multiple" data-placeholder="Notification List ...">
                                         <?php
                                         $arrteam1 = explode(',', $rowcmain["notification_list"]);
                                         $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname` ";
@@ -648,7 +648,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Approved By</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="approval_by[]" id="approval_by" multiple="multiple">
+                                    <select class="form-control select2" name="approval_by[]" id="approval_by" multiple="multiple" data-placeholder="Approvalcccc List ...">
                                         <?php
                                         $arrteam = explode(',', $rowcmain["approval_by"]);
                                         $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
@@ -691,7 +691,7 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control fc-datepicker" name="valid_till" id="valid_till" placeholder="MM/DD/YYYY" type="text" value="<?php echo $rowcmain["valid_till"]; ?>">
+                                        <input class="form-control fc-datepicker" name="valid_till" id="valid_till" value="<?php echo $rowcmain["valid_till"]; ?>" placeholder="MM/DD/YYYY" type="text" >
                                     </div><!-- input-group -->
                                 </div>
                             </div>
@@ -1514,6 +1514,8 @@ include("../admin_menu.php");
 </div>
 
 <script>
+    $('#valid_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#valid_till').datepicker({ dateFormat: 'mm-dd-yy' });
     $(document).on('click', '.remove_image', function () {
         var del_id = this.id.split("_")[2];
         var form_img_id = this.parentElement.childNodes[3].value;
