@@ -525,19 +525,27 @@ include("../admin_menu.php");
                                     }
 
                                             if ($station != "" && $datefrom != "" && $dateto != "") {
+												$datefrom = date("Y-m-d", strtotime($datefrom));
+												$dateto = date("Y-m-d", strtotime($dateto));
                                                 $result = "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE DATE_FORMAT(`created_by`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_by`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_create_id DESC";
                                                 $qur = mysqli_query($db, $result);
                                             } else if ($station != "" && $user != "" && $datefrom == "" && $dateto == "") {
                                                 $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE station = '$station' ");
                                             } else if ($station != "" && $user == "" && $datefrom != "" && $dateto != "") {
+												$datefrom = date("Y-m-d", strtotime($datefrom));
+												$dateto = date("Y-m-d", strtotime($dateto));
                                                 $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE DATE_FORMAT(`created_by`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_by`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_create_id DESC");
                                             } else if ($station != "" && $user == "" && $datefrom == "" && $dateto == "") {
                                                 $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE station = '$station'");
                                             } else if ($station == "" && $user != "" && $datefrom != "" && $dateto != "") {
+												$datefrom = date("Y-m-d", strtotime($datefrom));
+												$dateto = date("Y-m-d", strtotime($dateto));
                                                 $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE DATE_FORMAT(`created_by`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_by`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_create_id DESC");
                                             } else if ($station == "" && $user != "" && $datefrom == "" && $dateto == "") {
                                                 $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE station = '$station'");
                                             } else if ($station == "" && $user == "" && $datefrom != "" && $dateto != "") {
+												$datefrom = date("Y-m-d", strtotime($datefrom));
+												$dateto = date("Y-m-d", strtotime($dateto));
                                                 $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE DATE_FORMAT(`created_by`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_by`,'%Y-%m-%d') <= '$dateto'");
                                             }
 
