@@ -27,12 +27,12 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 $_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
 if (empty($dateto)) {
-    $curdate = date('Y-m-d');
+    $curdate = date(mdY_FORMAT);
     $dateto = $curdate;
 }
 
 if (empty($datefrom)) {
-    $yesdate = date('Y-m-d', strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT, strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 $button = "";
@@ -650,6 +650,9 @@ include("../admin_menu.php");
 </div>
 
 <script>
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+
     $('#station').on('change', function (e) {
         $("#good_bad_piece_form").submit();
     });

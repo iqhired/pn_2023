@@ -1,7 +1,7 @@
 <?php
 include("../config.php");
 $button_event = "button3";
-$curdate = date('Y-m-d');
+$curdate = date(mdY_FORMAT);
 //$dateto = $curdate;
 //$datefrom = $curdate;
 $button = "";
@@ -69,12 +69,12 @@ if (count($_POST) > 0) {
 	}
 }
 if(empty($dateto)){
-	$curdate = date('Y-m-d');
+	$curdate = date(mdY_FORMAT);
 	$dateto = $curdate;
 }
 
 if(empty($datefrom)){
-	$yesdate = date('Y-m-d');
+	$yesdate = date(mdY_FORMAT);
 	$datefrom = $curdate;
 }
 

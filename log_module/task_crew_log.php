@@ -1,6 +1,6 @@
 <?php
 include("../config.php");
-$curdate = date('Y-m-d');
+$curdate = date(mdY_FORMAT);
 //$dateto = $curdate;
 //$datefrom = $curdate;
 $button = "";
@@ -56,12 +56,12 @@ if (count($_GET) > 0) {
 }
 
 if(empty($dateto)){
-    $curdate = date('Y-m-d');
+    $curdate = date(mdY_FORMAT);
     $dateto = $curdate;
 }
 
 if(empty($datefrom)){
-    $yesdate = date('Y-m-d',strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT,strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 
@@ -552,6 +552,9 @@ if(count($_POST) > 0)
 
 <!-- /dashboard content -->
 <script>
+
+    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
 
     $('#taskboard').on('change', function (e) {
         $("#user_form").submit();

@@ -56,12 +56,12 @@ if (count($_GET) > 0) {
 }
 
 if(empty($dateto)){
-    $curdate = date('Y-m-d');
+    $curdate = date(mdY_FORMAT);
     $dateto = $curdate;
 }
 
 if(empty($datefrom)){
-    $yesdate = date('Y-m-d',strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT,strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 

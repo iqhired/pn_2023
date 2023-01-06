@@ -1,5 +1,5 @@
 <?php include("../config.php");
-$curdate = date('Y-m-d');
+$curdate = date(mdY_FORMAT);
 $button = "";
 $temp = "";
 if (!isset($_SESSION['user'])) {
@@ -24,8 +24,8 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
-$curdate = date('Y-m-d');
-$dfrom = date('Y-m-d', strtotime("-1 days"));
+$curdate = date(mdY_FORMAT);
+$dfrom = date(mdY_FORMAT, strtotime("-1 days"));
 $dateto = $curdate;
 $datefrom = $dfrom;
 $temp = "";
