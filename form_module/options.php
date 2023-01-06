@@ -157,44 +157,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             margin-left: -8.75rem;
             margin-right: 6.25rem;
         }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-        @media (min-width: 482px) and (max-width: 767px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-            .app-content {
-                min-width: 100%;
-                margin-left: 240px;
-            }
-
-        }
-
 
         table.dataTable thead .sorting:after {
             content: ""!important;
@@ -204,10 +166,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             width: 0;
 
         }
-        .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 238px;
-        }
+
         .main-footer {
             margin-left: -127px;
             margin-right: 112px;
@@ -217,6 +176,10 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
         a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
             height: 32px;
             width: 32px;
+        }
+        .col-md-1 {
+            flex: 0 0 8.33333%;
+            max-width: 20%;
         }
 
     </style>
@@ -245,7 +208,7 @@ include("../admin_menu.php");
 
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row row-body">
+        <div class=" row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">

@@ -319,40 +319,7 @@ if (count($_POST) > 0) {
             margin-left: -8.75rem;
             margin-right: 6.25rem;
         }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-            .breadcrumb-header {
-                margin-left: 16px;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-            .breadcrumb-header {
-                margin-left: 16px;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
