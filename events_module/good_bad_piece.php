@@ -194,6 +194,17 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+   <!-- anychart documentation -->
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-exports.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-pareto.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-circular-gauge.min.js"></script>
+    <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css"
+          rel="stylesheet">
 
     <style>
         .navbar {
@@ -370,7 +381,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         }
         .text-center {
             text-align: center!important;
-            font-size: 20px;
+            font-size: 15px;
         }
         .bg-primary-gradient,.bg-success,.bg-danger-gradient,.bg-warning-gradient{
             height: 92px;
