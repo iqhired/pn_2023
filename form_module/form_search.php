@@ -50,9 +50,9 @@ if (count($_POST) > 0) {
     $_SESSION['date_to_1'] = $_POST['date_to'];
     $_SESSION['timezone_1'] = $_POST['timezone'];
 }else{
-    $curdate = date('Y-m-d');
+    $curdate = date(mdY_FORMAT);
     $dateto = $curdate;
-    $yesdate = date('Y-m-d',strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT,strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 
@@ -123,7 +123,7 @@ if (count($_POST) > 0) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -283,7 +283,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Station</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                         <option value="" selected> Select Station </option>
                                         <?php
                                         $st_dashboard = $_GET['station'];
@@ -358,7 +358,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Part Family</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
                                         <option value="" selected> Select Part Family </option>
                                         <?php
                                         if(empty($_POST)){
@@ -403,7 +403,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Part Number</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
                                         <option value="" selected> Select Part Number </option>
                                         <?php
                                         $st_dashboard = $_POST['part_number'];
@@ -432,7 +432,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Form Type</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="form_type" id="form_type" class="form-control form-select select2" data-bs-placeholder="Select form type">
+                                    <select name="form_type" id="form_type" class="form-control form-select select2" data-placeholder="Select Form Type">
                                         <option value="" selected > Select Form Type </option>
                                         <?php
                                         $st_dashboard = $_POST['form_type'];
@@ -469,7 +469,7 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="date">
+                                        <input class="form-control" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM-DD-YYYY" type="text">
                                     </div><!-- input-group -->
                                 </div>
                                 <div class="col-md-1"></div>
@@ -481,7 +481,7 @@ include("../admin_menu.php");
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="date">
+                                        <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM-DD-YYYY" type="text">
                                     </div><!-- input-group -->
                                 </div>
 
@@ -544,19 +544,27 @@ include("../admin_menu.php");
                                 }
 
                                     if ($station != "" && $datefrom != "" && $dateto != "") {
+										$datefrom = date("Y-m-d", strtotime($datefrom));
+										$dateto = date("Y-m-d", strtotime($dateto));
                                         $result = "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC";
                                         $qur = mysqli_query($db,$result);
                                     } else if ($station != "" && $user != "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE  station = '$station' ");
                                     } else if ($station != "" && $user == "" && $datefrom != "" && $dateto != "") {
+										$datefrom = date("Y-m-d", strtotime($datefrom));
+										$dateto = date("Y-m-d", strtotime($dateto));
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC ");
                                     } else if ($station != "" && $user == "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE station = '$station'");
                                     } else if ($station == "" && $user != "" && $datefrom != "" && $dateto != "") {
+										$datefrom = date("Y-m-d", strtotime($datefrom));
+										$dateto = date("Y-m-d", strtotime($dateto));
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC");
                                     } else if ($station == "" && $user != "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE  station = '$station'");
                                     } else if ($station == "" && $user == "" && $datefrom != "" && $dateto != "") {
+										$datefrom = date("Y-m-d", strtotime($datefrom));
+										$dateto = date("Y-m-d", strtotime($dateto));
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ");
                                     }
 
@@ -702,6 +710,8 @@ include("../admin_menu.php");
         });
     </script>
     <script>
+        $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+        $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
         $(function () {
             $('input:radio').change(function () {
                 var abc = $(this).val()
