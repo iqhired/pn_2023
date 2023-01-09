@@ -44,7 +44,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Analytics Trend Form view</title>
+        <?php echo $sitename; ?> |Form Analytics</title>
     <!-- Global stylesheets -->
 
 
@@ -252,7 +252,7 @@ if (($is_tab_login || $is_cell_login)) {
                 <div class="left-content">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Analytics Trend Form view</li>
+                        <li class="breadcrumb-item active" aria-current="page">Form Analytics</li>
                     </ol>
                 </div>
             </div>
@@ -278,28 +278,24 @@ if (($is_tab_login || $is_cell_login)) {
             $cus_name = $row['c_name'];
         }
         ?>
-
+        <?php
+        $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$form_create_id'");
+        $qur1 = mysqli_query($db, $query1);
+        $rowc1 = mysqli_fetch_array($qur1);
+        $name = $rowc1['name'];
+        $item_id = $rowc1['form_create_id'];
+        $part_family = $rowc1['part_family'];
+        $station = $rowc1['station'];
+        $form_type = $rowc1['form_type'];
+        $part_number = $rowc1['part_number'];
+        ?>
         <div class="row-body row-sm">
             <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">Analytics Trend Form view</span>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $name; ?></span>
                     </div>
                     <div class="card-body pt-0">
-                        <?php
-                        $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$form_create_id'");
-                        $qur1 = mysqli_query($db, $query1);
-                        $rowc1 = mysqli_fetch_array($qur1);
-                        $name = $rowc1['name'];
-                        $item_id = $rowc1['form_create_id'];
-                        $part_family = $rowc1['part_family'];
-                        $station = $rowc1['station'];
-                        $form_type = $rowc1['form_type'];
-                        $part_number = $rowc1['part_number'];
-                        ?>
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $name; ?></span>
-                        </div>
                         <div class="pd-30 pd-sm-20">
                                 <div class=" row row-xs align-items-center mg-b-20">
                                     <div class="col-md-2">
