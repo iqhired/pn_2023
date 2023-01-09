@@ -177,10 +177,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             height: 32px;
             width: 32px;
         }
-        .col-md-1 {
-            flex: 0 0 8.33333%;
-            max-width: 20%;
-        }
+
 
     </style>
 </head>

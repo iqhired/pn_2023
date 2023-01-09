@@ -673,7 +673,7 @@ include("../admin_menu.php");
                                             <div class="row mg-t-15">
                                                 <input type="hidden" name="form_item_array[]"
                                                        value="<?php echo $rowc['form_item_id']; ?>"/>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
                                                     <label class="rdiobox">
                                                         <input type="radio" id="yes"
                                                                name="<?php echo $rowc['form_item_id']; ?>"
@@ -689,7 +689,7 @@ include("../admin_menu.php");
                                                             echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></span>
                                                     </label>
                                                 </div>
-                                                <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                                <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
                                                     <label class="rdiobox">
                                                         <input type="radio" id="no"
                                                                name="<?php echo $rowc['form_item_id']; ?>"
