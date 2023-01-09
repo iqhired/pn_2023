@@ -18,20 +18,20 @@ $sql = "SELECT data_item_value as data_item_value , data_item_desc as data_item_
         $lower_tol = $row['item_lower_tol'];
     	if($row['data_item_desc'] == 'binary'){
     		if($row['data_item_value'] == 'yes'){
-				$val = $date . "~" . 1;
-                $upper_tol = $date . "~" . $item_normal + $row['item_upper_tol'];
-                $lower_tol = $date . "~" . $item_normal - $row['item_lower_tol'];
+				$val = onlydateReadFormat($date) . "~" . 1;
+                $upper_tol = onlydateReadFormat($date) . "~" . $item_normal + $row['item_upper_tol'];
+                $lower_tol = onlydateReadFormat($date) . "~" . $item_normal - $row['item_lower_tol'];
 				$posts[] = array('item_value'=> $val,'upper_tol'=>$upper_tol,'lower_tol'=>$lower_tol);
 			}else if($row['data_item_value'] == 'no'){
-				$val = $date . "~" . 0;
-                $upper_tol = $date . "~" . $item_normal + $row['item_upper_tol'];
-                $lower_tol = $date . "~" . $item_normal - $row['item_lower_tol'];
+				$val = onlydateReadFormat($date) . "~" . 0;
+                $upper_tol = onlydateReadFormat($date) . "~" . $item_normal + $row['item_upper_tol'];
+                $lower_tol = onlydateReadFormat($date) . "~" . $item_normal - $row['item_lower_tol'];
 				$posts[] = array('item_value'=> $val,'upper_tol'=>$upper_tol,'lower_tol'=>$lower_tol);
 			}
 		}else if($row['data_item_desc'] == 'numeric'){
-			$val = $date . "~" . $row['data_item_value'];
-            $upper_tol = $date . "~" . $item_normal + $row['item_upper_tol'];
-            $lower_tol = $date . "~" . $item_normal + $row['item_lower_tol'];
+			$val = onlydateReadFormat($date) . "~" . $row['data_item_value'];
+            $upper_tol = onlydateReadFormat($date) . "~" . $item_normal + $row['item_upper_tol'];
+            $lower_tol = onlydateReadFormat($date) . "~" . $item_normal + $row['item_lower_tol'];
 			$posts[] = array('item_value'=> $val,'upper_tol'=>$upper_tol,'lower_tol'=>$lower_tol);
 		}
     }
