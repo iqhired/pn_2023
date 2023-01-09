@@ -27,12 +27,12 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 $_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
 if (empty($dateto)) {
-    $curdate = date(mdYFormat);
+    $curdate = date(mdY_FORMAT);
     $dateto = $curdate;
 }
 
 if (empty($datefrom)) {
-    $yesdate = date('Y-m-d', strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT, strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 $button = "";
@@ -457,7 +457,7 @@ include("../admin_menu.php");
                                         <label class="form-label mg-b-0">Station</label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select name="station" id="station" class="form-control form-select select2" data placeholder="Select Station">
+                                        <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                             <option value="" selected> Select Station </option>
                                             <?php
                                             $entry = '';
