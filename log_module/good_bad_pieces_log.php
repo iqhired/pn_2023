@@ -27,12 +27,12 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 $_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
 if (empty($dateto)) {
-    $curdate = date(mdY_FORMAT);
+    $curdate = date(mdYFormat);
     $dateto = $curdate;
 }
 
 if (empty($datefrom)) {
-    $yesdate = date(mdY_FORMAT, strtotime("-1 days"));
+    $yesdate = date('Y-m-d', strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 $button = "";
@@ -446,7 +446,7 @@ include("../admin_menu.php");
          <div class="row-body">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
-                        <form action="" id="user_form" class="form-horizontal" method="post">
+                        <form action="" id="good_bad_piece_form" class="form-horizontal" method="post">
                         <div class="card-body">
                             <div class="card-header">
                                 <span class="main-content-title mg-b-0 mg-b-lg-1">GOOD BAD PIECE LOG</span>
@@ -457,7 +457,7 @@ include("../admin_menu.php");
                                         <label class="form-label mg-b-0">Station</label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                        <select name="station" id="station" class="form-control form-select select2" data placeholder="Select Station">
                                             <option value="" selected> Select Station </option>
                                             <?php
                                             $entry = '';
@@ -481,8 +481,8 @@ include("../admin_menu.php");
                                         <label class="form-label mg-b-0">Part Family</label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
-                                            <option value="" selected> Select Part Family </option>
+                                        <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
+                                            <option value="" selected disabled> Select Part Family </option>
                                             <?php
                                             $st_dashboard = $_POST['part_family'];
                                             $station = $_POST['station'];
@@ -511,8 +511,8 @@ include("../admin_menu.php");
                                         <label class="form-label mg-b-0">Part Number</label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Part Number">
-                                            <option value="" selected> Select Part Number </option>
+                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                            <option value="" selected disabled> Select Part Number </option>
                                             <?php
                                             $st_dashboard = $_POST['part_number'];
                                             $part_family = $_POST['part_family'];
@@ -570,7 +570,7 @@ include("../admin_menu.php");
 
                             <div class="card-body pt-0">
                                 <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
-                                <button type="clear" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
+                                <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
                             </form>
                                 <form action="export_good_bad_piece.php" method="post" name="export_excel">
                                 <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="export" name="export">Export Data</button>
@@ -650,9 +650,6 @@ include("../admin_menu.php");
 </div>
 
 <script>
-    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
-    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
-
     $('#station').on('change', function (e) {
         $("#good_bad_piece_form").submit();
     });
