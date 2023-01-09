@@ -299,16 +299,16 @@ if (($is_tab_login || $is_cell_login)) {
                         <div class="pd-30 pd-sm-20">
                                 <div class=" row row-xs align-items-center mg-b-20">
                                     <div class="col-md-2">
-                                            <div class="media-left">
+                                            <div class="media-left" style="padding-left: 180px;">
                                                 <img src="../supplier_logo/<?php if($logo != ""){ echo $logo; }else{ echo "user.png"; } ?>" style=" height: 20vh;width:20vh;margin : 15px 25px 5px 5px;background-color: #ffffff;" class="img-circle" alt="">
                                             </div>
                                     </div>
-                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0" style="padding-left: 180px;">
                                                 <input type="hidden" value="<?php echo $form_iitem_id; ?>" name="form_item_id" id="form_item_id">
                                                 <input type="hidden" value="<?php echo $date_to; ?>" name="date_to" id="date_to">
                                                 <input type="hidden" value="<?php echo $date_from; ?>" name="date_from" id="date_from">
                                                 <input type="hidden" value="<?php echo $form_create_id; ?>" name="form_create" id="form_create">
-                                                <h5 style="font-size: xx-large;background-color: #009688; color: #ffffff;padding : 5px; text-align: center;" class="text-semibold no-margin"><?php if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} ?> </h5>
+                                                <!--<h5 style="font-size: xx-large;background-color: #009688; color: #ffffff;padding : 5px; text-align: center;" class="text-semibold no-margin"><?php /*if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} */?> </h5>-->
                                                 <?php
                                                    $qur2 = mysqli_query($db, "SELECT * FROM form_type where form_type_id = '$form_type'");
                                                    $row2 = mysqli_fetch_array($qur2);
