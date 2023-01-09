@@ -44,7 +44,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Analytics Trend Form view</title>
+        <?php echo $sitename; ?> |Form Analytics</title>
     <!-- Global stylesheets -->
 
 
@@ -252,7 +252,7 @@ if (($is_tab_login || $is_cell_login)) {
                 <div class="left-content">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Analytics Trend Form view</li>
+                        <li class="breadcrumb-item active" aria-current="page">Form Analytics</li>
                     </ol>
                 </div>
             </div>
@@ -278,41 +278,37 @@ if (($is_tab_login || $is_cell_login)) {
             $cus_name = $row['c_name'];
         }
         ?>
-
+        <?php
+        $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$form_create_id'");
+        $qur1 = mysqli_query($db, $query1);
+        $rowc1 = mysqli_fetch_array($qur1);
+        $name = $rowc1['name'];
+        $item_id = $rowc1['form_create_id'];
+        $part_family = $rowc1['part_family'];
+        $station = $rowc1['station'];
+        $form_type = $rowc1['form_type'];
+        $part_number = $rowc1['part_number'];
+        ?>
         <div class="row-body row-sm">
             <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">Analytics Trend Form view</span>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $name; ?></span>
                     </div>
                     <div class="card-body pt-0">
-                        <?php
-                        $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$form_create_id'");
-                        $qur1 = mysqli_query($db, $query1);
-                        $rowc1 = mysqli_fetch_array($qur1);
-                        $name = $rowc1['name'];
-                        $item_id = $rowc1['form_create_id'];
-                        $part_family = $rowc1['part_family'];
-                        $station = $rowc1['station'];
-                        $form_type = $rowc1['form_type'];
-                        $part_number = $rowc1['part_number'];
-                        ?>
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $name; ?></span>
-                        </div>
                         <div class="pd-30 pd-sm-20">
                                 <div class=" row row-xs align-items-center mg-b-20">
                                     <div class="col-md-2">
-                                            <div class="media-left">
+                                            <div class="media-left" style="padding-left: 180px;">
                                                 <img src="../supplier_logo/<?php if($logo != ""){ echo $logo; }else{ echo "user.png"; } ?>" style=" height: 20vh;width:20vh;margin : 15px 25px 5px 5px;background-color: #ffffff;" class="img-circle" alt="">
                                             </div>
                                     </div>
-                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0" style="padding-left: 180px;">
                                                 <input type="hidden" value="<?php echo $form_iitem_id; ?>" name="form_item_id" id="form_item_id">
                                                 <input type="hidden" value="<?php echo $date_to; ?>" name="date_to" id="date_to">
                                                 <input type="hidden" value="<?php echo $date_from; ?>" name="date_from" id="date_from">
                                                 <input type="hidden" value="<?php echo $form_create_id; ?>" name="form_create" id="form_create">
-                                                <h5 style="font-size: xx-large;background-color: #009688; color: #ffffff;padding : 5px; text-align: center;" class="text-semibold no-margin"><?php if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} ?> </h5>
+                                                <!--<h5 style="font-size: xx-large;background-color: #009688; color: #ffffff;padding : 5px; text-align: center;" class="text-semibold no-margin"><?php /*if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} */?> </h5>-->
                                                 <?php
                                                    $qur2 = mysqli_query($db, "SELECT * FROM form_type where form_type_id = '$form_type'");
                                                    $row2 = mysqli_fetch_array($qur2);

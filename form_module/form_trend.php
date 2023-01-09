@@ -199,11 +199,17 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             margin-left: -8.75rem;
             margin-right: 6.25rem;
         }
+        .anychart-credits{
+            visibility: hidden!important;
+        }
         @media (min-width: 320px) and (max-width: 480px) {
             .row-body {
 
                 margin-left: 0rem;
                 margin-right: 0rem;
+            }
+            .anychart-credits{
+                visibility: hidden!important;
             }
         }
 
@@ -217,6 +223,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 flex: 0 0 8.33333%;
                 max-width: 10.33333%!important;
             }
+            .anychart-credits{
+                visibility: hidden!important;
+            }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -224,6 +233,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 
                 margin-left:-15rem;
                 margin-right: 0rem;
+            }
+            .anychart-credits{
+                visibility: hidden!important;
             }
 
         }
@@ -361,8 +373,8 @@ if (($is_tab_login || $is_cell_login)) {
                 var dataSet2 = anychart.data.set([]);
 
                 var mapping = dataSet.mapAs({x: 0, value: 1 , fill:2});
-                var mapping1 = dataSet1.mapAs({x: 0, value: 1 , fill:2});
-                var mapping2 = dataSet2.mapAs({x: 0, value: 1 , fill:2});
+                var mapping1 = dataSet1.mapAs({x: 0, value: 1 , fill:3});
+                var mapping2 = dataSet2.mapAs({x: 0, value: 1 , fill:5});
 
 
                 for (var i = 0; i < item_value.length; i++) {
@@ -394,6 +406,7 @@ if (($is_tab_login || $is_cell_login)) {
                 series2.markers(true);
                 // disable clipping series by data plot
                 series2.clip(false);
+                series2.color('#FFA500');
                 // place series under axis
                 series2.zIndex(100);
 
@@ -401,9 +414,24 @@ if (($is_tab_login || $is_cell_login)) {
                 series3.markers(true);
                 // disable clipping series by data plot
                 series3.clip(false);
+                series3.color('#FFA500');
                 // place series under axis
                 series3.zIndex(100);
 
+                // setting series names
+                series1.name("Data value");
+                series2.name("Upper Tolerance");
+                series3.name("Lower Tolerance");
+
+                var palette = anychart.palettes.markers();
+                palette.items(['circle', 'star5', 'star5']);
+
+                chart.markerPalette(palette);
+                var grid = chart.yGrid();
+                grid.enabled(true);
+
+                // Set fill.
+                grid.fill(['#FAFAFA', '#D3D3D3'], 0.5, 0.5, null, 0.9, 0.5, 0.5);
                 // chart.xGrid().enabled(true);
                 chart.yGrid().enabled(true);
                 chart.xAxis().labels().rotation(-90);
@@ -472,5 +500,5 @@ if (($is_tab_login || $is_cell_login)) {
         });
     });
 </script>
-<?php include ('../footer.php') ?>
+<?php include ('../footer1.php') ?>
 </body>

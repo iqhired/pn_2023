@@ -56,10 +56,10 @@ $wc = '';
 if(isset($station) && $station != 'all'){
 	$wc = $wc . " and sg_station_event.line_id = '$station'";
 }
-if(isset($pf)){
+if(!empty($pf)){
 	$wc = $wc . " and sg_station_event.part_family_id = '$pf'";
 }
-if(isset($pn)){
+if(!empty($pn)){
 	$wc = $wc . " and sg_station_event.part_number_id = '$pn'";
 }
 
@@ -88,9 +88,13 @@ if ($button == "button1") {
 		$countdate = date('Y-m-d', strtotime('-365 days'));
 	}
 	if(isset($countdate)){
+		$countdate = date("Y-m-d", strtotime($countdate));
+		$curdate = date("Y-m-d", strtotime($curdate));
 		$wc = $wc . " AND DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$countdate' and DATE_FORMAT(created_at,'%Y-%m-%d') <= '$curdate' ";
 	}
 } else{
+	$datefrom = date("Y-m-d", strtotime($datefrom));
+	$dateto = date("Y-m-d", strtotime($dateto));
 	$wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
 }
 if($_POST['fa_op'] == 1){
