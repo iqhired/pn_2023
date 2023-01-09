@@ -364,6 +364,17 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
             width: 100px;
             height: 23px;
         }
+        a.btn.bg-danger-gradient.text-white.view_gpbp.legitRipple {
+            width: 196px;
+            height: 60px;
+        }
+        .text-center {
+            text-align: center!important;
+            font-size: 20px;
+        }
+        .bg-primary-gradient,.bg-success,.bg-danger-gradient,.bg-warning-gradient{
+            height: 92px;
+        }
 
 
     </style>
@@ -397,7 +408,7 @@ include("../admin_menu.php");
         <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
             <div class="card  box-shadow-0">
                 <div class="card-header">
-                    <h4 class="card-title mb-1"><?php if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} ?></h4>
+                    <h4 class="card-title mb-1 text-white"><?php if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} ?></h4>
                 </div>
                 <div class="card-body pt-0">
                     <div class="card user-wideget user-wideget-widget widget-user">
@@ -417,7 +428,7 @@ include("../admin_menu.php");
         <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Current Staff Efficiency</h4>
+                    <h4 class="card-title mb-1 text-white">Current Staff Efficiency</h4>
                 </div>
                 <div class="card-body pt-0">
                     <div class="card user-wideget user-wideget-widget widget-user">
@@ -472,13 +483,13 @@ include("../admin_menu.php");
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <div class="circle-icon widget bg-primary-gradient text-center align-self-center shadow-primary overflow-hidden box-shadow-primary">
-                                <i class="fa fa-cogs tx-20 lh-lg text-white"></i>
+                            <div class="mt-0 text-center">
+                            <span class="text-white">Total Pieces</span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mt-0 text-center">
-                                <span class="text-white">Total Pieces</span>
+
                                 <h2 class="text-white mb-0"><?php echo $t ?></h2>
                             </div>
                         </div>
@@ -487,17 +498,16 @@ include("../admin_menu.php");
             </div>
         </div>
         <div class="col-lg-6 col-xl-3 col-md-6 col-12">
-            <div class="card bg-success-gradient text-white">
+            <div class="card bg-success text-white">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <div class="circle-icon widget bg-primary-gradient text-center align-self-center shadow-primary overflow-hidden box-shadow-primary">
-                                <i class="fa fa-cogs tx-20 lh-lg text-white"></i>
+                            <div class="mt-0 text-center">
+                                <span class="text-white">Total Good Pieces</span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mt-0 text-center">
-                                <span class="text-white">Total Good Pieces</span>
                                 <h2 class="text-white mb-0"><?php echo $g ?></h2>
                             </div>
                         </div>
@@ -510,13 +520,12 @@ include("../admin_menu.php");
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <div class="circle-icon widget bg-primary-gradient text-center align-self-center shadow-primary overflow-hidden box-shadow-primary">
-                                <i class="fa fa-cogs tx-20 lh-lg text-white"></i>
+                            <div class="mt-0 text-center">
+                                <span class="text-white">Total Bad Pieces</span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mt-0 text-center">
-                                <span class="text-white">Total Bad Pieces</span>
                                 <h2 class="text-white mb-0"><?php echo $b ?></h2>
                             </div>
                         </div>
@@ -529,13 +538,12 @@ include("../admin_menu.php");
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <div class="circle-icon widget bg-primary-gradient text-center align-self-center shadow-primary overflow-hidden box-shadow-primary">
-                                <i class="fa fa-cogs tx-20 lh-lg text-white"></i>
+                            <div class="mt-0 text-center">
+                                <span class="text-white">Rework</span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mt-0 text-center">
-                                <span class="text-white">Rework</span>
                                 <h2 class="text-white mb-0"><?php echo $r ?></h2>
                             </div>
                         </div>
@@ -586,8 +594,7 @@ include("../admin_menu.php");
                             $result1 = $mysqli->query($sql1);
                             while ($row1 = $result1->fetch_assoc()) {
                             ?>
-
-                            <a href="<?php echo $siteURL; ?>events_module/add_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&defect_list_id=<?php echo $row1['defect_list_id']; ?>" class="btn btn-secondary-gradient view_gpbp"><?php echo $row1['defect_list_name']; ?></a>
+                            <a href="<?php echo $siteURL; ?>events_module/add_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&defect_list_id=<?php echo $row1['defect_list_id']; ?>" class="btn bg-danger-gradient text-white view_gpbp"><?php echo $row1['defect_list_name']; ?></a>
                                 <?php
                                 if($i == 4)
                                 {
@@ -597,6 +604,7 @@ include("../admin_menu.php");
                                 $i++;
                             }
                             ?>
+
 
                         </div>
                     </div>
