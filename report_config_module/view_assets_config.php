@@ -250,8 +250,8 @@ include("../admin_menu.php");
           <div class="card">
             <div class="card-body">
                 <div class="card-header">
-                    <div class="main-content-label mg-b-2">
-                        View Line Asset</center>
+                    <div class="main-content-label mg-b-2" style="color: #d6d8db;">
+                        View Line Asset
                     </div>
                 </div><br/>
                 <?php
@@ -261,7 +261,7 @@ include("../admin_menu.php");
                 ?>
                 <div class="card-header" style="background: aliceblue;">
                     <div class="main-content-label mg-b-2">
-                       <center><?php echo $line_name; ?> - <?php echo $asset_name; ?></center>
+                       <center style="color: #d6d8db;"><?php echo $line_name; ?> - <?php echo $asset_name; ?></center>
                     </div>
                 </div>
                 <div class="pd-30 pd-sm-20">

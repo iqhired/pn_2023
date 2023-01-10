@@ -24,8 +24,8 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
-$curdate = date('Y-m-d');
-$dfrom =   date('Y-m-d',strtotime("-1 days"));
+$curdate = date(mdY_FORMAT);
+$dfrom =   date(mdY_FORMAT,strtotime("-1 days"));
 $dateto = $curdate;
 $datefrom = $dfrom;
 $temp = "";
@@ -267,7 +267,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Station : </label>
                                 </div>
                                 <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                    <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                         <option value="" selected disabled>--- Select Station ---</option>
                                         <?php
                                         $st_dashboard = $_POST['station'];
@@ -363,8 +363,8 @@ if(count($_POST) > 0)
                             </thead>
                             <tbody>
                             <?php
-
-
+                            $datefrom = date("Y-m-d", strtotime($datefrom));
+                            $dateto = date("Y-m-d", strtotime($dateto));
                             $q = ("SELECT xx.asset_name,xx.created_date,xx.submit_id  FROM  submit_assets as xx inner join cam_line as cl on xx.line_id = cl.line_id where DATE_FORMAT(xx.created_date,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(xx.created_date,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station'");
                             $qur = mysqli_query($db, $q);
                             while ($rowc = mysqli_fetch_array($qur)) {
@@ -379,7 +379,7 @@ if(count($_POST) > 0)
                                     ?>
                                     <td>
 
-                                        <a href="<?php echo $siteURL; ?>report_config_module/view_assets_config.php?id=<?php echo $rowc['submit_id'];?>" class="btn btn-primary legitRipple" style="background-color:#1e73be;" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                        <a href="<?php echo $siteURL; ?>report_config_module/view_assets_config.php?id=<?php echo $rowc['submit_id'];?>" class="btn btn-primary legitRipple" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>
                                     <td><?php echo $lnn; ?></td>
                                     <td><?php echo $rowc['asset_name']; ?></td>
@@ -397,7 +397,22 @@ if(count($_POST) > 0)
     <?php
 }
 ?>
-
+    <script>
+        $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
+        $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+        $(function () {
+            $('input:radio').change(function () {
+                var abc = $(this).val()
+                //alert(abc)
+                if (abc == "button1")
+                {
+                    $('#date_from').prop('disabled', false);
+                    $('#date_to').prop('disabled', false);
+                    $('#timezone').prop('disabled', true);
+                }
+            });
+        });
+    </script>
 <!-- /dashboard content -->
 <script>
     $('#station').on('change', function (e) {
