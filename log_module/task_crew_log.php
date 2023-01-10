@@ -306,7 +306,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Taskboard:</label>
                                 </div>
                                 <div class="col-md-5 mg-t-10 mg-md-t-0">
-                                    <select name="taskboard" id="taskboard" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                    <select name="taskboard" id="taskboard" class="form-control form-select select2" data-placeholder="Select Taskboard">
                                         <option value="" selected disabled>--- Select Taskboard ---</option>
                                         <?php
                                         $sql1 = "SELECT * FROM `sg_taskboard` ";
@@ -330,7 +330,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">User : </label>
                                 </div>
                                 <div class="col-md-5 mg-t-10 mg-md-t-0">
-                                    <select name="user" id="user" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="user" id="user" class="form-control form-select select2" data-placeholder="Select User">
                                         <option value="" selected >--- Select User ---</option>
                                         <?php
                                         $sql1 = "SELECT DISTINCT tt.assign_to FROM tm_task as tt right join cam_users as cu on tt.assign_to = cu.users_id where tt.assign_to != '' and cu.is_deleted != 1";
