@@ -295,7 +295,7 @@ include("../admin_menu.php");
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="station" id="station" class="form-control form-select select2"
-                                            data-bs-placeholder="Select Station">
+                                            data-placeholder="Select Station">
                                         <option value="" selected disabled>--- Select Station ---</option>
 										<?php
 
@@ -321,7 +321,7 @@ include("../admin_menu.php");
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="part_family" id="part_family" class="form-control form-select select2"
-                                            data-bs-placeholder="Select Country">
+                                            data-placeholder="Select Part Family">
                                         <option value="" selected disabled>--- Select Part Family ---</option>
 										<?php
 										$st_dashboard = $_POST['part_family'];
@@ -352,7 +352,7 @@ include("../admin_menu.php");
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="part_number" id="part_number" class="form-control form-select select2"
-                                            data-bs-placeholder="Select Country">
+                                            data-placeholder="Select Part Number">
                                         <option value="" selected disabled>--- Select Part Number ---</option>
 										<?php
 										$st_dashboard = $_POST['part_number'];
@@ -377,7 +377,7 @@ include("../admin_menu.php");
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="material_type" id="material_type"
                                             class="form-control form-select select2"
-                                            data-bs-placeholder="Select Country">
+                                            data-placeholder="Select Material Type">
                                         <option value="" selected disabled>--- Select Material Type ---</option>
 										<?php
 

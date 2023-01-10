@@ -278,7 +278,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">User : </label>
                             </div>
                             <div class="col-md-5 mg-t-10 mg-md-t-0">
-                                <select  name="usr" id="usr" class="form-control form-select select2"  style="float: left;width: initial;" >
+                                <select  name="usr" id="usr" class="form-control form-select select2"  style="float: left;width: initial;" data-placeholder="Select User">
                                     <option value="" selected disabled>--- Select User ---</option>
                                     <?php
                                     $sql1 = "SELECT DISTINCT `user_id` FROM `cam_assign_crew_log` order by user_id ";
@@ -306,7 +306,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Station : </label>
                             </div>
                             <div class="col-md-5 mg-t-10 mg-md-t-0">
-                                <select  name="station" id="station" class="form-control form-select select2" style="float: left;width: initial;" >
+                                <select  name="station" id="station" class="form-control form-select select2" style="float: left;width: initial;" data-placeholder="Select Station">
                                     <option value="" selected disabled>--- Select Station ---</option>
                                     <?php
                                     $sql1 = "SELECT DISTINCT `station_id` FROM `cam_assign_crew_log`";
