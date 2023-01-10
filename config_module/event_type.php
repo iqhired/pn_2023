@@ -299,8 +299,8 @@ include("../admin_menu.php");
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Event Type</li>
             </ol>
         </div>
     </div>
@@ -468,7 +468,7 @@ include("../admin_menu.php");
                                                     <!--                                                style="background-color:#1e73be;"-->
                                                     <!--                                                data-target="#edit_modal_theme_primary">Edit-->
                                                     <!--                                        </button>-->
-                                                    <a href="event_type_page.php?id=<?php echo  $rowc['event_type_id']; ?>" class="btn btn-primary" data-id="<?php echo $rowc['event_type_name']; ?>"  style="background-color:#1e73be;">Edit</a>
+                                                    <a href="event_type_page.php?id=<?php echo  $rowc['event_type_id']; ?>" class="btn btn-primary" data-id="<?php echo $rowc['event_type_name']; ?>"  style=""><i class="fa fa-edit"></i></a>
 
                                                 </td>
                                             </tr>
