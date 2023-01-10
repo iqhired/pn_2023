@@ -356,7 +356,7 @@ include("../admin_menu.php");
                                     </div>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="event_type" id="event_type" class="form-control form-select select2" data-bs-placeholder="Select Station">
+                                    <select name="event_type" id="event_type" class="form-control form-select select2" data-placeholder="Select Event Type">
                                         <option value="" selected>--- Select Event Type ---</option>
                                         <?php
                                         $ev_ty_post = $_POST['event_type'];
@@ -394,7 +394,7 @@ include("../admin_menu.php");
                                     </div>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="event_category" id="event_category" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="event_category" id="event_category" class="form-control form-select select2" data-placeholder="Select Event Category">
                                         <option value="" selected disabled>--- Select Event Catagory ---</option>
                                         <?php
                                         $ev_cat_post = $_POST['event_category'];
@@ -422,7 +422,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Station : </label>
                                 </div>
                                 <div class="col-md-5 mg-t-10 mg-md-t-0" style="max-width: 35.66667%;">
-                                    <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                         <option value="" selected disabled>--- Select Station ---</option>
                                         <?php
                                         $sql1 = "SELECT * FROM `cam_line` where  enabled = 1 and is_deleted != 1 ORDER BY `cam_line`.`line_id` ASC;";
