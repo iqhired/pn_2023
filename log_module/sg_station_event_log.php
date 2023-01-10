@@ -549,6 +549,8 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 //where DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') >= '2022-11-03'
                                 //and DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') <= '2022-11-03' and slogup.line_id = '3' ORDER BY slogup.created_on ASC";
                                 /* Default Query */
+                                $datefrom = date("Y-m-d", strtotime($datefrom));
+                                $dateto = date("Y-m-d", strtotime($dateto));
                                 $q = $main_query . " and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') <= '$dateto'ORDER BY slogup.created_on  ASC";
 
                                 $line = $_POST['station'];
@@ -556,6 +558,8 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 /* If Line is selected. */
                                 if ($line != null) {
                                     $line = $_POST['station'];
+                                    $datefrom = date("Y-m-d", strtotime($datefrom));
+                                    $dateto = date("Y-m-d", strtotime($dateto));
                                     $q = $main_query . "and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') >= '$curdate' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') <= '$curdate' and slogup.line_id = '$line' ORDER BY slogup.created_on  ASC";
                                 }
 
@@ -578,10 +582,14 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         $q = $q . " and slogup.line_id = '$line_id' ";
                                     }
                                     if ($datefrom != "" && $dateto != "") {
+                                        $datefrom = date("Y-m-d", strtotime($datefrom));
+                                        $dateto = date("Y-m-d", strtotime($dateto));
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') <= '$dateto' ";
                                     } else if ($datefrom != "" && $dateto == "") {
+                                        $datefrom = date("Y-m-d", strtotime($datefrom));
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d') >= '$datefrom' ";
                                     } else if ($datefrom == "" && $dateto != "") {
+                                        $dateto = date("Y-m-d", strtotime($dateto));
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d') <= '$dateto' ";
                                     }
 
