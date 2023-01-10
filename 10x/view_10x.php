@@ -189,43 +189,38 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 $cust_cam_page_header = "View 10x";
 include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
 <body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
-    <div class="row">
+    <div class="breadcrumb-header justify-content-between" style="margin-left: 0px!important;">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
+                <li class="breadcrumb-item active" aria-current="page">View 10x</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row-body">
         <div class="col-md-12 col-lg-12 col-xl-10 col-sm-10">
-            <div class="breadcrumb-header justify-content-between">
-                <div class="left-content">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">View 10x</li>
-                    </ol>
-                </div>
-            </div>
             <?php
             $id = $_GET['id'];
             $querymain = sprintf("SELECT * FROM `10x` where 10x_id = '$id' ");
             $qurmain = mysqli_query($db, $querymain);
-
             while ($rowcmain = mysqli_fetch_array($qurmain)) {
             $formname = $rowcmain['line_no'];
-
             ?>
             <?php
-
             $line_no = "SELECT line_id,line_name from cam_line where line_id = '$formname'";
             $rowline = mysqli_query($db,$line_no);
             $sqlline = mysqli_fetch_assoc($rowline);
             $line_number = $sqlline['line_name'];
-
             $station_event_id = $_GET['station_event_id'];
             ?>
             <div class="card">
                 <div class="card-body">
                     <div class="card-header">
                         <div class="main-content-label mg-b-2">
-                            <center><?php echo $line_number; ?></center>
+                            <center style="color: white;"><?php echo $line_number; ?></center>
                         </div>
                     </div>
                     <form action="" id="form_settings" enctype="multipart/form-data"
