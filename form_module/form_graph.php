@@ -277,7 +277,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Station * : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                <select  name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                <select  name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                     <option value="" selected disabled>--- Select Station ---</option>
                                     <?php
                                     $st_dashboard = $_GET['station'];
@@ -353,7 +353,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Part Family : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                <select  name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                <select  name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
                                     <option value="" selected disabled>--- Select Part Family ---</option>
                                     <?php
                                     if(empty($_POST)){
@@ -394,7 +394,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Part Number : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                <select  name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                <select  name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
                                     <option value="" selected disabled>--- Select Part Number ---</option>
                                     <?php
                                     $st_dashboard = $_POST['part_number'];
@@ -424,7 +424,7 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Form Type : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                <select  name="form_type" id="form_type" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                <select  name="form_type" id="form_type" class="form-control form-select select2" data-placeholder="Select Form Type">
                                     <option value="" selected disabled>--- Select Form Type ---</option>
                                     <?php
                                     $st_dashboard = $_POST['form_type'];
@@ -572,7 +572,7 @@ include("../admin_menu.php");
 
                                             <td>
                                                 <a href="form_item_data_view.php?id=<?php echo $rowc['form_create_id']; ?>&station=<?php echo $station; ?>&form_type=<?php echo $form_type; ?>&date_from=<?php echo $datefrom; ?>&date_to=<?php echo $dateto; ?>"
-                                                   class="btn btn-primary" style="background-color:#1e73be;" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-forward" viewBox="0 0 16 16">
+                                                   class="btn btn-primary" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-forward" viewBox="0 0 16 16">
                                                         <path d="M9.502 5.513a.144.144 0 0 0-.202.134V6.65a.5.5 0 0 1-.5.5H2.5v2.9h6.3a.5.5 0 0 1 .5.5v1.003c0 .108.11.176.202.134l3.984-2.933a.51.51 0 0 1 .042-.028.147.147 0 0 0 0-.252.51.51 0 0 1-.042-.028L9.502 5.513zM8.3 5.647a1.144 1.144 0 0 1 1.767-.96l3.994 2.94a1.147 1.147 0 0 1 0 1.946l-3.994 2.94a1.144 1.144 0 0 1-1.767-.96v-.503H2a.5.5 0 0 1-.5-.5v-3.9a.5.5 0 0 1 .5-.5h6.3v-.503z"/>
                                                     </svg></a>
                                             </td>
