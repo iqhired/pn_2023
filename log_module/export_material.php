@@ -43,13 +43,18 @@ if (!empty($part_family)) {
 }
 if (!empty($datefrom)) {
     $print_data .= "From Date : " . $datefrom . "\n";
+    $datefrom = date("Y-m-d", strtotime($datefrom));
+    $dateto = date("Y-m-d", strtotime($dateto));
     $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' ";
 }
 if (!empty($dateto)) {
     $print_data .= "To Date : " . $dateto . "\n\n\n";
+    $datefrom = date("Y-m-d", strtotime($datefrom));
+    $dateto = date("Y-m-d", strtotime($dateto));
     $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
 }
-
+$datefrom = date("Y-m-d", strtotime($datefrom));
+$dateto = date("Y-m-d", strtotime($dateto));
 $sql = ("SELECT cl.line_name ,pf.part_family_name,pn.part_number,pn.part_name ,mc.material_type,mt.created_at FROM material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id inner join material_config as mc on mt.material_type=mc.material_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station' and mt.material_status = '1'");
 $gp_result = mysqli_query($db,$sql);
 
@@ -76,7 +81,8 @@ $result = str_replace("\r", "", $result);
 if ($result == "") {
     $result = "\nNo Record(s) Found!\n";
 }
-
+$datefrom = date("Y-m-d", strtotime($datefrom));
+$dateto = date("Y-m-d", strtotime($dateto));
 $sql_pass = ("SELECT cl.line_name ,pf.part_family_name,pn.part_number,pn.part_name ,mc.material_type,mt.fail_reason,mt.created_at FROM material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id inner join material_config as mc on mt.material_type=mc.material_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station' and mt.material_status = '0'");
 $pass_result = mysqli_query($db,$sql_pass);
 
