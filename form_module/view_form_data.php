@@ -1,4 +1,5 @@
-<?php include("../config.php");
+<?php
+include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 ?>
@@ -9,7 +10,7 @@ $temp = "";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Submit Form</title>
+        <?php echo $sitename; ?> |View Form</title>
     <!-- Global stylesheets -->
 
 
@@ -189,289 +190,370 @@ $temp = "";
             color: red;
             font-size: initial;
         }
+        @import url('https://fonts.googleapis.com/css2?family=WindSong&display=swap');
 
+        .signature {
+
+            font-family: 'WindSong', swap;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+
+        .pn_none {
+            pointer-events: none;
+            color: #050505;
+        }
+        .form_table_mobile {
+            display: none;
+        }
+        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            .col-lg-2{
+                width: 35%!important;
+            }
+            .content:first-child {
+                padding-top: 90px!important;
+            }
+            .col-md-8.form_col_item {
+                float: left;
+                width: 100%;
+                padding-bottom: 10px;
+            }
+            .border-primary {
+                border-color: #ffffff;
+            }
+            .form_table_mobile {
+                display: block;
+            }
+            table.form_table {
+                display: none;
+            }
+            .form_table_mobile {
+                width: 100%;
+                background-color: #eee;
+                margin-top: 12px;
+            }
+            .form_table_mobile {
+                width: 100%;
+                background-color: #eee;
+                margin-top: 12px;
+            }
+            .form_row_mobile {
+                width: 100%;
+                height: auto;
+            }
+            .col-lg-8.mobile {
+                width: 58%;
+                float: right;
+                padding: 10px 30px 10px 26px;
+            }
+            label.col-lg-3.control-label.mobile {
+                width: 42%;
+                float: left;
+                padding: 10px 30px 10px 26px;
+            }
+            .col-md-2 {
+                width: 50%;
+                float: left;
+            }
+
+
+        }
+        .breadcrumb-header {
+            margin-left: 0;
+        }
 
     </style>
 </head>
 
 <!-- Main navbar -->
 <?php
+//$cam_page_header = "View Form Data";
 include("../hp_header.php");
-if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
-    include("../tab_menu.php");
-} else {
-    include("../admin_menu.php");
-}
 ?>
-
 <body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
 <div class="main-content app-content">
-    <!-- container -->
-    <!-- breadcrumb -->
-    <div class="row-body row-sm">
-        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
-            <div class="breadcrumb-header justify-content-between">
-                <div class="left-content">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form View</li>
-                    </ol>
-                </div>
-            </div>
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Form View</li>
+            </ol>
         </div>
     </div>
-    <!-- /breadcrumb -->
-    <!-- row -->
     <?php
     $id = $_GET['id'];
-
     $querymain = sprintf("SELECT * FROM `form_user_data` where form_user_data_id = '$id' ");
     $qurmain = mysqli_query($db, $querymain);
 
     while ($rowcmain = mysqli_fetch_array($qurmain)) {
-    $formname = $rowcmain['form_name'];
-    $form_create_id = $rowcmain['form_create_id'];
+        $formname = $rowcmain['form_name'];
+        $form_create_id = $rowcmain['form_create_id'];
+        ?>
+                        <form action="user_form_backend.php" id="form_settings" enctype="multipart/form-data" class="form-horizontal" method="post" autocomplete="off">
+                            <div class="row row-sm">
+                                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                                    <div class="card box-shadow-0">
+                                        <div class="card-header" style="background-color: #14846f;">
+                                            <span class="main-content-title mg-b-0 mg-b-lg-1">Form View</span>
+                                        </div>
+                                        <div class="card-body pt-0">
+                                            <div class="card-header" style="background-color: #14846f;">
+                                                <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $formname; ?></span>
+                                            </div>
+                                            <div class="pd-30 pd-sm-20">
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label mg-b-0">Notes : </label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
 
-    ?>
-    <form action="user_form_backend.php" id="form_settings" enctype="multipart/form-data" class="form-horizontal" method="post">
-        <div class="row-body row-sm">
-            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
-                <div class="card  box-shadow-0">
-                    <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">Form View</span>
-                    </div>
-                    <input type="hidden" name="name" id="name" value="<?php echo $rowcmain['form_name']; ?>">
-                    <div class="card-body pt-0">
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $rowcmain['form_name']; ?></span>
-                        </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Notes : </label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <?php
+                                                        <?php
+                                                        $notes = $rowcmain["notes"];
+                                                        ?>
 
-                                    $notes = $rowcmain["notes"];
+                                                        <input type="text" name="notes" class="form-control pn_none" id="notes"
+                                                               value="<?php echo $notes; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label mg-b-0">Form Type : </label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                                        <?php
+                                                        $get_form_type = $rowcmain['form_type'];
+                                                        if ($get_form_type != '') {
+                                                            $disabled = 'disabled';
+                                                        } else {
+                                                            $disabled = '';
+                                                        }
+                                                        ?>
+                                                        <input type="hidden" name="form_type" id="form_type"
+                                                               value="<?php echo $get_form_type; ?>">
+                                                        <select  name="form_type1" id="form_type1" class="form-control form-select select2" data-bs-placeholder="Select Country" <?php echo $disabled; ?>>
+                                                            <option value="" selected disabled>--- Select Form Type ---</option>
+                                                            <?php
 
+                                                            $sql1 = "SELECT * FROM `form_type` ";
+                                                            $result1 = $mysqli->query($sql1);
+                                                            // $entry = 'selected';
+                                                            while ($row1 = $result1->fetch_assoc()) {
+                                                                if ($get_form_type == $row1['form_type_id']) {
+                                                                    $entry = 'selected';
+                                                                } else {
+                                                                    $entry = '';
+                                                                }
+                                                                echo "<option value='" . $row1['form_type_id'] . "'  $entry>" . $row1['form_type_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label mg-b-0">Station : </label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
 
-                                    ?>
-                                    <input type="text" name="notes" class="form-control" id="notes" value="<?php echo $notes; ?>" disabled>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Form Type :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <?php
-                                    $get_form_type = $rowcmain['form_type'];
-                                    if($get_form_type != ''){	$disabled = 'disabled';	}else{$disabled = '';}
-                                    ?>
+                                                        <?php
+                                                        $get_station = $rowcmain['station'];
+                                                        if ($get_station != '') {
+                                                            $disabled = 'disabled';
+                                                        } else {
+                                                            $disabled = '';
+                                                        }
+                                                        ?>
 
-                                    <input type="hidden" name="form_type" id="form_type" value="<?php echo $get_form_type; ?>">
-                                    <select name="form_type1" id="form_type" class="form-control form-select select2" data-bs-placeholder="Select Country" <?php echo $disabled; ?>>
-                                        <option value="" selected disabled>--- Select Form Type ---</option>
-                                        <?php
+                                                        <input type="hidden" name="station" id="station"
+                                                               value="<?php echo $get_station; ?>">
+                                                        <select  name="station1" id="station1" class="form-control form-select select2" data-bs-placeholder="Select Country" <?php echo $disabled; ?>>
+                                                            <option value="" selected disabled>--- Select Station ---</option>
+                                                            <?php
+                                                            $sql1 = "SELECT * FROM `cam_line` where enabled = '1' ORDER BY `line_name` ASC ";
+                                                            $result1 = $mysqli->query($sql1);
+                                                            //                                            $entry = 'selected';
+                                                            while ($row1 = $result1->fetch_assoc()) {
+                                                                if ($get_station == $row1['line_id']) {
+                                                                    $entry = 'selected';
+                                                                } else {
+                                                                    $entry = '';
+                                                                }
+                                                                echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label mg-b-0">Part Family : </label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
 
-                                        $sql1 = "SELECT * FROM `form_type` ";
-                                        $result1 = $mysqli->query($sql1);
-                                        // $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            if($get_form_type == $row1['form_type_id'])
-                                            {
-                                                $entry = 'selected';
-                                            }
-                                            else
-                                            {
-                                                $entry = '';
-                                            }
-                                            echo "<option value='" . $row1['form_type_id'] . "'  $entry>" . $row1['form_type_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Form Station :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <?php
-                                    $get_station = $rowcmain['station'];
-                                    if($get_station != ''){	$disabled = 'disabled';	}else{$disabled = '';}
-                                    ?>
+                                                        <?php
+                                                        $get_part_family = $rowcmain['part_family'];
+                                                        if ($get_part_family != '') {
+                                                            $disabled = 'disabled';
+                                                        } else {
+                                                            $disabled = '';
+                                                        }
+                                                        ?>
 
-                                    <input type="hidden" name="station" id="station" value="<?php echo $get_station; ?>">
-                                    <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Country" <?php echo $disabled; ?>>
-                                        <option value="" selected disabled>--- Select Station ---</option>
-                                        <?php
-                                        $sql1 = "SELECT * FROM `cam_line` where enabled = '1' ORDER BY `line_name` ASC ";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            if($get_station == $row1['line_id'])
-                                            {
-                                                $entry = 'selected';
-                                            }
-                                            else
-                                            {
-                                                $entry = '';
-                                            }
-                                            echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Part Family :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <?php
-                                    $get_part_family = $rowcmain['part_family'];
-                                    if($get_part_family != ''){	$disabled = 'disabled';	}else{$disabled = '';}
-                                    ?>
+                                                        <input type="hidden" name="part_family" id="part_family"
+                                                               value="<?php echo $get_part_family; ?>">
+                                                        <select name="part_family1" id="part_family1"
+                                                                class="form-control form-select select2" data-bs-placeholder="Select Country" <?php echo $disabled; ?>>
+                                                            <option value="" selected disabled>--- Select Part Family ---</option>
+                                                            <?php
+                                                            $sql1 = "SELECT * FROM `pm_part_family` ";
+                                                            $result1 = $mysqli->query($sql1);
+                                                            //                                            $entry = 'selected';
+                                                            while ($row1 = $result1->fetch_assoc()) {
+                                                                if ($get_part_family == $row1['pm_part_family_id']) {
+                                                                    $entry = 'selected';
+                                                                } else {
+                                                                    $entry = '';
+                                                                }
+                                                                echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label mg-b-0">Part Number : </label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
 
-                                    <input type="hidden" name="part_family" id="part_family" value="<?php echo $get_part_family; ?>">
-                                    <select name="part_family1" id="part_family1" class="form-control form-select select2" data-bs-placeholder="Select Country" <?php echo $disabled; ?>>
-                                        <option value="" selected disabled>--- Select Part Family ---</option>
-                                        <?php
-                                        $sql1 = "SELECT * FROM `pm_part_family` ";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            if($get_part_family == $row1['pm_part_family_id'])
-                                            {
-                                                $entry = 'selected';
-                                            }
-                                            else
-                                            {
-                                                $entry = '';
-                                            }
-                                            echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Part Number :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <?php
-                                    $get_part_number = $rowcmain['part_number'];
-                                    if($get_part_number != ''){	$disabled = 'disabled';	}else{$disabled = '';}
-                                    ?>
+                                                        <?php
+                                                        $get_part_number = $rowcmain['part_number'];
+                                                        if ($get_part_number != '') {
+                                                            $disabled = 'disabled';
+                                                        } else {
+                                                            $disabled = '';
+                                                        }
+                                                        ?>
 
-                                    <input type="hidden" name="part_number" id="part_number" value="<?php echo $get_part_number; ?>">
-                                    <select name="part_number1" id="part_number1" class="form-control form-select select2" data-bs-placeholder="Select Country" <?php echo $disabled; ?>>
-                                        <option value="" selected disabled>--- Select Part Number ---</option>
-                                        <?php
-                                        $sql1 = "SELECT * FROM `pm_part_number` ";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            if($get_part_number == $row1['pm_part_number_id'])
-                                            {
-                                                $entry = 'selected';
-                                            }
-                                            else
-                                            {
-                                                $entry = '';
-                                            }
-                                            echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] ." - ".$row1['part_name']  . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <?php
-                                $sql_wol = "SELECT wol FROM `form_type` where form_type_id = '$get_form_type' ";
-                                $res_wol = $mysqli->query($sql_wol);
-                                $r = $res_wol->fetch_assoc();
-                                $wol = $r['wol'];
-                                ?>
-                                <?php if ($wol == '1') { ?>
+                                                        <input type="hidden" name="part_number" id="part_number"
+                                                               value="<?php echo $get_part_number; ?>">
+                                                        <select name="part_number1" id="part_number1"
+                                                                class="form-control form-select select2" data-bs-placeholder="Select Country" <?php echo $disabled; ?>>
+                                                            <option value="" selected disabled>--- Select Part Number ---</option>
+                                                            <?php
+                                                            $sql1 = "SELECT * FROM `pm_part_number` ";
+                                                            $result1 = $mysqli->query($sql1);
+                                                            //                                            $entry = 'selected';
+                                                            while ($row1 = $result1->fetch_assoc()) {
+                                                                if ($get_part_number == $row1['pm_part_number_id']) {
+                                                                    $entry = 'selected';
+                                                                } else {
+                                                                    $entry = '';
+                                                                }
+                                                                echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                            <?php
+                            $sql_wol = "SELECT wol FROM `form_type` where form_type_id = '$get_form_type' ";
+                            $res_wol = $mysqli->query($sql_wol);
+                            $r = $res_wol->fetch_assoc();
+                            $wol = $r['wol'];
+                            ?>
+                            <?php if ($wol == '1') { ?>
+                                <div class="row row-xs align-items-center mg-b-20">
                                     <div class="col-md-4">
                                         <label class="form-label mg-b-0">Work Order/Lot : </label>
                                     </div>
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                        <input type="text" name="wol" class="form-control" id="wol" value="<?php echo $rowcmain['wol']; ?>" disabled>
+                                        <?php if ($_GET != null && ($_GET['optional'] == '1')) { ?>
+                                            <input type="text" name="wol" class="form-control" id="wol"
+                                                   value="<?php echo $rowcmain['wol']; ?>" disabled>
+                                        <?php } else { ?>
+                                            <input type="text" name="wol" class="form-control" id="wol"
+                                                   value="<?php echo $rowcmain['wol']; ?>">
+                                        <?php } ?>
                                     </div>
-                                <?php } ?>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Operator : </label>
                                 </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <?php
-                                    $createdby = $rowcmain['created_by'];
-                                    $qur04 = mysqli_query($db, "SELECT firstname,lastname,pin FROM  cam_users where users_id = '$createdby' ");
-                                    $rowc04 = mysqli_fetch_array($qur04);
-                                    $fullnnm = $rowc04["firstname"]." ".$rowc04["lastname"];
-                                    $pin = $rowc04["pin"];
+                            <?php } ?>
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label mg-b-0">Operator : </label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
 
-                                    ?>
-
-                                    <input type="text" name="createdby" class="form-control" id="createdby" value="<?php echo $fullnnm; ?>" disabled>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Submitted Time : </label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="text" name="createdby" class="form-control" id="createdby" value="<?php echo date('d-M-Y h:m', $updated_at); ?>" disabled>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Images : </label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="text-wrap pb-3">
                                                         <?php
-                                                        $item_id = $form_create_id;
-                                                        $qurimage = mysqli_query($db, "SELECT * FROM  form_images where form_create_id = '$item_id'");
-                                                        while ($rowcimage = mysqli_fetch_array($qurimage)) {
-                                                            ?>
-                                                            <div class="file-image-1">
-                                                                <div class="product-image">
-                                                                    <img src="../form_images/<?php echo $rowcimage['image_name']; ?>" class="br-5" alt="">
-                                                                </div>
-                                                                <span class="file-name-1"><?php echo $image; ?></span>
-                                                            </div>
-                                                            <?php
-                                                            $i++;} ?>
+                                                        $createdby = $rowcmain['created_by'];
+                                                        $datetime = $rowcmain["created_at"];
+                                                        $create_date = strtotime($datetime);
+                                                        $qur04 = mysqli_query($db, "SELECT firstname,lastname,pin FROM  cam_users where users_id = '$createdby' ");
+                                                        $rowc04 = mysqli_fetch_array($qur04);
+                                                        $fullnnm = $rowc04["firstname"] . " " . $rowc04["lastname"];
+                                                        $pin = $rowc04["pin"];
+                                                        $updated_at = strtotime($rowcmain["updated_at"]);
+                                                        ?>
+
+                                                        <input type="text" name="createdby" class="form-control" id="createdby"
+                                                               value="<?php echo $fullnnm; ?>" disabled>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-header">
-                                <span class="main-content-title mg-b-0 mg-b-lg-1">Form Information</span>
-                            </div>
-                            <br/>
-                            <?php
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label mg-b-0">Submitted Time : </label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                                        <input type="text" name="createdby" class="form-control" id="createdby"
+                                                               value="<?php echo date('d-M-Y h:m', $updated_at); ?>" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="row row-xs align-items-center mg-b-20">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label mg-b-0">Images : </label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <div class="text-wrap pb-3">
+                                <?php
 
-                            $query = sprintf("SELECT * FROM  form_item where form_create_id = '$item_id'  order by form_item_seq+0 ASC ");
+                                $item_id = $form_create_id;
+
+                                $qurimage = mysqli_query($db, "SELECT * FROM  form_images where form_create_id = '$item_id'");
+                                while ($rowcimage = mysqli_fetch_array($qurimage)) {
+
+
+                                    ?>
+                                    <div class="file-image-1">
+                                        <div class="product-image">
+                                            <img src="../form_images/<?php echo $rowcimage['image_name']; ?>" class="br-5" alt="">
+                                        </div>
+                                        <span class="file-name-1"><a href="../form_images/<?php echo $rowcimage['image_name']; ?>" data-popup="lightbox" rel="gallery" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a></span>
+                                    </div>
+                                <?php   $i++;} ?>
+                            </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-header" style="background-color: #14846f;">
+                                                    <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Form Information</center></span>
+                                                </div><br/>
+                            <?php
+                            $query = sprintf("SELECT * FROM  form_item where form_create_id = '$item_id' order by form_item_seq+0 ASC ");
                             $qur = mysqli_query($db, $query);
                             $aray_item_cnt = 0;
-                            $arrteam = explode(',', $rowcmain["form_user_data_item"]);
+                            $f_data = $rowcmain["form_user_data_item_op"];
+                            if (empty($op_data)){
+                                $f_data = $rowcmain["form_user_data_item"];
+                            }
+                            $arrteam = explode(',', $f_data);
                             while ($rowc = mysqli_fetch_array($qur)) {
                                 $expVal = $arrteam[$aray_item_cnt];
                                 $ccnt = substr_count ($expVal, '~');
@@ -485,13 +567,13 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 if($item_val == "header"){
 
                                     ?>
-                                    <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo htmlspecialchars($rowc['item_desc']); ?></span>
-                                    </br>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo htmlspecialchars($rowc['item_desc']); ?></span>
+                                        <br/>
+                                    </div>
                                 <?php }
-                                if($item_val == "numeric")
-                                {
+                                if ($item_val == "numeric") {
                                     $checked = $itemVal;
-
 
                                     $numeric_normal = $rowc['numeric_normal'];
                                     $numeric_lower_tol1 = $rowc['numeric_lower_tol'];
@@ -505,55 +587,58 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                     $numeric_upper_tol1 = preg_replace('/[^A-Za-z0-9]/', '', $numeric_upper_tol1); // Removes special chars.
                                     $final_upper = $numeric_normal + $numeric_upper_tol1; // final upper value
 
-                                    //echo $final_upper;
-
-
-
                                     ?>
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>"
                                            class="lower_compare" value="<?php echo $final_lower; ?>">
                                     <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>"
                                            class="upper_compare" value="<?php echo $final_upper; ?>">
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-7" >
-                                            <label class="form-label mg-b-0"><?php  if ($rowc['optional'] != '1') {
-                                                    echo '<span class="red-star">★</span>';
-                                                }echo $rowc['item_desc']; ?> </label>
+                                        <div class="col-md-7">
+                                            <?php if ($rowc['optional'] != '1') {
+                                                echo '<span class="red-star">★</span>';
+                                            }
+                                            echo htmlspecialchars($rowc['item_desc']); ?>
                                             <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
-                                                <?php echo "(" . $rowc['discription'] . ")" ?>
-                                            <?php } ?>
+                                                <div style="font-size: medium;font-color:#c1c1c1!important; font-family: inherit !important; "><?php echo "(" . $rowc['discription'] . ")" ?></div>
+                                            <?php }
+                                            ?>
                                         </div>
-
                                         <?php if ($checked >= $final_lower && $checked <= $final_upper) { ?>
-                                            <div class="col-md-3 mg-t-5 mg-md-t-0">
+                                            <div class="col-md-2">
                                                 <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
                                                        id="<?php echo $rowc['form_item_id']; ?>"
                                                        class="form-control compare_text pn_none" required step="any"
                                                        value="<?php echo $itemVal; ?>"  disabled>
                                             </div>
                                         <?php } else { ?>
-                                            <div class="col-md-2 mg-t-5 mg-md-t-0">
+                                            <div class="col-md-2">
                                                 <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
                                                        id="<?php echo $rowc['form_item_id']; ?>"
                                                        class="form-control compare_text pn_none" required step="any"
-                                                       value="<?php echo $itemVal; ?>"  style="background-color: #ffadad" disabled>
+                                                       value="<?php echo $itemVal; ?>"  style="background-color: #ffadad !important" disabled>
                                             </div>
                                         <?php } ?>
+                                        <div class="col-md-1" style="padding-top: 15px;">
+                                            <?php
+                                            $unit_of_measurement_id = $rowc['unit_of_measurement'];
+                                            $sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
+                                            $result1 = $mysqli->query($sql1);
+                                            $row1 = $result1->fetch_assoc();
+                                            echo $row1['unit_of_measurement'];
+                                            ?>
 
+                                        </div>
+                                        <?php if ($rowc['optional'] == '1') {
+                                            echo '<div style="color: #a1a1a1; font-size: small;padding-top: 15px;">(Optional)</div>';
+                                        } ?>
 
-                                        <?php
-                                        $unit_of_measurement_id = $rowc['unit_of_measurement'];
-                                        $sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
-                                        $result1 = $mysqli->query($sql1);
-                                        $row1 = $result1->fetch_assoc();
-                                        echo $row1['unit_of_measurement'];
-                                        ?>
-                                        <input type="hidden" class="form-control"  name="form_item_array[]" value="<?php echo $rowc['form_item_id']; ?>">
-                                    </div><br/>
+                                        <input type="hidden" name="form_item_array[]"
+                                               value="<?php echo $rowc['form_item_id']; ?>">
+                                    </div>
                                     <?php
                                     $aray_item_cnt++;
                                 }
-                                if($item_val == "binary"){
+                                if ($item_val == "binary") {
                                     $checked = $itemVal;
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
@@ -564,9 +649,11 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                             echo htmlspecialchars($rowc['item_desc']); ?>
                                         </div>
 
-                                        <input type="hidden" class="form-control"  name="form_item_array[]" value="<?php echo $rowc['form_item_id']; ?>">
+                                        <input type="hidden" name="form_item_array[]"
+                                               value="<?php echo $rowc['form_item_id']; ?>">
                                         <div class="col-md-5 mg-t-5 mg-md-t-0">
                                             <div class="form-check form-check-inline">
+
 
                                                 <?php
                                                 if ($checked == "yes") {
@@ -576,7 +663,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                            value="<?php echo $rowc['binary_yes_alias']; ?>"
                                                            class="form-check-input pn_none" checked disabled >
                                                     <label for="yes"
-                                                           class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                           class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                            id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['binary_yes_alias'];
                                                         echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></label>
                                                     <!--															<label for="yes" class="item_label" style="background-color: green;">--><?php //echo $rowc['binary_yes_alias'];
@@ -585,7 +672,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                            value="<?php echo $rowc['binary_no_alias']; ?>"
                                                            class="form-check-input pn_none" disabled >
                                                     <label for="no"
-                                                           class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                           class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                            id="<?php echo $rowc['form_item_id']; ?>"><?php $no_alias = $rowc['binary_no_alias'];
                                                         echo (($no_alias != null) || ($no_alias != '')) ? $no_alias : "No" ?></label>
                                                     <!--															<label for="no" class="item_label"  style="background-color: green;">--><?php //echo $rowc['binary_no_alias'];
@@ -598,26 +685,28 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                     <input type="radio" id="yes" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['binary_yes_alias']; ?>"
                                                            class="form-check-input pn_none" disabled >
-                                                    <label for="yes" class="form-label mg-b-0" style="background-color: #ffadad;"
-                                                           style="background-color: #ffadad;"><?php echo $rowc['binary_yes_alias']; ?></label>
+                                                    <label for="yes" class="item_label" style="background-color: #ffadad !important;"
+                                                           style="background-color: #ffadad !important;"><?php echo $rowc['binary_yes_alias']; ?></label>
                                                     <input type="radio" id="no" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['binary_no_alias']; ?>"
                                                            class="form-check-input pn_none" checked disabled >
-                                                    <label for="no" class="form-label mg-b-0" style="background-color: #ffadad;"
-                                                           style="background-color: #ffadad;"><?php echo $rowc['binary_no_alias']; ?></label>
+                                                    <label for="no" class="item_label" style="background-color: #ffadad !important;"
+                                                           style="background-color: #ffadad !important;"><?php echo $rowc['binary_no_alias']; ?></label>
 
                                                 <?php }
                                                 ?>
-                                                <?php if ($rowc['optional'] == '1') {
-                                                    echo '<span style="color: #a1a1a1; font-size: small;padding-top: 15px;padding-left:15px;">(Optional)</span>';
-                                                } ?>
-                                            </div>
 
+                                            </div>
                                         </div>
+                                        <div class="col-md-7 form_col_item">
+                                            <b>
+                                                <h4 class="panel-title form_sub_header" style="font-size: medium;font-color:#c1c1c1!important; font-family: inherit !important;"><?php echo htmlspecialchars($rowc['discription']); ?></h4>
+                                            </b>
+                                            <!--                                                    <u><b>--><?php //echo $rowc['discription']; ?><!-- </b></u>-->
+                                        </div>
+
                                     </div>
-                                    <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="card-title mb-1"><?php echo $rowc['discription']; ?></div>
-                                    </div>
+                                    <br/>
                                     <?php
                                     $aray_item_cnt++;
 
@@ -633,7 +722,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                             echo htmlspecialchars($rowc['item_desc']); ?>
                                         </div>
 
-                                        <input type="hidden" class="form-control"  name="form_item_array[]" value="<?php echo $rowc['form_item_id']; ?>">
+                                        <input type="hidden"  name="form_item_array[]" value="<?php echo $rowc['form_item_id']; ?>">
                                         <div class="col-md-5 mg-t-5 mg-md-t-0">
                                             <div class="form-check form-check-inline">
 
@@ -645,7 +734,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                            value="<?php echo $rowc['list_name2']; ?>"
                                                            class="form-check-input pn_none" checked disabled >
                                                     <label for="yes"
-                                                           class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                           class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                            id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['list_name2'];
                                                         echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></label>
 
@@ -653,7 +742,7 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                            value="<?php echo $rowc['list_name3']; ?>"
                                                            class="form-check-input pn_none" disabled >
                                                     <label for="no"
-                                                           class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                           class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                            id="<?php echo $rowc['form_item_id']; ?>"><?php $no_alias = $rowc['list_name3'];
                                                         echo (($no_alias != null) || ($no_alias != '')) ? $no_alias : "No" ?></label>
 
@@ -662,14 +751,14 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                                value="<?php echo $rowc['list_name1']; ?>"
                                                                class="form-check-input pn_none" disabled style="display: none">
                                                         <label for="none"
-                                                               class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                               class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                id="<?php echo $rowc['form_item_id']; ?>" ></label>
                                                     <?php } else { ?>
                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                value="<?php echo $rowc['list_name1']; ?>"
                                                                class="form-check-input pn_none" disabled >
                                                         <label for="none"
-                                                               class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                               class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['list_name1'];
                                                             echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "None" ?></label>
                                                     <?php } ?>
@@ -683,12 +772,10 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                                    value="<?php echo $arr_list; ?>"
                                                                    class="form-check-input pn_none" disabled >
                                                             <label for="none"
-                                                                   class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                                   class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                    id="<?php echo $rowc['form_item_id']; ?>"><?php $extra_alias = $arr_list;
                                                                 echo (($extra_alias != null) || ($extra_alias != '')) ? $extra_alias : "Extra" ?></label>
-                                                            <?php  $radiocount++; }
-                                                    }
-                                                    ?>
+                                                            <?php  $radiocount++; }} ?>
 
                                                     <?php
                                                 }  else if (($checked == "no") ) { ?>
@@ -696,28 +783,29 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                     <input type="radio" id="yes" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['list_name2']; ?>"
                                                            class="form-check-input pn_none" disabled >
-                                                    <label for="yes" class="form-label mg-b-0"
+                                                    <label for="yes" class="item_label" style="background-color: #ffadad;"
                                                         <?php if($rowc['list_enabled'] ==1 ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff;"';}?>><?php echo $rowc['list_name2']; ?></label>
 
                                                     <input type="radio" id="no" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['list_name3']; ?>"
                                                            class="form-check-input pn_none" checked disabled >
-                                                    <label for="no" class="form-label mg-b-0" <?php if($rowc['list_enabled'] ==1 ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff;"';}?>><?php echo $rowc['list_name3']; ?></label>
+                                                    <label for="no" class="item_label" style="background-color: #ffadad;"
+                                                        <?php if($rowc['list_enabled'] == 1 ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff!important;"';}?>><?php echo $rowc['list_name3']; ?></label>
 
                                                     <?php if (empty($rowc['list_name1'])){ ?>
                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                value="<?php echo $rowc['list_name1']; ?>"
                                                                class="form-check-input pn_none" disabled style="display: none">
                                                         <label for="none"
-                                                               class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
-                                                               id="<?php echo $rowc['form_item_id']; ?>" <?php if($rowc['list_enabled'] ==1 ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff;"';}?>></label>
+                                                               class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
+                                                               id="<?php echo $rowc['form_item_id']; ?>" ></label>
                                                     <?php } else { ?>
                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                value="<?php echo $rowc['list_name1']; ?>"
                                                                class="form-check-input pn_none" disabled >
                                                         <label for="none"
-                                                               class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
-                                                               id="<?php echo $rowc['form_item_id']; ?>" <?php if($rowc['list_enabled'] ==1 ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff;"';}?>><?php $yes_alias = $rowc['list_name1'];
+                                                               class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
+                                                               id="<?php echo $rowc['form_item_id']; ?>" style="background-color: #ffadad;"><?php $yes_alias = $rowc['list_name1'];
                                                             echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "None" ?></label>
                                                     <?php } ?>
                                                     <?php $list_extra =  $rowc['list_name_extra'];
@@ -730,42 +818,43 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                                    value="<?php echo $arr_list; ?>"
                                                                    class="form-check-input pn_none" disabled>
                                                             <label for="none"
-                                                                   class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
-                                                                   id="<?php echo $rowc['form_item_id']; ?>" <?php if($rowc['list_enabled'] ==1 ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff;"';}?>><?php $extra_alias = $arr_list;
+                                                                   class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
+                                                                   id="<?php echo $rowc['form_item_id']; ?>" style="background-color: #ffadad;"><?php $extra_alias = $arr_list;
                                                                 echo (($extra_alias != null) || ($extra_alias != '')) ? $extra_alias : "Extra" ?></label>
-                                                            <?php  $radiocount++; }
-                                                    }
-                                                    ?>
+                                                            <?php  $radiocount++; } }?>
 
                                                 <?php }  else if (($checked == "none") ){ ?>
 
                                                     <input type="radio" id="yes" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['list_name2']; ?>"
                                                            class="form-check-input pn_none" disabled >
-                                                    <label for="yes" class="form-label mg-b-0"><?php echo $rowc['list_name2']; ?></label>
+                                                    <label for="yes" class="item_label" style="background-color: #ffadad;"
+                                                        <?php if($rowc['list_enabled'] ==1  ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff!important;"';}?>><?php echo $rowc['list_name2']; ?></label>
                                                     <input type="radio" id="no" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['list_name3']; ?>"
                                                            class="form-check-input pn_none"  disabled >
-                                                    <label for="no" class="form-label mg-b-0"><?php echo $rowc['list_name3']; ?></label>
+                                                    <label for="no" class="item_label" style="background-color: #ffadad;"
+                                                        <?php if($rowc['list_enabled'] ==1  ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff!important;"';}?>><?php echo $rowc['list_name3']; ?></label>
 
                                                     <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['list_name1']; ?>"
                                                            class="form-check-input pn_none" checked disabled >
-                                                    <label for="none" class="form-label mg-b-0"><?php echo $rowc['list_name1']; ?></label>
+                                                    <label for="none" class="item_label" style="background-color: #ffadad;"
+                                                        <?php if($rowc['list_enabled'] ==1  ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff!important;"';}?>><?php echo $rowc['list_name1']; ?></label>
 
                                                     <?php if (empty($rowc['list_name1'])){ ?>
                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                value="<?php echo $rowc['list_name1']; ?>"
                                                                class="form-check-input pn_none" disabled style="display: none">
                                                         <label for="none"
-                                                               class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                               class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                id="<?php echo $rowc['form_item_id']; ?>" ></label>
                                                     <?php } else { ?>
                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                value="<?php echo $rowc['list_name1']; ?>"
                                                                class="form-check-input pn_none" disabled >
                                                         <label for="none"
-                                                               class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                               class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['list_name1'];
                                                             echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "None" ?></label>
                                                     <?php } ?>
@@ -780,24 +869,22 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                                    value="extra_<?php echo $radiocount; ?>"
                                                                    class="form-check-input pn_none" disabled >
                                                             <label for="none"
-                                                                   class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
-                                                                   id="<?php echo $rowc['form_item_id']; ?>" <?php if($rowc['list_enabled'] == 1 ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff;"';}?>><?php $extra_alias = $arr_list;
+                                                                   class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
+                                                                   id="<?php echo $rowc['form_item_id']; ?>"><?php $extra_alias = $arr_list;
                                                                 echo (($extra_alias != null) || ($extra_alias != '')) ? $extra_alias : "Extra" ?></label>
-                                                            <?php  $radiocount++; }
-                                                    }
-                                                    ?>
+                                                            <?php  $radiocount++; } }?>
 
                                                 <?php } else { ?>
 
                                                     <input type="radio" id="yes" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['list_name2']; ?>"
-                                                           class="form-check-input pn_none" disabled >>
-                                                    <label for="yes" class="form-label mg-b-0"
+                                                           class="form-check-input pn_none" disabled >
+                                                    <label for="yes" class="item_label"
                                                         <?php if($rowc['list_enabled'] ==1  ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff!important;"';}?>><?php echo $rowc['list_name2']; ?></label>
                                                     <input type="radio" id="no" name="<?php echo $rowc['form_item_id']; ?>"
                                                            value="<?php echo $rowc['list_name3']; ?>"
                                                            class="form-check-input pn_none"  disabled >
-                                                    <label for="no" class="form-label mg-b-0"
+                                                    <label for="no" class="item_label"
                                                         <?php if($rowc['list_enabled'] ==1  ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff!important;"';}?>><?php echo $rowc['list_name3']; ?></label>
 
                                                     <?php if (empty($rowc['list_name1'])){ ?>
@@ -805,14 +892,14 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                                value="<?php echo $rowc['list_name1']; ?>"
                                                                class="form-check-input pn_none" disabled style="display: none">
                                                         <label for="none"
-                                                               class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                               class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                id="<?php echo $rowc['form_item_id']; ?>" ></label>
                                                     <?php } else { ?>
                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                value="<?php echo $rowc['list_name1']; ?>"
                                                                class="form-check-input pn_none" disabled >
                                                         <label for="none"
-                                                               class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                               class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['list_name1'];
                                                             echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "None" ?></label>
                                                     <?php } ?>
@@ -826,12 +913,10 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                                    value="<?php echo $arr_list;?>"
                                                                    class="form-check-input pn_none" <?php if($checked == "extra_$radiocount"){echo 'checked'; }?>  disabled >
                                                             <label for="none"
-                                                                   class="form-label mg-b-0 <?php echo $rowc['form_item_id']; ?>"
+                                                                   class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                    id="<?php echo $rowc['form_item_id']; ?>"><?php $extra_alias = $arr_list;
                                                                 echo (($extra_alias != null) || ($extra_alias != '')) ? $extra_alias : "Extra" ?></label>
-                                                            <?php  $radiocount++; }
-                                                    }
-                                                    ?>
+                                                            <?php  $radiocount++; } }?>
                                                 <?php } ?>
                                                 <?php if ($rowc['optional'] == '1') {
                                                     echo '<span style="color: #a1a1a1; font-size: small;padding-top: 15px;padding-left:15px;">(Optional)</span>';
@@ -841,13 +926,13 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                         </div>
                                     </div>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-8 mg-t-5 mg-md-t-0"><u><b><?php echo $rowc['discription']; ?> </b></u></div>
+                                        <div class="col-md-8 form_col_item"><u><b><?php echo $rowc['discription']; ?> </b></u></div>
 
                                     </div>
                                     <?php
                                     $aray_item_cnt++;
                                 }
-                                if($item_val == "text"){
+                                if ($item_val == "text") {
 
                                     ?>
                                     <div class="row row-xs align-items-center mg-b-20">
@@ -858,16 +943,16 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                             }
                                             echo htmlspecialchars($rowc['item_desc']); ?> </div>
                                         <div class="col-md-5 mg-t-5 mg-md-t-0">
-                                            <input type="hidden" class="form-control" name="form_item_array[]"
+                                            <input type="hidden" name="form_item_array[]"
                                                    value="<?php echo $rowc['form_item_id']; ?>">
-                                            <input type="text" class="form-control" name="<?php echo $rowc['form_item_id']; ?>"
+                                            <input type="text" name="<?php echo $rowc['form_item_id']; ?>"
                                                    id="<?php echo $rowc['form_item_id']; ?>"
                                                    value="<?php echo $itemVal; ?>"
-                                                   disabled></div>
-
+                                                   class="form-control pn_none" disabled></div>
                                     </div>
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="card-title mb-1"><?php echo $rowc['discription']; ?></div>
+                                        <div class="col-md-8 form_col_item"><u><b><?php echo $rowc['discription']; ?> </b></u></div>
+
                                     </div>
                                     <?php
                                     $aray_item_cnt++;
@@ -875,6 +960,8 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                 }
                             }
                             ?>
+
+                            <br/>
                             <?php
                             $qur05 = mysqli_query($db, "SELECT * FROM  form_approval where form_user_data_id = '$id' ");
                             $rowc05 = mysqli_fetch_array($qur05);
@@ -887,34 +974,42 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                             $reject_status = $rowc05["reject_status"];
 
                             if (empty($approval_status) && empty($reject_status)){ ?>
-                                <div class="card-header">
-                                    <span class="main-content-title mg-b-0 mg-b-lg-1">Auto Approved by System</span>
-                                </div>
+                                <div class="card-header" style="background-color: #14846f;">
+                                    <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Auto Approved by System</center></span>
+                                </div><br/>
                             <?php }else{ ?>
-                                <div class="card-header">
-                                    <span class="main-content-title mg-b-0 mg-b-lg-1">Approval List</span>
-                                </div>
-                                <br/>
-                                <?php
-                                $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$item_id'");
-                                $qur1 = mysqli_query($db, $query1);
-                                $i = 0;
-                                while ($rowc1 = mysqli_fetch_array($qur1)) {
-                                    $approval_dept_array = $rowcmain['approval_dept'];
-                                    $approval_dept = explode(',', $approval_dept_array);
-                                    $approval_initials_array = $rowcmain['approval_initials'];
-                                    $approval_initials = explode(',', $approval_initials_array);
-                                    $passcode_array = $rowcmain['passcode'];
-                                    $passcode = explode(',', $passcode_array);
-                                    $approval_by_array = $rowc1['approval_by'];
-                                    $arrteam = explode(',', $approval_by_array);
+                                <div class="card-header" style="background-color: #14846f;">
+                                    <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Approval List</center></span>
+                                </div><br/>
+                                <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                    <tr class="form_tab_tr">
+                                        <th class="form_tab_th">Department</th>
+                                        <th class="form_tab_th">Form Status</th>
+                                        <th class="form_tab_th">Approver</th>
+                                        <th class="form_tab_th">Approval/Rejection Time</th>
+                                    </tr>
 
 
-                                    foreach ($arrteam as $arr) {
-                                        if ($arr != "") {
-                                            ?>
-                                            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
-                                                <div class="table-responsive">
+                                    <?php
+                                    $query1 = sprintf("SELECT * FROM  form_create where form_create_id = '$item_id'");
+                                    $qur1 = mysqli_query($db, $query1);
+                                    $i = 0;
+                                    while ($rowc1 = mysqli_fetch_array($qur1)) {
+                                        $approval_dept_array = $rowcmain['approval_dept'];
+                                        $approval_dept = explode(',', $approval_dept_array);
+                                        $approval_initials_array = $rowcmain['approval_initials'];
+                                        $approval_initials = explode(',', $approval_initials_array);
+                                        $passcode_array = $rowcmain['passcode'];
+                                        $passcode = explode(',', $passcode_array);
+                                        $approval_by_array = $rowc1['approval_by'];
+                                        $arrteam = explode(',', $approval_by_array);
+
+
+                                        foreach ($arrteam as $arr) {
+                                            if ($arr != "") {
+                                                ?>
+                                                <tr class="form_tab_tr">
+                                                    <!--								<div class="form_row_item row">-->
                                                     <?php
                                                     $qurtemp = mysqli_query($db, "SELECT group_name FROM `sg_group` where group_id = '$arr' ");
                                                     $rowctemp = mysqli_fetch_array($qurtemp);
@@ -941,69 +1036,74 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
                                                     $fullnnm = $rowc04["firstname"] . " " . $rowc04["lastname"];
 
                                                     ?>
-                                                    <div class="row row-xs align-items-center mg-b-20">
-                                                        <div class="col-md-2">
-                                                            <label class="form-label mg-b-0">Department</label>
-                                                        </div>
-                                                        <div class="col-md-4 mg-t-5 mg-md-t-0">   <?php echo $groupname; ?></div>
-                                                        <div class="col-md-2">
-                                                            <label class="form-label mg-b-0">Form Status</label>
-                                                        </div>
-                                                        <div class="col-md-4 mg-t-5 mg-md-t-0">     <?php echo $form_status; ?></div>
-                                                    </div>
-                                                    <div class="row row-xs align-items-center mg-b-20">
-                                                        <div class="col-md-2">
-                                                            <label class="form-label mg-b-0">Approver</label>
-                                                        </div>
-                                                        <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                                            <input type="text" name="approve_initial[]" id=""
-                                                                   value="<?php echo $rowc04["firstname"] . " " . $rowc04["lastname"]; ?>"
-                                                                   class="form-control pn_none"></div>
-                                                        <?php
+                                                    <!--								</div>-->
+                                                    <td class="form_tab_td">
+                                                        <?php echo $groupname; ?>
+                                                    </td>
+                                                    <td class="form_tab_td">
+                                                        <?php echo $form_status; ?>
+                                                    </td>
+                                                    <td class="form_tab_td">
+                                                        <input type="text" name="approve_initial[]" id=""
+                                                               value="<?php echo $rowc04["firstname"] . " " . $rowc04["lastname"];; ?>"
+                                                               class="form-control pn_none">
+                                                    </td>
 
-                                                        $qur_pin = mysqli_query($db, "SELECT pin FROM  cam_users where users_id = '$id' ");
-                                                        $row_pin = mysqli_fetch_assoc($qur_pin);
-                                                        ?>
-                                                        <div class="col-md-2">
-                                                            <label class="form-label mg-b-0">Time</label>
-                                                        </div>
-                                                        <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                                            <input type="text" name="approval_time" id="approval_time"
-                                                                   value="<?php echo date('d-M-Y h:i:s', $date_time); ?>"
-                                                                   class="form-control pn_none">
-                                                        </div>
-                                                    </div>
-                                                    <?php if ($form_status == 'Rejected') { ?>
-                                                        <div id="rej_reason_div" style="border: 1px solid red;padding: 10px;">
-                                                            <td class="form_tab_td pn_none" colspan="4">Reject Reason : <textarea
-                                                                        placeholder="<?php echo $rowc05['reject_reason']; ?>"
-                                                                        style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
+                                                    <?php
+
+                                                    $qur_pin = mysqli_query($db, "SELECT pin FROM  cam_users where users_id = '$id' ");
+                                                    $row_pin = mysqli_fetch_assoc($qur_pin);
+                                                    //  $full_pin = $row_pin["pin"];
+
+
+                                                    ?>
+
+                                                    <td class="form_tab_td">
+                                                        <input type="text" name="approval_time" id="approval_time"
+                                                               value="<?php echo date('d-M-Y h:i:s', $date_time); ?>"
+                                                               class="form-control pn_none">
+                                                    </td>
+
+                                                </tr>
+                                                <?php if ($form_status == 'Rejected') { ?>
+                                                    <tr id="rej_reason_div" style="display: table-row;border: 1px solid red;">
+                                                        <td class="form_tab_td" colspan="4"> Reject Reason :
+                                                            <textarea class="form-control pn_none" name="rej_reason" rows="1" ><?php echo $rowc05['reject_reason']; ?>
+
+                                                                </textarea>
+                                                        </td>
+                                                    </tr>
+                                                <?php } else if ($form_status == 'Approved') {
+                                                    if ($rowc05['reject_reason'] != ""){?>
+                                                        <tr id="rej_reason_div" style="display: table-row;border: 1px solid green;">
+                                                            <td class="form_tab_td" colspan="4"> Approve Reason :
+                                                                <textarea class="form-control pn_none" name="rej_reason" rows="1"><?php echo $rowc05['reject_reason']; ?>
+
+                                                                </textarea>
                                                             </td>
-                                                        </div>
-                                                    <?php }  else if ($form_status == 'Approved') { ?>
-                                                        <div id="rej_reason_div" style="border: 1px solid green;padding: 10px;">
-                                                            <td class="form_tab_td pn_none" colspan="4">Approve Reason : <textarea
-                                                                        placeholder="<?php echo $rowc05['reject_reason']; ?>"
-                                                                        style="color: #333333 !important;width: 100%;height: auto; border: none;padding: 14px;" name="rej_reason" rows="1"></textarea>
-                                                            </td>
-                                                        </div>
-                                                    <?php  } ?>
-                                                </div>
-                                            </div>
-                                            <?php     $fullnnm = "";
-                                            $passcd = "";
+                                                        </tr>
+                                                    <?php  } }
+                                                $fullnnm = "";
+                                                $passcd = "";
+                                            }
                                         }
                                     }
-                                }
-                                ?>
-                            <?php  } ?>
-                        </div>
+                                    ?>
+
+
+                                </table>
+                                <br/>
+                            <?php    } ?>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <?php } ?>
-    </form>
+
+
+    <?php } ?>
+
+
 </div>
 
 <script>
@@ -1032,4 +1132,5 @@ if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
 </script>
 <?php include ('../footer.php') ?>
 </body>
+
 </html>
