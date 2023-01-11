@@ -397,8 +397,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Station * : </label>
                                 </div>
                                 <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                    <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Station">
-                                        <option value="" selected disabled>--- Select Station ---</option>
+                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                         <option value="" selected disabled>--- Select Station ---</option>
                                         <?php
                                         if($is_tab_login){
@@ -472,7 +471,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Part Family : </label>
                                 </div>
                                 <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                    <select name="part_family" id="part_family" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
                                         <option value="" selected disabled>--- Select Part Family ---</option>
                                         <?php
                                         if(empty($station)){
@@ -506,7 +505,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Part Number : </label>
                                 </div>
                                 <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
                                         <option value="" selected disabled>--- Select Part Number ---</option>
                                         <?php
                                         $part_number = $_POST['part_number'];
@@ -533,7 +532,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Event Type  : </label>
                                 </div>
                                 <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                    <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+                                    <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-placeholder="Select Event Type">
                                         <option value="" selected disabled>--- Select Event Type ---</option>
                                         <?php
                                         $event_type_id = $_POST['event_type_id'];

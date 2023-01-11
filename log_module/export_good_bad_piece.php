@@ -81,32 +81,47 @@ if($station == 'all'){
     if ($button == "button3") {
         if (!empty($datefrom)) {
             $print_data .= "From Date : " . $datefrom . "\n";
+            $datefrom = date("Y-m-d", strtotime($datefrom));
+            $dateto = date("Y-m-d", strtotime($dateto));
             $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' ";
         }
         if (!empty($dateto)) {
             $print_data .= "To Date : " . $dateto . "\n\n\n";
+            $datefrom = date("Y-m-d", strtotime($datefrom));
+            $dateto = date("Y-m-d", strtotime($dateto));
             $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
         }
     } else if ($button == "button2") {
         /* If Date Period is Selected */
+        $curdate = date("Y-m-d", strtotime($curdate));
         $curdate = date('Y-m-d');
         if ($timezone == "7") {
+            $countdate = date("Y-m-d", strtotime($countdate));
             $countdate = date('Y-m-d', strtotime('-7 days'));
         } else if ($timezone == "1") {
+            $countdate = date("Y-m-d", strtotime($countdate));
             $countdate = date('Y-m-d', strtotime('-1 days'));
         } else if ($timezone == "30") {
+            $countdate = date("Y-m-d", strtotime($countdate));
             $countdate = date('Y-m-d', strtotime('-30 days'));
         } else if ($timezone == "90") {
+            $countdate = date("Y-m-d", strtotime($countdate));
             $countdate = date('Y-m-d', strtotime('-90 days'));
         } else if ($timezone == "180") {
+            $countdate = date("Y-m-d", strtotime($countdate));
             $countdate = date('Y-m-d', strtotime('-180 days'));
         } else if ($timezone == "365") {
+            $countdate = date("Y-m-d", strtotime($countdate));
             $countdate = date('Y-m-d', strtotime('-365 days'));
         }
         if (!empty($countdate)) {
+            $curdate = date("Y-m-d", strtotime($curdate));
+            $countdate = date("Y-m-d", strtotime($countdate));
             $wc = $wc . " AND DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$countdate' and DATE_FORMAT(created_at,'%Y-%m-%d') <= '$curdate' ";
         }
     } else {
+        $datefrom = date("Y-m-d", strtotime($datefrom));
+        $dateto = date("Y-m-d", strtotime($dateto));
         $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
     }
 
