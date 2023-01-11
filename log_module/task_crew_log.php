@@ -401,7 +401,7 @@ include("../admin_menu.php");
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-1">
-                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
+                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Search</button>
                                 </div>
                                 <div class="col-md-1">
                                     <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
@@ -463,7 +463,7 @@ if(count($_POST) > 0)
                                 $datefrom = $_POST['date_from'];
                                 $button = $_POST['button'];
                                 $timezone = $_POST['timezone'];
-                                if ($button == "button1") {
+                                /*if ($button == "button1") {*/
                                     if ($taskboard != "" && $user != "" && $datefrom != "" && $dateto != "") {
                                         $datefrom = date("Y-m-d", strtotime($datefrom));
                                         $dateto = date("Y-m-d", strtotime($dateto));
@@ -487,7 +487,7 @@ if(count($_POST) > 0)
                                         $dateto = date("Y-m-d", strtotime($dateto));
                                         $qur = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$dateto' ");
                                     }
-                                }
+                                /*}*/
 //$message = "Date :- ".$name;
 //echo "<script type='text/javascript'>alert('$message');</script>";
 //$qur =  mysqli_query($db,"SELECT * FROM `assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') = '$date' and `user` = '$name'");
