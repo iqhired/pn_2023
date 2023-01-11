@@ -501,7 +501,6 @@ include("../admin_menu.php");
 </div>
 </div>
 </div>
-
 <script> $(document).on('click', '#delete', function () {
         var element = $(this);
         var del_id = element.attr("data-id");

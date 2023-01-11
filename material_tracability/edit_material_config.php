@@ -406,7 +406,6 @@ include("../admin_menu.php");
                                     </div>
                                 </div>
 
-
                                 <div class="col-md-1"></div>
                                 <div class="col-md-2">
                                     <label class="form-label mg-b-0">Is Serial Number Required:*</label>
