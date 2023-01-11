@@ -568,14 +568,22 @@ include("../admin_menu.php");
 
 
 
-                            <div class="card-body pt-0">
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-2" style="max-width: 10.66667%;">
                                 <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
+                                    </div>
+                                    <div class="col-md-2">
                                 <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
+                                    </div>
                             </form>
+                                <div class="col-md-3" style="margin-left: -78px;">
                                 <form action="export_good_bad_piece.php" method="post" name="export_excel">
                                 <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="export" name="export">Export Data</button>
                                 </form>
+                                     </div>
                             </div>
+                           </div>
                         </div>
                 </div>
          </div>
