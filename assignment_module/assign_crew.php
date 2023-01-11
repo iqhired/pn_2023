@@ -259,7 +259,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Select station :</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <select name="assign_line" id="assign_line" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
+                                    <select name="assign_line" id="assign_line" class="form-control form-select select2 select2-hidden-accessible" data-placeholder="Select Station" tabindex="-1" aria-hidden="true">
                                         <option value="" selected disabled>Select Station</option>
                                         <?php
                                         $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1";
