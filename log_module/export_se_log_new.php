@@ -13,12 +13,12 @@ $line_id = $_SESSION['station'];
 $print_data='';
 
 if(empty($dateto)){
-    $curdate = date('Y-m-d',strtotime("-1 days"));
+    $curdate = date(mdY_FORMAT,strtotime("-1 days"));
     $dateto = $curdate;
 }
 
 if(empty($datefrom)){
-    $yesdate = date('Y-m-d',strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT,strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 
@@ -57,10 +57,14 @@ if ($line_id != null) {
 
 
 if($datefrom != "" && $dateto != ""){
+    $datefrom = date("Y-m-d", strtotime($datefrom));
+    $dateto = date("Y-m-d", strtotime($dateto));
 	$q = $q . " AND DATE_FORMAT(e_log.created_on,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(e_log.created_on,'%Y-%m-%d') <= '$dateto' ";
 }else if($datefrom != "" && $dateto == ""){
+    $datefrom = date("Y-m-d", strtotime($datefrom));
 	$q = $q . " AND DATE_FORMAT(e_log.created_on,'%Y-%m-%d') >= '$datefrom' ";
 }else if($datefrom == "" && $dateto != ""){
+    $dateto = date("Y-m-d", strtotime($dateto));
 	$q = $q . " AND DATE_FORMAT(e_log.created_on,'%Y-%m-%d') <= '$dateto'";
 }
 
