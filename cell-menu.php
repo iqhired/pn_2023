@@ -1,12 +1,12 @@
 
 <!-- SKIN-MODES CSS -->
-<link href="https://laravel8.spruko.com/nowa/assets/css/skin-modes.css" rel="stylesheet" />
+<link href="<?php echo $siteURL; ?>assets/css/form_css/skin-modes.css" rel="stylesheet" />
 
 <!-- ANIMATION CSS -->
-<link href="https://laravel8.spruko.com/nowa/assets/css/animate.css" rel="stylesheet">
+<link href="<?php echo $siteURL; ?>assets/css/form_css/animate.css" rel="stylesheet">
 
 <!-- SWITCHER CSS -->
-<link href="https://laravel8.spruko.com/nowa/assets/switcher/css/switcher.css" rel="stylesheet"/>
+<link href="<?php echo $siteURL; ?>assets/css/form_css/switcher.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="<?php echo $siteURL; ?>assets/css/menu.css" rel="stylesheet" type="text/css">
 <!-- main-header -->
@@ -124,11 +124,11 @@
 
 
 <!-- JQUERY JS -->
-<script src="https://laravel8.spruko.com/nowa/assets/plugins/jquery/jquery.min.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/jquery-min.js"></script>
 
 <!-- BOOTSTRAP JS -->
-<script src="https://laravel8.spruko.com/nowa/assets/plugins/bootstrap/js/popper.min.js"></script>
-<script src="https://laravel8.spruko.com/nowa/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/popper-min.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/bootstrap-min.js"></script>
 
 
 <!-- P-SCROLL JS -->
@@ -136,12 +136,10 @@
 
 
 <!-- SIDEBAR JS -->
-<script src="https://laravel8.spruko.com/nowa/assets/plugins/side-menu/sidemenu.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/sidemenu.js"></script>
 
 
-<!--Internal  index js -->
-<script src="https://laravel8.spruko.com/nowa/assets/js/index.js"></script>
 
 
 <!-- CUSTOM JS -->
-<script src="https://laravel8.spruko.com/nowa/assets/js/custom.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/custom.js"></script>
