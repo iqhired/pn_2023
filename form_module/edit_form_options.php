@@ -66,19 +66,6 @@ if ($i != "super" && $i != "admin") {
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
 
-   <!-- //data tables links-->
-    <script type="text/javascript" src="../assets/js/form_js/dataTables.bootstrap5.js"></script>
-    <script type="text/javascript" src="../assets/js/form_js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="../assets/js/form_js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../assets/js/form_js/responsive.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="../assets/js/form_js/custom.js"></script>
-    <script type="text/javascript" src="../assets/js/form_js/select2.full.min.js"></script>
-    <script type="text/javascript" src="../assets/js/form_js/select2.js"></script>
-    <script type="text/javascript" src="../assets/js/form_js/index1.js"></script>
-    <script type="text/javascript" src="../assets/css/form_css/buttons.bootstrap5.min.css"></script>
-    <script type="text/javascript" src="../assets/css/form_css/dataTables.bootstrap5.css"></script>
-    <script type="text/javascript" src="../assets/css/form_css/responsive.bootstrap5.css"></script>
-    <script type="text/javascript" src="../assets/css/form_css/bootstrap.min.css"></script>
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
@@ -114,7 +101,7 @@ if ($i != "super" && $i != "admin") {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
