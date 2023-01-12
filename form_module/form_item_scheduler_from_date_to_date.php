@@ -1,8 +1,8 @@
 <?php include("../s_config.php");
 include("../config.php");
-$chicagotime2 = date('Y-m-d', strtotime('-1 days'));
-$chicagotime = date('Y-m-d', strtotime('-1 days'));
-$querymain = sprintf("SELECT * FROM `form_user_data` WHERE date(created_at) >= '$chicagotime2' and date(created_at) <= '$chicagotime' ORDER BY form_user_data_id ASC");
+$date_from = $_POST['date_from'];
+$date_to = $_POST['date_to'];
+$querymain = sprintf("SELECT * FROM `form_user_data` WHERE created_at >= '$date_from' and created_at <= '$date_to' ORDER BY form_user_data_id ASC");
 $qurmain = mysqli_query($db, $querymain);
 while ($rowcmain = mysqli_fetch_array($qurmain)) {
     $formname = $rowcmain['form_name'];
@@ -47,6 +47,3 @@ while ($rowcmain = mysqli_fetch_array($qurmain)) {
     }
 }
 ?>
-
-
-

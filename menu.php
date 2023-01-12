@@ -7,14 +7,14 @@ $temp = "";
     <h3><?php echo $siteURL ?>log_module/se_log_schedular.php</h3>
 </a>
 <br>
-<h3>SPC Analytics graph </h3>
-<a href="<?php echo $siteURL ?>form_module/form_graph1.php" target="_blank">
-    <h3><?php echo $siteURL ?>form_module/form_graph1.php</h3>
-</a>
-<br>
 <h3>Spliting Records Through page_from to page_to </h3>
 <a href="<?php echo $siteURL ?>log_module/update_station_event_log_backend_page.php" target="_blank">
     <h3><?php echo $siteURL ?>log_module/update_station_event_log_backend_page.php</h3>
+</a>
+<br>
+<h3>SPC Analytics Scheduler Date_from to Date_to </h3>
+<a href="<?php echo $siteURL ?>form_module/form_schedular_date_from_to_date_to.php" target="_blank">
+    <h3><?php echo $siteURL ?>form_module/form_schedular_date_from_to_date_to.php</h3>
 </a>
 <br>
 <h3>Daily/Monthly/Yearly Report</h3>
