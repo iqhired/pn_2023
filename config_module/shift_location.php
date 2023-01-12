@@ -447,7 +447,7 @@ include("../admin_menu.php");
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 <script type="text/javascript" src="../assets/js/core/app.js"></script>
 
 

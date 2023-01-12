@@ -301,7 +301,7 @@ include("../admin_menu.php");
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label class="form-label mg-b-0">Name </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -309,7 +309,7 @@ include("../admin_menu.php");
                                 </div>
 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <label class="form-label mg-b-0">Description </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -511,7 +511,7 @@ include("../admin_menu.php");
 </div>
 
 <!-- /page container -->
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 <script type="text/javascript" src="../assets/js/core/app.js"></script>
 
 
