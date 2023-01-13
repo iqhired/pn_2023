@@ -53,7 +53,7 @@ if (count($_POST) > 0) {
 }
 $wc = '';
 
-if(isset($station) && $station != 'all'){
+if(!empty($station) && $station != 'all'){
 	$wc = $wc . " and sg_station_event.line_id = '$station'";
 }
 if(!empty($pf)){
@@ -93,9 +93,9 @@ if ($button == "button1") {
 		$wc = $wc . " AND DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$countdate' and DATE_FORMAT(created_at,'%Y-%m-%d') <= '$curdate' ";
 	}
 } else{
-	$datefrom = date("Y-m-d", strtotime($datefrom));
-	$dateto = date("Y-m-d", strtotime($dateto));
-	$wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
+	$date_from = convertMDYToYMD($datefrom);;
+	$date_to = convertMDYToYMD($dateto);;
+	$wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
 }
 if($_POST['fa_op'] == 1){
     $sql = "SELECT SUM(good_pieces) AS good_pieces,SUM(bad_pieces)AS bad_pieces,SUM(rework) AS rework FROM `good_bad_pieces`  INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id where 1 " . $wc;

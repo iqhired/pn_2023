@@ -26,4 +26,10 @@ function onlydateReadFormat($datetime) {
 function datemdY($datetime) {
 	return date("m-d-Y" , strtotime($datetime));
 }
+
+function convertMDYToYMD($date){
+	$parts = explode('-',$date);
+	$date = $parts[2] . '-' . $parts[0] . '-' . $parts[1];
+	return $date;
+}
 ?>
