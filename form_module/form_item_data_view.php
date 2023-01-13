@@ -370,7 +370,7 @@ if (($is_tab_login || $is_cell_login)) {
                                                    value="<?php echo $i_val.'  '.$item_desc; ?>" disabled>
                                         </div>
                                         <div class="col-md-2 mg-t-5 mg-md-t-0">
-                                            <a href="form_trend.php?id=<?php echo $rowc['form_create_id']; ?>&station=<?php echo $rowc1['station']; ?>&form_type=<?php echo $rowc1['form_type']; ?>&part_number=<?php echo $part_number; ?>&date_from=<?php echo $date_from; ?>&date_to=<?php echo $date_to; ?>&item_id=<?php echo $form_iitem_id; ?>" class="btn btn-primary" style="background-color:#1e73be;" target="_blank" ><i class="fa fa-line-chart"></i></a>
+                                            <a href="form_trend.php?id=<?php echo $rowc['form_create_id']; ?>&station=<?php echo $rowc1['station']; ?>&form_type=<?php echo $rowc1['form_type']; ?>&part_number=<?php echo $part_number; ?>&date_from=<?php echo $date_from; ?>&date_to=<?php echo $date_to; ?>&item_id=<?php echo $form_iitem_id; ?>" class="btn btn-primary" target="_blank" ><i class="fa fa-line-chart"></i></a>
                                         </div>
                                     </div>
                                 <?php } ?>

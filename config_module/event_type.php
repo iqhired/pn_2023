@@ -511,7 +511,7 @@ include("../admin_menu.php");
 
     }
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 <!--------container------>
 
 </body>

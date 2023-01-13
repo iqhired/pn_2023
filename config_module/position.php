@@ -268,8 +268,8 @@ include("../admin_menu.php");
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Position</li>
             </ol>
         </div>
     </div>
@@ -458,7 +458,7 @@ include("../admin_menu.php");
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 <script type="text/javascript" src="../assets/js/core/app.js"></script>
 </body>
 </html>

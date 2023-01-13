@@ -483,7 +483,7 @@ include("../admin_menu.php");
                                                 <td><?php echo $rowc["material_type"]; ?></td>
                                                 <td>  <input type='checkbox' id="serial_number" value="<?php echo $rowc["serial_num_required"] ?>" <?php if( $rowc["serial_num_required"] == 1) {echo "checked";}?> style="pointer-events: none !important;"></td>
                                                 <td>
-                                                    <a href="edit_material_config.php?id=<?php echo $rowc['material_id']; ?>" class="btn btn-primary" data-material_teams="<?php echo  $material; ?>" style="background-color:#1e73be;"><i class="fa fa-edit"></i></a>
+                                                    <a href="edit_material_config.php?id=<?php echo $rowc['material_id']; ?>" class="btn btn-primary Legit Ripple" data-material_teams="<?php echo  $material; ?>" style="background-color:#1e73be;"><i class="fa fa-edit"></i></a>
 
                                                 </td>
                                             </tr>
@@ -586,7 +586,7 @@ include("../admin_menu.php");
 
 <!---container--->
 
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
 </html>
 

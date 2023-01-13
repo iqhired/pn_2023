@@ -1,10 +1,15 @@
-<?php include("../config.php");
+<?php
+include("../config.php");
+
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 if (!isset($_SESSION['user'])) {
-    header('location: ../logout.php');
+    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
+        header($redirect_tab_logout_path);
+    }else{
+        header($redirect_logout_path);
+    }
 }
-
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
 //Read the request time of the user
@@ -16,7 +21,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     //Destroy the session
     session_destroy();
     header($redirect_logout_path);
-//	header('location: ../logout.php');
+//  header('location: ../logout.php');
     exit;
 }
 //Set the time of the user's last activity
@@ -44,212 +49,338 @@ if ($edit_name != "") {
         $_SESSION['message_stauts_class'] = 'alert-danger';
         $_SESSION['import_status_message'] = 'Error: Please Retry';
     }
-    header("Location:create_cust_dashboard.php");
+    header("Location:create_cust_dashboard_new.php");
 }
-
-
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $sitename; ?> | Update Dashboard</title>
+    <title>
+        <?php echo $sitename; ?> |Update Dashboard Configuration</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-          type="text/css">
-    <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/libraries/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/libraries/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
     <!-- Theme JS files -->
     <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/app.js"></script>
     <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/notifications/sweet_alert.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/components_modals.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_select2.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+
     <style>
-        th.sno{
-            width: 5%
+        .navbar {
+
+            padding-top: 0px!important;
         }
-        th.action {
-            width: 15%
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
         }
-        th.p_name {
-            width: 60%; /* Not necessary, since only 70% width remains */
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
         }
-        th.d_name{
-            width: 20%
+        .fs-6 {
+            font-size: 1rem!important;
         }
-        .select2-container{
-            outline: 0;
-            position: relative;
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
             display: inline-block;
-            text-align: left;
-            font-size: 14px;
+            width: 99%;
+            text-align: center;
+            color: red;
         }
-        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-md-10{
-                width: 72%;
-                float: right;
-            }
-            .col-md-2 control-label{
-                width: 26%!important;
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
             }
         }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+
     </style>
 </head>
-<body>
+
 <!-- Main navbar -->
-<?php $cust_cam_page_header = "Edit Dashboard";
-include("../header_folder.php");
+<?php
+$cust_cam_page_header = "Edit Dashboard Config";
+include("../header.php");
 include("../admin_menu.php");
 ?>
-<!-- /main navbar -->
-<!-- Page container -->
-<div class="page-container">
 
-    <!-- Content area -->
-    <div class="content">
-        <!-- Main charts -->
-        <!-- Basic datatable -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
+<!-----body-------->
+<body class="ltr main-body app sidebar-mini">
+<!-----main content----->
+<div class="main-content app-content">
+    <!---container--->
+    <!---breadcrumb--->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Dashboard Config</li>
+            </ol>
+        </div>
+    </div>
+    <?php
+    $id = $_GET['id'];
+    ?>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <?php
-                            $id = $_GET['id'];
+    <form action="" id="edit_form_grp" class="form-horizontal" method="post">
+        <div class="row-body">
+            <?php
+            $query = sprintf("SELECT * FROM  sg_cust_dashboard where sg_cust_group_id = '$id' AND sg_cust_group_id != '1'");
+            $qur = mysqli_query($db, $query);
+            $rowc = mysqli_fetch_array($qur);
+            ?>
+            <div class="col-lg-12 col-md-12">
+                <?php
+                if (!empty($import_status_message)) {
+                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                }
+                ?>
+                <?php
+                if (!empty($_SESSION['import_status_message'])) {
+                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+                    $_SESSION['message_stauts_class'] = '';
+                    $_SESSION['import_status_message'] = '';
+                }
+                ?>
 
-                            ?>
-                            <form action="" id="edit_form_grp" class="form-horizontal" method="post">
-                                <div class="modal-body">
-                                    <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Edit Dashboard Configuration</span>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Dashboard Name:*</label>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <input type="text" class="form-control" name="edit_cust_name" id="edit_cust_name"  value = "<?php echo $rowc['sg_cust_dash_name']; ?>"  required>
+                                    <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $id; ?>">
+                                </div>
+
+
+                                <div class="col-md-1"></div>
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Enabled </label>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div class="row mg-t-15">
+                                        <div class="col-lg-3">
+                                            <label class="rdiobox">
+                                                <input id="edit_enabled" name="edit_enabled" value="1" <?php if ($rowc["enabled"] == '1'){echo 'checked';} ?> type="radio"> <span>Yes</span></label>
+                                        </div>
+                                        <div class="col-lg-5 mg-t-20 mg-lg-t-0">
+                                            <label class="rdiobox">
+                                                <input  id="edit_enabled" name="edit_enabled" value="0" <?php if ($rowc["enabled"] == '0'){echo 'checked';} ?> type="radio"> <span>No</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Select Station</label>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <select name="edit_station[]" id="edit_station" class="form-control form-select select2"  multiple="multiple">
 
                                         <?php
-                                        $query = sprintf("SELECT * FROM  sg_cust_dashboard where sg_cust_group_id = '$id' AND sg_cust_group_id != '1'");
-                                        $qur = mysqli_query($db, $query);
-                                        $rowc = mysqli_fetch_array($qur);
+                                        $arrteam = explode(',', $rowc["stations"]);
+                                        $sql1 = "SELECT line_id,line_name FROM `cam_line`";
+                                        $result1 = $mysqli->query($sql1);
+                                        while ($row1 = $result1->fetch_assoc()) {
+                                            if (in_array($row1['line_id'], $arrteam)) {
+                                                $selected = "selected";
+                                            } else {
+                                                $selected = "";
+                                            }
+                                            echo "<option id='" . $row1['line_id'] . "'  value='" . $row1['line_id'] . "' $selected>" . $row1['line_name'] . "</option>";
+                                        }
+
                                         ?>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label">Dashboard Name:</label>
-                                                <div class="col-md-10">
-                                                    <input type="text" name="edit_cust_name" id="edit_cust_name" class="form-control" value = "<?php echo $rowc['sg_cust_dash_name']; ?>" required>
-                                                    <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $id; ?>">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label">Stations:</label>
-
-                                                <div class="col-md-10">
-                                                    <select required name="edit_station[]" id="edit_station"  class="select-border-color"
-                                                            multiple="multiple">
-                                                        <!--                                                        <select name="edit_part_number[]" id="edit_part_number" class="form-control" multiple>-->
-                                                        <?php
-                                                        $arrteam = explode(',', $rowc["stations"]);
-                                                        $sql1 = "SELECT line_id,line_name FROM `cam_line`";
-                                                        $result1 = $mysqli->query($sql1);
-                                                        while ($row1 = $result1->fetch_assoc()) {
-                                                            if (in_array($row1['line_id'], $arrteam)) {
-                                                                $selected = "selected";
-                                                            } else {
-                                                                $selected = "";
-                                                            }
-                                                            echo "<option id='" . $row1['line_id'] . "'  value='" . $row1['line_id'] . "' $selected>" . $row1['line_name'] . "</option>";
-                                                        }
-
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="col-md-2 control-label">Enabled : </label>
-
-                                                <div class="col-lg-8">
-                                                    <select name="edit_enabled" id="edit_enabled" class="form-control"
-                                                            style="float: left;
-                                                             width: initial;">
-                                                        <option value="1"<?php if ($rowc["enabled"] == '1'){echo 'selected';} ?>>Yes</option>
-                                                        <option value="0"<?php if ($rowc["enabled"] == '0'){echo 'selected';} ?>>No</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    </select>
                                 </div>
-                                <div class="modal-footer">
+                            </div>
+                        </div>
 
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">SAVE</button>
                         </div>
                     </div>
-                    <!-- /basic datatable -->
-                    <!-- /main charts -->
-
-
-                    <!-- Dashboard content -->
-
-                    <script>
-                        $('#choose').on('change', function () {
-                            var selected_val = this.value;
-                            if (selected_val == 1 || selected_val == 2) {
-                                $(".group_div").show();
-                            } else {
-                                $(".group_div").hide();
-                            }
-                            if (selected_val == 5 ) {
-                                $('#delete_form').submit();
-                            }
-                        });
-                    </script>
                 </div>
-                <!-- /content area -->
-
-            </div>
-            <!-- /main content -->
-        </div>
-        <!-- /page content -->
-    </div>
+    </form>
 </div>
-<!-- /page container -->
-<?php include ('../footer.php') ?>
+</div>
+
+
+
+
+
+<!-- Dashboard content -->
+
 <script>
-    //window.onload = function() {
-    //    history.replaceState("", "", "<?php //echo $scriptName; ?>//config_module/create_cust_dashboard.php");
-    //}
+    $('#choose').on('change', function () {
+        var selected_val = this.value;
+        if (selected_val == 1 || selected_val == 2) {
+            $(".group_div").show();
+        } else {
+            $(".group_div").hide();
+        }
+        if (selected_val == 5 ) {
+            $('#delete_form').submit();
+        }
+    });
 </script>
+<!---container--->
+
+</div>
+
+<?php include('../footer1.php') ?>
+
 </body>
-</html>

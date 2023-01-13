@@ -74,7 +74,7 @@ if (count($_POST) > 0) {
     $sta = $_POST['station'];
     $pf = $_POST['part_family'];
     $pn = $_POST['part_number'];
-    if ($station1 == "all") {
+    if (empty($station1) || $station1 == "all") {
         $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where enabled = '1' and is_deleted != 1 ");
         while ($rowctemp = mysqli_fetch_array($qurtemp)) {
             $station1 = $rowctemp["line_name"];
@@ -101,7 +101,7 @@ if (empty($datefrom)) {
 $wc = '';
 
 if (isset($station)) {
-    if ($station != 'all') {
+    if (!empty($station) && $station != 'all') {
         $wc = $wc . " and sg_station_event.line_id = '$station'";
     }
 }
@@ -117,10 +117,12 @@ if (isset($pn)) {
 /* If Data Range is selected */
 if ($button == "button1") {
     if (isset($datefrom)) {
-        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' ";
+		$date_from = date('Y-m-d', strtotime($datefrom));
+        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' ";
     }
     if (isset($dateto)) {
-        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
+		$date_to = date("Y-m-d", strtotime($dateto));
+        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
     }
 } else if ($button == "button2") {
     /* If Date Period is Selected */
@@ -139,10 +141,14 @@ if ($button == "button1") {
         $countdate = date('Y-m-d', strtotime('-365 days'));
     }
     if (isset($countdate)) {
+		$countdate = date("Y-m-d", strtotime($countdate));
+		$curdate = date("Y-m-d", strtotime($curdate));
         $wc = $wc . " AND DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$countdate' and DATE_FORMAT(created_at,'%Y-%m-%d') <= '$curdate' ";
     }
 } else {
-    $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ";
+	$date_from =  convertMDYToYMD($datefrom);
+	$date_to = convertMDYToYMD($dateto);
+    $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
 }
 
 $sql = "SELECT SUM(good_pieces) AS good_pieces,SUM(bad_pieces)AS bad_pieces,SUM(rework) AS rework FROM `good_bad_pieces`  INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id where 1 " . $wc;
@@ -459,6 +465,7 @@ include("../admin_menu.php");
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                             <option value="" selected> Select Station </option>
+                                            <option value="all">All</option>
                                             <?php
                                             $entry = '';
                                             $st_dashboard = $_POST['station'];
@@ -486,7 +493,7 @@ include("../admin_menu.php");
                                             <?php
                                             $st_dashboard = $_POST['part_family'];
                                             $station = $_POST['station'];
-                                            $ss = ((isset($station) && ($station != 'all')) ? ' and station = ' . $station : '');
+                                            $ss = ((!empty($station) && ($station != 'all')) ? ' and station = ' . $station : '');
                                             $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1" . $ss;
                                             $result1 = $mysqli->query($sql1);
                                             while ($row1 = $result1->fetch_assoc()) {
@@ -658,6 +665,8 @@ include("../admin_menu.php");
 </div>
 
 <script>
+    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
     $('#station').on('change', function (e) {
         $("#good_bad_piece_form").submit();
     });

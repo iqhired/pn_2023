@@ -81,7 +81,7 @@ if (count($_POST) > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Form Type</title>
+        <?php echo $sitename; ?> | Form Type</title>
     <!-- Global stylesheets -->
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
@@ -253,7 +253,6 @@ if (count($_POST) > 0) {
         }
 
     </style>
-</head>
 
 <!-- Main navbar -->
 <?php
@@ -272,8 +271,8 @@ include("../admin_menu.php");
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Form Type</li>
             </ol>
         </div>
     </div>
@@ -546,11 +545,7 @@ include("../admin_menu.php");
     });
 </script>
 
-<?php include('../footer.php') ?>
-<script type="text/javascript" src="../assets/js/core/app.js"></script>
-
-
-
+<?php include('../footer1.php') ?>
 
 </body>
 </html>

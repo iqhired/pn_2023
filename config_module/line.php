@@ -13,13 +13,13 @@ $duration = $auto_logout_duration;
 $time = $_SERVER['REQUEST_TIME'];
 //Check the user's session exist or not
 if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-	//Unset the session variables
-	session_unset();
-	//Destroy the session
-	session_destroy();
-	header($redirect_logout_path);
+    //Unset the session variables
+    session_unset();
+    //Destroy the session
+    session_destroy();
+    header($redirect_logout_path);
 //	header('location: ../logout.php');
-	exit;
+    exit;
 }
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
@@ -63,7 +63,7 @@ if (count($_POST) > 0) {
 
 
 
-    }
+}
 
 //upload file
 
@@ -102,18 +102,18 @@ if (isset($_FILES['good_file']) && isset($_FILES['bad_file'])) {
 //    }
     if (empty($errors) == true) {
         $dir_path = "../assets/label_files/" . $_POST['label_line_id'];
-		if (!file_exists($dir_path)) {
-			mkdir($dir_path, 0777, true);
-		}
+        if (!file_exists($dir_path)) {
+            mkdir($dir_path, 0777, true);
+        }
         move_uploaded_file($good_tmp, $dir_path . '/' . 'g' . "_" . 'label');
-		copy($dir_path . '/' . 'g' . "_" . 'label', $dir_path . '/' . 'f1');
+        copy($dir_path . '/' . 'g' . "_" . 'label', $dir_path . '/' . 'f1');
 //		move_uploaded_file($good_tmp1, $dir_path . '/' . 'f1');
         move_uploaded_file($bad_tmp, $dir_path . '/' . 'b' . "_" . 'label');
-		copy($dir_path . '/' . 'b' . "_" . 'label', $dir_path . '/' . 'f2');
+        copy($dir_path . '/' . 'b' . "_" . 'label', $dir_path . '/' . 'f2');
         $zpl_id = $_POST['label_line_id'];
         $sql1 = "update cam_line set zpl_file_status = '1',print_label = '1' where line_id ='$zpl_id'";
         $result1 = mysqli_query($db, $sql1);
-    //    $sql0 = "INSERT INTO `cam_line`('logo',`line_name`,`priority_order` , `enabled` , `created_at`) VALUES (''$file_name','$name' , '$priority_order' , '$enabled', '$chicagotime')";
+        //    $sql0 = "INSERT INTO `cam_line`('logo',`line_name`,`priority_order` , `enabled` , `created_at`) VALUES (''$file_name','$name' , '$priority_order' , '$enabled', '$chicagotime')";
         $message_stauts_class = 'alert-success';
         $import_status_message = 'Upload Files Successfully';
     }
@@ -122,368 +122,514 @@ if (isset($_FILES['good_file']) && isset($_FILES['bad_file'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php echo $sitename; ?> | Station</title>
-        <!-- Global stylesheets -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-        <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
-        <!-- /global stylesheets -->
-        <!-- Core JS files -->
-        <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
-        <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-        <!-- /core JS files -->
-        <!-- Theme JS files -->
-        <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="../assets/js/core/app.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/notifications/sweet_alert.min.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/components_modals.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-        <script type="text/javascript" src="../assets/js/pn.js"></script>
-        <script>
-            $('#gbpd').on('change', function(){
-                this.value = this.checked ? 1 : 0;
-                // alert(this.value);
-            }).change();
-        </script>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <?php echo $sitename; ?> | Station</title>
+    <!-- Global stylesheets -->
+
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+
     <style>
-        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-md-3 {
-                float: left;
-            }
-            .col-md-4 {
-                float: left;
-            }
-            .col-md-2 {
-                float: right;
-            }
-            .col-md-2.mob_user {
-                float: left;
-                margin-top: 10px;
+        .navbar {
+
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
             }
         }
-        .col-lg-2 {
-            width: 21.666667%;
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
         }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+
     </style>
+</head>
 
-        <!-- Main navbar -->
-        <?php
-        $cust_cam_page_header = "Station Configuration Management";
-        include("../header.php");
-        include("../admin_menu.php");
-        include("../heading_banner.php");
-        ?>
-    <body class="alt-menu sidebar-noneoverflow">
-        <!-- /main navbar -->
-        <!-- Page container -->
-        <div class="page-container">
-            <!-- Page content -->
-
-                    <!-- Content area -->
-                    <div class="content">
-                        <!-- Main charts -->
-                        <!-- Basic datatable -->
-                        <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <!--							<h5 class="panel-title">Stations</h5>-->
-                                <!--							<hr/>-->
-                                <div class="row">
-
-
-                                            <form action="" id="user_form" class="form-horizontal" method="post">
-                                                <div class="col-md-12">
-                                                <div class="col-md-3">
-                                                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter Station" required>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="number" name="priority_order" id="priority_order" class="form-control" placeholder="Enter Priority Order" required>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label class="control-label" style="float: left;padding-top: 10px; font-weight: 500;">Enabled : </label>
-                                                    <select  name="enabled" id="enabled" class="select form-control" data-style="bg-slate" style="float: left;
-                                                             width: initial;" >
-                                                        <!--        <option value="" selected disabled>--- Select Ratings ---</option>-->
-                                                        <option value="0" >No</option>
-                                                        <option value="1" >Yes</option>
-                                                    </select>
-                                                </div>
-                                                </div><br><br><br>
-                                                <div class="col-md-12">
-                                                    <div class="col-md-8">
-                                                    <div id="checkboxes">
-                                                        <label class="whatever" for="gbpd"><b>GBP Dashboard Required :</b></label>
-                                                        <input type="checkbox" name="gbpd" id="gbpd" value="1">
-                                                        <label class="whatever" for="npd">&nbsp;&nbsp;&nbsp;&nbsp;<b>NPR Dashboard Required : </b></label>
-                                                        <input type="checkbox" name="npd" id="npd" value="1">
-                                                        <label class="whatever" for="p_label">&nbsp;&nbsp;&nbsp;&nbsp;<b>Print Individual Required : </b></label>
-                                                        <input type="checkbox" name="p_label1" id="p_label1" value="1">
-                                                    </div>
-                                                    </div>
-                                                    <div class="col-md-2 mob_user">
-                                                        <button type="submit" class="btn btn-primary" style="background-color:#1e73be;">Create Station</button>
-                                                    </div>
-
-
-                                                </div>
-                                            </form>
-
-
-                                </div><br/>
-                                <?php
-                                if (!empty($import_status_message)) {
-                                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                                }
-                                ?>
-                                <?php
-                                if (!empty($_SESSION['import_status_message'])) {
-                                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                                    $_SESSION['message_stauts_class'] = '';
-                                    $_SESSION['import_status_message'] = '';
-                                }
-                                ?>
+<!-- Main navbar -->
+<?php
+$cust_cam_page_header = "Station Configuration Management";
+include("../header.php");
+include("../admin_menu.php");
+?>
+<body class="ltr main-body app sidebar-mini">
+<!-- main-content -->
+<div class="main-content app-content">
+    <!-- container -->
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin config</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> Station Configuration Management</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row-body">
+        <div class="col-lg-12 col-md-12">
+    <?php
+    if (!empty($import_status_message)) {
+        echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+    }
+    ?>
+    <?php
+    if (!empty($_SESSION['import_status_message'])) {
+        echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+        $_SESSION['message_stauts_class'] = '';
+        $_SESSION['import_status_message'] = '';
+    }
+    ?>
+        </div>
+    </div>
+    <form action="" id="user_form" class="form-horizontal" method="post">
+        <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Station Configuration Management</span><br>
+                        </div>
+                        <div class="pd-20 pd-sm-10">
+                            <div class="row row-xs">
+                                <div class="col-md-4" >
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter Station" required>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="number" name="priority_order" id="priority_order" class="form-control" placeholder="Enter Priority Order" required>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <select name="enabled" id="enabled" class="form-control form-select select2">
+                                        <option value="0" >No</option>
+                                        <option value="1" >Yes</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <form action="delete_line.php" method="post" class="form-horizontal">
-                            <div class="row">
+                        <div class="pd-20 pd-sm-10">
+                            <div class="row row-xs">
+                                <div class="col-md-2.5">
+                                    <label class="form-label mg-b-0">GBP Dashboard Required : </label>
+                                </div>
+                                <div class="col-md-1.5 mg-t-1 mg-md-t-9">
+                                    <label class="ckbox"><input checked type="checkbox" name="gbpd" id="gbpd" value="1"><span></span></label>
+                                </div>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-2.5">
+                                    <label class="form-label mg-b-0">NPR Dashboard Required : </label>
+                                </div>
+                                <div class="col-md-1.5 mg-t-1 mg-md-t-9">
+                                    <label class="ckbox"><input checked type="checkbox" name="npd" id="npd" value="1"><span></span></label>
+                                </div>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-2.5">
+                                    <label class="form-label mg-b-0">Print Individual Required : </label>
+                                </div>
+                                <div class="col-md-1.5 mg-t-1 mg-md-t-9">
+                                    <label class="ckbox"><input checked type="checkbox" name="p_label1" id="p_label1" value="1"><span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pd-20 pd-sm-10">
+                            <div class="row row-xs">
                                 <div class="col-md-3">
-                                    <button type="submit" class="btn btn-primary" style="background-color:#1e73be;" >Delete</button>
+                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Create Station</button>
                                 </div>
-                            </div>	
-                            <br/>	
-                            <div class="panel panel-flat">					
-                                <table class="table datatable-basic">
-                                    <thead>
-                                        <tr>
-                                            <th><input type="checkbox" id="checkAll" ></th>
-                                            <th>S.No</th>
-                                            <th>Station</th>
-                                            <th>Priority Order</th>
-                                            <th>Enabled</th>
-                                            <th>GBP Dashboard Required</th>
-                                            <th>NPR Dashboard Required</th>
-                                            <th>Print Individual Required</th>
-                                            <th>Print Required</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $query = sprintf("SELECT * FROM  cam_line where is_deleted!='1'");
-                                        $qur = mysqli_query($db, $query);
-                                        while ($rowc = mysqli_fetch_array($qur)) {
-                                            ?> 
-                                            <tr>
-                                                <td><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["line_id"]; ?>"></td>
-                                                <td><?php echo ++$counter; ?></td>
-                                                <td><?php echo $rowc["line_name"]; ?></td>
-                                                <td><?php echo $rowc["priority_order"]; ?></td>
-                                                <td><?php
-                                                    $yn_result = ($rowc['enabled'] == 0) ? "No" : "Yes";
-                                                    echo $yn_result;
-                                                    ?></td>
-        <!-- <td>--><?php //echo $rowc['created_at'];        ?><!--</td>-->
-                                               <td>
-                                                        <input type="checkbox" name="gbpd" id="gbpd" value="<?php echo $rowc["line_id"]; ?>" <?php echo ($rowc['gbd_id']==1 ? 'checked' : '');?>>
-                                                </td>
-                                                <td>
-                                                    <input type="checkbox" name="npd" id="npd" value="<?php echo $rowc["line_id"]; ?>" <?php echo ($rowc['npr_id']==1 ? 'checked' : '');?>>
-                                                </td>
-                                                <td>
-                                                    <input type="checkbox" name="p_label" id="p_label" value="<?php echo $rowc["line_id"]; ?>" <?php echo ($rowc['indivisual_label']==1 ? 'checked' : '');?>>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    $zpl_result = ($rowc['zpl_file_status'] == 0) ? "Off" : "On"; ?>
-                                                   <?php if($zpl_result == "Off"){ ?>
-                                                    <button type="button" id="edit_label" class="btn btn-info btn-xs" style="background-color: #d84315" data-id="<?php echo $rowc['line_id']; ?>"  data-toggle="modal" data-target="#edit_modal_theme_primary1"><?php echo $zpl_result ?> </button>
-                                                  <?php  }else {
-                                                       $print = ($rowc['print_label'] == 0) ? "Off" : "On";
-                                                       if($print == "Off"){?>
-                                                    <button type="button" class="print_status btn btn-info btn-xs"  style="background-color: #d84315" data-id="<?php echo $rowc['line_id']; ?>"  data-toggle="modal"><?php echo $print ?> </button>
-                                                         <?php  }else{ ?>
-                                                               <button type="button" class="print_status btn btn-info btn-xs"  style="background-color: #43a047" data-id="<?php echo $rowc['line_id']; ?>"  data-toggle="modal"><?php echo $print ?> </button>
-                                                         <?php   } ?>
-                                                 <?php   } ?>
-                                                </td>
-                                                <td>
-                                                    <a href="edit_line.php?id=<?php echo $rowc['line_id']; ?>" class="btn btn-primary" data-name="<?php echo $rowc['line_name']; ?>"  style="background-color:#1e73be;">Edit</a>
-
-                                                </td>
-                                            </tr>
-                                        <?php } ?>
-                                    </tbody>
-                                </table>
-                        </form>
-                    </div>
-                    <!-- /basic datatable -->
-
-            <!-- enabled modal -->
-            <div id="edit_modal_theme_primary1" class="modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h6 class="modal-title">Upload Label File</h6>
+                            </div>
                         </div>
-                        <form action="" id="" class="form-horizontal" method="post" enctype="multipart/form-data">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Good Piece File : </label>
-                                    <div class="col-md-6">
-                                        <input type="hidden" name="label_line_id" id="label_line_id" >
-                                        <input type="file" name="good_file" id="good_file" value="" required
-                                               class="form-control">
-<!-- <div id="preview"></div>-->
-                                    </div>
 
-                                </div>
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Bad Piece File : </label>
-                                    <div class="col-md-6">
-                                        <input type="file" name="bad_file" id="bad_file" required
-                                               class="form-control">
-<!-- <div id="preview"></div>-->
-                                    </div>
-
-                                </div>
-<!--                                <div class="row">-->
-<!--                                    <label class="col-lg-2 control-label">Select Printer : </label>-->
-<!--                                    <div class="col-md-6">-->
-<!--                                        <select  name="printer" id="printer" class="select form-control" data-style="bg-slate">-->
-<!--                                            <option value="" disabled selected>Select Printer</option>-->
-<!--                                            <option value="0" >Zebra Printer</option>-->
-<!--                                            <option value="1" >EPSON Printer</option>-->
-<!--                                            <option value="1" >HP Printer</option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /content area -->
+    </form>
+    <form action="delete_line.php" method="post" class="form-horizontal">
+    <div class="row-body">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <button type="submit" class="btn btn-danger btn-sm br-5">
+                            <i>
+                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                            </i>
+                        </button>
+                    </h4>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="checkAll" ></th>
+                                <th>S.No</th>
+                                <th>Action</th>
+                                <th>Print Individual Required</th>
+                                <th>Station</th>
+                                <th>Priority Order</th>
+                                <th>Enabled</th>
+                                <th>GBP Dashboard Required</th>
+                                <th>NPR Dashboard Required</th>
+                                <th>Print Required</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $query = sprintf("SELECT * FROM  cam_line where is_deleted!='1'");
+                            $qur = mysqli_query($db, $query);
+                            while ($rowc = mysqli_fetch_array($qur)) {
+                                ?>
+                                <tr>
+                                    <td><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["line_id"]; ?>"></td>
+                                    <td><?php echo ++$counter; ?></td>
+                                    <td>
+                                        <?php $finalid = $rowc['form_create_id']; ?>
+                                        <a class="btn btn-success btn-sm br-5 me-2" href="edit_line.php?id=<?php echo $rowc['line_id']; ?>" data-name="<?php echo $rowc['line_name']; ?>">
+                                            <i>
+                                                <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                            </i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $zpl_result = ($rowc['zpl_file_status'] == 0) ? "Off" : "On"; ?>
+                                        <?php if($zpl_result == 'Off'){ ?>
+                                            <button type="button" id="edit_label" class="btn btn-info btn-xs" style="background-color: #d84315" data-id="<?php echo $rowc['line_id']; ?>"  data-toggle="modal" data-target="#edit_modal_theme_primary1"><?php echo $zpl_result ?> </button>
+                                        <?php  }else {
+                                            $print = ($rowc['print_label'] == 0) ? "Off" : "On";
+                                            if($print == "Off"){?>
+                                                <button type="button" class="print_status btn btn-info btn-xs"  style="background-color: #d84315" data-id="<?php echo $rowc['line_id']; ?>"  data-toggle="modal"><?php echo $print ?> </button>
+                                            <?php  }else{ ?>
+                                                <button type="button" class="print_status btn btn-info btn-xs"  style="background-color: #43a047" data-id="<?php echo $rowc['line_id']; ?>"  data-toggle="modal"><?php echo $print ?> </button>
+                                            <?php   } ?>
+                                        <?php   } ?>
+                                    </td>
+                                    <td><?php echo $rowc["line_name"]; ?></td>
+                                    <td><?php echo $rowc["priority_order"]; ?></td>
+                                    <td><?php
+                                        $yn_result = ($rowc['enabled'] == 0) ? "No" : "Yes";
+                                        echo $yn_result;
+                                        ?></td>
+                                    <!-- <td>--><?php //echo $rowc['created_at'];        ?><!--</td>-->
+                                    <td>
+                                        <input type="checkbox" name="gbpd" id="gbpd" value="<?php echo $rowc["line_id"]; ?>" <?php echo ($rowc['gbd_id']==1 ? 'checked' : '');?>>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="npd" id="npd" value="<?php echo $rowc["line_id"]; ?>" <?php echo ($rowc['npr_id']==1 ? 'checked' : '');?>>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="p_label" id="p_label" value="<?php echo $rowc["line_id"]; ?>" <?php echo ($rowc['indivisual_label']==1 ? 'checked' : '');?>>
+                                    </td>
 
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /page container -->
-                    <!-- Dashboard content -->
-                    <!-- /dashboard content -->
-                    <script> $(document).on('click', '#delete', function () {
-                            var element = $(this);
-                            var del_id = element.attr("data-id");
-                            var info = 'id=' + del_id;
-                            $.ajax({type: "POST", url: "ajax_line_delete.php", data: info, success: function (data) { }});
-                            $(this).parents("tr").animate({backgroundColor: "#003"}, "slow").animate({opacity: "hide"}, "slow");
-                        });
+    </div>
+    </form>
+    <!-- enabled modal -->
+    <div id="edit_modal_theme_primary1" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">Upload Label File</h6>
+                </div>
+                <form action="" id="" class="form-horizontal" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <label class="col-lg-4 control-label">Good Piece File : </label>
+                            <div class="col-md-6">
+                                <input type="hidden" name="label_line_id" id="label_line_id" >
+                                <input type="file" name="good_file" id="good_file" value="" required
+                                       class="form-control">
+                                <!-- <div id="preview"></div>-->
+                            </div>
 
-                        $(document).on('click', '#edit_label', function () {
-                            var element = $(this);
-                            var edit_id = element.attr("data-id");
-                            $("#label_line_id").val(edit_id);
-                        });
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-4 control-label">Bad Piece File : </label>
+                            <div class="col-md-6">
+                                <input type="file" name="bad_file" id="bad_file" required
+                                       class="form-control">
+                                <!-- <div id="preview"></div>-->
+                            </div>
 
-                    </script>
+                        </div>
+                        <!--                                <div class="row">-->
+                        <!--                                    <label class="col-lg-2 control-label">Select Printer : </label>-->
+                        <!--                                    <div class="col-md-6">-->
+                        <!--                                        <select  name="printer" id="printer" class="select form-control" data-style="bg-slate">-->
+                        <!--                                            <option value="" disabled selected>Select Printer</option>-->
+                        <!--                                            <option value="0" >Zebra Printer</option>-->
+                        <!--                                            <option value="1" >EPSON Printer</option>-->
+                        <!--                                            <option value="1" >HP Printer</option>-->
+                        <!--                                        </select>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script> $(document).on('click', '#delete', function () {
+        var element = $(this);
+        var del_id = element.attr("data-id");
+        var info = 'id=' + del_id;
+        $.ajax({type: "POST", url: "ajax_line_delete.php", data: info, success: function (data) { }});
+        $(this).parents("tr").animate({backgroundColor: "#003"}, "slow").animate({opacity: "hide"}, "slow");
+    });
 
-                    <script>
-                        window.onload = function() {
-                            history.replaceState("", "", "<?php echo $scriptName; ?>config_module/line.php");
-                        }
-                    </script>
-                    
-                    <script>
-                        $("#checkAll").click(function () {
-                            $('input:checkbox').not(this).prop('checked', this.checked);
-                        });
-                    </script>
+    $(document).on('click', '#edit_label', function () {
+        var element = $(this);
+        var edit_id = element.attr("data-id");
+        $("#label_line_id").val(edit_id);
+    });
 
-                    <script>
-                        $("input#gbpd").click(function () {
-                            var isChecked = $(this)[0].checked;
-                            var val = $(this).val();
-                            var data_1 = "&gbpd=" + val+ "&isChecked=" + isChecked;
-                            $.ajax({
-                                type: 'POST',
-                                url: "GBPD_backend.php",
-                                data: data_1,
-                                success: function (response) {
+</script>
 
-                                }
-                            });
+<script>
+    window.onload = function() {
+        history.replaceState("", "", "<?php echo $scriptName; ?>config_module/line.php");
+    }
+</script>
 
-                        });
+<script>
+    $("#checkAll").click(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+</script>
 
-                    </script>
-        <script>
-            $("input#npd").click(function () {
-                var isChecked = $(this)[0].checked;
-                var val = $(this).val();
-                var data_1 = "&npd=" + val+ "&isChecked=" + isChecked;
-                $.ajax({
-                    type: 'POST',
-                    url: "nprd_backend.php",
-                    data: data_1,
-                    success: function (response) {
+<script>
+    $("input#gbpd").click(function () {
+        var isChecked = $(this)[0].checked;
+        var val = $(this).val();
+        var data_1 = "&gbpd=" + val+ "&isChecked=" + isChecked;
+        $.ajax({
+            type: 'POST',
+            url: "GBPD_backend.php",
+            data: data_1,
+            success: function (response) {
 
-                    }
-                });
+            }
+        });
 
-            });
+    });
 
-        </script>
-                    <script>
-               $("input#p_label").click(function () {
-                var isChecked = $(this)[0].checked;
-                var val = $(this).val();
-                var data_1 = "&p_label=" + val+ "&isChecked=" + isChecked;
-                $.ajax({
-                    type: 'POST',
-                    url: "print_label.php",
-                    data: data_1,
-                    success: function (response) {
+</script>
+<script>
+    $("input#npd").click(function () {
+        var isChecked = $(this)[0].checked;
+        var val = $(this).val();
+        var data_1 = "&npd=" + val+ "&isChecked=" + isChecked;
+        $.ajax({
+            type: 'POST',
+            url: "nprd_backend.php",
+            data: data_1,
+            success: function (response) {
 
-                    }
-                });
+            }
+        });
 
-            });
+    });
 
-        </script>
-                   <script>
-                   $(".print_status").on('click', function () {
-                    var element = $(this);
-                    var print_id = element.attr("data-id");
-                    var info = 'print=' + print_id;
-                    $.ajax({
-                        type: "POST",
-                        url: "print_action.php",
-                        data: info,
-                        success: function (data) {
+</script>
+<script>
+    $("input#p_label").click(function () {
+        var isChecked = $(this)[0].checked;
+        var val = $(this).val();
+        var data_1 = "&p_label=" + val+ "&isChecked=" + isChecked;
+        $.ajax({
+            type: 'POST',
+            url: "print_label.php",
+            data: data_1,
+            success: function (response) {
 
-                            location.reload();
-                        }
-                    });
+            }
+        });
 
-                });
-            </script>
-        <?php include('../footer.php') ?>
-        <script type="text/javascript" src="../assets/js/core/app.js"></script>
+    });
+
+</script>
+<script>
+    $(".print_status").on('click', function () {
+        var element = $(this);
+        var print_id = element.attr("data-id");
+        var info = 'print=' + print_id;
+        $.ajax({
+            type: "POST",
+            url: "print_action.php",
+            data: info,
+            success: function (data) {
+
+                location.reload();
+            }
+        });
+
+    });
+</script>
+<?php include('../footer1.php') ?>
+
 </body>
-</html>
