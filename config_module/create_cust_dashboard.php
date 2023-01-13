@@ -463,7 +463,7 @@ include("../admin_menu.php");
                                                 <td><?php echo ++$counter; ?>
                                                 </td>
                                                 <td>
-                                                    <a href="edit_create_cust_dashboard_new.php?id=<?php echo $c_id; ?>" class="btn btn-primary" data-id="<?php echo $rowc['defect_list_id']; ?>"  style="background-color:#1e73be;"><i class="fa fa-edit"></i> </a>
+                                                    <a href="edit_create_cust_dashboard.php?id=<?php echo $c_id; ?>" class="btn btn-primary" data-id="<?php echo $rowc['defect_list_id']; ?>"  style="background-color:#1e73be;"><i class="fa fa-edit"></i> </a>
 
                                                 </td>
                                                 <td><?php echo $rowc["sg_cust_dash_name"]; ?>
