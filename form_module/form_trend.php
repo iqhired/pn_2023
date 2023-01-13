@@ -105,7 +105,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-ui.min.js"></script>
@@ -379,18 +379,28 @@ if (($is_tab_login || $is_cell_login)) {
 
                 for (var i = 0; i < item_value.length; i++) {
                     const i_val = item_value[i];
-                    const myArray = i_val.split("~");
-                    dataSet.append([myArray[0], myArray[1] , '#008000']);
+                    if(i_val != null)
+                    {
+                        const myArray = i_val.split("~");
+                        dataSet.append([myArray[0], myArray[1] , '#008000']);
+                    }
                 }
                 for (var j = 0; j < upper_tol.length; j++) {
                     const up_tol = upper_tol[j];
-                    const myArray = up_tol.split("~");
-                    dataSet1.append([myArray[0], myArray[1] , '#FFA500']);
+                    if(up_tol != null)
+                    {
+                        const myArray = up_tol.split("~");
+                        dataSet1.append([myArray[0], myArray[1] , '#FFA500']);
+                    }
+
                 }
                 for (var k = 0; k < lower_tol.length; k++) {
                     const low_tol = lower_tol[k];
-                    const myArray = low_tol.split("~");
-                    dataSet2.append([myArray[0], myArray[1] , '#FFA500']);
+                    if(low_tol != null)
+                    {
+                        const myArray = low_tol.split("~");
+                        dataSet2.append([myArray[0], myArray[1] , '#FFA500']);
+                    }
                 }
                 // create pareto chart with data
                 var chart = anychart.line();
