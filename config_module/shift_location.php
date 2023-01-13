@@ -262,8 +262,8 @@ include("../admin_menu.php");
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Shift Location</li>
             </ol>
         </div>
     </div>
