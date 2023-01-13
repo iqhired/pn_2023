@@ -416,7 +416,7 @@ if (($is_tab_login || $is_cell_login)) {
                 series2.markers(true);
                 // disable clipping series by data plot
                 series2.clip(false);
-                series2.color('#FFA500');
+                series2.color('#FF8C00');
                 // place series under axis
                 series2.zIndex(100);
 
@@ -424,7 +424,7 @@ if (($is_tab_login || $is_cell_login)) {
                 series3.markers(true);
                 // disable clipping series by data plot
                 series3.clip(false);
-                series3.color('#FFA500');
+                series3.color('#FF8C00');
                 // place series under axis
                 series3.zIndex(100);
 
