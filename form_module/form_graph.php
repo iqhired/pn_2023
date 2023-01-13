@@ -277,8 +277,8 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Station * : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                <select  name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
-                                    <option value="" selected disabled>--- Select Station ---</option>
+                                <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
+                                    <option value="" selected> Select Station </option>
                                     <?php
                                     $st_dashboard = $_GET['station'];
                                     if($is_tab_login){
@@ -353,8 +353,8 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Part Family : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                <select  name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
-                                    <option value="" selected disabled>--- Select Part Family ---</option>
+                                <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
+                                    <option value="" selected> Select Part Family </option>
                                     <?php
                                     if(empty($_POST)){
                                         if($_SESSION['is_tab_user'] == 1 ){
@@ -394,8 +394,8 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Part Number : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                <select  name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
-                                    <option value="" selected disabled>--- Select Part Number ---</option>
+                                <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                    <option value="" selected> Select Part Number </option>
                                     <?php
                                     $st_dashboard = $_POST['part_number'];
                                     $part_family = $_POST['part_family'];
@@ -424,8 +424,8 @@ include("../admin_menu.php");
                                 <label class="form-label mg-b-0">Form Type : </label>
                             </div>
                             <div class="col-md-4 mg-t-5 mg-md-t-0">
-                                <select  name="form_type" id="form_type" class="form-control form-select select2" data-placeholder="Select Form Type">
-                                    <option value="" selected disabled>--- Select Form Type ---</option>
+                                <select name="form_type" id="form_type" class="form-control form-select select2" data-placeholder="Select Form Type">
+                                    <option value="" selected > Select Form Type </option>
                                     <?php
                                     $st_dashboard = $_POST['form_type'];
 
@@ -499,10 +499,10 @@ include("../admin_menu.php");
                                 <table class="table  table-bordered text-nowrap mb-0" id="example2">
                                     <thead>
                                     <tr>
-                                        <th>Sl.No</th>
+                                        <th class="text-center">Sl.No</th>
+                                        <th>Action</th>
                                         <th>Form Name</th>
                                         <th>Form Type</th>
-                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -513,7 +513,6 @@ include("../admin_menu.php");
                                     $form_type = $_POST['form_type'];
                                     $dateto = $_POST['date_to'];
                                     $datefrom = $_POST['date_from'];
-                                    $button = $_POST['button'];
                                     if(!empty($part_number)){
                                         $q_str = "and part_number = '$part_number' ";
                                     }
@@ -523,60 +522,58 @@ include("../admin_menu.php");
                                     if(!empty($form_type)){
                                         $q_str .= "and form_type = '$form_type' ";
                                     }
-
-                                            if ($station != "" && $datefrom != "" && $dateto != "") {
-												$datefrom = date("Y-m-d", strtotime($datefrom));
-												$dateto = date("Y-m-d", strtotime($dateto));
-                                                $result = "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE DATE_FORMAT(`created_by`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_by`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_create_id DESC";
-                                                $qur = mysqli_query($db, $result);
-                                            } else if ($station != "" && $user != "" && $datefrom == "" && $dateto == "") {
-                                                $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE station = '$station' ");
-                                            } else if ($station != "" && $user == "" && $datefrom != "" && $dateto != "") {
-												$datefrom = date("Y-m-d", strtotime($datefrom));
-												$dateto = date("Y-m-d", strtotime($dateto));
-                                                $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE DATE_FORMAT(`created_by`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_by`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_create_id DESC");
-                                            } else if ($station != "" && $user == "" && $datefrom == "" && $dateto == "") {
-                                                $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE station = '$station'");
-                                            } else if ($station == "" && $user != "" && $datefrom != "" && $dateto != "") {
-												$datefrom = date("Y-m-d", strtotime($datefrom));
-												$dateto = date("Y-m-d", strtotime($dateto));
-                                                $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE DATE_FORMAT(`created_by`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_by`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_create_id DESC");
-                                            } else if ($station == "" && $user != "" && $datefrom == "" && $dateto == "") {
-                                                $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE station = '$station'");
-                                            } else if ($station == "" && $user == "" && $datefrom != "" && $dateto != "") {
-												$datefrom = date("Y-m-d", strtotime($datefrom));
-												$dateto = date("Y-m-d", strtotime($dateto));
-                                                $qur = mysqli_query($db, "SELECT `form_create_id`,`name`,`form_type`,`station`,`part_family`,`part_number`,`created_by` FROM `form_create` WHERE DATE_FORMAT(`created_by`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_by`,'%Y-%m-%d') <= '$dateto'");
-                                            }
-
-
+                                    if ($station != "" && $datefrom != "" && $dateto != "") {
+                                        $datefrom = date("Y-m-d", strtotime($datefrom));
+                                        $dateto = date("Y-m-d", strtotime($dateto));
+                                        $result = "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC";
+                                        $qur = mysqli_query($db,$result);
+                                    } else if ($station != "" && $user != "" && $datefrom == "" && $dateto == "") {
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE  station = '$station' ");
+                                    } else if ($station != "" && $user == "" && $datefrom != "" && $dateto != "") {
+                                        $datefrom = date("Y-m-d", strtotime($datefrom));
+                                        $dateto = date("Y-m-d", strtotime($dateto));
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC ");
+                                    } else if ($station != "" && $user == "" && $datefrom == "" && $dateto == "") {
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE station = '$station'");
+                                    } else if ($station == "" && $user != "" && $datefrom != "" && $dateto != "") {
+                                        $datefrom = date("Y-m-d", strtotime($datefrom));
+                                        $dateto = date("Y-m-d", strtotime($dateto));
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC");
+                                    } else if ($station == "" && $user != "" && $datefrom == "" && $dateto == "") {
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE  station = '$station'");
+                                    } else if ($station == "" && $user == "" && $datefrom != "" && $dateto != "") {
+                                        $datefrom = date("Y-m-d", strtotime($datefrom));
+                                        $dateto = date("Y-m-d", strtotime($dateto));
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ");
+                                    }
                                     while ($rowc = mysqli_fetch_array($qur)) {
-                                        $form_create_id = $rowc["form_create_id"];
-                                        $form_type = $rowc["form_type"];
-                                        $query1  = mysqli_query($db, "SELECT form_create_id,created_at as created_at FROM  form_user_data where form_create_id = '$form_create_id' and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto'");
+                                        $form_id = $rowc["form_user_data_id"];
+                                        $query1  = mysqli_query($db, "SELECT part_number,form_comp_status,form_status, created_at , form_create_id FROM `form_user_data` where form_user_data_id = ' $form_id' LIMIT 1");
                                         $rowc1 = mysqli_fetch_array($query1);
-                                        $form_create_id = $rowc1['form_create_id'];
-                                        $query3  = mysqli_query($db, "SELECT form_type_name FROM  form_type where form_type_id  = '$form_type'");
-                                        $rowc3 = mysqli_fetch_array($query3);
-                                        $form_type_name = $rowc3["form_type_name"];
-
-                                        $query2  = mysqli_query($db, "SELECT optional,form_item_id FROM  form_item where form_create_id  = '$form_create_id'");
+                                        $pno = $rowc1['part_number'];
+                                        $query2  = mysqli_query($db, "SELECT part_number,part_name FROM `pm_part_number` where pm_part_number_id = ' $pno' LIMIT 1");
                                         $rowc2 = mysqli_fetch_array($query2);
-                                        $optional = $rowc2["optional"];
+                                        $form_create_id = $rowc1["form_create_id"];
                                         ?>
 
-                                        <tr <?php echo $style; ?>>
-                                            <td><?php echo ++$counter; ?></td>
-                                            <td><?php echo $rowc["name"]; ?></td>
-                                            <td><?php echo $form_type_name; ?></td>
-
+                                        <tr>
+                                            <td class="text-center"><?php echo ++$counter; ?></td>
                                             <td>
                                                 <a href="form_item_data_view.php?id=<?php echo $rowc['form_create_id']; ?>&station=<?php echo $station; ?>&form_type=<?php echo $form_type; ?>&date_from=<?php echo $datefrom; ?>&date_to=<?php echo $dateto; ?>"
                                                    class="btn btn-primary" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-forward" viewBox="0 0 16 16">
                                                         <path d="M9.502 5.513a.144.144 0 0 0-.202.134V6.65a.5.5 0 0 1-.5.5H2.5v2.9h6.3a.5.5 0 0 1 .5.5v1.003c0 .108.11.176.202.134l3.984-2.933a.51.51 0 0 1 .042-.028.147.147 0 0 0 0-.252.51.51 0 0 1-.042-.028L9.502 5.513zM8.3 5.647a1.144 1.144 0 0 1 1.767-.96l3.994 2.94a1.147 1.147 0 0 1 0 1.946l-3.994 2.94a1.144 1.144 0 0 1-1.767-.96v-.503H2a.5.5 0 0 1-.5-.5v-3.9a.5.5 0 0 1 .5-.5h6.3v-.503z"/>
                                                     </svg></a>
                                             </td>
-                                        </tr>
+                                            <td><?php echo $rowc["form_name"]; ?></td>
+                                            <td><?php
+                                                $station1 = $rowc['form_type'];
+                                                $qurtemp = mysqli_query($db, "SELECT * FROM  form_type where form_type_id  = '$station1' ");
+                                                while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                                                    $station = $rowctemp["form_type_name"];
+                                                }
+                                                ?><?php echo $station; ?></td>
+                                            </tr>
+
                                     <?php } ?>
                                     </tbody>
                                 </table>
@@ -608,8 +605,8 @@ include("../admin_menu.php");
     });
 </script>
 <script>
-    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
     $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
     $(function () {
         $('input:radio').change(function () {
             var abc = $(this).val()
@@ -624,8 +621,6 @@ include("../admin_menu.php");
     });
 </script>
 </div>
-<!-- /content area -->
-
 <script>
 
     $('#station').on('change', function (e) {
@@ -647,6 +642,27 @@ include("../admin_menu.php");
         var part_number = $("#part_number").val();
         var form_type = $("#form_type").val();
         $("#user_form").submit();
+        // var flag= 0;
+        // if(station == null){
+        //     $("#error1").show();
+        //     var flag= 1;
+        // }
+        // if(part_family == null){
+        //     $("#error2").show();
+        //     var flag= 1;
+        // }
+        // if(part_number == null){
+        //     $("#error3").show();
+        //     var flag= 1;
+        // }
+        // if(form_type == null){
+        //     $("#error4").show();
+        //     var flag= 1;
+        // }
+        // if (flag == 1) {
+        //     return false;
+        // }
+
     });
 
 </script>
@@ -683,5 +699,5 @@ include("../admin_menu.php");
         history.replaceState("", "", "<?php echo $scriptName; ?>form_module/form_graph.php");
     }
 </script>
-<?php include ('../footer.php') ?>
+<?php include ('../footer1.php') ?>
 </body>
