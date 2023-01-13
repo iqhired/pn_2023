@@ -459,6 +459,7 @@ include("../admin_menu.php");
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                             <option value="" selected> Select Station </option>
+                                            <option value="0">All</option>
                                             <?php
                                             $entry = '';
                                             $st_dashboard = $_POST['station'];
