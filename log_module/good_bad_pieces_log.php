@@ -74,7 +74,7 @@ if (count($_POST) > 0) {
     $sta = $_POST['station'];
     $pf = $_POST['part_family'];
     $pn = $_POST['part_number'];
-    if (empty($station1) || $station1 == "all") {
+    if (empty($station1) || $station1 == "0") {
         $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where enabled = '1' and is_deleted != 1 ");
         while ($rowctemp = mysqli_fetch_array($qurtemp)) {
             $station1 = $rowctemp["line_name"];
@@ -465,9 +465,12 @@ include("../admin_menu.php");
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                             <option value="" selected> Select Station </option>
-                                            <option value="all">All</option>
+                                            <!--<option value="0" selected>All</option>-->
                                             <?php
                                             $entry = '';
+                                            $a = 'All';
+                                            $b = '0';
+                                            echo "<option value='". $b ."'  $entry selected>" . $a . "</option>";
                                             $st_dashboard = $_POST['station'];
                                             $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_id` ASC";
                                             $result1 = $mysqli->query($sql1);
@@ -493,7 +496,7 @@ include("../admin_menu.php");
                                             <?php
                                             $st_dashboard = $_POST['part_family'];
                                             $station = $_POST['station'];
-                                            $ss = ((!empty($station) && ($station != 'all')) ? ' and station = ' . $station : '');
+                                            $ss = ((!empty($station) && ($station != $a)) ? ' and station = ' . $station : '');
                                             $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1" . $ss;
                                             $result1 = $mysqli->query($sql1);
                                             while ($row1 = $result1->fetch_assoc()) {
@@ -1502,6 +1505,11 @@ include("../admin_menu.php");
         });
     });
 
+</script>
+<script>
+    window.onload = function() {
+        history.replaceState("", "", "<?php echo $scriptName; ?>log_module/good_bad_pieces_log.php");
+    }
 </script>
 <?php include('../footer1.php') ?>
 </body>
