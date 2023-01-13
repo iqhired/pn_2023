@@ -586,7 +586,7 @@ include("../admin_menu.php");
 
 <!---container--->
 
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
 </html>
 
