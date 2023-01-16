@@ -223,16 +223,18 @@ fclose($fp);
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <!-- Anychart-->
+    <!-- Anychart starts-->
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-ui.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-exports.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-pareto.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-circular-gauge.min.js"></script>
-    <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css"
-          rel="stylesheet">
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-ui.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-pareto.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-exports.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-data-adapter.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-circular-gauge.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-base.min.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/css/anychart/anychart-ui.min.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/anychart/anychart-font.min.css" rel="stylesheet">
+    <!-- Anychart ends-->
 
 
     <!--Internal  Datetimepicker-slider css -->
@@ -439,17 +441,19 @@ include("../admin_menu.php");
 <body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
 <div class="main-content app-content">
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Good Bad Piece Log</li>
-            </ol>
+    <div class="row-body">
+        <div class="col-lg-12 col-md-12">
+            <div class="breadcrumb-header justify-content-between">
+                <div class="left-content">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Good Bad Piece Log</li>
+                    </ol>
+                </div>
+            </div>
         </div>
-
     </div>
-
-         <div class="row-body">
+            <div class="row-body">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <form action="" id="good_bad_piece_form" class="form-horizontal" method="post">
@@ -496,15 +500,13 @@ include("../admin_menu.php");
                                             <?php
                                             $st_dashboard = $_POST['part_family'];
                                             $station = $_POST['station'];
-                                            $ss = ((!empty($station) && ($station != $a)) ? ' and station = ' . $station : '');
-                                            $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1" . $ss;
+                                            $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1 and station = '$station'";
                                             $result1 = $mysqli->query($sql1);
                                             while ($row1 = $result1->fetch_assoc()) {
                                                 if ($st_dashboard == $row1['pm_part_family_id']) {
                                                     $entry = 'selected';
                                                 } else {
                                                     $entry = '';
-
                                                 }
                                                 echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
                                             }

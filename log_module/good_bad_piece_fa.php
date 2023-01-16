@@ -41,12 +41,17 @@ if (count($_POST) > 0) {
 	$sta = $_POST['station'];
 	$pf = $_POST['part_family'];
 	$pn = $_POST['part_number'];
-	if(isset($station1) && $station1 != '0'){
-		$qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$station1' ");
-		while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-			$station1 = $rowctemp["line_name"];
-		}
-	}
+    if (empty($station1) || $station1 != "0") {
+        $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where enabled = '1' and is_deleted != 1 ");
+        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+            $station1 = $rowctemp["line_name"];
+        }
+    } else {
+        $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$station1' ");
+        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+            $station1 = $rowctemp["line_name"];
+        }
+    }
 }else{
 	$datefrom = $curdate;
 	$dateto = $curdate;
@@ -264,7 +269,7 @@ if($_POST['fa_op'] == 1){
         echo json_encode($response);
     }
 }else if($_POST['fa_op'] == 5) {
-    if($pn != "" && $pf != ""){
+    if(!empty($pn) && !empty($pf)){
         $date_from = convertMDYToYMD($datefrom);
         $date_to = convertMDYToYMD($dateto);
         $sql11 = "SELECT SUM(good_pieces) as good_pieces,SUM(bad_pieces) as bad_pieces,SUM(rework) as rework FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE sg_station_event.line_id = '$sta' and sg_station_event.part_family_id = '$pf' and sg_station_event.part_number_id = '$pn' AND hour(good_bad_pieces.created_at) >= 00 and hour(good_bad_pieces.created_at) < 08 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
@@ -304,35 +309,34 @@ if($_POST['fa_op'] == 1){
 
         $response['posts'] = $posts;
         echo json_encode($response);
-    }
-    else{
+    } else if(!empty($sta)) {
         $date_from = convertMDYToYMD($datefrom);
         $date_to = convertMDYToYMD($dateto);
         $sql11 = "SELECT SUM(good_pieces) as good_pieces,SUM(bad_pieces) as bad_pieces,SUM(rework) as rework FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE sg_station_event.line_id = '$sta' AND hour(good_bad_pieces.created_at) >= 00 and hour(good_bad_pieces.created_at) < 08 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
-    $result11 = mysqli_query($db,$sql11);
-    while ($row11=$result11->fetch_assoc()){
-        $good_pieces = $row11['good_pieces'];
-        $bad_pieces = $row11['bad_pieces'];
-        $rework = $row11['rework'];
-    }
+        $result11 = mysqli_query($db,$sql11);
+              while ($row11=$result11->fetch_assoc()){
+                  $good_pieces = $row11['good_pieces'];
+                  $bad_pieces = $row11['bad_pieces'];
+                  $rework = $row11['rework'];
+           }
+         $date_from = convertMDYToYMD($datefrom);
+         $date_to = convertMDYToYMD($dateto);
+        $sql21 = "SELECT SUM(good_pieces) as good_pieces1,SUM(bad_pieces) as bad_pieces1,SUM(rework) as rework1 FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE sg_station_event.line_id = '$sta' AND hour(good_bad_pieces.created_at) >= 08 and hour(good_bad_pieces.created_at) < 16 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
+        $result21 = mysqli_query($db,$sql21);
+        while ($row21=$result21->fetch_assoc()){
+            $good_pieces1 = $row21['good_pieces1'];
+            $bad_pieces1 = $row21['bad_pieces1'];
+            $rework1 = $row21['rework1'];
+          }
         $date_from = convertMDYToYMD($datefrom);
         $date_to = convertMDYToYMD($dateto);
-    $sql21 = "SELECT SUM(good_pieces) as good_pieces1,SUM(bad_pieces) as bad_pieces1,SUM(rework) as rework1 FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE sg_station_event.line_id = '$sta' AND hour(good_bad_pieces.created_at) >= 08 and hour(good_bad_pieces.created_at) < 16 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
-    $result21 = mysqli_query($db,$sql21);
-    while ($row21=$result21->fetch_assoc()){
-        $good_pieces1 = $row21['good_pieces1'];
-        $bad_pieces1 = $row21['bad_pieces1'];
-        $rework1 = $row21['rework1'];
-    }
-        $date_from = convertMDYToYMD($datefrom);
-        $date_to = convertMDYToYMD($dateto);
-    $sql31 = "SELECT SUM(good_pieces) as good_pieces2,SUM(bad_pieces) as bad_pieces2,SUM(rework) as rework2 FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE sg_station_event.line_id = '$sta' AND hour(good_bad_pieces.created_at) >= 16 and hour(good_bad_pieces.created_at) <= 23 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
-    $response = array();
-    $posts = array();
-    $result31 = mysqli_query($db,$sql31);
-//$result = $mysqli->query($sql);
-    $data =array();
-    if( null != $result31){
+        $sql31 = "SELECT SUM(good_pieces) as good_pieces2,SUM(bad_pieces) as bad_pieces2,SUM(rework) as rework2 FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE sg_station_event.line_id = '$sta' AND hour(good_bad_pieces.created_at) >= 16 and hour(good_bad_pieces.created_at) <= 23 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
+        $response = array();
+        $posts = array();
+        $result31 = mysqli_query($db,$sql31);
+        //$result = $mysqli->query($sql);
+        $data =array();
+        if( null != $result31){
         while ($row31=$result31->fetch_assoc()){
             $good_pieces2 = $row31['good_pieces2'];
             $bad_pieces2 = $row31['bad_pieces2'];
@@ -342,9 +346,47 @@ if($_POST['fa_op'] == 1){
                 'good_pieces2'=> $good_pieces2, 'bad_pieces2'=> $bad_pieces2, 'rework2'=> $rework2);
         }
     }
-
     $response['posts'] = $posts;
     echo json_encode($response);
+    }else if(empty($sta)) {
+        $date_from = convertMDYToYMD($datefrom);
+        $date_to = convertMDYToYMD($dateto);
+        $sql11 = "SELECT SUM(good_pieces) as good_pieces,SUM(bad_pieces) as bad_pieces,SUM(rework) as rework FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces.created_at) >= 00 and hour(good_bad_pieces.created_at) < 08 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
+        $result11 = mysqli_query($db,$sql11);
+        while ($row11=$result11->fetch_assoc()){
+            $good_pieces = $row11['good_pieces'];
+            $bad_pieces = $row11['bad_pieces'];
+            $rework = $row11['rework'];
+        }
+        $date_from = convertMDYToYMD($datefrom);
+        $date_to = convertMDYToYMD($dateto);
+        $sql21 = "SELECT SUM(good_pieces) as good_pieces1,SUM(bad_pieces) as bad_pieces1,SUM(rework) as rework1 FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces.created_at) >= 08 and hour(good_bad_pieces.created_at) < 16 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
+        $result21 = mysqli_query($db,$sql21);
+        while ($row21=$result21->fetch_assoc()){
+            $good_pieces1 = $row21['good_pieces1'];
+            $bad_pieces1 = $row21['bad_pieces1'];
+            $rework1 = $row21['rework1'];
+        }
+        $date_from = convertMDYToYMD($datefrom);
+        $date_to = convertMDYToYMD($dateto);
+        $sql31 = "SELECT SUM(good_pieces) as good_pieces2,SUM(bad_pieces) as bad_pieces2,SUM(rework) as rework2 FROM `good_bad_pieces` INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces.created_at) >= 16 and hour(good_bad_pieces.created_at) <= 23 and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(good_bad_pieces.`created_at`,'%Y-%m-%d') <= '$date_to'";
+        $response = array();
+        $posts = array();
+        $result31 = mysqli_query($db,$sql31);
+        //$result = $mysqli->query($sql);
+        $data =array();
+        if( null != $result31){
+            while ($row31=$result31->fetch_assoc()){
+                $good_pieces2 = $row31['good_pieces2'];
+                $bad_pieces2 = $row31['bad_pieces2'];
+                $rework2 = $row31['rework2'];
+                $posts[] = array('good_pieces'=> $good_pieces, 'bad_pieces'=> $bad_pieces, 'rework'=> $rework,
+                    'good_pieces1'=> $good_pieces1, 'bad_pieces1'=> $bad_pieces1, 'rework1'=> $rework1,
+                    'good_pieces2'=> $good_pieces2, 'bad_pieces2'=> $bad_pieces2, 'rework2'=> $rework2);
+            }
+        }
+        $response['posts'] = $posts;
+        echo json_encode($response);
     }
 }
 
