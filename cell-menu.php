@@ -9,6 +9,29 @@
 <link href="<?php echo $siteURL; ?>assets/css/form_css/switcher.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="<?php echo $siteURL; ?>assets/css/menu.css" rel="stylesheet" type="text/css">
+<style>
+
+    .logo-horizontal {
+        width: 150px;
+    }
+    img.mobile-logo.logo-1 {
+        width: 150px;
+    }
+    .breadcrumb-header {sticky
+    margin-left: 20px;
+    }
+    .main-profile-menu .dropdown-menu:before{
+        right: 135px;
+    }
+    .main-profile-menu .dropdown-menu{
+        width: 100%;
+        position: fixed;
+    }
+    .nav .nav-item .dropdown-menu{
+        top: 60px;
+    }
+
+</style>
 <!-- main-header -->
 <div class="main-header side-header sticky nav nav-item">
     <div class=" main-container container-fluid">
