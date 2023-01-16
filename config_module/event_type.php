@@ -444,11 +444,11 @@ include("../admin_menu.php");
                                             $so = $rowc['so'];
                                             ?>
                                             <tr>
-                                                <td><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
                                                            value="<?php echo $rowc["event_type_id"] . '_' . $so ; ?>">
                                                     <input type="hidden"  id="del_check" name="del_check" value="<?php echo $so; ?>">
                                                     <!--                                    <input type="hidden" hidden name="del_sq[]" id="del_sq[]" value="--><?php //echo $so; ?><!--">-->
-                                                </td>
+                                                <span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
                                                 <td><?php echo $rowc["events_cat_name"]; ?></td>
                                                 <td><?php echo $rowc["event_type_name"]; ?></td>

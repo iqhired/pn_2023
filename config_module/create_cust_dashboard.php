@@ -356,7 +356,7 @@ include("../admin_menu.php");
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Dashboard Name:*</label>
+                                    <label class="form-label mg-b-0">Dashboard Name :*</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" class="form-control" name="c_grp_name" id="c_grp_name" placeholder="Enter Cell Group Name" required>
@@ -368,7 +368,7 @@ include("../admin_menu.php");
 
                                 <div class="col-md-1"></div>
                                 <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Enabled </label>
+                                    <label class="form-label mg-b-0">Enabled : </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <div class="row mg-t-15">
@@ -389,7 +389,7 @@ include("../admin_menu.php");
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Select Station</label>
+                                    <label class="form-label mg-b-0">Select Station : </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="stations[]" id="stations" class="form-control form-select select2" data-placeholder="Add Stations.." multiple="multiple">
@@ -517,7 +517,7 @@ include("../admin_menu.php");
 </div>
 <script>
     window.onload = function () {
-        history.replaceState("", "", "<?php echo $scriptName; ?>config_module/create_cust_dashboard_new.php");
+        history.replaceState("", "", "<?php echo $scriptName; ?>config_module/create_cust_dashboard.php");
     }
 </script>
 

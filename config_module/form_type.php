@@ -25,7 +25,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
         header($redirect_logout_path);
     }
 
-//	header('location: ../logout.php');
+//  header('location: ../logout.php');
     exit;
 }
 $is_tab_login = $_SESSION['is_tab_user'];
@@ -254,15 +254,15 @@ if (count($_POST) > 0) {
 
     </style>
 
-<!-- Main navbar -->
-<?php
-$cust_cam_page_header = "Form Type";
-include("../header.php");
-include("../admin_menu.php");
-?>
+    <!-- Main navbar -->
+    <?php
+    $cust_cam_page_header = "Form Type";
+    include("../header.php");
+    include("../admin_menu.php");
+    ?>
 
 
-<!-----body-------->
+    <!-----body-------->
 <body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
@@ -360,6 +360,7 @@ include("../admin_menu.php");
 </div>
 </div>
 
+
 <form action="delete_form_type.php" method="post" class="form-horizontal">
     <div class="row-body">
         <div class="col-12 col-sm-12">
@@ -384,23 +385,22 @@ include("../admin_menu.php");
                                             <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <?php
+                                        <tbody><?php
                                         $query = sprintf("SELECT * FROM  form_type where is_deleted!='1'");
                                         $qur = mysqli_query($db, $query);
                                         while ($rowc = mysqli_fetch_array($qur)) {
                                             ?>
                                             <tr>
-                                                <td><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_type_id"]; ?>"></td>
+                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_type_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
                                                 <td><?php echo $rowc["form_type_name"]; ?></td>
                                                 <td><?php if($rowc["wol"] == 0){ echo 'No' ;}else{ echo 'Yes' ;}?></td>
-                                                <td>
-                                                    <input type="checkbox" name="form_reject" id="form_reject" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_type_reject']==1 ? 'checked' : '');?>>
-                                                </td>
-                                                <td>
-                                                    <input type="checkbox" name="rejection_loop" id="rejection_loop" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_rejection_loop']==1 ? 'checked' : '');?>>
-                                                </td>
+                                                <td><label class="ckbox">
+                                                        <input type="checkbox" name="form_reject" id="form_reject" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_type_reject']==1 ? 'checked' : '');?>>
+                                                        <span></span></label></td>
+                                                <td><label class="ckbox">
+                                                        <input type="checkbox" name="rejection_loop" id="rejection_loop" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_rejection_loop']==1 ? 'checked' : '');?>>
+                                                        <span></span></label></td>
                                                 <td>
                                                     <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn"
                                                             data-id="<?php echo $rowc['form_type_id']; ?>"
@@ -416,48 +416,63 @@ include("../admin_menu.php");
                                         <?php } ?>
                                         </tbody>
                                     </table>
+
                                 </div>
 </form>
 
+
 <!-- edit modal -->
-<div id="edit_modal_theme_primary" class="modal">
+
+<div id="edit_modal_theme_primary" class="modal col-lg-12 col-md-12">
     <div class="modal-dialog" style="width:100%">
         <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">Update Form Type</h6>
+            <div class="card-header">
+                <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                <span class="main-content-title mg-b-0 mg-b-lg-1">Update Form Type</span>
             </div>
-            <form action="" id="user_form" class="form-horizontal" method="post">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="col-lg-5 control-label">Form Type:*</label>
-                            <div class="col-lg-6">
-                                <input type="text" name="edit_name" id="edit_name" class="form-control" required>
-                                <input type="hidden" name="edit_id" id="edit_id">
+            <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal"
+                  method="post">
+                <div class="card-body" style="">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Form Type:*</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <input type="text" name="edit_name" id="edit_name" class="form-control" required>
+                                    <input type="hidden" name="edit_id" id="edit_id">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-lg-5 control-label">Work Order/Lot:*</label>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Work Order/Lot:*</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-2">
+                                    <label class="rdiobox">
+                                        <input id="edit_yes" name="edit_wol" value="yes" type="radio" checked> <span>Yes</span></label>
+                                    <label class="rdiobox">
+                                        <input  id="edit_no" name="edit_wol" value="no" type="radio"> <span>No</span></label>
+
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <input type="radio" id="edit_yes" name="edit_wol" value="yes">
-                            <label for="yes" class="item_label" id="">Yes</label>
-                            <input type="radio" id="edit_no" name="edit_wol" value="no">
-                            <label for="no" class="item_label" id="">No</label>
-                        </div>
+
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
                 </div>
-            </form>
         </div>
+        </form>
+
+
     </div>
+</div>
+<!------------>
 </div>
 </div>
 </div>
@@ -496,11 +511,42 @@ include("../admin_menu.php");
     });
 </script>
 <!----container---->
+<script> $(document).on('click', '#delete', function () {
+        var element = $(this);
+        var del_id = element.attr("data-id");
+        var info = 'id=' + del_id;
+        $.ajax({
+            type: "POST", url: "ajax_job_title_delete.php", data: info, success: function (data) {
+            }
+        });
+        $(this).parents("tr").animate({backgroundColor: "#003"}, "slow").animate({opacity: "hide"}, "slow");
+    });</script>
+<script>
+    jQuery(document).ready(function ($) {
+        $(document).on('click', '#edit', function () {
+            var element = $(this);
+            var edit_id = element.attr("data-id");
+            var name = $(this).data("name");
+            var wol = $(this).data("wol");
+            $("#edit_name").val(name);
+            if(wol == 'no'){
+                document.getElementById("edit_no").checked = true;
+            }else{
+                document.getElementById("edit_yes").checked = true;
+            }
+            // $("#edit_wol").val(wol);
+            $("#edit_id").val(edit_id);
+            //alert(role);
+        });
+    });
+</script>
+
 </div>
-</div>
+
 
 
 <script>
+
     $("input#form_reject").click(function () {
         var isChecked = $(this)[0].checked;
         var val = $(this).val();
@@ -544,9 +590,8 @@ include("../admin_menu.php");
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 </script>
-
 <?php include('../footer1.php') ?>
 
 </body>
+</head>
 </html>
-
