@@ -187,7 +187,18 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                 width: 100px;
                 height: 23px;
             }
-
+            .card-footer{
+                margin-top: 1.2rem!important;
+                height: 60px!important;
+            }
+            .card-title {
+                margin-top: 1rem!important;
+                text-align: center!important;
+                font-size: larger!important;
+            }
+            .anychart-credits{
+                visibility: hidden!important;
+            }
         </style>
     </head>
 
@@ -261,8 +272,8 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                     ?>
                 </div>
             </div>
-            <form action="" id="material_setting" enctype="multipart/form-data"
-                  class="form-horizontal" method="post">
+            <form action="" id="daily_data" class="form-horizontal" enctype="multipart/form-data" method="post">
+                <input type="hidden" name="station" id="station" value="<?php echo $station; ?>">
                 <?php
                 $countervariable = 0;
                 $buttonclass = '#000';
@@ -331,7 +342,7 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                             }
                             ?>
                         <div class="col-sm-12 col-md-12 col-xl-4">
-                            <div class="card custom-card">
+                            <div class="card custom-card" style="height: 330px!important;">
                                 <div class="card-body text-center card-img-top-1">
                                     <div>
                                         <h6 class="card-title">CELL STATUS OVERVIEW</h6>
@@ -339,11 +350,11 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                     <table>
                                         <h6 class="card-title"> <?php echo $station2; ?></h6>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
                                                 <div class="tr-row">Part Family :</div>
                                             </td>
 
-                                            <td style="width: 60%;">
+                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;">
                                                <span><?php echo $pf_name;
                                                    $pf_name = ''; ?></span>
                                                 <input type="hidden" id="id<?php echo $countervariable; ?>"
@@ -351,17 +362,17 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
                                                 <div class="tr-row">Part Number : </div>
                                             </td>
-                                            <td style="width: 60%;"><span><?php echo $p_num;
+                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;"><span><?php echo $p_num;
                                                     $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
                                                 <div class="tr-row">Part Name :</div>
                                             </td>
-                                            <td style="width: 60%;"><span><?php echo $p_name;
+                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;"><span><?php echo $p_name;
                                                     $p_name = ''; ?></span></td>
                                         </tr>
                                     </table>
@@ -405,14 +416,14 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                             }, 1000);
                                         </script>
                                     <?php } ?>
-                                    <div class="mt-4 bg-warning text-white p-3 br-5">
-                                        <span id="timer-countinbetween1" class="tx-26 mb-0"  id="demo<?php echo $countervariable; ?>"><?php echo $line_status_text; ?> </span>
+                                    <div class="card-footer bg-warning" style="color: #fff;">
+                                        <center><span id="timer-countinbetween1" class="tx-20 mb-0"  id="demo<?php echo $countervariable; ?>"><?php echo $line_status_text; ?> </span></center>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-12 col-xl-4">
-                            <div class="card custom-card">
+                            <div class="card custom-card" style="height: 330px!important;">
                                 <div class="card-body text-center card-img-top-1 ">
                                     <div>
                                         <h6 class="card-title">CREW STATUS OVERVIEW</h6>
@@ -420,36 +431,36 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                     <table>
                                         <h6 class="card-title"> <?php echo $station2; ?></h6>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
                                                 <div class="tr-row">Position Assigned :</div>
                                             </td>
 
-                                            <td style="width: 60%;">
+                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;">
                                                <span><?php echo $star2; ?> / <?php echo $star1; ?></span>
                                                 <input type="hidden" id="id<?php echo $countervariable; ?>" value="<?php echo $time; ?>">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
                                                 <div class="tr-row">Last Assigned by :</div>
                                             </td>
-                                            <td style="width: 60%;"><span><?php
+                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;"><span><?php
                                                     echo $last_assignedby;
                                                     $last_assignedby = "";
                                                     ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
                                                 <div class="tr-row">Last Unassigned by :</div>
                                             </td>
-                                            <td style="width: 60%;"><span><?php
+                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;"><span><?php
                                                     echo $last_un_assignedby;
                                                     $last_un_assignedby = "";
                                                     ?></span></td>
                                         </tr>
                                     </table>
-                                    <div class="mt-4 text-white p-3 br-5">
-                                        <span class="tx-26 mb-0" id="demo<?php echo $countervariable; ?>"></span>
+                                    <div class="card-footer bg-danger" style="color: #fff;">
+                                        <center><span class="tx-20 mb-0" id="demo<?php echo $countervariable; ?>"></span></center>
                                     </div>
                                     <?php
                                     $variable123 = $time;
@@ -608,9 +619,9 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                             <div class="caption text-center">
                                                 <h4>
                                                     <?php if ($date != "") { ?>
-                                                        <div class="mt-4 text-white p-3 br-5" id="demo<?php echo $countervariable; ?>">&nbsp;</div>
+                                                        <div class="text-white p-3 br-5" style="padding: 0.5rem!important;font-size: large!important;" id="demo<?php echo $countervariable; ?>">&nbsp;</div>
                                                     <?php } else { ?>
-                                                        <div class="mt-4 text-white p-3 br-5" id="demo<?php echo $countervariable; ?>">Available</div>
+                                                        <div class="text-white p-3 br-5" style="padding: 0.5rem!important;font-size: large!important;" id="demo<?php echo $countervariable; ?>">Available</div>
                                                     <?php } ?>
                                                 </h4>
                                             </div>
@@ -734,9 +745,9 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                             <div class="caption text-center">
                                                 <h4>
                                                     <?php if ($date != "") { ?>
-                                                        <div class="mt-4 text-white p-3 br-5" id="demo<?php echo $countervariable; ?>">&nbsp;</div>
+                                                        <div class="text-white p-3 br-5" style="padding: 0.5rem!important;font-size: large!important;" id="demo<?php echo $countervariable; ?>">&nbsp;</div>
                                                     <?php } else { ?>
-                                                        <div class="mt-4 text-white p-3 br-5" id="demo<?php echo $countervariable; ?>">Available</div>
+                                                        <div class="text-white p-3 br-5" style="padding: 0.5rem!important;font-size: large!important;" id="demo<?php echo $countervariable; ?>">Available</div>
                                                     <?php } ?>
                                                 </h4>
                                             </div><hr/>
@@ -858,9 +869,9 @@ while ($cam1 = mysqli_fetch_array($result1)) {
 
                                                     <h4 style="text-align: center;padding:5px; color: #FFFFFF"">
                                                     <?php if ($date != "") { ?>
-                                                    <div class="mt-4 text-white p-3 br-5" id="demo<?php echo $countervariable; ?>"> </div>
+                                                    <div class="text-white p-3 br-5" style="padding: 0.5rem!important;font-size: large!important;" id="demo<?php echo $countervariable; ?>"> </div>
                                                     <?php } else { ?>
-                                                        <div class="mt-4 text-white p-3 br-5" id="demo<?php echo $countervariable; ?>">
+                                                        <div class="text-white p-3 br-5" style="padding: 0.5rem!important;font-size: large!important;" id="demo<?php echo $countervariable; ?>">
                                                       Available</div>
                                                     <?php } ?>
                                                     </h4>
@@ -933,6 +944,38 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                             </div>
                         </div>
                     </div>
+                   <div class="row">
+                       <div class="col-sm-12 col-md-12 col-xl-4">
+                           <div class="card custom-card" style="height: 380px!important;">
+                               <div class="card-body text-center card-img-top-1">
+                                   <div>
+                                       <h6 class="card-title"> LINE UTILIZATION STATUS</h6>
+                                   </div>
+                                   <div id="container" style="height: 320px;" > </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-sm-12 col-md-12 col-xl-4">
+                           <div class="card custom-card" style="height: 380px!important;">
+                               <div class="card-body text-center card-img-top-1">
+                                   <div>
+                                       <h6 class="card-title"> GOOD PIECES , BAD PIECES & REWORK</h6>
+                                   </div>
+                                   <div id="sgf_container" style="height: 320px;" > </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-sm-12 col-md-12 col-xl-4">
+                           <div class="card custom-card" style="height: 380px!important;">
+                               <div class="card-body text-center card-img-top-1">
+                                   <div>
+                                       <h6 class="card-title">CURRENT STAFF EFFICIENCY</h6>
+                                   </div>
+                                   <div id="eff_container" style="height: 320px;"> </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
             </form>
         </div>
     </div>
@@ -1074,7 +1117,367 @@ while ($cam1 = mysqli_fetch_array($result1)) {
             }
         });
     </script>
+    <script>
+        //daily data
+        anychart.onDocumentReady(function () {
+            var data = $("#daily_data").serialize();
+            $.ajax({
+                type: 'POST',
+                url: 'line_count_daily.php',
+                data: data,
+                success: function (data1) {
+                    var data = JSON.parse(data1);
+                    // console.log(data);
+                    var line_up = data.posts.map(function (elem) {
+                        return elem.line_up;
+                    });
+                    var line_down = data.posts.map(function (elem) {
+                        return elem.line_down;
+                    });
+                    var eof = data.posts.map(function (elem) {
+                        return elem.eof;
+                    });
+                    var others = data.posts.map(function (elem) {
+                        return elem.others;
+                    });
+                    var d = data.posts.map(function (elem) {
+                        return elem.d;
+                    });
+                    var dh = data.posts.map(function (elem) {
+                        return elem.dh;
+                    });
 
+                    var data = [
+                        {x: 'Line-Up', value: line_up, fill: '#177b09'},
+                        {x: 'Line-Down', value: line_down, fill: '#FF0000'},
+                        {x: 'Eop', value: eof, fill: '#000000'},
+                        {x: 'Others', value: others, fill: '#E7BF23'},
+                    ];
+                    // create pareto chart with data
+                    var chart = anychart.pie();
+
+
+                    // enable html for the legend
+                    chart.legend().useHtml(true);
+
+                    // configure the format of legend items
+                    chart.legend().itemsFormat(
+                        "<span style='color:#455a64;font-weight:600'>" +
+                        "{%x}:</span> {%value}Hr"
+                    );
+
+                    // set the chart title
+                    chart.title("Daily Utilization Data " + '<div style=\'color:#333; font-size: 14px;\'>Date : <span style="color:#009900; font-size: 12px;"><strong> ' +d+' </strong></span></div><br>'  +
+                        '<div style=\'color:#333; font-size: 14px;\'>Total Hours: <span style="color:#009900; font-size: 12px;"><strong> ' +dh+' </strong></span>Hrs</div>');
+
+                    chart
+                        .title()
+                        .useHtml(true)
+                        .padding(0)
+                        .fontColor('#212121')
+                        .hAlign('center')
+                        .margin([0, 0, 10, 0]);
+
+                    // add the data
+                    chart.data(data);
+
+                    // set legend position
+                    chart.legend().position("right");
+                    // set items layout
+                    chart.legend().itemsLayout("vertical");
+
+                    // display the chart in the container
+                    chart.container('container');
+                    chart.draw();
+                }
+            });
+
+        });
+        //Top 5 Defect Details
+        anychart.onDocumentReady(function () {
+            var data = $("#daily_data").serialize();
+            $.ajax({
+                type: 'POST',
+                url: 'good_bad_piece_count.php',
+                // dataType: 'good_bad_piece_fa.php',
+                data: data,
+                success: function (data1) {
+                    var data = JSON.parse(data1);
+                    // console.log(data);
+                    var good_pieces = data.posts.map(function (elem) {
+                        return elem.good_pieces;
+                    });
+                    // console.log(goodpiece);
+                    var bad_pieces = data.posts.map(function (elem) {
+                        return elem.bad_pieces;
+                    });
+                    var rework = data.posts.map(function (elem) {
+                        return elem.rework;
+                    });
+                    var bsr = data.posts.map(function (elem) {
+                        return elem.bsr;
+                    });
+                    var actual_bsr = data.posts.map(function (elem) {
+                        return elem.actual_bsr;
+                    });
+                    var data = [
+                        {x: 'Good', value: good_pieces, fill: '#177b09'},
+                        {x: 'Bad', value: bad_pieces, fill: '#BE0E31'},
+                        {x: 'Rework', value: rework, fill: '#2643B9'},
+
+                    ];
+                    // create pareto chart with data
+                    var chart = anychart.column(data);
+                    // set chart title text settings
+                    // chart.title('Good Pieces & Bad Pieces');
+                    chart.title().enabled(true).useHtml(true).text('<div style=\'color:#000000; font-size: 14px;\'>Budget Scrap Rate -  <span style="color:#000000; font-size: 14px;"><strong>'+bsr  + '</strong>%</span></div><br><div style=\'color:#000000; font-size: 14px;\'>Actual Scrap Rate - <span style="color:#000000; font-size: 14px;"><strong>'+actual_bsr +'</strong>%</span></div>').hAlign("left");
+
+                    // disable x axis title
+                    chart.xAxis().title().enabled(false);
+
+                    /* var title = chart.title();
+                     title.enabled(true);
+     //enables HTML tags
+                     title.useHtml(true);
+                     title.text(
+                         "<br><div style=\'color:#333; font-size: 14px; text-align: left;\'>Budget Scrap Rate - </div><br>"+bsr
+                     );*/
+
+                    // set measure y axis title
+                    // chart.yAxis(0).title('Numbers');
+                    // cumulative percentage y axis title
+                    // chart.yAxis(1).title(' Percentage');
+                    // set interval
+                    // chart.yAxis(1).scale().ticks().interval(10);
+
+                    // get pareto column series and set settings
+                    var column = chart.getSeriesAt(0);
+
+                    column.labels().enabled(true).format('{%Value}');
+                    column.tooltip().format('Value: {%Value}');
+
+                    var labels = column.labels();
+                    labels.fontFamily("Courier");
+                    labels.fontSize(24);
+                    labels.fontColor("#125393");
+                    labels.fontWeight("bold");
+                    labels.useHtml(false);
+                    // // background border color
+                    // column.labels().background().stroke("#663399");
+                    // column.labels().background().enabled(true).stroke("Green");
+
+                    var xLabelsBackground = column.labels().background();
+                    xLabelsBackground.enabled(true);
+                    xLabelsBackground.stroke("#cecece");
+                    xLabelsBackground.cornerType("round");
+                    xLabelsBackground.corners(5);
+
+
+                    var labels = chart.xAxis().labels();
+                    labels.fontFamily("Courier");
+                    labels.fontSize(18);
+                    labels.fontColor("#125393");
+                    labels.fontWeight("bold");
+                    labels.useHtml(false);
+                    // // background border color
+                    // column.labels().background().stroke("#663399");
+                    // column.labels().background().enabled(true).stroke("Green");
+
+                    var xLabelsBackground = chart.xAxis().labels().background();
+                    xLabelsBackground.enabled(true);
+                    xLabelsBackground.stroke("#cecece");
+                    xLabelsBackground.cornerType("round");
+                    xLabelsBackground.corners(5);
+
+                    //
+                    // // get pareto line series and set settings
+                    // var line = chart.getSeriesAt(1);
+                    // line
+                    //     .tooltip()
+                    //     // .format('Good Pieces: {%CF}% \n Bad Pieces: {%RF}%');
+                    //     .format('Percent : {%RF}%');
+                    //
+                    // // turn on the crosshair and set settings
+                    // chart.crosshair().enabled(true).xLabel(false);
+                    // chart.xAxis().labels().rotation(-90);
+
+                    // set container id for the chart
+                    chart.container('sgf_container');
+                    // initiate chart drawing
+                    chart.draw();
+                }
+            });
+        });
+
+        //Efficiency
+        anychart.onDocumentReady(function () {
+            var data = $("#daily_data").serialize();
+            $.ajax({
+                type: 'POST',
+                url: 'station_staff_eff.php',
+                // dataType: 'good_bad_piece_fa.php',
+                data: data,
+                success: function (data1) {
+                    var data = JSON.parse(data1);
+                    // console.log(data);
+                    var target_eff = data.posts.map(function (elem) {
+                        return elem.target_eff;
+                    });
+                    // console.log(goodpiece);
+                    // var avg_npr = data.posts.map(function (elem) {
+                    //     return elem.avg_npr;
+                    // });
+                    var actual_eff = data.posts.map(function (elem) {
+                        return elem.actual_eff;
+                    });
+
+                    var eff = data.posts.map(function (elem) {
+                        return elem.eff;
+                    });
+                    // var range1 = avg_npr;
+                    var range1 = actual_eff;
+                    var range2 = target_eff;
+                    var range3 = eff;
+
+                    var fill3 = '#009900 0.8';
+                    var fill2 = '#B31B1B 0.8';
+                    var fill1 = '#B31B1B 0.8';
+
+                    var maxr3 =  parseFloat(range2) + parseFloat(range2 * .2)
+
+
+                    if((actual_eff >= target_eff)){
+                        range1 = target_eff;
+                        // range2 = avg_npr;
+                        range2 = actual_eff;
+                        fill1 = '#009900 0.8';
+                        fill2 = '#009900 0.8';
+                        fill3 = '#B31B1B 0.8';
+                        maxr3 =  parseFloat(target_eff) + parseFloat(target_eff * .2)
+                    }
+
+                    var gauge = anychart.gauges.circular();
+                    gauge
+                        .fill('#fff')
+                        .stroke(null)
+                        .padding(40)
+                        .margin(0)
+                        .startAngle(270)
+                        .sweepAngle(180);
+
+                    gauge
+                        .axis()
+                        .labels()
+                        .padding(5)
+                        .fontSize(20)
+                        .position('outside')
+                        .format('{%Value}');
+
+                    gauge.data([actual_eff]);
+                    gauge
+                        .axis()
+                        .scale()
+                        .minimum(0)
+                        .maximum(maxr3)
+                        .ticks({ interval: 1 })
+                        .minorTicks({ interval: 1 });
+
+                    gauge
+                        .axis()
+                        .fill('#545f69')
+                        .width(1)
+                        .ticks({ type: 'line', fill: 'white', length: 2 });
+
+                    gauge.title(
+                        '<div style=\'color:#333; font-size: 20px;\'>Target Pieces: <span style="color:#009900; font-size: 22px;"><strong> ' +target_eff+' </strong><l/span></div>' +
+                        '<br/><br/><div style=\'color:#333; font-size: 20px;\'>Actual Pieces: <span style="color:#009900; font-size: 22px;"><strong> ' +actual_eff+' </strong></span></div><br/><br/>' +
+                        '<div style=\'color:#333; font-size: 20px;\'>Efficiency: <span style="color:#009900; font-size: 22px;"><strong> ' +eff+' </strong>%</span></div><br/><br/>'
+                    );
+                    gauge
+                        .title()
+                        .useHtml(true)
+                        .padding(0)
+                        .fontColor('#212121')
+                        .hAlign('center')
+                        .margin([0, 0, 10, 0]);
+
+                    gauge
+                        .needle()
+                        .stroke('2 #545f69')
+                        .startRadius('5%')
+                        .endRadius('90%')
+                        .startWidth('0.1%')
+                        .endWidth('0.1%')
+                        .middleWidth('0.1%');
+
+                    gauge.cap().radius('3%').enabled(true).fill('#545f69');
+
+                    gauge.range(0, {
+                        from: 0,
+                        to: range1,
+                        position: 'inside',
+                        fill: fill1,
+                        startSize: 50,
+                        endSize: 50,
+                        radius: 98
+                    });
+
+                    gauge.range(1, {
+                        from: range1,
+                        to: range2,
+                        position: 'inside',
+                        fill: fill2,
+                        startSize: 50,
+                        endSize: 50,
+                        radius: 98
+                    });
+
+                    gauge.range(2, {
+                        from: range2,
+                        to: (maxr3),
+                        position: 'inside',
+                        fill: '#009900 0.8',
+                        startSize: 50,
+                        endSize: 50,
+                        radius: 98
+
+                    });
+
+                    gauge
+                        .label(1)
+                        .text('')
+                        .fontColor('#212121')
+                        .fontSize(20)
+                        .offsetY('68%')
+                        .offsetX(25)
+                        .anchor('center');
+                    gauge
+                        .label(2)
+                        .text('')
+                        .fontColor('#212121')
+                        .fontSize(20)
+                        .offsetY('68%')
+                        .offsetX(90)
+                        .anchor('center');
+
+                    gauge
+                        .label(3)
+                        .text('')
+                        .fontColor('#212121')
+                        .fontSize(20)
+                        .offsetY('68%')
+                        .offsetX(155)
+                        .anchor('center');
+
+
+                    // set container id for the chart
+                    gauge.container('eff_container');
+                    // initiate chart drawing
+                    gauge.draw();
+                }
+            });
+        });
+    </script>
 
     <?php include('../footer.php') ?>
     </body>
