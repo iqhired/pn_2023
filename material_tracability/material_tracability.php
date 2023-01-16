@@ -76,29 +76,17 @@ $logo = $rowccus['logo'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> | Station Events</title>
-    <!-- Global stylesheets -->
-
-    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+        <?php echo $sitename; ?> | Material Tracability</title>
 
 
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+    <!-- INTERNAL Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
+
+
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
 
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
@@ -135,7 +123,15 @@ $logo = $rowccus['logo'];
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/js/form_css/demo.css" rel="stylesheet"/>
+    <!-- anychart documentation -->
+    <!-- INTERNAL Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+
 
     <style>
         .navbar {
@@ -249,12 +245,19 @@ $logo = $rowccus['logo'];
 
     </style>
 </head>
-<?php
-include("../header.php");
-include("../admin_menu.php");
+
+<body class="ltr main-body app horizontal">
+
+<?php if (!empty($station) || !empty($station_event_id)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
-<body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
+    <!-- container -->
+    <div class="main-container container-fluid">
     <?php
     $st = $_REQUEST['station'];
     //$st_dashboard = base64_decode(urldecode($st));
@@ -268,16 +271,17 @@ include("../admin_menu.php");
 
     }
     ?>
-            <div class="breadcrumb-header justify-content-between">
+
+    <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a></li>
+                        <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Dashboard</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Material Tracability</li>
                     </ol>
                 </div>
             </div>
 
-    <div class="row-body">
+    <div class="row">
         <div class="col-lg-12 col-md-12">
     <?php if ($temp == "one") { ?>
         <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
@@ -313,8 +317,7 @@ include("../admin_menu.php");
     </div>
     <form action="material_backend.php" id="material_setting" enctype="multipart/form-data"
           class="form-horizontal" method="post">
-
-        <div class="row-body">
+        <div class="row">
             <div class="col-12 col-sm-12">
 
                 <div class="card">
@@ -335,42 +338,74 @@ include("../admin_menu.php");
                                     <input type="hidden" name="customer_account_id" value="<?php echo $account_id ?>">
                                     <input type="hidden" name="station" value="<?php echo $st; ?>">
                                     <input type="hidden" name="line_number" value="<?php echo $line_no; ?>">
+                                    <?php if (!empty($station) || !empty($station_event_id)){ ?>
+                                    <input type="text" name="line_number1" id="line_number"
+                                           value="<?php echo $line_name ?>" class="form-control"
+                                           placeholder="Enter Line Number" style="pointer-events: none">
+                                    <?php } else { ?>
                                     <input type="text" name="line_number1" id="line_number"
                                            value="<?php echo $line_name ?>" class="form-control"
                                            placeholder="Enter Line Number">
+                                  <?php  } ?>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Part Number :</label>
                                 </div>
+                                <?php if (!empty($station) || !empty($station_event_id)){ ?>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
                                     <input type="hidden" name="part_number" value="<?php echo $part_number; ?>">
                                     <input type="text" name="part_number1" id="part_number"
                                            value="<?php echo $pm_part_number; ?>" class="form-control"
-                                           placeholder="Enter Part Number">
+                                           placeholder="Enter Part Number"  style="pointer-events: none">
                                 </div>
+                                <?php } else { ?>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="hidden" name="part_number" value="<?php echo $part_number; ?>">
+                                        <input type="text" name="part_number1" id="part_number"
+                                               value="<?php echo $pm_part_number; ?>" class="form-control"
+                                               placeholder="Enter Part Number">
+                                    </div>
+                                <?php  } ?>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Part Family :</label>
                                 </div>
+                                <?php if (!empty($station) || !empty($station_event_id)){ ?>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
                                     <input type="hidden" name="part_family" value="<?php echo $part_family; ?>">
                                     <input type="text" name="part_family1" id="part_family"
                                            value="<?php echo $pm_part_family_name; ?>" class="form-control"
-                                           placeholder="Enter Part Family">
+                                           placeholder="Enter Part Family" style="pointer-events: none">
                                 </div>
+                                <?php } else { ?>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="hidden" name="part_family" value="<?php echo $part_family; ?>">
+                                        <input type="text" name="part_family1" id="part_family"
+                                               value="<?php echo $pm_part_family_name; ?>" class="form-control"
+                                               placeholder="Enter Part Family">
+                                    </div>
+                                <?php  } ?>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Part Name :</label>
                                 </div>
+                                <?php if (!empty($station) || !empty($station_event_id)){ ?>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
                                     <input type="text" name="part_name" id="part_name"
                                            value="<?php echo $pm_part_name; ?>" class="form-control"
-                                           placeholder="Enter Part Name">
+                                           placeholder="Enter Part Name" style="pointer-events: none">
                                 </div>
+                                <?php } else { ?>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="text" name="part_name" id="part_name"
+                                               value="<?php echo $pm_part_name; ?>" class="form-control"
+                                               placeholder="Enter Part Name">
+                                    </div>
+                                <?php  } ?>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-4">
@@ -378,7 +413,7 @@ include("../admin_menu.php");
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
                                     <div class="SumoSelect" tabindex="0" role="button" aria-expanded="true">
-                                        <select name="material_type" id="material_type" class="SlectBox form-control SumoUnder" tabindex="-1">
+                                        <select name="material_type" id="material_type" class="form-control form-select select2" tabindex="-1">
                                             <option value="" selected disabled>Select material Type</option>
                                             <?php
                                             $sql1 = "SELECT material_id, material_type,serial_num_required FROM `material_config`";
@@ -451,6 +486,7 @@ include("../admin_menu.php");
             </div>
         </div>
     </form>
+    </div>
 </div>
 
 <script>
@@ -460,8 +496,6 @@ include("../admin_menu.php");
 
 
 </script>
-
-
 <script>
     document.getElementById('material_type').onchange = function () {
         var sel_val = this.value.split('_');
