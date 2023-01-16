@@ -350,11 +350,11 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                     <table>
                                         <h6 class="card-title"> <?php echo $station2; ?></h6>
                                         <tr>
-                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
+                                            <td style="width: 40%;padding-top: 10px!important;text-align: justify;font-size: medium;">
                                                 <div class="tr-row">Part Family :</div>
                                             </td>
 
-                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;">
+                                            <td style="width: 60%;padding-top: 10px!important;text-align: justify;font-size: medium;">
                                                <span><?php echo $pf_name;
                                                    $pf_name = ''; ?></span>
                                                 <input type="hidden" id="id<?php echo $countervariable; ?>"
@@ -362,17 +362,17 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
+                                            <td style="width: 40%;padding-top: 10px!important;text-align: justify;font-size: medium;">
                                                 <div class="tr-row">Part Number : </div>
                                             </td>
-                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;"><span><?php echo $p_num;
+                                            <td style="width: 60%;padding-top: 10px!important;text-align: justify;font-size: medium;"><span><?php echo $p_num;
                                                     $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
+                                            <td style="width: 40%;padding-top: 10px!important;text-align: justify;font-size: medium;">
                                                 <div class="tr-row">Part Name :</div>
                                             </td>
-                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;"><span><?php echo $p_name;
+                                            <td style="width: 60%;padding-top: 10px!important;text-align: justify;font-size: medium;"><span><?php echo $p_name;
                                                     $p_name = ''; ?></span></td>
                                         </tr>
                                     </table>
@@ -431,29 +431,29 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                                     <table>
                                         <h6 class="card-title"> <?php echo $station2; ?></h6>
                                         <tr>
-                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
+                                            <td style="width: 40%;padding-top: 10px!important;text-align: justify;font-size: medium;">
                                                 <div class="tr-row">Position Assigned :</div>
                                             </td>
 
-                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;">
+                                            <td style="width: 60%;padding-top: 10px!important;text-align: justify;font-size: medium;">
                                                <span><?php echo $star2; ?> / <?php echo $star1; ?></span>
                                                 <input type="hidden" id="id<?php echo $countervariable; ?>" value="<?php echo $time; ?>">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
+                                            <td style="width: 40%;padding-top: 10px!important;text-align: justify;font-size: medium;">
                                                 <div class="tr-row">Last Assigned by :</div>
                                             </td>
-                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;"><span><?php
+                                            <td style="width: 60%;padding-top: 10px!important;text-align: justify;font-size: medium;"><span><?php
                                                     echo $last_assignedby;
                                                     $last_assignedby = "";
                                                     ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;padding-top: 25px!important;text-align: justify;font-size: small;">
+                                            <td style="width: 62%;padding-top: 10px!important;text-align: justify;font-size: medium;">
                                                 <div class="tr-row">Last Unassigned by :</div>
                                             </td>
-                                            <td style="width: 60%;padding-top: 25px!important;text-align: justify;font-size: small;"><span><?php
+                                            <td style="width: 60%;padding-top: 10px!important;text-align: justify;font-size: medium;"><span><?php
                                                     echo $last_un_assignedby;
                                                     $last_un_assignedby = "";
                                                     ?></span></td>
