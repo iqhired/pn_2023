@@ -376,7 +376,7 @@ include("../admin_menu.php");
                                         while ($rowc = mysqli_fetch_array($qur)) {
                                             ?>
                                             <tr>
-                                                <td><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_measurement_unit_id"]; ?>"></td>
+                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_measurement_unit_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
                                                 <td><?php echo $rowc["name"]; ?></td>
                                                 <td><?php echo $rowc["description"]; ?></td>
@@ -399,53 +399,63 @@ include("../admin_menu.php");
 <!-- edit modal -->
 <div id="edit_modal_theme_primary" class="modal">
     <div class="modal-dialog" style="width:100%">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">Edit Unit</h6>
+         <div class="modal-content">
+       <div class="card-header">
+                <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                <span class="main-content-title mg-b-0 mg-b-lg-1">Update Form Type</span>
             </div>
 
 
-            <form action="" id="user_form" class="form-horizontal" method="post">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label class="col-lg-5 control-label">Name:*</label>
-
-                                <div class="col-lg-7">
+             <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal"
+                  method="post">
+                  <div class="card-body" style="width:100%;">
+                     <div class="col-lg-12 col-md-12">
+                    <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-5">
+                                    <label class="form-label mg-b-0">Name:*</label>
+                                </div>
+                                <div class="col-md-7 mg-t-10 mg-md-t-0">
                                     <input type="text" name="edit_name" id="edit_name" class="form-control" required>
-                                    <input type="hidden" name="edit_id" id="edit_id" >
+                                    <input type="hidden" name="edit_id" id="edit_id">
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
 
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label class="col-lg-5 control-label">Description:</label>
-                                <div class="col-lg-7">
-                                    <input type="text" name="edit_description" id="edit_description" class="form-control" >
+                    <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-5">
+                                    <label class="form-label mg-b-0">Description:*</label>
+                                </div>
+                                <div class="col-md-7 mg-t-10 mg-md-t-0">
+                                    <input type="text" name="edit_description" id="edit_description" class="form-control" required>
+                                   
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label class="col-lg-5 control-label">Unit Of Measurement:*</label>
-                                <div class="col-lg-7">
+                     <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-5">
+                                    <label class="form-label mg-b-0">Unit of Measurement:*</label>
+                                </div>
+                                <div class="col-md-7 mg-t-10 mg-md-t-0">
                                     <input type="text" name="edit_unit_of_measurement" id="edit_unit_of_measurement" class="form-control" required>
+                                    
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                
+
+
                 </div>
+
+
+            </div><!----->
 
 
                 <div class="modal-footer">
@@ -453,9 +463,10 @@ include("../admin_menu.php");
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
-            <!----->
+            <!-----></div>
         </div>
     </div>
+    
 </div>
 </div>
 </div>

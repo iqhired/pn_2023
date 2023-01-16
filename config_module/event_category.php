@@ -314,7 +314,7 @@ include("../admin_menu.php");
 
                                 <div class="col-md-3 mg-t-10 mg-md-t-0">
                                     <div class="row mg-t-15">
-                                        <input type="checkbox" id="yes" name="npr" value="1">
+                                        <label class="ckbox"><input type="checkbox" id="yes" name="npr" value="1"><span></span></label>
 
                                     </div>
                                 </div>
@@ -366,8 +366,8 @@ include("../admin_menu.php");
                                         while ($rowc = mysqli_fetch_array($qur)) {
                                             ?>
                                             <tr id="row<?php echo $i ?>">
-                                                <td><input type="checkbox" id="delete_check[]" name="delete_check[]"
-                                                           value="<?php echo $rowc["events_cat_id"]; ?>"></td>
+                                                <td><label class="ckbox"><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                           value="<?php echo $rowc["events_cat_id"]; ?>"><span></span></label></td>
                                                 <td id = "id_row<?php echo $i;?>" value = "<?php echo $i;?>"><?php echo ++$counter; ?></td>
                                                 <td id = "name_row<?php echo $i;?>" value="<?php echo $rowc["events_cat_name"]; ?>" ><?php echo $rowc["events_cat_name"]; ?></td>
                                                 <!--                            <td id = "npr_row--><?php //echo $i;?><!--" value = "--><?php //echo $rowc["npr"] ?><!--">--><?php //if($rowc["npr"] == 0){
@@ -378,10 +378,10 @@ include("../admin_menu.php");
                                                 //                              echo $npr; ?><!--</td>-->
 
                                                 <td  id = "npr_row<?php echo $i;?>" value = "<?php echo $rowc["npr"] ?>">
-                                                    <input type='checkbox' id="npr_row<?php echo $i;?>" value="<?php echo $rowc["npr"] ?>" <?php if( $rowc["npr"] == 1) {echo "checked";}?> style="pointer-events: none !important;">
+                                                   <label class="ckbox"> <input type='checkbox' id="npr_row<?php echo $i;?>" value="<?php echo $rowc["npr"] ?>" <?php if( $rowc["npr"] == 1) {echo "checked";}?> style="pointer-events: none !important;">
                                                     <input type='hidden' id="npr_rown<?php echo $i;?>" value="<?php echo $rowc["npr"] ?>">
 
-                                                </td>
+                                                <span></span></label></td>
                                                 <td>
                                                     <button type="button" id="edit_button<?php echo $i ?>" class="btn btn-primary btn-xs submit_btn" style="" onclick="edit_row('<?php echo $i ?>')"><i class="fa fa-edit"></i></button>
                                                     <button type="button" id="save_button<?php echo $i ?>"  class="save btn btn-primary legitRipple" style="" onclick="save_row('<?php echo $i ?>')"><i class="fa fa-save"></i></button>

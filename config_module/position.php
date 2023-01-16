@@ -363,7 +363,7 @@ include("../admin_menu.php");
                                         while ($rowc = mysqli_fetch_array($qur)) {
                                             ?>
                                             <tr>
-                                                <td><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["position_id"]; ?>"></td>
+                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["position_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
                                                 <td><?php echo $rowc["position_name"]; ?></td>
                                                 <td>
@@ -382,24 +382,27 @@ include("../admin_menu.php");
 <div id="edit_modal_theme_primary" class="modal"  >
     <div class="modal-dialog" style="width:100%">
         <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">Update Position</h6>
+            <div class="card-header">
+               <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                <span class="main-content-title mg-b-0 mg-b-lg-1">Update Position </span>
             </div>
 
-            <form action="" id="user_form" class="form-horizontal" method="post">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Job-Title:*</label>
-                                <div class="col-lg-7 mob_modal">
+            <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal" method="post">
+                <div class="card-body" style="width:100%;">
+                     <div class="col-lg-12 col-md-12">
+                    <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-3">
+                                    <label class="form-label mg-b-0">Job Title:* </label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
                                     <input type="text" name="edit_name" id="edit_name" class="form-control" required>
-                                    <input type="hidden" name="edit_id" id="edit_id" >
+                                    <input type="hidden" name="edit_id" id="edit_id">
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
@@ -408,6 +411,7 @@ include("../admin_menu.php");
             </form>
         </div>
     </div>
+</div>
 </div>
 </div>
 </div>

@@ -49,7 +49,7 @@ if ($edit_name != "") {
         $_SESSION['message_stauts_class'] = 'alert-danger';
         $_SESSION['import_status_message'] = 'Error: Please Retry';
     }
-    header("Location:create_cust_dashboard_new.php");
+    header("Location:create_cust_dashboard.php");
 }
 ?>
 
