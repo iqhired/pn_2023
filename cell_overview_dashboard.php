@@ -306,18 +306,15 @@ if (isset($cellID)) {
 </head>
 
 
-<!-- Main navbar -->
+<body class="ltr main-body app horizontal">
+<!-- main-content -->
 <?php
-$cust_cam_page_header = "Cell Status Dashboard";
-include("header.php");
-include("admin_menu.php");
+    include("../cell-menu.php");
 
 ?>
-
-<body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
+    <div class="main-container container-fluid">
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -328,7 +325,7 @@ include("admin_menu.php");
         </div>
     </div>
 
-    <div class="row row-body">
+    <div class="row">
         <?php
         if ($is_cust_dash == 1 && isset($line_cust_dash)){
         $line_cust_dash_arr = explode(',', $line_cust_dash);
@@ -644,6 +641,7 @@ include("admin_menu.php");
         }
 
         ?>
+    </div>
     </div>
 </div>
 <script>
