@@ -171,7 +171,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 <div class="header" style="height: 60px;">
 
     <a href="#" class="logo">
-        <img src="<?php echo $siteURL; ?>/assets/images/SGG_logo.png"  class = "logo_img" alt="logo">
+        <img src="<?php echo $siteURL; ?>/assets/images/site_logo.png"  class = "logo_img" alt="logo">
     </a>
 
         <h3 class="navbar-center" id="screen_header" style=""><span class="text-semibold"><?php echo $cam_page_header; ?></span></h3>
