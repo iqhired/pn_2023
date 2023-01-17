@@ -1,11 +1,16 @@
 <?php include("../config.php");
-$station = $_GET['id'];
+$station = $_GET['station'];
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 $sql1 = "SELECT * FROM `cam_line` WHERE line_id = '$station'";
 $result1 = mysqli_query($db, $sql1);
 while ($cam1 = mysqli_fetch_array($result1)) {
     $station1 = $cam1['line_id'];
     $station2 = $cam1['line_name'];
 }
+
+
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -204,7 +209,7 @@ while ($cam1 = mysqli_fetch_array($result1)) {
 
     <body class="ltr main-body app horizontal">
 
-    <?php if (!empty($station) || !empty($station_event_id)){
+    <?php if (!empty($station)){
         include("../cell-menu.php");
     }else{
         include("../header.php");
