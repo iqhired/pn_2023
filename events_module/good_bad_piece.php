@@ -42,6 +42,10 @@ $chicagotime = date("Y-m-d H:i:s");
 $line = "";
 $station_event_id = $_GET['station_event_id'];
 $station = $_GET['station'];
+
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
+
 $sqlmain = "SELECT * FROM `sg_station_event` where `station_event_id` = '$station_event_id'";
 $resultmain = $mysqli->query($sqlmain);
 $rowcmain = $resultmain->fetch_assoc();
@@ -138,7 +142,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> | Menu</title>
+        <?php echo $sitename; ?> | Good Bad Piece</title>
 
 
     <!-- INTERNAL Select2 css -->

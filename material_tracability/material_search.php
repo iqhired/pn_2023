@@ -28,6 +28,10 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
+
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
+
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
 $station = $_GET['station'];
@@ -318,7 +322,7 @@ if (count($_POST) > 0) {
 </script>
 <script>
     window.onload = function () {
-        history.replaceState("", "", "<?php echo $siteURL; ?>material_tracability/material_search.php");
+        history.replaceState("", "", "<?php echo $siteURL; ?>material_tracability/material_search.phpcell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $line; ?>&station_event_id=<?php echo $station_event_id; ?>");
     }
 </script>
 <?php include('../footer1.php') ?>

@@ -25,7 +25,7 @@ $message = date("Y-m-d H:i:s");
 $is_cust_dash = $_SESSION['is_cust_dash'];
 $line_cust_dash = $_SESSION['line_cust_dash'];
 $cellID = $_GET['cell_id'];
-$c_name = $_GET['c_name'];
+$cell_name = $_GET['c_name'];
 if (isset($cellID)) {
     $sql = "select stations from `cell_grp` where c_id = '$cellID'";
     $result1 = mysqli_query($db, $sql);
@@ -385,7 +385,7 @@ include("admin_menu.php");
 
         if ($countervariable % 4 == 0) {
         ?>
-        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $line; ?>' , '<?php echo $station_event_id; ?>')">
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $cellID; ?>','<?php echo $cell_name; ?>','<?php echo $line; ?>')">
             <div class="card custom-card">
                 <div class="card-header d-flex custom-card-header border-bottom-0 ">
                     <h5 class="card-title"><?php echo $rowc["line_name"]; ?></h5>
@@ -440,7 +440,7 @@ include("admin_menu.php");
             <?php
         } else {
         ?>
-        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $line; ?>' , '<?php echo $station_event_id; ?>')">
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $cellID; ?>','<?php echo $cell_name; ?>','<?php echo $line; ?>')">
             <div class="card custom-card">
                 <div class="card-header d-flex custom-card-header border-bottom-0 ">
                     <h5 class="card-title"><?php echo $rowc["line_name"]; ?></h5>
@@ -527,7 +527,7 @@ include("admin_menu.php");
 
         if ($countervariable % 4 == 0) {
         ?>
-        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $line; ?>' , '<?php echo $station_event_id; ?>')">
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4"onclick="cellDB('<?php echo $cellID; ?>','<?php echo $cell_name; ?>','<?php echo $line; ?>')">
             <div class="card custom-card">
                 <div class="card-header d-flex custom-card-header border-bottom-0 ">
                     <h5 class="card-title"><?php echo $rowc["line_name"]; ?></h5>
@@ -584,7 +584,7 @@ include("admin_menu.php");
             <?php
         } else {
         ?>
-        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $line; ?>' , '<?php echo $station_event_id; ?>')">
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $cellID; ?>','<?php echo $cell_name; ?>','<?php echo $line; ?>')">
             <div class="card custom-card">
                 <div class="card-header d-flex custom-card-header border-bottom-0 ">
                     <h5 class="card-title"><?php echo $rowc["line_name"]; ?></h5>
@@ -647,8 +647,8 @@ include("admin_menu.php");
     </div>
 </div>
 <script>
-    function cellDB(station,station_event_id) {
-        window.open("<?php echo $siteURL . "events_module/good_bad_piece.php?station=" ; ?>" + station + "<?php echo "&station_event_id=" ; ?>" + station_event_id , "_self")
+    function cellDB(cell_id,c_name,station) {
+        window.open("<?php echo $siteURL . "config_module/station_wise_dashboard.php?cell_id=" ; ?>" + cell_id + "<?php echo "&c_name=" ; ?>" + c_name + "<?php echo "&station=" ; ?>" + station)
     }
 
 </script>

@@ -913,7 +913,7 @@ if ($i == "") {
 ?>
 <script>
     function cellDB(cell_ID , c_name) {
-        window.open("<?php echo $siteURL . "cell_overview_dashboard_old.php?cell_id=" ; ?>" + cell_ID + "<?php echo "&c_name=" ; ?>" + c_name , "_self")
+        window.open("<?php echo $siteURL . "cell_overview_dashboard.php?cell_id=" ; ?>" + cell_ID + "<?php echo "&c_name=" ; ?>" + c_name , "_self")
     }
     // setTimeout(function () {
     //    location.reload();
