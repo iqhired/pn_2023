@@ -15,13 +15,11 @@ if ($request == 1) {
     $a_timestamp = time();
     $temp_aid = $_SESSION['temp_assets_id'];
     $_SESSION['temp_assets_id'] = $temp_aid . ',' .$a_timestamp;
-    if(empty($_SESSION['assets_timestamp_id'])){
-        $_SESSION['assets_timestamp_id'] = $a_timestamp;
+    if(empty($_SESSION['gauge_timestamp_id'])){
+        $_SESSION['gauge_timestamp_id'] = $a_timestamp;
     }
-    $a_timestamp = $_SESSION['assets_timestamp_id'] ;
+    $a_timestamp = $_SESSION['gauge_timestamp_id'] ;
 
-    $data1 = file_get_contents($_FILES['file']['tmp_name']);
-    $data1 = base64_encode($data1);
     if ($uploadOk == 0) {
         echo 0;
     } else {
@@ -29,10 +27,8 @@ if ($request == 1) {
         mkdir($location.'/'.$a_timestamp, 0777, true);
         $f_name =  $a_timestamp.'_'.$fname;
         $destination = $location.$a_timestamp.'/'.$f_name;
-        /*$img = file_get_contents();
-        $hex_string = ;*/
         if (move_uploaded_file($file_tmp, $destination)) {
-            $sql = "INSERT INTO `station_assets_images`(`station_asset_image`,`station_asset_id`,`created_at`,`image_type`) VALUES ('$data1','$a_timestamp','$created_by','C')";
+            $sql = "INSERT INTO `gauge_images`(`gauge_image_name`,`gauge_id`,`created_at`) VALUES ('$filename','$a_timestamp','$created_by')";
             $result1 = mysqli_query($db, $sql);
             if ($result1) {
                 echo $destination;
@@ -52,11 +48,9 @@ if($request == 2){
     $data = base64_encode($img);
     $path = str_replace($siteURL,"../",$path);
     $return_text = 0;
-//    $temp_mid = $_SESSION['temp_mt_id'];
-//	$mid_arr = explode ( ',' , $temp_mid);
     // Check file exist or not
     if( file_exists($path) ){
-        $sql = "DELETE FROM `station_assets_images` where station_asset_image ='$data'";
+        $sql = "DELETE FROM `gauge_images` where gauge_image_name ='$data'";
         $result1 = mysqli_query($db, $sql);
         // Remove file
         unlink($path);
