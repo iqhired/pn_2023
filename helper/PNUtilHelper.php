@@ -32,4 +32,14 @@ function convertMDYToYMD($date){
 	$date = $parts[2] . '-' . $parts[0] . '-' . $parts[1];
 	return $date;
 }
+/**
+ * This methods returns conversion of  MDY date format to YMD date format
+ * @param $date
+ * @return false|string
+ */
+function convertYMDToMDY($date){
+    $parts = explode('-',$date);
+    $date = $parts[2] . '-' . $parts[0] . '-' . $parts[1];
+    return $date;
+}
 ?>
