@@ -545,9 +545,8 @@ include("../admin_menu.php");
                                             <td><?php echo '<img src="data:image/gif;base64,' . $qrcode . '" style="height:50px;width:50px;" />'; ?>
                                                 <a class="btn btn-primary btn-xs" style="background-color:#1e73be;" href= data:image/png;base64,<?php echo $qrcode ?> download><i class="fa fa-download"></i></a>
                                             </td>
-                                            <td>
-                                                <a href="edit_assets_config_new.php?id=<?php echo $asset_id ?>" class="btn btn-primary btn-xs" style="background-color:#1e73be;"><i class="fa fa-edit"></i></a>
-                                                <a href="del_assets.php?id=<?php echo $asset_id ?>"  class="btn btn-danger btn-xs remove_btn"><i class="fa fa-trash-o" style="font-size:20px"></i></a>
+                                            <td><a href="edit_assets_config_new.php?id=<?php echo $asset_id ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                                <a href="del_assets.php?id=<?php echo $asset_id ?>"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     <?php }

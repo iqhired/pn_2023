@@ -446,7 +446,7 @@ include("../admin_menu.php");
                                             <tr>
                                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
                                                            value="<?php echo $rowc["event_type_id"] . '_' . $so ; ?>">
-                                                    <input type="hidden"  id="del_check" name="del_check" value="<?php echo $so; ?>">
+                                                    
                                                     <!--                                    <input type="hidden" hidden name="del_sq[]" id="del_sq[]" value="--><?php //echo $so; ?><!--">-->
                                                 <span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>

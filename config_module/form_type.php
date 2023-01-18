@@ -378,11 +378,12 @@ if (count($_POST) > 0) {
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl. No</th>
+                                             <th>Action</th>
                                             <th>Form Type</th>
                                             <th>Is Work Order/Lot Required </th>
                                             <th>Form Enabled/Disbaled</th>
                                             <th>Form Rejection Loop</th>
-                                            <th>Action</th>
+                                          
                                         </tr>
                                         </thead>
                                         <tbody><?php
@@ -393,14 +394,6 @@ if (count($_POST) > 0) {
                                             <tr>
                                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_type_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
-                                                <td><?php echo $rowc["form_type_name"]; ?></td>
-                                                <td><?php if($rowc["wol"] == 0){ echo 'No' ;}else{ echo 'Yes' ;}?></td>
-                                                <td><label class="ckbox">
-                                                        <input type="checkbox" name="form_reject" id="form_reject" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_type_reject']==1 ? 'checked' : '');?>>
-                                                        <span></span></label></td>
-                                                <td><label class="ckbox">
-                                                        <input type="checkbox" name="rejection_loop" id="rejection_loop" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_rejection_loop']==1 ? 'checked' : '');?>>
-                                                        <span></span></label></td>
                                                 <td>
                                                     <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn"
                                                             data-id="<?php echo $rowc['form_type_id']; ?>"
@@ -412,6 +405,15 @@ if (count($_POST) > 0) {
                                                         <i class="fa fa-edit"></i>
                                                     </button>
                                                 </td>
+                                                <td><?php echo $rowc["form_type_name"]; ?></td>
+                                                <td><?php if($rowc["wol"] == 0){ echo 'No' ;}else{ echo 'Yes' ;}?></td>
+                                                <td><label class="ckbox">
+                                                        <input type="checkbox" name="form_reject" id="form_reject" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_type_reject']==1 ? 'checked' : '');?>>
+                                                        <span></span></label></td>
+                                                <td><label class="ckbox">
+                                                        <input type="checkbox" name="rejection_loop" id="rejection_loop" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_rejection_loop']==1 ? 'checked' : '');?>>
+                                                        <span></span></label></td>
+                                               
                                             </tr>
                                         <?php } ?>
                                         </tbody>
@@ -451,12 +453,19 @@ if (count($_POST) > 0) {
                                     <label class="form-label mg-b-0">Work Order/Lot:*</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-2">
+                                    <div class="row mg-t-15">
+                                        <div class="col-lg-4">
                                     <label class="rdiobox">
                                         <input id="edit_yes" name="edit_wol" value="yes" type="radio" checked> <span>Yes</span></label>
+                                        </div>
+                                         <div class="col-lg-3 mg-t-10 mg-lg-t-0">
                                     <label class="rdiobox">
                                         <input  id="edit_no" name="edit_wol" value="no" type="radio"> <span>No</span></label>
+                                    </div>
 
                                 </div>
+                            
+                        </div>
                             </div>
                         </div>
 
