@@ -31,6 +31,9 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
+$station = $_GET['station'];
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $i = $_SESSION["role_id"];
@@ -53,10 +56,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
 
 
     <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -153,7 +153,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
             display: block!important;
         }
         .breadcrumb-header {
-            margin-left: 0;
+            margin-left: 124px;
         }
         @media (min-width: 320px) and (max-width: 480px) {
             .col-md-4 {
@@ -163,8 +163,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                 width: 70%;
             }
             .row-sm {
-                margin-left: 26px;
-                margin-right: 53px;
+                margin-left: 16px!important;
+                margin-right: 53px!important;
+                margin-top: 48px;
             }
             .contextMenu {
                 left: 0!important;
@@ -190,8 +191,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                 width: 70%;
             }
             .row-sm {
-                margin-left: 26px;
-                margin-right: 53px;
+                margin-left: 16px!important;
+                margin-right: 53px!important;
+                margin-top: 48px;
             }
             .contextMenu {
                 left: 0!important;
@@ -217,8 +219,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                 width: 70%;
             }
             .row-sm {
-                margin-left: 26px;
-                margin-right: 53px;
+                margin-left: 16px!important;
+                margin-right: 53px!important;
+                margin-top: 48px;
             }
             .contextMenu {
                 left: 0!important;
@@ -244,8 +247,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                 width: 70%;
             }
             .row-sm {
-                margin-left: 26px;
-                margin-right: 53px;
+                margin-left: 16px!important;
+                margin-right: 53px!important;
+                margin-top: 48px;
             }
             .contextMenu {
                 left: 0!important;
@@ -273,467 +277,472 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
             margin-left: -23px;
             margin-top: 10px;
         }
+        .row-sm {
+            margin-left: 114px;
+            margin-right: -102px;
+        }
     </style>
 </head>
-
-<!-- Main navbar -->
-<?php
-$cust_cam_page_header = "Add / Create Form";
-include("../header.php");
-include("../admin_menu.php");
+<body class="ltr main-body app horizontal">
+<?php if (!empty($station)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
-
-<body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
-<div class="main-content app-content">
+   <div class="main-content app-content">
     <!-- container -->
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Form Create</li>
-            </ol>
+        <div class="main-container container-fluid">
+        <!-- breadcrumb -->
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Form Create</li>
+                </ol>
+
+            </div>
 
         </div>
-
-    </div>
-    <!-- /breadcrumb -->
-    <!-- row -->
-    <?php
-    if (!empty($import_status_message)) {
-        echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-    }
-    ?>
-    <?php
-    if (!empty($_SESSION['import_status_message'])) {
-        echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-        $_SESSION['message_stauts_class'] = '';
-        $_SESSION['import_status_message'] = '';
-    }
-    ?>
-    <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $rowc['sg_communicator_config_id']; ?>">
-    <form action="fs_backend.php" id="form_settings" enctype="multipart/form-data" class="form-horizontal" method="post">
-        <div class="row row-sm">
-            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-                <div class="card  box-shadow-0">
-                    <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">FORM CREATE</span>
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Form Name</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Form Classification</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <div class="row mg-t-15">
-                                        <div class="col-lg-3">
-                                            <label class="rdiobox"><input id="event" name="form_classification" value="event" type="radio" checked> <span>Event</span></label>
-                                        </div>
-                                        <div class="col-lg-3 mg-t-20 mg-lg-t-0">
-                                            <label class="rdiobox"><input  id="general" name="form_classification" value="general" type="radio"> <span>General</span></label>
-                                        </div>
-
+        <!-- /breadcrumb -->
+        <!-- row -->
+        <?php
+        if (!empty($import_status_message)) {
+            echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+        }
+        ?>
+        <?php
+        if (!empty($_SESSION['import_status_message'])) {
+            echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+            $_SESSION['message_stauts_class'] = '';
+            $_SESSION['import_status_message'] = '';
+        }
+        ?>
+        <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $rowc['sg_communicator_config_id']; ?>">
+        <form action="fs_backend.php" id="form_settings" enctype="multipart/form-data" class="form-horizontal" method="post">
+            <div class="row row-sm">
+                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                    <div class="card  box-shadow-0">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">FORM CREATE</span>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Form Name</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Form Type</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select name="form_type" id="form_type" class="form-control form-select select2" data-placeholder="Select Form Type">
-                                        <option value="" selected disabled> Select Form Type </option>
-                                        <?php
-                                        $sql1 = "SELECT * FROM `form_type` where is_deleted != 1";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            echo "<option value='" . $row1['form_type_id'] . "'  >" . $row1['form_type_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Station</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
-                                        <option value="" selected disabled> Select Station </option>
-                                        <?php
-                                        $st_dashboard = $_GET['station'];
-                                        if($is_tab_login){
-                                            $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$tab_line' and is_deleted != 1 ORDER BY `line_name` ASC";
-                                            $result1 = $mysqli->query($sql1);
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Form Classification</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <div class="row mg-t-15">
+                                            <div class="col-lg-3">
+                                                <label class="rdiobox"><input id="event" name="form_classification" value="event" type="radio" checked> <span>Event</span></label>
+                                            </div>
+                                            <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                                <label class="rdiobox"><input  id="general" name="form_classification" value="general" type="radio"> <span>General</span></label>
+                                            </div>
 
-                                            while ($row1 = $result1->fetch_assoc()) {
-                                                $entry = 'selected';
-                                                echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
-                                            }
-                                        }else if($is_cell_login){
-                                            $c_stations = implode("', '", $c_login_stations_arr);
-                                            $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id IN ('$c_stations') and is_deleted != 1 ORDER BY `line_name` ASC";
-                                            $result1 = $mysqli->query($sql1);
-//													                $                        $entry = 'selected';
-                                            $i = 0;
-                                            while ($row1 = $result1->fetch_assoc()) {
-//														$entry = 'selected';
-                                                if($i == 0 ){
-                                                    $entry = 'selected';
-                                                    echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
-
-                                                }else{
-                                                    echo "<option value='" . $row1['line_id'] . "'  >" . $row1['line_name'] . "</option>";
-
-                                                }
-                                                $i++;
-                                            }
-                                        }else{
-                                            $sql1 = "SELECT * FROM `cam_line`  where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC";
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Form Type</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select name="form_type" id="form_type" class="form-control form-select select2" data-placeholder="Select Form Type">
+                                            <option value="" selected disabled> Select Form Type </option>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `form_type` where is_deleted != 1";
                                             $result1 = $mysqli->query($sql1);
                                             //                                            $entry = 'selected';
                                             while ($row1 = $result1->fetch_assoc()) {
-                                                if($st_dashboard == $row1['line_id'])
-                                                {
-                                                    $entry = 'selected disabled';
-                                                }
-                                                else
-                                                {
-                                                    $entry = '';
-                                                }
-                                                echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                                echo "<option value='" . $row1['form_type_id'] . "'  >" . $row1['form_type_name'] . "</option>";
                                             }
-                                        }
-
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Part Family</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Family">
-                                        <option value="" selected disabled> Select Part Number </option>
-                                        <?php
-                                        $st_dashboard = $_GET['station'];
-                                        $sql1 = "SELECT * FROM `pm_part_family`  where is_deleted != 1";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            echo "<option value='" . $row1['pm_part_family_id'] . "'  >" . $row1['part_family_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Part Number</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
-                                        <option value="" selected disabled> Select Part Number </option>
-                                        <?php
-                                        $sql1 = "SELECT * FROM `pm_part_number` where is_deleted != 1";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            $station = $row1['station'];
-                                            $row_station ="select line_id,line_name from cam_line where line_id = '$station' and is_deleted != 1";
-                                            $sta_row = mysqli_query($db,$row_station);
-                                            $row = mysqli_fetch_assoc($sta_row);
-                                            $line_name = $row['line_name'];
-                                            echo "<option value='" . $row1['pm_part_number_id'] . "'  >" . $row1['part_number']." - ".$row1['part_name']." - ".$line_name. "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Image</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input id="file-input" type="file" name="image[]" class="form-control" multiple>
-                                    <div class="container"></div>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">PO Number</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="text" class="form-control" name="po_number" id="po_number" placeholder="PO number" required>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">DA Number</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="text" class="form-control" name="da_number" id="da_number" placeholder="DA Number" required>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Out of Tolerance Mail List</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="out_of_tolerance_mail_list[]" id="out_of_tolerance_mail_list" multiple="multiple" data-placeholder="Out Of Tolerance Mail List...">
-                                        <?php
-                                        $arrteam = explode(',', $rowc["teams"]);
-                                        $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
-                                        $result1 = $mysqli->query($sql1);
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            if (in_array($row1['group_id'], $arrteam)) {
-                                                $selected = "selected";
-                                            } else {
-                                                $selected = "";
-                                            }
-                                            $station1 = $row1['group_id'];
-                                            $qurtemp = mysqli_query($db, "SELECT * FROM  sg_group where group_id = '$station1' ");
-                                            $rowctemp = mysqli_fetch_array($qurtemp);
-                                            $groupname = $rowctemp["group_name"];
-                                            echo "<option value='" . $row1['group_id'] . "' $selected>" . $groupname . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Out of Control List</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="select2 form-control " name="out_of_control_list[]" id="out_of_control_list" multiple="multiple" data-placeholder="Out of Control List ..." >
-                                        <?php
-                                        $arrteam = explode(',', $rowc["teams"]);
-                                        $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
-                                        $result1 = $mysqli->query($sql1);
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            if (in_array($row1['group_id'], $arrteam)) {
-                                                $selected = "selected";
-                                            } else {
-                                                $selected = "";
-                                            }
-                                            $station1 = $row1['group_id'];
-                                            $qurtemp = mysqli_query($db, "SELECT * FROM  sg_group where group_id = '$station1' ");
-                                            $rowctemp = mysqli_fetch_array($qurtemp);
-                                            $groupname = $rowctemp["group_name"];
-                                            echo "<option value='" . $row1['group_id'] . "' $selected>" . $groupname . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Notification List</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="notification_list[]" id="notification_list" multiple="multiple" data-placeholder="Notification List ..." >
-                                        <?php
-                                        $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname` ";
-                                        $result1 = $mysqli->query($sql1);
-                                        while ($row1 = $result1->fetch_assoc()) {
-
-                                            echo "<option value='" . $row1['users_id'] . "' $selected>" . $row1['firstname'] . "&nbsp;" . $row1['lastname'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <label class="form-label mg-b-0">
-                                    * If the form is not filled within 30 mins of the frequency time then the personnel in the Notification List will be notified.
-                                </label>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Notes</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <textarea id="notes" name="form_create_notes" class="form-control" placeholder="Enter Notes..." rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Needs Approval</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <label class="ckbox"><input checked type="checkbox" name="need_approval" id="need_approval"><span></span></label>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Bypass Approval List</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <label class="ckbox"><input checked type="checkbox" name="approval_list" id="approval_list"><span></span></label>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Approved By</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="select2 form-control select-border-color select-access-multiple-open" data-style="bg-slate" data-placeholder="Approval By ..." name="approval_by[]" id="approval_by" multiple="multiple">
-										<?php
-										$arrteam = explode(',', $rowc["teams"]);
-										$sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
-										$result1 = $mysqli->query($sql1);
-										while ($row1 = $result1->fetch_assoc()) {
-											if (in_array($row1['group_id'], $arrteam)) {
-												$selected = "selected";
-											} else {
-												$selected = "";
-											}
-											$station1 = $row1['group_id'];
-											$qurtemp = mysqli_query($db, "SELECT * FROM  sg_group where group_id = '$station1' ");
-											$rowctemp = mysqli_fetch_array($qurtemp);
-											$groupname = $rowctemp["group_name"];
-											echo "<option value='" . $row1['group_id'] . "' $selected>" . $groupname . "</option>";
-										}
-										?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Valid From</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <div class="input-group">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input class="form-control fc-datepicker" name="valid_from" id="valid_from" value="<?php echo $datefrom;?>" placeholder="MM/DD/YYYY" type="text">
-                                    </div><!-- input-group -->
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Valid Till</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <div class="input-group">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input class="form-control fc-datepicker" name="valid_till" id="valid_till" placeholder="MM-DD-YYYY" value="<?php echo $datetill;?>" type="text">
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Frequency</label>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Station</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
+                                            <option value="" selected disabled> Select Station </option>
+                                            <?php
+                                            $st_dashboard = $_GET['station'];
+                                            if($is_tab_login){
+                                                $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$tab_line' and is_deleted != 1 ORDER BY `line_name` ASC";
+                                                $result1 = $mysqli->query($sql1);
+
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    $entry = 'selected';
+                                                    echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                                }
+                                            }else if($is_cell_login){
+                                                $c_stations = implode("', '", $c_login_stations_arr);
+                                                $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id IN ('$c_stations') and is_deleted != 1 ORDER BY `line_name` ASC";
+                                                $result1 = $mysqli->query($sql1);
+    //													                $                        $entry = 'selected';
+                                                $i = 0;
+                                                while ($row1 = $result1->fetch_assoc()) {
+    //														$entry = 'selected';
+                                                    if($i == 0 ){
+                                                        $entry = 'selected';
+                                                        echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+
+                                                    }else{
+                                                        echo "<option value='" . $row1['line_id'] . "'  >" . $row1['line_name'] . "</option>";
+
+                                                    }
+                                                    $i++;
+                                                }
+                                            }else{
+                                                $sql1 = "SELECT * FROM `cam_line`  where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC";
+                                                $result1 = $mysqli->query($sql1);
+                                                //                                            $entry = 'selected';
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    if($st_dashboard == $row1['line_id'])
+                                                    {
+                                                        $entry = 'selected disabled';
+                                                    }
+                                                    else
+                                                    {
+                                                        $entry = '';
+                                                    }
+                                                    echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                                }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-3 mg-t-5 mg-md-t-0">
-                                    <select name="duration_hh" id="duration_hh" class="form-control form-select select2" data-bs-placeholder="Select Hours">
-                                        <option value=""  selected>--Select Hours--</option>
-                                        <option value="00">00</option>
-                                        <option value="01">01</option>
-                                        <option value="02" selected>02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                    </select>
-                                </div> hrs
-                                <div class="col-md-3 mg-t-5 mg-md-t-0">
-                                    <select name="duration_mm" id="duration_mm" class="form-control form-select select2" data-bs-placeholder="Select Minutes">
-                                        <option value="00" selected>00</option>
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                    </select>
-                                </div> min
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Part Family</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Family">
+                                            <option value="" selected disabled> Select Part Number </option>
+                                            <?php
+                                            $st_dashboard = $_GET['station'];
+                                            $sql1 = "SELECT * FROM `pm_part_family`  where is_deleted != 1";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                echo "<option value='" . $row1['pm_part_family_id'] . "'  >" . $row1['part_family_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Part Number</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                            <option value="" selected disabled> Select Part Number </option>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `pm_part_number` where is_deleted != 1";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                $station = $row1['station'];
+                                                $row_station ="select line_id,line_name from cam_line where line_id = '$station' and is_deleted != 1";
+                                                $sta_row = mysqli_query($db,$row_station);
+                                                $row = mysqli_fetch_assoc($sta_row);
+                                                $line_name = $row['line_name'];
+                                                echo "<option value='" . $row1['pm_part_number_id'] . "'  >" . $row1['part_number']." - ".$row1['part_name']." - ".$line_name. "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Image</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input id="file-input" type="file" name="image[]" class="form-control" multiple>
+                                        <div class="container"></div>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">PO Number</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="text" class="form-control" name="po_number" id="po_number" placeholder="PO number" required>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">DA Number</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="text" class="form-control" name="da_number" id="da_number" placeholder="DA Number" required>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Out of Tolerance Mail List</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select class="form-control select2" name="out_of_tolerance_mail_list[]" id="out_of_tolerance_mail_list" multiple="multiple" data-placeholder="Out Of Tolerance Mail List...">
+                                            <?php
+                                            $arrteam = explode(',', $rowc["teams"]);
+                                            $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if (in_array($row1['group_id'], $arrteam)) {
+                                                    $selected = "selected";
+                                                } else {
+                                                    $selected = "";
+                                                }
+                                                $station1 = $row1['group_id'];
+                                                $qurtemp = mysqli_query($db, "SELECT * FROM  sg_group where group_id = '$station1' ");
+                                                $rowctemp = mysqli_fetch_array($qurtemp);
+                                                $groupname = $rowctemp["group_name"];
+                                                echo "<option value='" . $row1['group_id'] . "' $selected>" . $groupname . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Out of Control List</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select class="select2 form-control " name="out_of_control_list[]" id="out_of_control_list" multiple="multiple" data-placeholder="Out of Control List ..." >
+                                            <?php
+                                            $arrteam = explode(',', $rowc["teams"]);
+                                            $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if (in_array($row1['group_id'], $arrteam)) {
+                                                    $selected = "selected";
+                                                } else {
+                                                    $selected = "";
+                                                }
+                                                $station1 = $row1['group_id'];
+                                                $qurtemp = mysqli_query($db, "SELECT * FROM  sg_group where group_id = '$station1' ");
+                                                $rowctemp = mysqli_fetch_array($qurtemp);
+                                                $groupname = $rowctemp["group_name"];
+                                                echo "<option value='" . $row1['group_id'] . "' $selected>" . $groupname . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Notification List</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select class="form-control select2" name="notification_list[]" id="notification_list" multiple="multiple" data-placeholder="Notification List ..." >
+                                            <?php
+                                            $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname` ";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+
+                                                echo "<option value='" . $row1['users_id'] . "' $selected>" . $row1['firstname'] . "&nbsp;" . $row1['lastname'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <label class="form-label mg-b-0">
+                                        * If the form is not filled within 30 mins of the frequency time then the personnel in the Notification List will be notified.
+                                    </label>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Notes</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <textarea id="notes" name="form_create_notes" class="form-control" placeholder="Enter Notes..." rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Needs Approval</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <label class="ckbox"><input checked type="checkbox" name="need_approval" id="need_approval"><span></span></label>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Bypass Approval List</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <label class="ckbox"><input checked type="checkbox" name="approval_list" id="approval_list"><span></span></label>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Approved By</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select class="select2 form-control select-border-color select-access-multiple-open" data-style="bg-slate" data-placeholder="Approval By ..." name="approval_by[]" id="approval_by" multiple="multiple">
+                                            <?php
+                                            $arrteam = explode(',', $rowc["teams"]);
+                                            $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if (in_array($row1['group_id'], $arrteam)) {
+                                                    $selected = "selected";
+                                                } else {
+                                                    $selected = "";
+                                                }
+                                                $station1 = $row1['group_id'];
+                                                $qurtemp = mysqli_query($db, "SELECT * FROM  sg_group where group_id = '$station1' ");
+                                                $rowctemp = mysqli_fetch_array($qurtemp);
+                                                $groupname = $rowctemp["group_name"];
+                                                echo "<option value='" . $row1['group_id'] . "' $selected>" . $groupname . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Valid From</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control fc-datepicker" name="valid_from" id="valid_from" value="<?php echo $datefrom;?>" placeholder="MM/DD/YYYY" type="text">
+                                        </div><!-- input-group -->
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Valid Till</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control fc-datepicker" name="valid_till" id="valid_till" placeholder="MM-DD-YYYY" value="<?php echo $datetill;?>" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Frequency</label>
+                                    </div>
+                                    <div class="col-md-3 mg-t-5 mg-md-t-0">
+                                        <select name="duration_hh" id="duration_hh" class="form-control form-select select2" data-bs-placeholder="Select Hours">
+                                            <option value=""  selected>--Select Hours--</option>
+                                            <option value="00">00</option>
+                                            <option value="01">01</option>
+                                            <option value="02" selected>02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                        </select>
+                                    </div> hrs
+                                    <div class="col-md-3 mg-t-5 mg-md-t-0">
+                                        <select name="duration_mm" id="duration_mm" class="form-control form-select select2" data-bs-placeholder="Select Minutes">
+                                            <option value="00" selected>00</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                        </select>
+                                    </div> min
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- closing row -->
-        <input type="hidden" id="collapse_id" value="1">
-        <div class="query_rows">
+            <!-- closing row -->
+            <input type="hidden" id="collapse_id" value="1">
+            <div class="query_rows">
 
-        </div>
-        <div class="row row-sm">
-            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-                <div class="card  box-shadow-0">
-                    <div class="card-body pt-0">
-                        <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" name="add_more" id="add_more"><i class="fa fa-plus"></i> ADD MORE FORM ITEMS</button>
+            </div>
+            <div class="row row-sm">
+                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                    <div class="card  box-shadow-0">
+                        <div class="card-body pt-0">
+                            <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" name="add_more" id="add_more"><i class="fa fa-plus"></i> ADD MORE FORM ITEMS</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <input type="hidden" name="click_id" id="click_id" >
+            <div class="row">
+                <input type="hidden" name="click_id" id="click_id" >
 
-        </div>
-        <div class="row row-sm">
-            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-                <div class="card  box-shadow-0">
-                    <div class="card-body pt-0">
-                        <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="form_submit_btn" class="btn btn-primary submit_btn">Create</button>
+            </div>
+            <div class="row row-sm">
+                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                    <div class="card  box-shadow-0">
+                        <div class="card-body pt-0">
+                            <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="form_submit_btn" class="btn btn-primary submit_btn">Create</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
-</div>
+        </form>
+    </div>
+  </div>
+<?php include('../footer1.php') ?>
 <script>
     $('#valid_from').datepicker({ dateFormat: 'mm-dd-yy' });
     $('#valid_till').datepicker({ dateFormat: 'mm-dd-yy' });
@@ -1051,18 +1060,6 @@ include("../admin_menu.php");
     });
 
 </script>
-<!--<script>-->
-<!--    var rowNum = 0;-->
-<!--    $(document).on("click",".add_option",function() {-->
-<!--        var index = this.id.split("_")[2];-->
-<!--        rowNum++;-->
-<!--        $('#add_other_' + index).append('<div id="list_' + index + '">' + '<input type="radio" class="custom-control-input" name="default_list_' + index + '[]" value="radio_extra_' + rowNum + '[]">' + '<input type="search" name="radio_list_extra[]" id="radio_list_extra[]" value="" class="radio_input">' + '<button class="remove" onclick="removeDiv(this);">X</button>' + "</div>");-->
-<!--        // $('#add_other_' + index).append('<div class="custom-control custom-radio" id="add_other_' + count + '"></div><div id="list_' + index + '">' + '<input type="radio" class="custom-control-input" name="default_list_' + index + '[]" value="radio_extra_' + index + '[]">' + '<input type="search" name="radio_list_extra[]" id="radio_list_extra[]" value="" class="radio_input">' + '<button class="remove" onclick="removeDiv(this);">X</button>' + "</div>");-->
-<!--    });-->
-<!---->
-<!--    function removeDiv(btn) {-->
-<!--        ((btn.parentNode).parentNode).removeChild(btn.parentNode);-->
-<!--    }</script>-->
 <script>
     $(document).on("click",".add_option_btn",function() {
         var op_val = this.parentElement.children.add_option_id.value;
@@ -1088,7 +1085,5 @@ include("../admin_menu.php");
 
 </script>
 
-
-<?php include('../footer1.php') ?>
-
 </body>
+</html>
