@@ -556,8 +556,6 @@ include("../admin_menu.php");
 
                                             </tr>
                                         <?php } ?>
-
-
                                         </tbody>
                                     </table>
                                 </div>

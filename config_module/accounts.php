@@ -672,12 +672,9 @@ include("../admin_menu.php");
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
                                     <input type="text" name="edit_website" id="edit_website"
                                            class="form-control">
-
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-4">

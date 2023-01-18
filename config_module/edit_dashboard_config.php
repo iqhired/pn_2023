@@ -95,8 +95,6 @@ if ($edit_name != "") {
 
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
