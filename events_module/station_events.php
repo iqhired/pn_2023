@@ -36,7 +36,9 @@ $i = $_SESSION["role_id"];
 //	header('location: ../line_status_overview_dashboard.php');
 //}
 $station_id = null;
-$event_line = $_GET['line'];
+$event_line = $_GET['station'];
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 $user_id = $_SESSION["id"];
 $chicagotime = date("Y-m-d H:i:s");
 if (count($_POST) > 0) {
@@ -208,8 +210,8 @@ if (count($_POST) > 0) {
     <title>
         <?php echo $sitename; ?> | Station Events</title>
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <!-- Global stylesheets -->
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -225,13 +227,10 @@ if (count($_POST) > 0) {
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
-
-
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">

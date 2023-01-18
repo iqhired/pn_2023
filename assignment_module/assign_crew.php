@@ -3,7 +3,7 @@ include("../config.php");
 $temp = "";
 $message_stauts_class = 'alert-danger';
 $import_status_message = 'Error: Assignment Position Relation does not exist';
-$assign_line = $_GET['line'];
+$assign_line = $_GET['station'];
 if (!isset($_SESSION['user'])) {
     header('location: logout.php');
 }
@@ -82,12 +82,8 @@ if ($ps != "") {
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
 
-
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -224,13 +220,17 @@ if ($ps != "") {
     </style>
 </head>
 <!-- Main navbar -->
-<?php
-include("../header.php");
-include("../admin_menu.php");
+<body class="ltr main-body app horizontal">
+<?php if (!empty($assign_line)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
-<body class="ltr main-body app sidebar-mini">
 <div class="main-content app-content">
-            <div class="breadcrumb-header justify-content-between">
+    <div class="main-container container-fluid">
+     <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Crews</a></li>
@@ -240,14 +240,14 @@ include("../admin_menu.php");
             </div>
 
     <form action="" method="post"  class="form-horizontal">
-        <div class="row-body">
+        <div class="row">
            <?php if (!empty($_SESSION['import_status_message'])) {
             echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
             $_SESSION['message_stauts_class'] = '';
             $_SESSION['import_status_message'] = '';
             }
             ?>
-            <div class="col-lg-12 col-sm-12">
+            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">Assign Unassign Crew Members</span>
@@ -289,317 +289,321 @@ include("../admin_menu.php");
     </form>
     <?php
     if ($assign_line != "") {
-        $qur04 = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$assign_line' ");
-        $rowc04 = mysqli_fetch_array($qur04);
-        $lnname = $rowc04["line_name"];
-        $cnt = 1;
-        ?>
-        <form action="" method="post" id="update-form" class="form-horizontal">
-            <div class="row row-body">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card  box-shadow-0">
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Select Crew for <?php echo $lnname; ?> - Positions</span>
-                        </div>
-                        <div class="card-body pt-0">
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="ckbox">
-                                            <input type="checkbox" id="checkAll"><span class="tx-13" style="color: #000000">Select All to Unassign </span> <hr/>
-                                        </label>
-                                    </div>
-                                </div>
-                                <?php
-                                $query = sprintf("SELECT * FROM  cam_station_pos_rel where line_id = '$assign_line' ; ");
-                                $qur = mysqli_query($db, $query);
-                                while ($rowc = mysqli_fetch_array($qur)) {
-                                    $message_stauts_class = '';
-                                    $import_status_message = '';
-                                    ?>
-                                    <div class="row row-xs align-items-center mg-b-20">
-                                        <?php
-                                        $asign = $rowc["assigned"];
-                                        if ($asign == "1") {
-                                            ?>
-                                            <?php
-                                            $query001 = sprintf("SELECT * FROM  cam_assign_crew where line_id = '$assign_line' and position_id = '$rowc[position_id]' and resource_type = 'regular' ; ");
-                                            $qur001 = mysqli_query($db, $query001);
-                                            $rowc001 = mysqli_fetch_array($qur001);
-                                            $usrr = $rowc001["user_id"];
-                                            $transidd = $rowc001["assign_crew_transaction_id"];
-                                            $asigncrewid = $rowc001["assign_crew_id"];
-                                            $res_type = $rowc001["resource_type"];
-                                            $query002 = sprintf("SELECT * FROM  cam_users where users_id = '$usrr'; ");
-                                            $qur002 = mysqli_query($db, $query002);
-                                            while ($rowc002 = mysqli_fetch_array($qur002)) {
-                                                $firstname = $rowc002["firstname"];
-                                                $lastname = $rowc002["lastname"];
-                                            }
-                                            $query003 = sprintf("SELECT * FROM  cam_position where position_id = '$rowc[position_id]'; ");
-                                            $qur003 = mysqli_query($db, $query003);
-                                            while ($rowc003 = mysqli_fetch_array($qur003)) {
-                                                $positionname = $rowc003["position_name"];
-                                            }
-                                            ?>
-                                            <div class="col-md-1">
-                                                <label class="ckbox">
-                                                    <input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $asigncrewid; ?>"><span class="tx-13"></span>
-                                                    <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
-                                                </label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
-                                            </div>
-                                            <div class="col-md-6 mg-t-5 mg-md-t-0">
-                                                <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
-                                            </div>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <?php
-                                            $query004 = sprintf("SELECT * FROM  cam_position where position_id = '$rowc[position_id]'; ");
-                                            $qur004 = mysqli_query($db, $query004);
-                                            while ($rowc004 = mysqli_fetch_array($qur004)) {
-                                                $positionname = $rowc004["position_name"];
-                                            }
-                                            ?>
-                                            <div class="col-md-1"></div>
-                                            <div class="col-md-3">
-                                                <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
-                                            </div>
-                                            <div class="col-md-6 mg-t-5 mg-md-t-0">
-                                                <input type="hidden" name="position[]" value="<?php echo $rowc["position_id"]; ?>">
-                                                <input type="hidden" name="assignline" value="<?php echo $assign_line; ?>">
-                                                <input type="hidden" name="resource_type[]" value="regular">
-                                                <select name="user_name[]" id="user_name<?php echo $cnt; ?>" data-count="<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
-                                                    <option value="1" selected >Select User</option>
-                                                    <?php
-                                                    $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname`";
-                                                    $result1 = $mysqli->query($sql1);
-                                                    while ($row1 = $result1->fetch_assoc()) {
-                                                        $full = $row1['firstname'] . " " . $row1['lastname'];
-                                                        echo "<option value='" . $row1['users_id'] . "' data-fullnm = '$full' data-id='" . $row1['assigned'] . "'>$full</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-                                    <br/>
-                                    <?php $cnt++; ?>
-                                <?php } ?>
-                                <?php
-                                $priyantcount = 2;
-                                $qurtemp2 = mysqli_query($db, "SELECT * FROM cam_assign_crew WHERE line_id = '$assign_line' and resource_type  NOT IN ('regular' , 'On Break' , 'Covering for break')   ORDER by created_at ");
-                                while ($rowctemp2 = mysqli_fetch_array($qurtemp2)) {
-                                    $userid = $rowctemp2["user_id"];
-                                    $assigncrewid = $rowctemp2["assign_crew_id"];
-                                    $res_type = $rowctemp2["resource_type"];
-                                    $po = $rowctemp2["position_id"];
-                                    $qurtemp3 = mysqli_query($db, "SELECT firstname,lastname FROM cam_users WHERE users_id = '$userid'");
-                                    $rowctemp3 = mysqli_fetch_array($qurtemp3);
-                                    $firstname = $rowctemp3["firstname"];
-                                    $lastname = $rowctemp3["lastname"];
-                                    $qurtemp4 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$po'");
-                                    $rowctemp4 = mysqli_fetch_array($qurtemp4);
-                                    $po_name = $rowctemp4["position_name"];
-                                    $priyantcount--;
-                                    ?>
-                                    <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-1">
-                                            <label class="ckbox">
-                                                <input type="checkbox"  id="delete_check[]" name="delete_check[]" value="<?php echo $assigncrewid; ?>"><span class="tx-13"></span>
-                                                <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
-                                            </label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                <?php } ?>
-                                <?php
-                                if ($priyantcount != "0") {
-                                    for ($i = 0; $i < $priyantcount;) {
-                                        ?>
-                                        <div class="row row-xs align-items-center mg-b-20">
-                                            <div class="col-md-4">
-                                                <select name="position[]" id="position" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
-                                                    <option value="1" selected >Select Position </option>
-                                                    <?php
-                                                    $sql1 = "SELECT * FROM  cam_station_pos_rel where line_id = '$assign_line'";
-                                                    $result1 = $mysqli->query($sql1);
-                                                    while ($row1 = $result1->fetch_assoc()) {
-                                                        $pid = $row1['position_id'];
-                                                        $qurtemp5 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$pid'");
-                                                        $rowctemp5 = mysqli_fetch_array($qurtemp5);
-                                                        $p = $rowctemp5["position_name"];
-                                                        echo "<option value='" . $row1['position_id'] . "' >" . $p . "</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="hidden" name="assignline" value="<?php echo $assign_line; ?>">
-                                                <select name="user_name[]" id="user_name<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-row="5"  data-count="<?php echo $cnt; ?>">
-                                                    <option value="1" selected >Select User</option>
-                                                    <?php
-                                                    $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname`";
-                                                    $result1 = $mysqli->query($sql1);
-                                                    while ($row1 = $result1->fetch_assoc()) {
-                                                        $full = $row1['firstname'] . " " . $row1['lastname'];
-                                                        echo "<option value='" . $row1['users_id'] . "' data-fullnm = '$full' data-row='5' data-id='" . $row1['assigned'] . "'>$full</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="resource_type[]" id="resource_type<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-count="<?php echo $cnt; ?>">
-                                                    <option value="Cross Training" selected >Select Resource Type</option>
-                                                    <option value="Cross Training"  >Cross Training</option>
-                                                    <option value="Additional Personnel" >Additional Personnel</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <?php
-                                        $i++;
-                                        $cnt++;
-                                    }
-                                }
-                                ?>
-
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0" style="color: #000000">Break Assignment</label><hr/>
-                                    </div>
-                                </div>
-                                <?php
-                                $priyantcount = 2;
-                                $qurtemp2 = mysqli_query($db, "SELECT * FROM cam_assign_crew WHERE line_id = '$assign_line' and resource_type  NOT IN ('regular' , 'Additional Personnel' , 'Cross Training')  ORDER by created_at");
-                                while ($rowctemp2 = mysqli_fetch_array($qurtemp2)) {
-                                    $userid = $rowctemp2["user_id"];
-                                    $assigncrewid = $rowctemp2["assign_crew_id"];
-                                    $res_type = $rowctemp2["resource_type"];
-                                    $po = $rowctemp2["position_id"];
-                                    $qurtemp3 = mysqli_query($db, "SELECT firstname,lastname FROM cam_users WHERE users_id = '$userid'");
-                                    $rowctemp3 = mysqli_fetch_array($qurtemp3);
-                                    $firstname = $rowctemp3["firstname"];
-                                    $lastname = $rowctemp3["lastname"];
-                                    $qurtemp4 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$po'");
-                                    $rowctemp4 = mysqli_fetch_array($qurtemp4);
-                                    $po_name = $rowctemp4["position_name"];
-                                    $priyantcount--;
-                                    ?>
-                                    <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-1">
-                                            <label class="ckbox">
-                                                <input type="checkbox"  id="delete_check[]" name="delete_check[]" value="<?php echo $assigncrewid; ?>"><span class="tx-13"></span>
-                                                <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
-                                            </label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                <?php } ?>
-                                <?php
-                                if ($priyantcount != "0") {
-                                    for ($i = 0; $i < $priyantcount;) {
-                                        ?>
-                                        <div class="row row-xs align-items-center mg-b-20">
-                                            <div class="col-md-4">
-                                                <select name="position[]" id="position" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
-                                                    <option value="1" selected >Select Position</option>
-                                                    <?php
-                                                    $sql1 = "SELECT * FROM  cam_station_pos_rel where line_id = '$assign_line'";
-                                                    $result1 = $mysqli->query($sql1);
-                                                    while ($row1 = $result1->fetch_assoc()) {
-                                                        $pid = $row1['position_id'];
-                                                        $qurtemp5 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$pid'");
-                                                        $rowctemp5 = mysqli_fetch_array($qurtemp5);
-                                                        $p = $rowctemp5["position_name"];
-                                                        echo "<option value='" . $row1['position_id'] . "' >" . $p . "</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="hidden" name="assignline" value="<?php echo $assign_line; ?>">
-                                                <select name="user_name[]" id="user_name<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-row="5"  data-count="<?php echo $cnt; ?>">
-                                                    <option value="1" selected >Select User</option>
-                                                    <?php
-                                                    $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname`";
-                                                    $result1 = $mysqli->query($sql1);
-                                                    while ($row1 = $result1->fetch_assoc()) {
-                                                        $full = $row1['firstname'] . " " . $row1['lastname'];
-                                                        echo "<option value='" . $row1['users_id'] . "' data-fullnm = '$full' data-row='5' data-id='" . $row1['assigned'] . "'>$full</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="resource_type[]" id="resource_type<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-count="<?php echo $cnt; ?>">
-                                                    <option value="On Break" selected >Select Resource Type</option>
-                                                    <option value="On Break"  >On Break</option>
-                                                    <option value="Covering for break" >Covering for break</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <?php
-                                        $i++;
-                                        $cnt++;
-                                    }
-                                }
-                                ?>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <?php
-                                    if ($message_stauts_class == '') {
-                                        ?>
-                                        <div class="col-md-6">
-                                            <button type="submit" onclick="submitForm('assign_crew_submit.php')" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">ASSIGN CREW<span class="legitRipple-ripple" style="left: 77.1927%; top: 62.5874%; transform: translate3d(-50%, -50%, 0px); width: 211.636%; opacity: 0;"></span></button>
-                                            <button type="submit" onclick="submitForm11('assign_crew_unassign_submit.php')" class="btn btn-danger pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">UNASSIGN CREW<span class="legitRipple-ripple" style="left: 77.1927%; top: 62.5874%; transform: translate3d(-50%, -50%, 0px); width: 211.636%; opacity: 0;"></span></button>
-                                        </div>
-                                    <?php } ?>
-                                </div>
+    $qur04 = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$assign_line' ");
+    $rowc04 = mysqli_fetch_array($qur04);
+    $lnname = $rowc04["line_name"];
+    $cnt = 1;
+    ?>
+    <form action="" method="post" id="update-form" class="form-horizontal">
+    <div class="row">
+        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+            <div class="card  box-shadow-0">
+                <div class="card-header">
+                    <span class="main-content-title mg-b-0 mg-b-lg-1">Select Crew for <?php echo $lnname; ?> - Positions</span>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="pd-30 pd-sm-20">
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-12">
+                                <label class="ckbox">
+                                    <input type="checkbox" id="checkAll"><span class="tx-13" style="color: #000000">Select All to Unassign </span> <hr/>
+                                </label>
                             </div>
+                        </div>
+                        <?php
+                        $query = sprintf("SELECT * FROM  cam_station_pos_rel where line_id = '$assign_line' ; ");
+                        $qur = mysqli_query($db, $query);
+                        while ($rowc = mysqli_fetch_array($qur)) {
+                        $message_stauts_class = '';
+                        $import_status_message = '';
+                        ?>
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <?php
+                            $asign = $rowc["assigned"];
+                            if ($asign == "1") {
+                            ?>
+                            <?php
+                            $query001 = sprintf("SELECT * FROM  cam_assign_crew where line_id = '$assign_line' and position_id = '$rowc[position_id]' and resource_type = 'regular' ; ");
+                            $qur001 = mysqli_query($db, $query001);
+                            $rowc001 = mysqli_fetch_array($qur001);
+                            $usrr = $rowc001["user_id"];
+                            $transidd = $rowc001["assign_crew_transaction_id"];
+                            $asigncrewid = $rowc001["assign_crew_id"];
+                            $res_type = $rowc001["resource_type"];
+                            $query002 = sprintf("SELECT * FROM  cam_users where users_id = '$usrr'; ");
+                            $qur002 = mysqli_query($db, $query002);
+                            while ($rowc002 = mysqli_fetch_array($qur002)) {
+                                $firstname = $rowc002["firstname"];
+                                $lastname = $rowc002["lastname"];
+                            }
+                            $query003 = sprintf("SELECT * FROM  cam_position where position_id = '$rowc[position_id]'; ");
+                            $qur003 = mysqli_query($db, $query003);
+                            while ($rowc003 = mysqli_fetch_array($qur003)) {
+                                $positionname = $rowc003["position_name"];
+                            }
+                            ?>
+                            <div class="col-md-2">
+                                <label class="ckbox">
+                                    <input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $asigncrewid; ?>"><span class="tx-13"></span>
+                                    <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
+                            </div>
+                            <div class="col-md-6 mg-t-5 mg-md-t-0">
+                                <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
+                            </div>
+                                <?php
+                            } else {
+                            ?>
+                                <?php
+                                $query004 = sprintf("SELECT * FROM  cam_position where position_id = '$rowc[position_id]'; ");
+                                $qur004 = mysqli_query($db, $query004);
+                                while ($rowc004 = mysqli_fetch_array($qur004)) {
+                                    $positionname = $rowc004["position_name"];
+                                }
+                                ?>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
+                                </div>
+                                <div class="col-md-6 mg-t-5 mg-md-t-0">
+                                    <input type="hidden" name="position[]" value="<?php echo $rowc["position_id"]; ?>">
+                                    <input type="hidden" name="assignline" value="<?php echo $assign_line; ?>">
+                                    <input type="hidden" name="resource_type[]" value="regular">
+                                    <select name="user_name[]" id="user_name<?php echo $cnt; ?>" data-count="<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
+                                        <option value="1" selected >Select User</option>
+                                        <?php
+                                        $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname`";
+                                        $result1 = $mysqli->query($sql1);
+                                        while ($row1 = $result1->fetch_assoc()) {
+                                            $full = $row1['firstname'] . " " . $row1['lastname'];
+                                            echo "<option value='" . $row1['users_id'] . "' data-fullnm = '$full' data-id='" . $row1['assigned'] . "'>$full</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <br/>
+                            <?php $cnt++; ?>
+                        <?php } ?>
+                        <?php
+                        $priyantcount = 2;
+                        $qurtemp2 = mysqli_query($db, "SELECT * FROM cam_assign_crew WHERE line_id = '$assign_line' and resource_type  NOT IN ('regular' , 'On Break' , 'Covering for break')   ORDER by created_at ");
+                        while ($rowctemp2 = mysqli_fetch_array($qurtemp2)) {
+                        $userid = $rowctemp2["user_id"];
+                        $assigncrewid = $rowctemp2["assign_crew_id"];
+                        $res_type = $rowctemp2["resource_type"];
+                        $po = $rowctemp2["position_id"];
+                        $qurtemp3 = mysqli_query($db, "SELECT firstname,lastname FROM cam_users WHERE users_id = '$userid'");
+                        $rowctemp3 = mysqli_fetch_array($qurtemp3);
+                        $firstname = $rowctemp3["firstname"];
+                        $lastname = $rowctemp3["lastname"];
+                        $qurtemp4 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$po'");
+                        $rowctemp4 = mysqli_fetch_array($qurtemp4);
+                        $po_name = $rowctemp4["position_name"];
+                        $priyantcount--;
+                        ?>
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-2">
+                                <label class="ckbox">
+                                    <input type="checkbox"  id="delete_check[]" name="delete_check[]" value="<?php echo $assigncrewid; ?>"><span class="tx-13"></span>
+                                    <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
+                            </div>
+                        </div>
+                            <br/>
+                        <?php } ?>
+                        <?php
+                        if ($priyantcount != "0") {
+                        for ($i = 0; $i < $priyantcount;) {
+                        ?>
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-4">
+                                <select name="position[]" id="position" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
+                                    <option value="1" selected >Select Position </option>
+                                    <?php
+                                    $sql1 = "SELECT * FROM  cam_station_pos_rel where line_id = '$assign_line'";
+                                    $result1 = $mysqli->query($sql1);
+                                    while ($row1 = $result1->fetch_assoc()) {
+                                        $pid = $row1['position_id'];
+                                        $qurtemp5 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$pid'");
+                                        $rowctemp5 = mysqli_fetch_array($qurtemp5);
+                                        $p = $rowctemp5["position_name"];
+                                        echo "<option value='" . $row1['position_id'] . "' >" . $p . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="hidden" name="assignline" value="<?php echo $assign_line; ?>">
+                                <select name="user_name[]" id="user_name<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-row="5"  data-count="<?php echo $cnt; ?>">
+                                    <option value="1" selected >Select User</option>
+                                    <?php
+                                    $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname`";
+                                    $result1 = $mysqli->query($sql1);
+                                    while ($row1 = $result1->fetch_assoc()) {
+                                        $full = $row1['firstname'] . " " . $row1['lastname'];
+                                        echo "<option value='" . $row1['users_id'] . "' data-fullnm = '$full' data-row='5' data-id='" . $row1['assigned'] . "'>$full</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="resource_type[]" id="resource_type<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-count="<?php echo $cnt; ?>">
+                                    <option value="Cross Training" selected >Select Resource Type</option>
+                                    <option value="Cross Training"  >Cross Training</option>
+                                    <option value="Additional Personnel" >Additional Personnel</option>
+                                </select>
+                            </div>
+                        </div>
+                            <br/>
+                            <?php
+                            $i++;
+                            $cnt++;
+                        }
+                        }
+                        ?>
+
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-12">
+                                <label class="form-label mg-b-0" style="color: #000000">Break Assignment</label><hr/>
+                            </div>
+                        </div>
+                        <?php
+                        $priyantcount = 2;
+                        $qurtemp2 = mysqli_query($db, "SELECT * FROM cam_assign_crew WHERE line_id = '$assign_line' and resource_type  NOT IN ('regular' , 'Additional Personnel' , 'Cross Training')  ORDER by created_at");
+                        while ($rowctemp2 = mysqli_fetch_array($qurtemp2)) {
+                        $userid = $rowctemp2["user_id"];
+                        $assigncrewid = $rowctemp2["assign_crew_id"];
+                        $res_type = $rowctemp2["resource_type"];
+                        $po = $rowctemp2["position_id"];
+                        $qurtemp3 = mysqli_query($db, "SELECT firstname,lastname FROM cam_users WHERE users_id = '$userid'");
+                        $rowctemp3 = mysqli_fetch_array($qurtemp3);
+                        $firstname = $rowctemp3["firstname"];
+                        $lastname = $rowctemp3["lastname"];
+                        $qurtemp4 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$po'");
+                        $rowctemp4 = mysqli_fetch_array($qurtemp4);
+                        $po_name = $rowctemp4["position_name"];
+                        $priyantcount--;
+                        ?>
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-2">
+                                <label class="ckbox">
+                                    <input type="checkbox"  id="delete_check[]" name="delete_check[]" value="<?php echo $assigncrewid; ?>"><span class="tx-13"></span>
+                                    <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
+                            </div>
+                        </div>
+                    <br/>
+                        <?php } ?>
+                        <?php
+                        if ($priyantcount != "0") {
+                        for ($i = 0; $i < $priyantcount;) {
+                        ?>
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-4">
+                                <select name="position[]" id="position" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
+                                    <option value="1" selected >Select Position</option>
+                                    <?php
+                                    $sql1 = "SELECT * FROM  cam_station_pos_rel where line_id = '$assign_line'";
+                                    $result1 = $mysqli->query($sql1);
+                                    while ($row1 = $result1->fetch_assoc()) {
+                                        $pid = $row1['position_id'];
+                                        $qurtemp5 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$pid'");
+                                        $rowctemp5 = mysqli_fetch_array($qurtemp5);
+                                        $p = $rowctemp5["position_name"];
+                                        echo "<option value='" . $row1['position_id'] . "' >" . $p . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="hidden" name="assignline" value="<?php echo $assign_line; ?>">
+                                <select name="user_name[]" id="user_name<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-row="5"  data-count="<?php echo $cnt; ?>">
+                                    <option value="1" selected >Select User</option>
+                                    <?php
+                                    $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname`";
+                                    $result1 = $mysqli->query($sql1);
+                                    while ($row1 = $result1->fetch_assoc()) {
+                                        $full = $row1['firstname'] . " " . $row1['lastname'];
+                                        echo "<option value='" . $row1['users_id'] . "' data-fullnm = '$full' data-row='5' data-id='" . $row1['assigned'] . "'>$full</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="resource_type[]" id="resource_type<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-count="<?php echo $cnt; ?>">
+                                    <option value="On Break" selected >Select Resource Type</option>
+                                    <option value="On Break"  >On Break</option>
+                                    <option value="Covering for break" >Covering for break</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                            <?php
+                            $i++;
+                            $cnt++;
+                        }
+                        }
+                        ?>
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <?php
+                            if ($message_stauts_class == '') {
+                            ?>
+                            <div class="col-md-3">
+                                         <button type="submit" onclick="submitForm('assign_crew_submit.php')" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">ASSIGN CREW<span class="legitRipple-ripple" style="left: 77.1927%; top: 62.5874%; transform: translate3d(-50%, -50%, 0px); width: 211.636%; opacity: 0;"></span></button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" onclick="submitForm11('assign_crew_unassign_submit.php')" class="btn btn-danger pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">UNASSIGN CREW<span class="legitRipple-ripple" style="left: 77.1927%; top: 62.5874%; transform: translate3d(-50%, -50%, 0px); width: 211.636%; opacity: 0;"></span></button>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
+    </div>
+    </form>
+        <br/>
         <?php
         if (!empty($import_status_message)) {
             echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
         }
         ?>
     <?php } ?>
+    </div>
 </div>
-
+<?php include('../footer1.php') ?>
 <script>
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 </script>
 <script>
-    window.onload = function () {
-        history.replaceState("", "", "<?php echo $scriptName; ?>assignment_module/assign_crew.php");
-    }
+    //window.onload = function () {
+    //    history.replaceState("", "", "<?php //echo $scriptName; ?>//assignment_module/assign_crew.php");
+    //}
     $('.update').on('change', function (event) {
         //	debugger;
         var prevValue = $(this).data('previous');
@@ -679,5 +683,5 @@ include("../admin_menu.php");
         });
     }
 </script>
-<?php include('../footer1.php') ?>
+
 </body>

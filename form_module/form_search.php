@@ -28,6 +28,9 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
+$station = $_GET['station'];
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
 //Set the time of the user's last activity
@@ -71,10 +74,7 @@ if (count($_POST) > 0) {
 
 
     <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -211,17 +211,18 @@ if (count($_POST) > 0) {
     </style>
 </head>
 
-<!-- Main navbar -->
-<?php
-$cust_cam_page_header = "Add / Create Form";
-include("../header.php");
-include("../admin_menu.php");
+<body class="ltr main-body app horizontal">
+<?php if (!empty($station)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
-
-<body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
+    <div class="main-container container-fluid">
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -234,7 +235,7 @@ include("../admin_menu.php");
 
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -468,7 +469,7 @@ include("../admin_menu.php");
     {
         ?>
 
-        <div class="row-body">
+        <div class="row">
 
             <div class="col-12 col-sm-12">
                 <div class="card">
@@ -652,7 +653,8 @@ include("../admin_menu.php");
         <?php
     }
     ?>
-
+    </div>
+</div>
     <!-- /dashboard content -->
     <script> $(document).on('click', '#delete', function () {
             var element = $(this);
@@ -689,7 +691,7 @@ include("../admin_menu.php");
             });
         });
     </script>
-</div>
+
 <!-- /content area -->
 
 

@@ -28,6 +28,9 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
+$station = $_GET['station'];
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $is_tab_login = $_SESSION['is_tab_user'];
@@ -52,9 +55,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -182,17 +183,19 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     </style>
 </head>
 
-<!-- Main navbar -->
-<?php
-$cust_cam_page_header = "Add / Create Form";
-include("../header.php");
-include("../admin_menu.php");
-?>
 
-<body class="ltr main-body app sidebar-mini">
+<body class="ltr main-body app horizontal">
 <!-- main-content -->
+<?php if (!empty($station)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
+?>
 <div class="main-content app-content">
     <!-- container -->
+    <div class="main-container container-fluid">
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -205,7 +208,7 @@ include("../admin_menu.php");
 
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class=" row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -402,7 +405,7 @@ include("../admin_menu.php");
     {
         ?>
 
-            <div class="row-body">
+            <div class="row">
 
                 <div class="col-12 col-sm-12">
                     <div class="card">
@@ -473,7 +476,8 @@ include("../admin_menu.php");
         <?php
     }
     ?>
-
+    </div>
+</div>
     <!-- /content area -->
     <script>
         $("#checkAll").click(function () {
@@ -508,3 +512,4 @@ include("../admin_menu.php");
     <?php include('../footer1.php') ?>
 
 </body>
+</html>
