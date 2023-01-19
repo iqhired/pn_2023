@@ -306,6 +306,18 @@ include("../admin_menu.php");
         <?php $id = $_GET['id']; ?>
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
+                 <?php
+                if (!empty($import_status_message)) {
+                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                }
+                ?>
+                <?php
+                if (!empty($_SESSION['import_status_message'])) {
+                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+                    $_SESSION['message_stauts_class'] = '';
+                    $_SESSION['import_status_message'] = '';
+                }
+                ?>
                 <?php if ($temp == "one") { ?>
                     <div class="alert alert-success no-border">
                         <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
@@ -320,18 +332,7 @@ include("../admin_menu.php");
                         <span class="text-semibold">Event Type</span> Updated Successfully.
                     </div>
                 <?php } ?>
-                <?php
-                if (!empty($import_status_message)) {
-                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                }
-                ?>
-                <?php
-                if (!empty($_SESSION['import_status_message'])) {
-                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                    $_SESSION['message_stauts_class'] = '';
-                    $_SESSION['import_status_message'] = '';
-                }
-                ?>
+                
 
                 <div class="card">
                     <div class="card-body">
@@ -545,7 +546,7 @@ include("../admin_menu.php");
                                             <td><?php echo '<img src="data:image/gif;base64,' . $qrcode . '" style="height:50px;width:50px;" />'; ?>
                                                 <a class="btn btn-primary btn-xs" style="background-color:#1e73be;" href= data:image/png;base64,<?php echo $qrcode ?> download><i class="fa fa-download"></i></a>
                                             </td>
-                                            <td><a href="edit_assets_config_new.php?id=<?php echo $asset_id ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <td><a href="edit_assets_config.php?id=<?php echo $asset_id ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                                                 <a href="del_assets.php?id=<?php echo $asset_id ?>"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

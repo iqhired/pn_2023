@@ -320,7 +320,7 @@ include("../admin_menu.php");
                                 </div>
 
                                 <div class="card-body pt-0">
-                                    <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create Form Type</button>
+                                    <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create</button>
 
                                 </div>
                             </div>
@@ -366,7 +366,7 @@ include("../admin_menu.php");
                                         while ($rowc = mysqli_fetch_array($qur)) {
                                             ?>
                                             <tr id="row<?php echo $i ?>">
-                                                <td><label class="ckbox"><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
                                                            value="<?php echo $rowc["events_cat_id"]; ?>"><span></span></label></td>
                                                 <td id = "id_row<?php echo $i;?>" value = "<?php echo $i;?>"><?php echo ++$counter; ?></td>
                                                 <td id = "name_row<?php echo $i;?>" value="<?php echo $rowc["events_cat_name"]; ?>" ><?php echo $rowc["events_cat_name"]; ?></td>
@@ -378,10 +378,10 @@ include("../admin_menu.php");
                                                 //                              echo $npr; ?><!--</td>-->
 
                                                 <td  id = "npr_row<?php echo $i;?>" value = "<?php echo $rowc["npr"] ?>">
-                                                   <label class="ckbox"> <input type='checkbox' id="npr_row<?php echo $i;?>" value="<?php echo $rowc["npr"] ?>" <?php if( $rowc["npr"] == 1) {echo "checked";}?> style="pointer-events: none !important;">
+                                                    <input type='checkbox' id="npr_row<?php echo $i;?>" value="<?php echo $rowc["npr"] ?>" <?php if( $rowc["npr"] == 1) {echo "checked";}?> style="pointer-events: none !important;">
                                                     <input type='hidden' id="npr_rown<?php echo $i;?>" value="<?php echo $rowc["npr"] ?>">
 
-                                                <span></span></label></td>
+                                                </td>
                                                 <td>
                                                     <button type="button" id="edit_button<?php echo $i ?>" class="btn btn-primary btn-xs submit_btn" style="" onclick="edit_row('<?php echo $i ?>')"><i class="fa fa-edit"></i></button>
                                                     <button type="button" id="save_button<?php echo $i ?>"  class="save btn btn-primary legitRipple" style="" onclick="save_row('<?php echo $i ?>')"><i class="fa fa-save"></i></button>
@@ -421,7 +421,7 @@ include("../admin_menu.php");
                     <div class="row">
                         <div class="col-md-9">
                             <div class="form-group">
-                                <label class="col-lg-7 control-label" >Event Category:*</label>
+                                <label class="col-lg-7 control-label">Event Category:*</label>
                                 <div class="col-lg-5">
                                     <input type="text" name="edit_events_cat_name" id="edit_events_cat_name"
                                            class="form-control" required>
@@ -549,7 +549,7 @@ include("../admin_menu.php");
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 </script>
-<?php include('../footer1.php') ?>
+<?php include('../footer.php') ?>
 
 <!------container------------>
 

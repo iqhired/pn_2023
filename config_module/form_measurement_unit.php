@@ -362,10 +362,11 @@ include("../admin_menu.php");
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl. No</th>
+                                            <th>Action</th>
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Unit of Measurement</th>
-                                            <th>Action</th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -378,15 +379,16 @@ include("../admin_menu.php");
                                             <tr>
                                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_measurement_unit_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
+                                                <td>
+                                                    <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn legitRipple" data-id="<?php echo $rowc['form_measurement_unit_id']; ?>" data-name="<?php echo $rowc['name']; ?>" data-description="<?php echo $rowc['description']; ?>" data-unit_of_measurement="<?php echo $rowc['unit_of_measurement']; ?>"  data-toggle="modal" data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i> </button>
+                                                    <!---  &nbsp;  -->
+                                                </td>
                                                 <td><?php echo $rowc["name"]; ?></td>
                                                 <td><?php echo $rowc["description"]; ?></td>
                                                 <td><?php echo $rowc["unit_of_measurement"]; ?></td>
 
                                                 <!--                            <td>--><?php //echo $rowc['created_at'];        ?><!--</td>-->
-                                                <td>
-                                                    <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn legitRipple" data-id="<?php echo $rowc['form_measurement_unit_id']; ?>" data-name="<?php echo $rowc['name']; ?>" data-description="<?php echo $rowc['description']; ?>" data-unit_of_measurement="<?php echo $rowc['unit_of_measurement']; ?>"  data-toggle="modal" data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i> </button>
-                                                    <!---  &nbsp;  -->
-                                                </td>
+
                                             </tr>
                                         <?php } ?>
                                         </tbody>

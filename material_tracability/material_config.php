@@ -419,11 +419,12 @@ include("../admin_menu.php");
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl. No</th>
+                                            <th>Action</th>
                                             <th>Material Teams</th>
                                             <th>Material Users</th>
                                             <th>Material Type</th>
                                             <th>Serial No Required</th>
-                                            <th>Action</th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -435,6 +436,10 @@ include("../admin_menu.php");
                                             <tr>
                                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["material_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
+                                                <td>
+                                                    <a href="edit_material_config.php?id=<?php echo $rowc['material_id']; ?>" class="btn btn-primary Legit Ripple" data-material_teams="<?php echo  $material; ?>" style="background-color:#1e73be;"><i class="fa fa-edit"></i></a>
+
+                                                </td>
                                                 <td>
                                                     <?php
                                                     $material = $rowc['teams'];
@@ -482,10 +487,7 @@ include("../admin_menu.php");
 
                                                 <td><?php echo $rowc["material_type"]; ?></td>
                                                 <td>  <label class="ckbox"> <input type='checkbox' id="serial_number" value="<?php echo $rowc["serial_num_required"] ?>" <?php if( $rowc["serial_num_required"] == 1) {echo "checked";}?> style="pointer-events: none !important;"><span></span></label></td>
-                                                <td>
-                                                    <a href="edit_material_config.php?id=<?php echo $rowc['material_id']; ?>" class="btn btn-primary Legit Ripple" data-material_teams="<?php echo  $material; ?>" style="background-color:#1e73be;"><i class="fa fa-edit"></i></a>
 
-                                                </td>
                                             </tr>
                                         <?php } ?>
                                         </tbody>

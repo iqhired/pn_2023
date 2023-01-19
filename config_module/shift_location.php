@@ -343,8 +343,9 @@ include("../admin_menu.php");
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl.No</th>
-                                            <th>Shift Location</th>
                                             <th>Action</th>
+                                            <th>Shift Location</th>
+                                            
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -357,13 +358,14 @@ include("../admin_menu.php");
                                             <tr>
                                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["shift_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
-                                                <td><?php echo $rowc["shift_name"]; ?></td>
-                                                <!--                                         <td>--><?php //echo $rowc['created_at']; ?><!--</td>-->
-                                                <!--                                        <td>--><?php //echo $rowc['updated_at']; ?><!--</td>-->
                                                 <td>
                                                     <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn legitRipple" data-id="<?php echo $rowc['shift_id']; ?>" data-name="<?php echo $rowc['shift_name']; ?>"  data-toggle="modal" style="color:background-color:legitReppile"  data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i> </button>
                                                     <!----&nbsp; -->
                                                 </td>
+                                                <td><?php echo $rowc["shift_name"]; ?></td>
+                                                <!--                                         <td>--><?php //echo $rowc['created_at']; ?><!--</td>-->
+                                                <!--                                        <td>--><?php //echo $rowc['updated_at']; ?><!--</td>-->
+                                                
                                             </tr>
                                         <?php } ?>
                                         </tbody>

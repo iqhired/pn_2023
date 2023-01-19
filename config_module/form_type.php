@@ -346,7 +346,7 @@ if (count($_POST) > 0) {
 
 
                                 <div class="card-body pt-0">
-                                    <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create Form Type</button>
+                                    <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create</button>
 
                                 </div>
                             </div>

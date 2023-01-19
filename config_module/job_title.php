@@ -340,8 +340,9 @@ include("../admin_menu.php");
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl. No</th>
+                                             <th>Action</th>
                                             <th>Job Title</th>
-                                            <th>Action</th>
+                                           
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -353,14 +354,15 @@ include("../admin_menu.php");
                                             <tr>
                                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["job_title_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
-                                                <td><?php echo $rowc["job_name"]; ?></td>
-                                                <!--                                         <td>--><?php //echo $rowc['created_at']; ?><!--</td>-->
-                                                <!--                                        <td>--><?php //echo $rowc['updated_at']; ?><!--</td>-->
-                                                <td>
+                                                 <td>
                                                     <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn legitRipple""  data-id="<?php echo $rowc['job_title_id']; ?>" data-name="<?php echo $rowc['job_name']; ?>"  data-toggle="modal" data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i> </button>
                                                     <!--                                    &nbsp;
                                     -->
                                                 </td>
+                                                <td><?php echo $rowc["job_name"]; ?></td>
+                                                <!--                                         <td>--><?php //echo $rowc['created_at']; ?><!--</td>-->
+                                                <!--                                        <td>--><?php //echo $rowc['updated_at']; ?><!--</td>-->
+                                                
                                             </tr>
                                         <?php } ?>
                                         </tbody>

@@ -400,7 +400,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Event Sequence</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="edit_so" id="edit_so"  multiple="multiple">
+                                    <select class="form-control select2" name="edit_so" id="edit_so">
                                         <?php
                                         $so = $rowc['so'];
                                         $r_count = 0;

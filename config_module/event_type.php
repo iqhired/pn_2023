@@ -428,11 +428,12 @@ include("../admin_menu.php");
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl. No</th>
+                                            <th>Action</th>
                                             <th>Event Category</th>
                                             <th>Event Type</th>
                                             <th>Color Code</th>
                                             <th>Event Sequence </th>
-                                            <th>Action</th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -450,12 +451,6 @@ include("../admin_menu.php");
                                                     <!--                                    <input type="hidden" hidden name="del_sq[]" id="del_sq[]" value="--><?php //echo $so; ?><!--">-->
                                                 <span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
-                                                <td><?php echo $rowc["events_cat_name"]; ?></td>
-                                                <td><?php echo $rowc["event_type_name"]; ?></td>
-                                                <td><input type="color" id="color_code" name="color_code" value="<?php echo $rowc["color_code"]; ?>"  disabled></td>
-                                                <td><?php echo $so; ?></td>
-                                                <!--                                        <td>-->
-                                                <?php //echo $rowc['updated_at']; ?><!--</td>-->
                                                 <td>
                                                     <!--                                        <button type="button" id="edit" class="btn btn-info btn-xs"-->
                                                     <!--                                                data-id="--><?php //echo $rowc['event_type_id']; ?><!--"-->
@@ -471,11 +466,15 @@ include("../admin_menu.php");
                                                     <a href="event_type_page.php?id=<?php echo  $rowc['event_type_id']; ?>" class="btn btn-primary" data-id="<?php echo $rowc['event_type_name']; ?>"  style=""><i class="fa fa-edit"></i></a>
 
                                                 </td>
+                                                <td><?php echo $rowc["events_cat_name"]; ?></td>
+                                                <td><?php echo $rowc["event_type_name"]; ?></td>
+                                                <td><input type="color" id="color_code" name="color_code" value="<?php echo $rowc["color_code"]; ?>"  disabled></td>
+                                                <td><?php echo $so; ?></td>
+                                                <!--                                        <td>-->
+                                                <?php //echo $rowc['updated_at']; ?><!--</td>-->
+
                                             </tr>
                                         <?php } ?>
-
-
-
                                         </tbody>
                                     </table>
 </form>
