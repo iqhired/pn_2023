@@ -238,13 +238,16 @@ include("../admin_menu.php");
 <div class="main-content app-content">
     <!-- container -->
     <!-- breadcrumb -->
+    <div class="row-body">
+        <div class="col-12 col-sm-12">
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Station Position Configuration</li>
             </ol>
-
+        </div>
+    </div>
         </div>
     </div>
     <div class="row-body">
@@ -274,7 +277,7 @@ include("../admin_menu.php");
                                         <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
                                     </i>
                                 </button>
-                                <button style="margin-left: 827px!important;" type="button" data-toggle="modal" class="btn btn-primary"
+                                <button style="margin-left: 967px!important;" type="button" data-toggle="modal" class="btn btn-primary"
                                         data-target="#modal_theme_primary1">Create Station
                                     Position Relation
                                 </button>
