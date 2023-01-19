@@ -74,7 +74,7 @@ if (count($_POST) > 0) {
 
 
     <!-- /global stylesheets -->
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -509,28 +509,28 @@ if (count($_POST) > 0) {
                                 }
 
                                     if ($station != "" && $datefrom != "" && $dateto != "") {
-										$datefrom = date("Y-m-d", strtotime($datefrom));
-										$dateto = date("Y-m-d", strtotime($dateto));
-                                        $result = "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC";
+                                        $date_from = convertMDYToYMD($datefrom);
+                                        $date_to = convertMDYToYMD($dateto);
+                                        $result = "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC";
                                         $qur = mysqli_query($db,$result);
                                     } else if ($station != "" && $user != "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE  station = '$station' ");
                                     } else if ($station != "" && $user == "" && $datefrom != "" && $dateto != "") {
-										$datefrom = date("Y-m-d", strtotime($datefrom));
-										$dateto = date("Y-m-d", strtotime($dateto));
-                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC ");
+                                        $date_from = convertMDYToYMD($datefrom);
+                                        $date_to = convertMDYToYMD($dateto);
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC ");
                                     } else if ($station != "" && $user == "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE station = '$station'");
                                     } else if ($station == "" && $user != "" && $datefrom != "" && $dateto != "") {
-										$datefrom = date("Y-m-d", strtotime($datefrom));
-										$dateto = date("Y-m-d", strtotime($dateto));
-                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC");
+                                        $date_from = convertMDYToYMD($datefrom);
+                                        $date_to = convertMDYToYMD($dateto);
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC");
                                     } else if ($station == "" && $user != "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE  station = '$station'");
                                     } else if ($station == "" && $user == "" && $datefrom != "" && $dateto != "") {
-										$datefrom = date("Y-m-d", strtotime($datefrom));
-										$dateto = date("Y-m-d", strtotime($dateto));
-                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ");
+                                        $date_from = convertMDYToYMD($datefrom);
+                                        $date_to = convertMDYToYMD($dateto);
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`form_name`,`form_type`,`form_status`,`form_create_id`,`form_type`,`form_comp_status`,`created_at`,`updated_at` FROM `form_user_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ");
                                     }
 
 
