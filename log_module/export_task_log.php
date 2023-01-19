@@ -11,27 +11,27 @@ $button = $_SESSION['button'];
 $timezone = $_SESSION['timezone'];
 /*if ($button == "button1") {*/
     if ($taskboard != "" && $user != "" && $datefrom != "" && $dateto != "") {
-        $datefrom = date("Y-m-d", strtotime($datefrom));
-        $dateto = date("Y-m-d", strtotime($dateto));
-        $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$dateto' and `taskboard` = '$taskboard' and `assign_to` = '$user'");
+        $date_from = convertMDYToYMD($datefrom);
+        $date_to = convertMDYToYMD($dateto);
+        $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$date_to' and `taskboard` = '$taskboard' and `assign_to` = '$user'");
     } else if ($taskboard != "" && $user != "" && $datefrom == "" && $dateto == "") {
         $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE  `taskboard` = '$taskboard' and `assign_to` = '$user'");
     } else if ($taskboard != "" && $user == "" && $datefrom != "" && $dateto != "") {
-        $datefrom = date("Y-m-d", strtotime($datefrom));
-        $dateto = date("Y-m-d", strtotime($dateto));
-        $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$dateto' and `taskboard` = '$taskboard' ");
+        $date_from = convertMDYToYMD($datefrom);
+        $date_to = convertMDYToYMD($dateto);
+        $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$date_to' and `taskboard` = '$taskboard' ");
     } else if ($taskboard != "" && $user == "" && $datefrom == "" && $dateto == "") {
         $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE `taskboard` = '$taskboard'");
     } else if ($taskboard == "" && $user != "" && $datefrom != "" && $dateto != "") {
-        $datefrom = date("Y-m-d", strtotime($datefrom));
-        $dateto = date("Y-m-d", strtotime($dateto));
-        $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$dateto' and `assign_to` = '$user'");
+        $date_from = convertMDYToYMD($datefrom);
+        $date_to = convertMDYToYMD($dateto);
+        $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$date_to' and `assign_to` = '$user'");
     } else if ($taskboard == "" && $user != "" && $datefrom == "" && $dateto == "") {
         $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE  `assign_to` = '$user'");
     } else if ($taskboard == "" && $user == "" && $datefrom != "" && $dateto != "") {
-        $datefrom = date("Y-m-d", strtotime($datefrom));
-        $dateto = date("Y-m-d", strtotime($dateto));
-        $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$dateto' ");
+        $date_from = convertMDYToYMD($datefrom);
+        $date_to = convertMDYToYMD($dateto);
+        $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task` WHERE DATE_FORMAT(`assigned_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assigned_time`,'%Y-%m-%d') <= '$date_to' ");
     }else {
         $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,`assigned_time`,`finished_time`,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task`");
     }

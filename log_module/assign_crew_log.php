@@ -409,14 +409,13 @@ if(count($_POST) > 0)
         </thead>
         <tbody>
         <?php
-        $datefrom = date("Y-m-d", strtotime($datefrom));
-        $dateto = date("Y-m-d", strtotime($dateto));
-        $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$dateto' ");
+        $date_from = convertMDYToYMD($datefrom);
+        $date_to = convertMDYToYMD($dateto);
+        $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$date_to' ");
         if (count($_GET) > 0) {
             $ln = $_GET['line'];
-            $datefrom = date("Y-m-d", strtotime($datefrom));
-            $dateto = date("Y-m-d", strtotime($dateto));
-            $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$curdate' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$curdate' and `station_id` = '$ln'");
+            $cur_date = convertMDYToYMD($curdate);
+            $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$cur_date' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$cur_date' and `station_id` = '$ln'");
         }
         if (count($_POST) > 0) {
             $name = $_POST['usr'];
@@ -425,27 +424,27 @@ if(count($_POST) > 0)
             $datefrom = $_POST['date_from'];
 
                 if ($name != "" && $station != "" && $datefrom != "" && $dateto != "") {
-                    $datefrom = date("Y-m-d", strtotime($datefrom));
-                    $dateto = date("Y-m-d", strtotime($dateto));
-                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$dateto' and `user_id` = '$name' and `station_id` = '$station'");
+                    $date_from = convertMDYToYMD($datefrom);
+                    $date_to = convertMDYToYMD($dateto);
+                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$date_to' and `user_id` = '$name' and `station_id` = '$station'");
                 } else if ($name != "" && $station != "" && $datefrom == "" && $dateto == "") {
                     $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station' and `user_id` = '$name'");
                 } else if ($name != "" && $station == "" && $datefrom != "" && $dateto != "") {
-                    $datefrom = date("Y-m-d", strtotime($datefrom));
-                    $dateto = date("Y-m-d", strtotime($dateto));
-                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$dateto' and `user_id` = '$name' ");
+                    $date_from = convertMDYToYMD($datefrom);
+                    $date_to = convertMDYToYMD($dateto);
+                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$date_to' and `user_id` = '$name' ");
                 } else if ($name != "" && $station == "" && $datefrom == "" && $dateto == "") {
                     $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE `user_id` = '$name'");
                 } else if ($name == "" && $station != "" && $datefrom != "" && $dateto != "") {
-                    $datefrom = date("Y-m-d", strtotime($datefrom));
-                    $dateto = date("Y-m-d", strtotime($dateto));
-                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$dateto' and `station_id` = '$station'");
+                    $date_from = convertMDYToYMD($datefrom);
+                    $date_to = convertMDYToYMD($dateto);
+                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$date_to' and `station_id` = '$station'");
                 } else if ($name == "" && $station != "" && $datefrom == "" && $dateto == "") {
                     $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station'");
                 } else if ($name == "" && $station == "" && $datefrom != "" && $dateto != "") {
-                    $datefrom = date("Y-m-d", strtotime($datefrom));
-                    $dateto = date("Y-m-d", strtotime($dateto));
-                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$dateto' ");
+                    $date_from = convertMDYToYMD($datefrom);
+                    $date_to = convertMDYToYMD($dateto);
+                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d') <= '$date_to' ");
                 }
 
         }

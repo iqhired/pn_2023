@@ -35,17 +35,15 @@ if ($station != null) {
 }
 
 if($datefrom != "" && $dateto != ""){
-    $datefrom = date("Y-m-d", strtotime($datefrom));
-    $dateto = date("Y-m-d", strtotime($dateto));
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(assign_time,'%Y-%m-%d') <= '$dateto' ";
+    $date_from = convertMDYToYMD($datefrom);
+    $date_to = convertMDYToYMD($dateto);
+    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(assign_time,'%Y-%m-%d') <= '$date_to' ";
 }else if($datefrom != "" && $dateto == ""){
-    $datefrom = date("Y-m-d", strtotime($datefrom));
-    $dateto = date("Y-m-d", strtotime($dateto));
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') >= '$datefrom' ";
+    $date_from = convertMDYToYMD($datefrom);
+    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') >= '$date_from' ";
 }else if($datefrom == "" && $dateto != ""){
-    $datefrom = date("Y-m-d", strtotime($datefrom));
-    $dateto = date("Y-m-d", strtotime($dateto));
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') <= '$dateto' ";
+    $date_to = convertMDYToYMD($dateto);
+    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') <= '$date_to' ";
 }
 
 $q = $q . " ORDER BY assign_time  DESC";

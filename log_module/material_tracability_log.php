@@ -486,9 +486,9 @@ if (count($_POST) > 0) {
                             </thead>
                             <tbody>
 							<?php
-                            $datefrom = date("Y-m-d", strtotime($datefrom));
-                            $dateto = date("Y-m-d", strtotime($dateto));
-							$q = ("SELECT pn.part_name ,pn.part_number,pn.part_name, cl.line_name ,mt.part_family_id,mt.material_type,mt.created_at,mt.material_id,mt.material_status,mt.fail_reason  FROM  material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station'");
+                            $date_from = convertMDYToYMD($datefrom);
+                            $date_to = convertMDYToYMD($dateto);
+							$q = ("SELECT pn.part_name ,pn.part_number,pn.part_name, cl.line_name ,mt.part_family_id,mt.material_type,mt.created_at,mt.material_id,mt.material_status,mt.fail_reason  FROM  material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station'");
 							$qur = mysqli_query($db, $q);
 							while ($rowc = mysqli_fetch_array($qur)) {
 								$style = "";

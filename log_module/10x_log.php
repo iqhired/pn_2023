@@ -429,6 +429,7 @@ if(count($_POST) > 0)
                         <table class="table  table-bordered text-nowrap mb-0" id="example2">
                             <thead>
                             <tr>
+                                <th>sl.no</th>
                                 <th>Action</th>
                                 <th>Station</th>
                                 <th>Part</th>
@@ -437,9 +438,9 @@ if(count($_POST) > 0)
                             </thead>
                             <tbody>
                             <?php
-                            $datefrom = date("Y-m-d", strtotime($datefrom));
-                            $dateto = date("Y-m-d", strtotime($dateto));
-                            $q = ("SELECT pn.part_name ,pn.part_number,pn.part_name, cl.line_name ,xx.part_family_id,xx.created_at,xx.10x_id  FROM  10x as xx inner join cam_line as cl on xx.line_no = cl.line_id inner join pm_part_family as pf on xx.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on xx.part_no=pn.pm_part_number_id where DATE_FORMAT(xx.created_at,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(xx.created_at,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station'");
+                            $date_from = convertMDYToYMD($datefrom);
+                            $date_to = convertMDYToYMD($dateto);
+                            $q = ("SELECT pn.part_name ,pn.part_number,pn.part_name, cl.line_name ,xx.part_family_id,xx.created_at,xx.10x_id  FROM  10x as xx inner join cam_line as cl on xx.line_no = cl.line_id inner join pm_part_family as pf on xx.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on xx.part_no=pn.pm_part_number_id where DATE_FORMAT(xx.created_at,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(xx.created_at,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station'");
                             $qur = mysqli_query($db, $q);
                             while ($rowc = mysqli_fetch_array($qur)) {
                                 ?>
@@ -451,6 +452,7 @@ if(count($_POST) > 0)
                                         $lnn = $rowc04["line_name"];
                                     }
                                     ?>
+                                    <td><?php echo ++$counter; ?></td>
                                     <td>
                                         <a href="../10x/view_10x.php?id=<?php echo $rowc['10x_id'];?>&station=<?php echo $station;?>" class="btn btn-primary legitRipple"  target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>

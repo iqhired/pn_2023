@@ -355,6 +355,7 @@ if(count($_POST) > 0)
                         <table class="table  table-bordered text-nowrap mb-0" id="example2">
                             <thead>
                             <tr>
+                                <th>sl.no</th>
                                 <th>Action</th>
                                 <th>Station</th>
                                 <th>Asset name</th>
@@ -363,9 +364,9 @@ if(count($_POST) > 0)
                             </thead>
                             <tbody>
                             <?php
-                            $datefrom = date("Y-m-d", strtotime($datefrom));
-                            $dateto = date("Y-m-d", strtotime($dateto));
-                            $q = ("SELECT xx.asset_name,xx.created_date,xx.submit_id  FROM  submit_assets as xx inner join cam_line as cl on xx.line_id = cl.line_id where DATE_FORMAT(xx.created_date,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(xx.created_date,'%Y-%m-%d') <= '$dateto' and cl.line_id='$station'");
+                            $date_from = convertMDYToYMD($datefrom);
+                            $date_to = convertMDYToYMD($dateto);
+                            $q = ("SELECT xx.asset_name,xx.created_date,xx.submit_id  FROM  submit_assets as xx inner join cam_line as cl on xx.line_id = cl.line_id where DATE_FORMAT(xx.created_date,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(xx.created_date,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station'");
                             $qur = mysqli_query($db, $q);
                             while ($rowc = mysqli_fetch_array($qur)) {
                                 ?>
@@ -377,6 +378,7 @@ if(count($_POST) > 0)
                                         $lnn = $rowc04["line_name"];
                                     }
                                     ?>
+                                    <td><?php echo ++$counter; ?></td>
                                     <td>
 
                                         <a href="<?php echo $siteURL; ?>report_config_module/view_assets_config.php?id=<?php echo $rowc['submit_id'];?>" class="btn btn-primary legitRipple" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
