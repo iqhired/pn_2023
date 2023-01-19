@@ -564,7 +564,6 @@ include("../admin_menu.php");
         $('.select').select2();
     });
 </script>
-
 <?php include ('../footer1.php') ?>
 </body>
 </html>

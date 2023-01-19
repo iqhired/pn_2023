@@ -465,6 +465,7 @@ include("../admin_menu.php");
                                                     <!--                                        </button>-->
                                                     <a href="event_type_page.php?id=<?php echo  $rowc['event_type_id']; ?>" class="btn btn-primary" data-id="<?php echo $rowc['event_type_name']; ?>"  style=""><i class="fa fa-edit"></i></a>
 
+
                                                 </td>
                                                 <td><?php echo $rowc["events_cat_name"]; ?></td>
                                                 <td><?php echo $rowc["event_type_name"]; ?></td>

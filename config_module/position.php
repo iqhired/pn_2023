@@ -376,8 +376,6 @@ include("../admin_menu.php");
                                         <?php } ?>
                                         </tbody>
 
-
-
                                     </table>
                                 </div>
 </form>

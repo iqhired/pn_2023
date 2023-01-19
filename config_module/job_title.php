@@ -245,7 +245,6 @@ if (count($_POST) > 0) {
 
     </style>
 </head>
-
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Job Title";

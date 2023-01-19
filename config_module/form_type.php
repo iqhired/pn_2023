@@ -589,6 +589,7 @@ if (count($_POST) > 0) {
     });
 
 </script>
+
 <script>
     window.onload = function () {
         history.replaceState("", "", "<?php echo $scriptName; ?>config_module/form_type.php");
