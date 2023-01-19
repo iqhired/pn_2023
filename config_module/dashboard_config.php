@@ -349,6 +349,32 @@ include("../admin_menu.php");
     <form action="" id="cell_grp_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
+                 <?php if ($temp == "one") { ?>
+                    <div class="alert alert-success no-border">
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                                    class="sr-only">Close</span></button>
+                        <span class="text-semibold">Form Type</span> Created Successfully.
+                    </div>
+                <?php } ?>
+                <?php if ($temp == "two") { ?>
+                    <div class="alert alert-success no-border">
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                                    class="sr-only">Close</span></button>
+                        <span class="text-semibold">Form Type</span> Updated Successfully.
+                    </div>
+                <?php } ?>
+                <?php
+                if (!empty($import_status_message)) {
+                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                }
+                ?>
+                <?php
+                if (!empty($_SESSION[$import_status_message])) {
+                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+                    $_SESSION['message_stauts_class'] = '';
+                    $_SESSION['import_status_message'] = '';
+                }
+                ?>
                 <div class="card">
                     <div class="card-body">
                         <div class="card-header">

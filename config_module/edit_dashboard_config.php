@@ -86,7 +86,7 @@ if ($edit_name != "") {
     if ($result1) {
         $_SESSION['message_stauts_class'] = 'alert-success';
         $_SESSION['import_status_message'] = 'Cell Updated Sucessfully.';
-        header("Location:dashboard_config_new.php");
+        header("Location:dashboard_config.php");
     } else {
         $_SESSION['message_stauts_class'] = 'alert-danger';
         $_SESSION['import_status_message'] = 'Error: Please Retry';
