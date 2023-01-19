@@ -68,15 +68,15 @@ $station = $_GET['station'];
         <div class="main-header-left ">
             <div class="responsive-logo">
                 <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="header-logo">
-                    <img src="<?php echo $siteURL; ?>assets/img/SGG_logo.png" class="mobile-logo logo-1" alt="logo">
-                    <img src="<?php echo $siteURL; ?>assets/img/SGG_logo.png" class="mobile-logo dark-logo-1" alt="logo">
+                    <img src="<?php echo $siteURL; ?>assets/img/site_logo.png" class="mobile-logo logo-1" alt="logo">
+                    <img src="<?php echo $siteURL; ?>assets/img/site_logo.png" class="mobile-logo dark-logo-1" alt="logo">
                 </a>
             </div>
 
             <div class="logo-horizontal">
                 <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="header-logo">
-                    <img src="<?php echo $siteURL; ?>assets/img/SGG_logo.png" class="mobile-logo logo-1" alt="logo">
-                    <img src="<?php echo $siteURL; ?>assets/img/SGG_logo.png" class="mobile-logo dark-logo-1" alt="logo">
+                    <img src="<?php echo $siteURL; ?>assets/img/site_logo.png" class="mobile-logo logo-1" alt="logo">
+                    <img src="<?php echo $siteURL; ?>assets/img/site_logo.png" class="mobile-logo dark-logo-1" alt="logo">
                 </a>
             </div>
         </div>
@@ -322,6 +322,7 @@ $station = $_GET['station'];
 
 <!-- SIDEBAR JS -->
 <script src="<?php echo $siteURL;?>assets/js/form_js/sidemenu.js"></script>
+<script src="<?php echo $siteURL;?>assets/js/form_js/jquery-ui.js"></script>
 
 
 
