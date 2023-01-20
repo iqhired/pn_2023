@@ -43,7 +43,6 @@ if (count($_POST) > 0) {
                     mysqli_query($db, $sql12);
                 }
             }
-
             $_SESSION['message_stauts_class'] = 'alert-success';
             $_SESSION['import_status_message'] = 'Defect Group Created Sucessfully.';
         }else{
@@ -267,18 +266,22 @@ include("../admin_menu.php");
             </div>
         </div>
     </div>
-    <?php
-    if (!empty($import_status_message)) {
-        echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-    }
-    ?>
-    <?php
-    if (!empty($_SESSION['import_status_message'])) {
-        echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-        $_SESSION['message_stauts_class'] = '';
-        $_SESSION['import_status_message'] = '';
-    }
-    ?>
+    <div class="row-body">
+        <div class="col-lg-12 col-md-12">
+           <?php
+              if (!empty($import_status_message)) {
+                  echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+              }
+           ?>
+           <?php
+              if (!empty($_SESSION['import_status_message'])) {
+              echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+              $_SESSION['message_stauts_class'] = '';
+              $_SESSION['import_status_message'] = '';
+              }
+           ?>
+        </div>
+    </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
@@ -348,7 +351,7 @@ include("../admin_menu.php");
                         </div>
                         <div class="card-body pt-0">
                             <div class="table-responsive">
-                                <table class="table  table-bordered text-nowrap mb-0" id="example2" align="center" cellpadding="3" cellspacing="1">
+                                <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th><input type="checkbox" id="checkAll" ></th>
@@ -383,7 +386,7 @@ include("../admin_menu.php");
                                                 $station = $rowctemp["d_group_name"];
                                             }
                                             ?>
-                                            <td style="word-break: break-all;"><?php echo $rowc['description']; ?></td>
+                                            <td style="padding: 10px 15px;"><?php echo $rowc['description']; ?></td>
                                             <?php
                                             $i=0;
                                             $array_defList = '';
@@ -473,12 +476,12 @@ include("../admin_menu.php");
 </div>
 <!-- /page container -->
 
-<!--<script>
+<script>
     window.onload = function () {
-        history.replaceState("", "", "<?php /*echo $scriptName; */?>config_module/defect_group.php");
+        history.replaceState("", "", "<?php echo $scriptName; ?>config_module/defect_group.php");
     }
 
-</script>-->
+</script>
 <script>
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
