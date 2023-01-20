@@ -376,6 +376,30 @@ include("../admin_menu.php");
     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
+                 <?php if ($temp == "one") { ?>
+                    <div class="alert alert-success no-border">
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                        <span class="text-semibold">Job</span> Created Successfully.
+                    </div>
+                <?php } ?>
+                <?php if ($temp == "two") { ?>
+                    <div class="alert alert-success no-border">
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                        <span class="text-semibold">Job</span> Updated Successfully.
+                    </div>
+                <?php } ?>
+                <?php
+                if (!empty($import_status_message)) {
+                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                }
+                ?>
+                <?php
+                if (!empty($_SESSION['import_status_message'])) {
+                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+                    $_SESSION['message_stauts_class'] = '';
+                    $_SESSION['import_status_message'] = '';
+                }
+                ?>
 
                 <div class="card">
                     <div class="card-body">
@@ -522,7 +546,7 @@ include("../admin_menu.php");
 
 
 
-<form action="" method="post" class="form-horizontal">
+<form action="delete_accounts.php" method="post" class="form-horizontal">
     <div class="row-body">
         <div class="col-12 col-sm-12">
             <div class="card">
@@ -540,10 +564,11 @@ include("../admin_menu.php");
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>S.No</th>
+                                             <th>Action</th>
                                             <th>Account Name</th>
                                             <th>Account Type</th>
                                             <th>Account Status</th>
-                                            <th>Action</th>
+                                           
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -557,6 +582,20 @@ include("../admin_menu.php");
                                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
                                                                                 value="<?php echo $rowc["c_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?>
+                                                </td>
+                                                <td>
+                                                    <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn legitRipple"
+                                                            data-id="<?php echo $rowc['c_id']; ?>"
+                                                            data-cust_name="<?php echo $rowc['c_name']; ?>"
+                                                            data-cust_type="<?php echo $rowc['c_type']; ?>"
+                                                            data-customer_enabled="<?php echo $rowc['c_status']; ?>"
+                                                            data-cust_address="<?php echo $rowc['c_address']; ?>"
+                                                            data-cust_mobile="<?php echo $rowc['c_mobile']; ?>"
+                                                            data-cust_website="<?php echo $rowc['c_website']; ?>"
+                                                            data-cust_logo="<?php echo $rowc['logo']; ?>"
+                                                            data-toggle="modal" style="background-color:#1e73be;"
+                                                            data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i>
+                                                    </button>
                                                 </td>
                                                 <td><?php echo $rowc["c_name"]; ?>
                                                 </td>
@@ -581,20 +620,7 @@ include("../admin_menu.php");
 
                                                 <td><?php echo $c_status; ?>
                                                 </td>
-                                                <td>
-                                                    <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn legitRipple"
-                                                            data-id="<?php echo $rowc['c_id']; ?>"
-                                                            data-cust_name="<?php echo $rowc['c_name']; ?>"
-                                                            data-cust_type="<?php echo $rowc['c_type']; ?>"
-                                                            data-customer_enabled="<?php echo $rowc['c_status']; ?>"
-                                                            data-cust_address="<?php echo $rowc['c_address']; ?>"
-                                                            data-cust_mobile="<?php echo $rowc['c_mobile']; ?>"
-                                                            data-cust_website="<?php echo $rowc['c_website']; ?>"
-                                                            data-cust_logo="<?php echo $rowc['logo']; ?>"
-                                                            data-toggle="modal" style="background-color:#1e73be;"
-                                                            data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i>
-                                                    </button>
-                                                </td>
+                                                
                                             </tr>
                                         <?php } ?>
                                         </tbody>
