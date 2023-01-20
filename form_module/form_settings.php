@@ -476,7 +476,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                                     </div>
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
                                         <input id="file-input" type="file" name="image[]" class="form-control" multiple>
-                                        <div class="container"></div>
+                                        <div class="img_container"></div>
                                     </div>
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
@@ -712,7 +712,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                     </div>
                 </div>
             </div>
-            <!-- closing row -->
             <input type="hidden" id="collapse_id" value="1">
             <div class="query_rows">
 
@@ -968,11 +967,11 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
             success: function (response) {
 
                 if (response != 0) {
-                    var count = $('.container .content_img').length;
+                    var count = $('.img_container .content_img').length;
                     count = Number(count) + 1;
 
                     // Show image preview with Delete button
-                    $('.container').append("<div class='content_img' id='content_img_" + count + "' ><img src='" + response + "' width='100' height='100'><span class='delete' id='delete_" + count + "'>Delete</span></div>");
+                    $('.img_container').append("<div class='content_img' id='content_img_" + count + "' ><img src='" + response + "' width='100' height='100'><span class='delete' id='delete_" + count + "'>Delete</span></div>");
                 }
             }
         });
@@ -980,7 +979,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
 
 
     // Remove file
-    $('.container').on('click', '.content_img .delete', function () {
+    $('.img_container').on('click', '.content_img .delete', function () {
 
         var id = this.id;
         var split_id = id.split('_');
@@ -1007,7 +1006,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                     // $('#content_img_'+num)[0].remove();
                     var elem = document.getElementById(id);
                     document.getElementById(id).style.display = 'none';
-                    var nodes = $(".container")[2].childNodes;
+                    var nodes = $(".img_container")[2].childNodes;
                     for (var i = 0; i < nodes.length; i++) {
                         var node = nodes[i];
                         if (node.id == id) {
