@@ -354,7 +354,7 @@ include("../admin_menu.php");
                                                 <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["job_title_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
                                                  <td>
-                                                    <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn legitRipple""  data-id="<?php echo $rowc['job_title_id']; ?>" data-name="<?php echo $rowc['job_name']; ?>"  data-toggle="modal" data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i> </button>
+                                                    <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn legitRipple" data-id="<?php echo $rowc['job_title_id']; ?>" data-name="<?php echo $rowc['job_name']; ?>"  data-toggle="modal" data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i> </button>
                                                     <!--                                    &nbsp;
                                     -->
                                                 </td>
