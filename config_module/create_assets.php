@@ -447,7 +447,7 @@ if (!empty($_SESSION['import_status_message'])) {
                                                     <td><?php echo $rowc["tm_equipment_name"]; ?></td>
                                                     <td>
                                                        <button type="button" class="btn btn-primary btn-xs" data-popup="" title="Edit" id="edit1" data-id1="<?php echo $rowc['tm_equipment_id']; ?>" data-name1="<?php echo $rowc['tm_equipment_name']; ?>" data-toggle="modal"  data-target="#edit_modal_theme_primary1"><i class="fa fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="equipment" data-id="<?php echo $rowc['tm_equipment_id']; ?>"><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="equipment" data-id="<?php echo $rowc['tm_equipment_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
     <!--                                    
                                                 <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['tm_equipment_id']; ?>">Delete </button>
                                                         -->                                 
@@ -495,7 +495,7 @@ while ($rowc = mysqli_fetch_array($qur)) {
                                                     <td><?php echo $rowc["tm_property_name"]; ?></td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary btn-xs" data-popup="tooltip" title="Edit" id="edit3" data-id3="<?php echo $rowc['tm_property_id']; ?>" data-name3="<?php echo $rowc['tm_property_name']; ?>"  data-toggle="modal"  data-target="#edit_modal_theme_primary3"><i class="fa fa-edit"></i></button>
-                                                        <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="property" data-id="<?php echo $rowc['tm_property_id']; ?>"><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="property" data-id="<?php echo $rowc['tm_property_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
                                                         <!--                                    &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['line_id']; ?>">Delete </button>
                                                         -->                                 
                                                     </td>
@@ -542,7 +542,7 @@ while ($rowc = mysqli_fetch_array($qur)) {
                                                     <td><?php echo $rowc["tm_building_name"]; ?></td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary btn-xs"data-popup="tooltip" title="Edit" id="edit4" data-id4="<?php echo $rowc['tm_building_id']; ?>" data-name4="<?php echo $rowc['tm_building_name']; ?>" data-toggle="modal"  data-target="#edit_modal_theme_primary4"> <i class="fa fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="building" data-id="<?php echo $rowc['tm_building_id']; ?>"><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="building" data-id="<?php echo $rowc['tm_building_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
                                                         <!--                                    &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['line_id']; ?>">Delete </button>
                                                         -->                                 
                                                     </td>

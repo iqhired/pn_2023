@@ -494,12 +494,12 @@ include("../admin_menu.php");
                     <button type="submit" class="btn btn-danger  submit_btn"  onclick="submitForm('delete_dash.php')" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
                 </div>
 
-                <div class="card-body pt-0 example1-table">
+                <div class="card-body pt-0 ">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                    <table class="table  table-bordered " id="example2">
                                         <thead>
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
