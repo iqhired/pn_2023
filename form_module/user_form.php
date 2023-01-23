@@ -209,16 +209,19 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 40%;
+                width: 60%;
             }
             .col-md-6 {
                 width: 55%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 30%;
+                width: 65%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 11%;
+                width: 22%;
+            }
+            .col-lg-2\.5.mg-t-20.mg-lg-t-0 {
+                max-width: 80%!important;
             }
         }
 
@@ -243,16 +246,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 40%;
+                width: 60%;
             }
             .col-md-6 {
                 width: 55%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 30%;
+                width: 65%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 11%;
+                width: 22%;
             }
         }
 
@@ -277,16 +280,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 40%;
+                width: 60%;
             }
             .col-md-6 {
                 width: 55%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 30%;
+                width: 65%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 11%;
+                width: 22%;
             }
 
         }
@@ -312,16 +315,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 40%;
+                width: 60%;
             }
             .col-md-6 {
                 width: 55%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 30%;
+                width: 65%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 11%;
+                width: 22%;
             }
 
         }
@@ -336,9 +339,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
         .col-md-0\.5 {
             padding-top: 10px;
         }
-        .breadcrumb-header {
-            margin-left: 0px;
-        }
+
 
 
     </style>
