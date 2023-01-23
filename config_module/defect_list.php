@@ -360,7 +360,7 @@ include("../admin_menu.php");
                                 </button>
                             </h4>
                             <div class="col-md-3" style="margin-left: 45rem!important;">
-                                <select class="form-control select2" name="choose" id="choose"  required>
+                                <select class="form-control select2" name="choose" id="choose" data-placeholder="Select Action" required>
                                     <option value="" disabled selected>Select Action </option>
                                     <option value="1" >Add to Defect Group </option>
                                     <option value="2" >Remove from Defect Group </option>
