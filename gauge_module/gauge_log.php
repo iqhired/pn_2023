@@ -3,9 +3,9 @@ include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 if (!isset($_SESSION['user'])) {
-    if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
+    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
         header($redirect_tab_logout_path);
-    } else {
+    }else{
         header($redirect_logout_path);
     }
 }
@@ -19,26 +19,26 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     session_unset();
     //Destroy the session
     session_destroy();
-    if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
+    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
         header($redirect_tab_logout_path);
-    } else {
+    }else{
         header($redirect_logout_path);
     }
 
 //	header('location: ../logout.php');
     exit;
 }
+
+$is_tab_login = $_SESSION['is_tab_user'];
+$is_cell_login = $_SESSION['is_cell_login'];
+$station = $_GET['station'];
+$station_event_id =  $_GET['station_event_id'];
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1) {
+if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
     header('location: ../dashboard.php');
 }
-
-$idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
-|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i"
-    , $_SERVER["HTTP_USER_AGENT"]);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,9 +47,8 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Add / Create Form</title>
+        <?php echo $sitename; ?> |Gauge Log</title>
     <!-- Global stylesheets -->
-
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
 
@@ -107,7 +106,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -152,126 +151,129 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         .collapse.in {
             display: block!important;
         }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
 
     </style>
 </head>
+<body class="ltr main-body app horizontal">
 <?php
-$cust_cam_page_header = "View Line Asset";
+$cust_cam_page_header = "Gauge Log";
 include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
-<body>
+<!-- main-content -->
 <div class="main-content app-content">
-<div class="row">
-    <div class="col-md-12 col-lg-12 col-xl-10 col-sm-10">
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
-                <li class="breadcrumb-item active" aria-current="page">View assets</li>
-            </ol>
+    <!-- container -->
+    <div class="main-container container-fluid">
+
+        <!-- breadcrumb -->
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a>Gauge</li>
+                    <li class="breadcrumb-item active" aria-current="page">Gauge Log</li>
+                </ol>
+            </div>
         </div>
-    </div>
-        <?php
-        $id = $_GET['id'];
-        $querymain = sprintf("SELECT * FROM `submit_assets` where submit_id = '$id'");
-        $qurmain = mysqli_query($db, $querymain);
-        while ($rowcmain = mysqli_fetch_array($qurmain)) {
-        $asset_name = $rowcmain['asset_name'];
-        $line_id = $rowcmain['line_id'];
-        $created_date = $rowcmain['created_date'];
-        $created_by = $rowcmain['created_by'];
-        $notes = $rowcmain["notes"];
-        ?>
-        <div class="card">
-            <div class="card-body">
-                <?php
-                $qurtemp = mysqli_query($db, "SELECT * FROM cam_line where line_id = '$line_id' ");
-                $rowctemp = mysqli_fetch_array($qurtemp);
-                $line_name = $rowctemp["line_name"];
-                ?>
-                <div class="card-header">
-                    <div class="main-content-label mg-b-2">
-                       <center><?php echo $line_name; ?> - <?php echo $asset_name; ?></center>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Gauge Log</span>
                     </div>
-                </div>
-                <div class="pd-30 pd-sm-20">
-                    <div class="row row-xs align-items-center mg-b-20">
-                        <input type="hidden" name="form_user_data_id" id="form_user_data_id"
-                               value="<?php echo $id; ?>">
+                    <br/>
+                    <div class="card-body pt-0">
                         <?php
-                        $query1 = sprintf("SELECT asset_id,submit_id FROM  submit_assets where submit_id = '$id'");
-                        $qur1 = mysqli_query($db, $query1);
-                        $rowc1 = mysqli_fetch_array($qur1);
-                        $item_id = $rowc1['submit_id'];
+                        $result = "SELECT * FROM `guage_family_data` ORDER BY `guage_id` ASC";
+                        $qur = mysqli_query($db,$result); ?>
+                        <div class="table-responsive">
+                            <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                <thead>
+                                <tr>
+                                    <th>Sl. No</th>
+                                    <th>Action</th>
+                                    <th>Gauge Name</th>
+                                    <th>Gauge Length</th>
+                                    <th>Gauge Family</th>
+                                    <th>Created By</th>
+                                    <th>Created At</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                        $query2 = sprintf("SELECT * FROM  station_assets_images where station_asset_id = '$item_id' and image_type = 'S'");
+                                <?php
+                                while ($rowc = mysqli_fetch_array($qur)) {
+                                    $guage_id = $rowc['guage_id'];
+                                    $gauge_name = $rowc['gauge_name'];
+                                    $guage_length = $rowc['guage_length'];
+                                    $gauge_family = $rowc['gauge_family'];
+                                    $created_by = $rowc['created_by'];
+                                    $created_at = $rowc['created_at'];
+                                    $sql3 = "SELECT * FROM  guage_family where guage_family_id = '$gauge_family'";
+                                    $result3 = mysqli_query($db, $sql3);
+                                    $rowc3 = mysqli_fetch_array($result3);
+                                    $guage_family_name = $rowc3["guage_family_name"];
+                                    $sql4 = "SELECT * FROM  cam_users where users_id = '$created_by'";
+                                    $result4 = mysqli_query($db, $sql4);
+                                    $rowc4 = mysqli_fetch_array($result4);
+                                    $firstname = $rowc4["firstname"];
+                                    $lastname = $rowc4["lastname"];
+                                  ?>
+                                      <tr>
+                                            <td> <?php echo ++$counter; ?></td>
+                                           <td>
+                                                <a href="view_gauge.php?id=<?php echo $guage_id; ?>" class="btn btn-success btn-sm br-5 me-2"> <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i></a>
+                                                <a href="edit_gauge.php?id=<?php echo $guage_id; ?>" class="btn btn-success btn-sm br-5 me-2">
+                                                    <i>
+                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                    </i>
+                                                </a>
+                                            </td>
+                                            <td> <?php echo $gauge_name ?></td>
+                                            <td> <?php echo $guage_length ?></td>
+                                            <td> <?php echo $guage_family_name ?></td>
+                                            <td> <?php echo $firstname .''.$lastname  ?></td>
+                                            <td> <?php echo $created_at ?></td>
+                                    </tr>
 
-                        $qurimage = mysqli_query($db, $query2);
-                        while ($rowcimage = mysqli_fetch_array($qurimage)) {
-                            $image = $rowcimage['station_asset_image'];
-                            $mime_type = "image/gif";
-                            $file_content = file_get_contents("$image");
-                            ?>
-
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="thumbnail">
-                                    <div class="thumb">
-                                        <?php echo '<img src="data:image/gif;base64,' . $image . '" style="height:150px;width:250px;" />'; ?>
-                                        <div class="caption-overflow">
-                                                        <span>
-															<center><a href="<?php echo $image ?>"
-                                                               data-popup="lightbox" rel="gallery"
-                                                               class="btn border-white text-white btn-flat btn-icon btn-rounded">view</a></center>
-														</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-                    <div class="row row-xs align-items-center mg-b-20">
-                        <div class="col-md-4">
-                            <label class="form-label mg-b-0">Notes :</label>
-                        </div>
-                        <div class="col-md-8 mg-t-5 mg-md-t-0">
-                            <input type="text" name="notes" class="form-control pn_none" id="notes"
-                                   value="<?php echo $notes; ?>" disabled>
-                        </div>
-                    </div>
-                    <div class="row row-xs align-items-center mg-b-20">
-                        <div class="col-md-4">
-                            <label class="form-label mg-b-0">Submitted Time :</label>
-                        </div>
-                        <div class="col-md-8 mg-t-5 mg-md-t-0">
-                            <input type="text" name="createdby" class="form-control" id="createdby"
-                                   value="<?php echo $created_date; ?>" disabled>
-                        </div>
-                    </div>
-                    <div class="row row-xs align-items-center mg-b-20">
-                        <div class="col-md-4">
-                            <label class="form-label mg-b-0">Submitted User : </label>
-                        </div>
-                        <div class="col-md-8 mg-t-5 mg-md-t-0">
-                            <?php
-                            $user = "select firstname,lastname from cam_users where users_id = '$created_by' ";
-                            $row_user = mysqli_query($db,$user);
-                            $user_q = mysqli_fetch_array($row_user);
-                            $fname = $user_q['firstname'];
-                            $lname = $user_q['lastname'];
-                            ?>
-                            <input type="text" name="createdby" class="form-control" id="createdby"
-                                   value="<?php echo $fname." ".$lname; ?>" disabled>
+                                <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php } ?>
 </div>
-</div>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
 </html>
