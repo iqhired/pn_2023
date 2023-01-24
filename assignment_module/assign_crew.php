@@ -4,6 +4,11 @@ $temp = "";
 $message_stauts_class = 'alert-danger';
 $import_status_message = 'Error: Assignment Position Relation does not exist';
 $assign_line = $_GET['station'];
+
+$station = $_GET['station'];
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
+
 if (!isset($_SESSION['user'])) {
     header('location: logout.php');
 }
@@ -219,7 +224,7 @@ if ($ps != "") {
 </head>
 <!-- Main navbar -->
 <body class="ltr main-body app horizontal">
-<?php if (!empty($assign_line)){
+<?php if (!empty($station)){
     include("../cell-menu.php");
 }else{
     include("../header.php");

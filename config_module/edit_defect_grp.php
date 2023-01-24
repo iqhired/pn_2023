@@ -32,11 +32,11 @@ if (count($_POST) > 0) {
         $id = $_POST['edit_id'];
         $defects = $_POST['edit_defects'];
         $array_defects = '';
-        $sql12 = "delete from `sg_def_defgroup` where d_group_id = '$id'";
+        $sql12 = "delete from `sg_def_defgroup` where d_group_idd = '$id'";
         mysqli_query($db, $sql12);
         foreach ($defects as $defect) {
             if(isset($defect) && $defect != ''){
-                $sql12 = "INSERT INTO `sg_def_defgroup`(`defect_list_id`,`d_group_id`) VALUES ('$defect','$id')";
+                $sql12 = "INSERT INTO `sg_def_defgroup`(`defect_list_id`,`d_group_idd`) VALUES ('$defect','$id')";
                 mysqli_query($db, $sql12);
             }
         }
@@ -293,7 +293,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Defect Group Name:*   </label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                    <input type="text" name="edit_name" id="edit_name" value="<?php echo $description; ?>" class="form-control" required>
+                                    <input type="text" name="edit_name" id="edit_name" value="<?php echo $d_group_name; ?>" class="form-control" required>
                                     <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $id; ?>">
                                 </div>
                             </div>
@@ -304,7 +304,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Description : *</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                    <input type="text" name="edit_disc" id="edit_disc" value="<?php echo $d_group_name; ?>" class="form-control" required>
+                                    <input type="text" name="edit_disc" id="edit_disc" value="<?php echo $description; ?>" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -316,32 +316,28 @@ include("../admin_menu.php");
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
                                     <select name="edit_defects[]" id="edit_defects" class="form-control form-select select2"  multiple="multiple">
                                         <?php
-                                        $sql11 = "select defect_list_id from sg_def_defgroup where d_group_id = '$id'";
-                                        $result11 = $mysqli->query($sql11);
-                                        while ($rowc11 = $result11->fetch_assoc()) {
-                                            $defect_list_id = $rowc11["defect_list_id"];
-                                            $sql12 = "SELECT defect_list_id,defect_list_name FROM `defect_list` where defect_list_id = '$defect_list_id'";
-                                            $qur12 = mysqli_query($db, $sql12);
-                                            $rowc12 = mysqli_fetch_array($qur12);
-                                            if ($rowc12['defect_list_id']) {
+                                        $sql22 = "SELECT defect_list_id, defect_list_name FROM defect_list order by defect_list_name ASC";
+                                        $result22 = $mysqli->query($sql22);
+                                        $selected = "";
+                                        while ($row22 = $result22->fetch_assoc()) {
+                                            echo "<option id='" . $row22['defect_list_id'] . "' value='" . $row22['defect_list_id'] . "' >" . $row22['defect_list_name'] . "</option>";
+                                        }
+
+                                        ?>
+                                      <?php
+                                        $sql1 = "SELECT s.defect_list_id as defect_list_id,s.defect_list_name as defect_list_name,s1.d_group_idd as d_group_idd FROM `sg_def_defgroup` as s1 inner join sg_defect_group as s2 on d_group_idd = s2.d_group_id inner join defect_list as s on s1.defect_list_id = s.defect_list_id where d_group_idd = '$id' order by defect_list_name ASC;";
+                                        $result1 = $mysqli->query($sql1);
+                                        while ($row1 = $result1->fetch_assoc()) {
+                                            if ($row1['defect_list_id']) {
                                                 $selected = "selected";
                                             } else {
                                                 $selected = "";
                                             }
-                                            echo "<option id='" . $rowc12['defect_list_id'] . "'  value='" . $rowc12['defect_list_id'] . "' $selected>" . $rowc12['defect_list_name'] . "</option>";
+                                            echo "<option id='" . $row1['defect_list_id'] . "'  value='" . $row1['defect_list_id'] . "' $selected>" . $row1['defect_list_name'] . "</option>";
                                         }
+
                                         ?>
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Defects : *</label>
-                                </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                    <input type="text" name="edit_disc" id="edit_disc" class="form-control" required>
                                 </div>
                             </div>
                         </div>
