@@ -39,7 +39,7 @@ if (count($_POST) > 0) {
             $def_array = $_POST['defect_list'];
             foreach ($def_array as $defect){
                 if(isset($defect) && $defect != ''){
-                    $sql12 = "INSERT INTO `sg_def_defgroup`(`defect_list_id`,`d_group_id`) VALUES ('$defect','$last_id')";
+                    $sql12 = "INSERT INTO `sg_def_defgroup`(`defect_list_id`,`d_group_idd`) VALUES ('$defect','$last_id')";
                     mysqli_query($db, $sql12);
                 }
             }
@@ -244,7 +244,7 @@ if (count($_POST) > 0) {
 
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "Add / Create Form";
+$cust_cam_page_header = "Defect Group(s)";
 include("../header.php");
 include("../admin_menu.php");
 ?>
@@ -260,7 +260,7 @@ include("../admin_menu.php");
                     <div class="left-content">
                        <ol class="breadcrumb">
                          <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Config</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Defect Group</li>
+                         <li class="breadcrumb-item active" aria-current="page">Defect Group(s)</li>
                        </ol>
                     </div>
             </div>
@@ -288,7 +288,7 @@ include("../admin_menu.php");
                 <div class="card">
                     <div class="card-body">
                         <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Defect Group</span>
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Defect Group(s)</span>
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
@@ -327,7 +327,6 @@ include("../admin_menu.php");
                         </div>
                         <div class="card-body pt-0">
                             <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create Defect Group</button>
-                            <button type="clear" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -391,7 +390,7 @@ include("../admin_menu.php");
                                             $i=0;
                                             $array_defList = '';
                                             $array_defList_id = '';
-                                            $qurtemp = mysqli_query($db, "SELECT dl.defect_list_id as defect_list_id , dl.defect_list_name as defect_list_name FROM sg_defect_group as sdg inner join sg_def_defgroup as sdd on sdg.d_group_id = sdd.d_group_id inner join defect_list as dl on sdd.defect_list_id = dl.defect_list_id where sdg.d_group_id =  '$d_gid' ");
+                                            $qurtemp = mysqli_query($db, "SELECT dl.defect_list_id as defect_list_id , dl.defect_list_name as defect_list_name FROM sg_defect_group as sdg inner join sg_def_defgroup as sdd on sdg.d_group_id = sdd.d_group_idd inner join defect_list as dl on sdd.defect_list_id = dl.defect_list_id where sdg.d_group_id =  '$d_gid' ");
                                             while ($rowctemp = mysqli_fetch_array($qurtemp)) {
                                                 if($i==0){
                                                     $array_defList .= $rowctemp['defect_list_name'] ;
