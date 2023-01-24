@@ -17,7 +17,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     //Destroy the session
     session_destroy();
     header($redirect_logout_path);
-//	header('location: ../logout.php');
+//  header('location: ../logout.php');
     exit;
 }
 //Set the time of the user's last activity
@@ -50,80 +50,86 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $sitename; ?> |Add good piece</title>
+    <title>
+        <?php echo $sitename; ?> |Edit add good piece</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/libraries/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/libraries/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
     <!-- Theme JS files -->
     <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/app.js"></script>
     <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_select2.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
 
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
 
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
 
-    <!--scan the qrcode -->
 
     <style>
-        .sidebar-default .navigation li>a{color:#f5f5f5};
-        a:hover {
-            background-color: #20a9cc;
-        }
-        .sidebar-default .navigation li>a:focus, .sidebar-default .navigation li>a:hover {
-            background-color: #20a9cc;
-        }
-        .form-control:focus {
-            border-color: transparent transparent #1e73be !important;
-            -webkit-box-shadow: 0 1px 0 #1e73be;
-            box-shadow: 0 1px 0 #1e73be !important;
-        }
-        .form-control {
-            border-color: transparent transparent #1e73be;
-            border-radius: 0;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-sm-2 {
-                width: 10.66666667%;
-            }
-            .col-lg-2 {
-                width: 28%!important;
-                float: left;
-            }
-            .col-md-6 {
-                width: 60%;
-                float: left;
-            }
-            .col-lg-1 {
-                width: 12%;
-                float: right;
-            }
-        }
-        input[type="file"] {
-            display: block;
-        }
+        .navbar {
 
-        .container {
-            margin: 0 auto;
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
         }
 
         .content_img {
@@ -144,28 +150,111 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             text-align: center;
             color: red;
         }
-
-        .content_img span:hover {
-            cursor: pointer;
+        .remove_btn{
+            float: right;
         }
-        #results { padding:20px; border:1px solid; background:#ccc; }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
 
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
 
     </style>
 </head>
-<body onload="openScanner()">
+
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Add Good Piece";
-include("../header_folder.php");
+include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
-<!-- /main navbar -->
-<!-- Page container -->
-<div class="page-container">
-    <!-- Page content -->
-    <?php
+
+<!-----body-------->
+<body class="ltr main-body app sidebar-mini" onload="openScanner()">
+     
+    
+    
+
+<!-----main content----->
+<div class="main-content app-content">
+   
+     
+    <!---container--->
+    <!---breadcrumb--->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Good Piece</li>
+            </ol>
+        </div>
+    </div>
+     <?php
     $station_event_id = $_GET['station_event_id'];
     $bad_pieces_id = $_GET['bad_pieces_id'];
     $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' AND gbpd.bad_pieces_id = '$bad_pieces_id' order by gbpd.bad_pieces_id DESC");
@@ -176,50 +265,63 @@ include("../heading_banner.php");
         $bad_pieces_id = $result_good['bad_pieces_id'];
 
         ?>
-        <!-- Content area -->
-        <div class="content">
-            <!-- Main charts -->
-            <!-- Basic datatable -->
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Update Good Piece</h5><br/>
-                    <div class="row">
-                        <div class="col-md-12" id="goodpiece">
-                            <form action="create_good_bad_piece.php" id="asset_update" enctype="multipart/form-data"
-                                  class="form-horizontal" method="post">
+    
 
-                                <input type="hidden" name="station_event_id" id="station_event_id" class="form-control"
-                                       value="<?php echo $station_event_id; ?>" >
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Good Pieces * : : </label>
-                                    <div class="col-md-6">
-                                        <input type="number" name="editgood_name" min="1" id="editgood_name" class="form-control" placeholder="Enter Pieces..." value="<?php echo $good_pieces; ?>" required>
-                                    </div>
+    <form action="create_good_bad_piece.php" id="asset_update"  enctype="multipart/form-data" class="form-horizontal" method="post">
+        <input type="hidden" name="station_event_id" id="station_event_id" class="form-control" value="<?php echo $station_event_id; ?>" >
+
+       
+       
+        <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Update Good Piece</span>
+                        </div>
+                         
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Good Pieces :</label>
                                 </div>
-                                <br/>
-
-                                <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $good_bad_pieces_id; ?>">
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <input type="number" name="editgood_name" min="1" id="editgood_name" class="form-control" placeholder="Enter Pieces..." value="<?php echo $good_pieces; ?>" required>
+                                </div>
+                            </div>
+                            <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $good_bad_pieces_id; ?>">
                                 <input type="hidden" name="edit_gbid" id="edit_gbid" value="<?php echo $result_good['bad_pieces_id']; ?>">
                                 <input type="hidden" name="edit_seid" id="edit_seid" value="<?php echo $station_event_id; ?>">
                                 <input type="hidden" name="good_bad_piece_id" id="good_bad_piece_id" value="<?php echo $good_bad_pieces_id; ?>">
 
-                                <hr/>
-
                         </div>
-                    </div>
-                </div>
+                       
+                         <div class="card-body pt-0">
+                                    <button type="submit"  id="form_submit_btn" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
+
+                                </div> 
+
+                            </div> 
+
+                        </div> 
 
 
-                <div class="panel-footer p_footer">
-                    <button type="submit" id="form_submit_btn" class="btn btn-primary submit_btn"
-                            style="background-color:#1e73be;">Submit
-                    </button>
+                    </form>
+                    <?php } ?>
+
+
+
                 </div>
-                </form>
+               
             </div>
-        </div>
-    <?php } ?>
+
+
+           
 </div>
+
 
 <script>
     $(document).ready(function () {
@@ -233,7 +335,9 @@ include("../heading_banner.php");
         history.replaceState("", "", "<?php echo $scriptName; ?>events_module/edit_good_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id; ?>");
     }
 </script>
-<?php include ('../footer.php') ?>
+<?php include ('../footer1.php') ?>
+
 </body>
-</html>
+
+
 

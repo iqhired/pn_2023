@@ -26,6 +26,10 @@ while ($row2 = $result2->fetch_assoc()) {
     $result3 = mysqli_query($db, $sql3);
     $rowc3 = mysqli_fetch_array($result3);
     $guage_family_name = $rowc3["guage_family_name"];
+    $sql4 = "SELECT * FROM  cam_users where users_id = '$created_by'";
+    $result4 = mysqli_query($db, $sql4);
+    $rowc4 = mysqli_fetch_array($result4);
+    $fullname = $rowc4["firstname"] .''.$rowc4["lastname"];
 
     $date = date( "Y-m-d", strtotime( "$calibration_validity -1 day" ) );
     if ($chicagodate == $date) {
@@ -54,8 +58,8 @@ while ($row2 = $result2->fetch_assoc()) {
         $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
         $structure .= "<br/><br/>";
         $structure .= '<br/><table rules="all" style="border-color: #666;" border="1" cellpadding="10">';
-        $structure .= "<tr style='background: #eee;'><td><strong>Gauge Name</strong></td><td><strong>Gauge Length</strong></td><td><strong>Gauge Start Date</strong></td><td><strong>Gauge Calibration Date</strong></td><td><strong>Gauge Calibration Validity</strong></td><td><strong>Gauge Family</strong></td><td><strong>Location</strong></td><td><strong>Created By</strong></td><td><strong>Created Date</strong></td></tr>";
-        $structure .= "<tr><td>" . $gauge_name . "</td><td>" . $guage_length . "</td><td>" . $guage_start_date . "</td><td>" . $calibration_date . "</td><td>". $calibration_validity . "</td><td>" . $guage_family_name . "</td><td>" . $location . "</td><td>" . $created_by . "</td><td>" . $created_at . "</td></tr>";
+        $structure .= "<tr style='background: #eee;'><td><strong>Gauge Name</strong></td><td><strong>Gauge Length</strong></td><td><strong>Gauge Calibration Date</strong></td><td><strong>Gauge Start Date</strong></td><td><strong>Gauge Calibration Validity Date</strong></td><td><strong>Gauge Family</strong></td><td><strong>Location</strong></td><td><strong>Created By</strong></td></tr>";
+        $structure .= "<tr><td>" . $gauge_name . "</td><td>" . $guage_length . "</td><td>" . onlydateReadFormat($calibration_date) . "</td><td>" . onlydateReadFormat($guage_start_date) . "</td><td>" . onlydateReadFormat($calibration_validity ) . "</td><td>" . $guage_family_name . "</td><td>" . $location . "</td><td>" . $fullname . "</td></tr>";
         $structure .= "</table>";
         $structure .= "<br/><br/>";
         $structure .= "- " . $signature;

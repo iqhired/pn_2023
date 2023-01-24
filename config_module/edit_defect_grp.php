@@ -32,11 +32,11 @@ if (count($_POST) > 0) {
         $id = $_POST['edit_id'];
         $defects = $_POST['edit_defects'];
         $array_defects = '';
-        $sql12 = "delete from `sg_def_defgroup` where d_group_idd = '$id'";
+        $sql12 = "delete from `sg_def_defgroup` where d_group_id = '$id'";
         mysqli_query($db, $sql12);
         foreach ($defects as $defect) {
             if(isset($defect) && $defect != ''){
-                $sql12 = "INSERT INTO `sg_def_defgroup`(`defect_list_id`,`d_group_idd`) VALUES ('$defect','$id')";
+                $sql12 = "INSERT INTO `sg_def_defgroup`(`defect_list_id`,`d_group_id`) VALUES ('$defect','$id')";
                 mysqli_query($db, $sql12);
             }
         }
@@ -325,7 +325,7 @@ include("../admin_menu.php");
 
                                         ?>
                                       <?php
-                                        $sql1 = "SELECT s.defect_list_id as defect_list_id,s.defect_list_name as defect_list_name,s1.d_group_idd as d_group_idd FROM `sg_def_defgroup` as s1 inner join sg_defect_group as s2 on d_group_idd = s2.d_group_id inner join defect_list as s on s1.defect_list_id = s.defect_list_id where d_group_idd = '$id' order by defect_list_name ASC;";
+                                        $sql1 = "SELECT s.defect_list_id as defect_list_id,s.defect_list_name as defect_list_name,s1.d_group_id as d_group_id FROM `sg_def_defgroup` as s1 inner join sg_defect_group as s2 on s1.d_group_id = s2.d_group_id inner join defect_list as s on s1.defect_list_id = s.defect_list_id where s1.d_group_id = '$id' order by defect_list_name ASC";
                                         $result1 = $mysqli->query($sql1);
                                         while ($row1 = $result1->fetch_assoc()) {
                                             if ($row1['defect_list_id']) {

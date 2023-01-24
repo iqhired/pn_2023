@@ -17,7 +17,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     //Destroy the session
     session_destroy();
     header($redirect_logout_path);
-//	header('location: ../logout.php');
+//  header('location: ../logout.php');
     exit;
 }
 //Set the time of the user's last activity
@@ -39,158 +39,217 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 |fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i"
     , $_SERVER["HTTP_USER_AGENT"]);
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <?php echo $sitename; ?> |Update Bad piece</title>
+    <!-- Global stylesheets -->
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta http-equiv="Pragma" content="no-cache" />
-        <meta http-equiv="Expires" content="0" />
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php echo $sitename; ?> |update Bad piece</title>
-        <!-- Global stylesheets -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-        <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
-        <!-- /global stylesheets -->
-        <!-- Core JS files -->
-        <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-        <script type="text/javascript" src="../assets/js/core/libraries/jquery.min.js"></script>
-        <script type="text/javascript" src="../assets/js/core/libraries/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-        <!-- /core JS files -->
-        <!-- Theme JS files -->
-        <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-        <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="../assets/js/core/app.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/form_select2.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
 
 
-        <!--scan the qrcode -->
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
 
-        <style>
-            .sidebar-default .navigation li>a{color:#f5f5f5};
-            a:hover {
-                background-color: #20a9cc;
-            }
-            .sidebar-default .navigation li>a:focus, .sidebar-default .navigation li>a:hover {
-                background-color: #20a9cc;
-            }
-            .form-control:focus {
-                border-color: transparent transparent #1e73be !important;
-                -webkit-box-shadow: 0 1px 0 #1e73be;
-                box-shadow: 0 1px 0 #1e73be !important;
-            }
-            .form-control {
-                border-color: transparent transparent #1e73be;
-                border-radius: 0;
-                -webkit-box-shadow: none;
-                box-shadow: none;
-            }  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-                .col-sm-2 {
-                    width: 10.66666667%;
-                }
-                .col-lg-2 {
-                    width: 28%!important;
-                    float: left;
-                }
-                .col-md-6 {
-                    width: 60%;
-                    float: left;
-                }
-                .col-lg-1 {
-                    width: 12%;
-                    float: right;
-                }
-            }
-            input[type="file"] {
-                display: block;
-            }
-
-            .container {
-                margin: 0 auto;
-            }
-
-            .content_img {
-                width: 113px;
-                float: left;
-                margin-right: 5px;
-                border: 1px solid gray;
-                border-radius: 3px;
-                padding: 5px;
-                margin-top: 10px;
-            }
-
-            /* Delete */
-            .content_img span {
-                border: 2px solid red;
-                display: inline-block;
-                width: 99%;
-                text-align: center;
-                color: red;
-            }
-
-            .content_img span:hover {
-                cursor: pointer;
-            }
-            #results { padding:20px; border:1px solid; background:#ccc; }
-
-            input[type="file"] {
-                display: block;
-            }
-            .imageThumb {
-                max-height: 100px;
-                border: 2px solid;
-                padding: 1px;
-                cursor: pointer;
-            }
-            .pip {
-                display: inline-block;
-                margin: 10px 10px 0 0;
-            }
-            .remove {
-                display: block;
-                background: #444;
-                border: 1px solid black;
-                color: white;
-                text-align: center;
-                cursor: pointer;
-            }
-            .remove:hover {
-                background: white;
-                color: black;
-            }
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
 
 
-        </style>
-    </head>
-    <body onload="openScanner()">
-    <!-- Main navbar -->
-    <?php
-    $cust_cam_page_header = "Update Bad Piece";
-    include("../header_folder.php");
-    include("../admin_menu.php");
-    include("../heading_banner.php");
-    ?>
-    <!-- /main navbar -->
-    <!-- Page container -->
-    <div class="page-container">
-        <!-- Page content -->
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+
+
+    <style>
+        .navbar {
+
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+
+    </style>
+</head>
+
+<!-- Main navbar -->
+<?php
+$cust_cam_page_header = "Update Bad Piece";
+include("../header.php");
+include("../admin_menu.php");
+?>
+
+<body class="ltr main-body app sidebar-mini" onload="openScanner()">
+    <div class="main-content app-content">
+   
+     
+    <!---container--->
+    <!---breadcrumb--->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Good Bad Piece</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Update Bad Piece</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Page content -->
         <?php
         $station_event_id = $_GET['station_event_id'];
         $bad_pieces_id = $_GET['bad_pieces_id'];
@@ -204,43 +263,50 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             $bad_pieces = $result_good['bad_pieces'];
 
             ?>
-            <!-- Content area -->
-            <div class="content">
-                <!-- Main charts -->
-                <!-- Basic datatable -->
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h5 class="panel-title">Update Bad Piece</h5><br/>
-                        <div class="row">
-                            <div class="col-md-12" id="goodpiece">
-                                <form action="create_good_bad_piece.php" id="asset_update" enctype="multipart/form-data"
-                                      class="form-horizontal" method="post">
 
-                                    <input type="hidden" name="station_event_id" id="station_event_id" class="form-control"
-                                           value="<?php echo $station_event_id; ?>" >
-                                    <input type="hidden" name="bad_pieces_id" id="bad_pieces_id" class="form-control"
-                                           value="<?php echo $bad_pieces_id; ?>" >
+    <form action="create_good_bad_piece.php" id="asset_update"  enctype="multipart/form-data" class="form-horizontal" method="post">
+        <input type="hidden" name="station_event_id" id="station_event_id" class="form-control" value="<?php echo $station_event_id; ?>" >
+        <input type="hidden" name="bad_pieces_id" id="bad_pieces_id" class="form-control" value="<?php echo $bad_pieces_id; ?>" >
+        
 
-                                    <div class="row" id="badpiece">
-                                        <div class="form-group">
-                                                <label class="col-lg-2 control-label">Defect Name * : </label>
-                                                <div class="col-md-6">
-                                                    <input type="text" name="editdefect_name" id="editdefect_name" class="form-control" value="<?php echo $defect_name; ?>"  required readonly>
-                                                </div>
-                                            </div>
-                                    </div>
+        <div class="row-body" >
+            <div class="col-lg-12 col-md-12">
+                
+                <div class="card">
+                    <div class="card-body">
+                         <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Update Bad Piece</span>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs" id="badpiece">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Defect Name:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                      <input type="text" name="editdefect_name" id="editdefect_name" class="form-control" value="<?php echo $defect_name; ?>"  required readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                                    <div class="row"  id="badpiece1">
-                                        <label class="col-lg-2 control-label">Bad Pieces * : : </label>
-                                        <div class="col-md-6">
-                                            <input type="number" name="editbad_name" min="1" id="editbad_name" class="form-control" placeholder="Enter Pieces..." value="<?php echo $bad_pieces; ?>" >
-                                        </div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <label class="col-lg-2 control-label">Image : </label>
-                                        <div class="col-md-6">
-                                            <?php if(($idd == 0)){?>
+
+                         <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs" id="badpiece1">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Bad Pieces:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <input type="number" name="editbad_name" min="1" id="editbad_name" class="form-control" placeholder="Enter Pieces..." value="<?php echo $bad_pieces; ?>" >
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Image:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <?php if(($idd == 0)){?>
                                                 <div id="my_camera"></div>
                                                 <br/>
                                                 <input type=button class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot(<?php /*echo $bad_pieces_id; */?>)">
@@ -254,19 +320,26 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                             <!--                                            <input type="file" name="edit_image[]" id="file-input" accept="image/*;capture=camera" capture="environment"  multiple="multiple" value="Take Snapshot" style="display: none">-->
                                             <div class="container"></div>
                                           <?php } ?>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="display: none">
-                                        <label class="col-lg-2 control-label">Captured Image : </label>
-                                        <div class="col-md-6">
-                                            <div id="results"></div>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <label class="col-lg-2 control-label">Previous Image : </label>
-                                        <div class="col-md-6">
-                                            <?php
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="display: none">
+                                <label class="col-lg-2 control-label">Captured Image : </label>
+                                <div class="col-md-6">
+                                    <div id="results"></div>
+                                </div>
+                            </div>
+
+
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Previous Image:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <?php
                                             $time_stamp = $_SESSION['good_timestamp_id'];
                                             if(!empty($time_stamp)){
                                                 $query2 = sprintf("SELECT * FROM good_piece_images where bad_piece_id = '$bad_pieces_id'");
@@ -281,49 +354,51 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                                     $r_tag = "remove_image_" . $i;
                                                     ?>
 
-                                                    <div class="col-lg-3 col-sm-6">
-                                                        <div class="thumbnail">
-                                                            <div class="thumb">
-                                                                <?php echo '<img src="data:image/jpeg;base64,' . $image . '" style="height:50px;width:150px;border: 1px solid #555;" alt=""/>'; ?>
+                                    <div class="container"></div>
+                                    
+
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div class="thumbnail">
+                                                    <div class="thumb">
+                                                        <?php echo '<img src="data:image/jpeg;base64,' . $image . '" style="height:50px;width:150px;border: 1px solid #555;" alt=""/>'; ?>
                                                                 <input type="hidden"  id="<?php echo $d_tag; ?>" name="<?php echo $d_tag; ?>" class="<?php echo $d_tag; ?> >" value="<?php echo $rowcimage['good_image_id']; ?>">
                                                                 <span class="remove remove_image" id="<?php echo $r_tag; ?>">Remove Image </span>
-                                                            </div>
-                                                        </div>
                                                     </div>
-                                                    <?php
-                                                    $i++;}
-                                            }
-                                            ?>
-                                        </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            $i++;}
+                                    }
+                                    ?>
+
                                     </div>
-                                    <br/>
-
-
-                                    <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $good_bad_pieces_id; ?>">
+                            </div>
+                        </div>
+                        <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $good_bad_pieces_id; ?>">
                                     <input type="hidden" name="edit_gbid" id="edit_gbid" value="<?php echo $result_good['bad_pieces_id']; ?>">
                                     <input type="hidden" name="edit_seid" id="edit_seid" value="<?php echo $station_event_id; ?>">
                                     <input type="hidden" name="good_bad_piece_id" id="good_bad_piece_id" value="<?php echo $good_bad_pieces_id; ?>">
 
-                                    <hr/>
+                        <div class="card-body pt-0">
+                             
+                <?php if(($idddd != 0) && ($printenabled == 1)){?>
+                    <iframe height="100" id="resultFrame" style="display: none;" src="./pp.php"></iframe>
+                <?php }?>
+                                    <button type="submit"  id="submitForm_bad" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
 
-                            </div>
-                        </div>
                     </div>
 
 
-                    <div class="panel-footer p_footer">
-                        <button type="submit" id="form_submit_btn" class="btn btn-primary submit_btn"
-                                style="background-color:#1e73be;">Submit
-                        </button>
-                    </div>
-                    </form>
+
+                  </div>
                 </div>
             </div>
-        <?php } ?>
-    </div>
+        </div>
+    </form>
+      <?php } ?>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+</div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <script>
         Webcam.set({
             width: 290,
@@ -426,8 +501,10 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         }
     </script>
 
-    <?php include ('../footer.php') ?>
-    </body>
-    </html>
+    <?php include ('../footer1.php') ?>
 
-<?php
+</body>
+</html>
+
+
+
