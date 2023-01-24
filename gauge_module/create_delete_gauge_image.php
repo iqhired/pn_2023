@@ -28,7 +28,7 @@ if ($request == 1) {
         $f_name =  $a_timestamp.'_'.$fname;
         $destination = $location.$a_timestamp.'/'.$f_name;
         if (move_uploaded_file($file_tmp, $destination)) {
-            $sql = "INSERT INTO `gauge_images`(`gauge_image_name`,`gauge_id`,`created_at`) VALUES ('$filename','$a_timestamp','$created_by')";
+            $sql = "INSERT INTO `gauge_images`(`gauge_image_name`,`gauge_id`,`created_at`) VALUES ('$f_name','$a_timestamp','$created_by')";
             $result1 = mysqli_query($db, $sql);
             if ($result1) {
                 echo $destination;
