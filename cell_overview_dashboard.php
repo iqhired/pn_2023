@@ -648,7 +648,7 @@ include("admin_menu.php");
 </div>
 <script>
     function cellDB(cell_id,c_name,station) {
-        window.open("<?php echo $siteURL . "config_module/station_wise_dashboard.php?cell_id=" ; ?>" + cell_id + "<?php echo "&c_name=" ; ?>" + c_name + "<?php echo "&station=" ; ?>" + station)
+        window.open("<?php echo $siteURL . "float_menu.php?cell_id=" ; ?>" + cell_id + "<?php echo "&c_name=" ; ?>" + c_name + "<?php echo "&station=" ; ?>" + station)
     }
 
 </script>
