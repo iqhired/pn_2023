@@ -48,13 +48,13 @@ while ($row2 = $result2->fetch_assoc()) {
             $group = explode(',', $rowc22["teams"]);
             $arrusrs = explode(',', $rowc22["users"]);
         }
-        $message = 'Tomorrow gauge calibration validity expired please renew gauge calibration..';
+        $message = 'Gauge calibration validity expiring..';
         $message .= '<br/><br/>';
-        $message .= 'Please check below gauge details';
+        $message .= 'Please check gauge details below';
         $signature = 'Admin plantnavigator';
         $cnt = count($arrusrs);
         $structure = '<html><body>';
-        $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > Hello,</span><br/><br/>";
+        $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > Hii team,</span><br/><br/>";
         $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
         $structure .= "<br/><br/>";
         $structure .= '<br/><table rules="all" style="border-color: #666;" border="1" cellpadding="10">';
