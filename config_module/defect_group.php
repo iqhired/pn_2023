@@ -39,7 +39,7 @@ if (count($_POST) > 0) {
             $def_array = $_POST['defect_list'];
             foreach ($def_array as $defect){
                 if(isset($defect) && $defect != ''){
-                    $sql12 = "INSERT INTO `sg_def_defgroup`(`defect_list_id`,`d_group_idd`) VALUES ('$defect','$last_id')";
+                    $sql12 = "INSERT INTO `sg_def_defgroup`(`defect_list_id`,`d_group_id`) VALUES ('$defect','$last_id')";
                     mysqli_query($db, $sql12);
                 }
             }
@@ -390,7 +390,7 @@ include("../admin_menu.php");
                                             $i=0;
                                             $array_defList = '';
                                             $array_defList_id = '';
-                                            $qurtemp = mysqli_query($db, "SELECT dl.defect_list_id as defect_list_id , dl.defect_list_name as defect_list_name FROM sg_defect_group as sdg inner join sg_def_defgroup as sdd on sdg.d_group_id = sdd.d_group_idd inner join defect_list as dl on sdd.defect_list_id = dl.defect_list_id where sdg.d_group_id =  '$d_gid' ");
+                                            $qurtemp = mysqli_query($db, "SELECT dl.defect_list_id as defect_list_id , dl.defect_list_name as defect_list_name FROM sg_defect_group as sdg inner join sg_def_defgroup as sdd on sdg.d_group_id = sdd.d_group_id inner join defect_list as dl on sdd.defect_list_id = dl.defect_list_id where sdg.d_group_id =  '$d_gid' ");
                                             while ($rowctemp = mysqli_fetch_array($qurtemp)) {
                                                 if($i==0){
                                                     $array_defList .= $rowctemp['defect_list_name'] ;
