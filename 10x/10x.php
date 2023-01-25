@@ -373,6 +373,19 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         ?>
             </div>
         </div>
+        <?php
+        $st = $_REQUEST['station'];
+        //$st_dashboard = base64_decode(urldecode($st));
+        $sql1 = "SELECT * FROM `cam_line` where line_id = '$st'";
+        $result1 = $mysqli->query($sql1);
+        //                                            $entry = 'selected';
+        while ($row1 = $result1->fetch_assoc()) {
+            $line_name = $row1['line_name'];
+            $line_no = $row1['line_id'];
+
+
+        }
+        ?>
         <form action="10x_backend.php" id="10x_setting" enctype="multipart/form-data"
               class="form-horizontal" method="post">
             <div class="row row-sm">
@@ -392,7 +405,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                         <input type="hidden" name="customer_account_id" value="<?php echo $account_id ?>">
                                         <input type="hidden" name="station" value="<?php echo $st; ?>">
                                         <input type="hidden" name="line_number" value="<?php echo $line_no; ?>">
-                                        <input type="text" name="line_number1" id="line_number"
+                                        <input type="text" name="line_number1" style="pointer-events: none;" id="line_number"
                                                value="<?php echo $line_name ?>" class="form-control"
                                                placeholder="Enter Line Number">
                                     </div>
@@ -403,7 +416,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     </div>
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
                                             <input type="hidden" name="part_number" value="<?php echo $part_number; ?>">
-                                            <input type="text" name="part_number1" id="part_number"
+                                            <input type="text" name="part_number1" id="part_number" style="pointer-events: none;"
                                                    value="<?php echo $pm_part_number; ?>" class="form-control"
                                                    placeholder="Enter Part Number">
                                     </div>
@@ -414,7 +427,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     </div>
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
                                         <input type="hidden" name="part_family" value="<?php echo $part_family; ?>">
-                                        <input type="text" name="part_family1" id="part_family"
+                                        <input type="text" name="part_family1" id="part_family" style="pointer-events: none;"
                                                value="<?php echo $pm_part_family_name; ?>" class="form-control"
                                                placeholder="Enter Part Family">
                                     </div>
@@ -424,7 +437,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                         <label class="form-label mg-b-0">Part Name : </label>
                                     </div>
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                        <input type="text" name="part_name" id="part_name"
+                                        <input type="text" name="part_name" id="part_name" style="pointer-events: none;"
                                                value="<?php echo $pm_part_name; ?>" class="form-control"
                                                placeholder="Enter Part Name">
                                     </div>
