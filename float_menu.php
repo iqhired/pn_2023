@@ -123,7 +123,7 @@ while ($rowc = mysqli_fetch_array($qur)) {
                             </a>
                         </div>
                     <div class="col-md-3">
-                            <a href="<?php echo $siteURL; ?>events_module/station_events.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&line=<?php echo $line; ?>&part_family=<?php echo $pf_no; ?>&part_number=<?php echo $p_no; ?>">
+                            <a href="<?php echo $siteURL; ?>events_module/station_events.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&line=<?php echo $line; ?>&part_family=<?php echo $pf_no; ?>&part_number=<?php echo $p_num; ?>">
                                 <button type="button" class="btn mb-2 mb-md-0 btn-primary btn-block">Add / Update Events </button>
                             </a>
                         </div>
@@ -226,7 +226,7 @@ while ($rowc = mysqli_fetch_array($qur)) {
                            </a>
                        </div>
                        <div class="col-md-3">
-                           <a href="<?php echo $siteURL; ?>events_module/station_events.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&line=<?php echo $line; ?>&part_family=<?php echo $pf_no; ?>&part_number=<?php echo $p_no; ?>">
+                           <a href="<?php echo $siteURL; ?>events_module/station_events.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&line=<?php echo $line; ?>&part_family=<?php echo $pf_no; ?>&part_number=<?php echo $p_num; ?>">
                                <button type="button" class="btn mb-2 mb-md-0 btn-primary btn-block">Add / Update Events </button>
                            </a>
                        </div>
