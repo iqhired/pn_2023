@@ -89,9 +89,7 @@
         .main-header-right {
     display: none;
 }
-.card.custom-card {
-    width: 390px;
-}
+
  .main-content .container, .main-content .container-fluid {
                 padding-left: 0!important;
                 padding-right: 0!important;
@@ -184,9 +182,7 @@
 .main-header-right {
     display: none;
 }
-.card.custom-card {
-    width: 390px;
-}
+
  .main-content .container, .main-content .container-fluid {
                 padding-left: 0!important;
                 padding-right: 0!important;
