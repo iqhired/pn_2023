@@ -32,13 +32,10 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
 $i = $_SESSION["role_id"];
-//if ($i != "super" && $i != "admin") {
-//	header('location: ../line_status_overview_dashboard.php');
-//}
-$station_id = null;
-$event_line = $_GET['station'];
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
+$station_id = null;
+$event_line = $_GET['line'];
 $user_id = $_SESSION["id"];
 $chicagotime = date("Y-m-d H:i:s");
 if (count($_POST) > 0) {
@@ -199,6 +196,7 @@ if (count($_POST) > 0) {
 }else{
     $station_id = $event_line;
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -629,11 +627,11 @@ if (count($_POST) > 0) {
                                             if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                 $part_number = $_REQUEST['part_number'];
                                             }
-                                            $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                            $sql1 = "SELECT * FROM `pm_part_number` where part_number = '$part_number' and is_deleted != 1  ORDER BY `part_name` ASC";
                                             $result1 = $mysqli->query($sql1);
                                             //                                            $entry = 'selected';
                                             while ($row1 = $result1->fetch_assoc()) {
-                                                if ($part_number == $row1['pm_part_number_id']) {
+                                                if ($part_number == $row1['part_number']) {
                                                     $entry = 'selected';
                                                 } else {
                                                     $entry = '';
@@ -649,15 +647,18 @@ if (count($_POST) > 0) {
                                             <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
                                                 <option value="" selected disabled>--- Select Part Number ---</option>
                                                 <?php
-                                                $part_number = $_POST['part_number'];
+                                                if(empty($station)){
+                                                    $station = $station_id;
+                                                }
+                                                $part_number = $_GET['part_number'];
                                                 if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                     $part_number = $_REQUEST['part_number'];
                                                 }
-                                                $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                $sql1 = "SELECT * FROM `pm_part_number` where part_number = '$part_number' and is_deleted != 1  ORDER BY `part_name` ASC";
                                                 $result1 = $mysqli->query($sql1);
                                                 //                                            $entry = 'selected';
                                                 while ($row1 = $result1->fetch_assoc()) {
-                                                    if ($part_number == $row1['pm_part_number_id']) {
+                                                    if ($part_number == $row1['part_number']) {
                                                         $entry = 'selected';
                                                     } else {
                                                         $entry = '';

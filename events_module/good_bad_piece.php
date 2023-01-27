@@ -342,8 +342,8 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         }
         .img-circle {
             border-radius: 50%;
-            height: 32vh;
-            width: 42vh;
+            height: 50vh;
+            /*width: 42vh;*/
             background-color: #fff;
         }
         .widget-user-graph {
@@ -353,7 +353,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
             top: 2px;
         }
         .card .card{
-            height: 245px;
+            height: 290px;
         }
         .circle-icon {
             border-radius: 0px;
@@ -385,7 +385,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         }
         .text-center {
             text-align: center!important;
-            font-size: 15px;
+            font-size: x-large;
         }
         .bg-primary-gradient,.bg-success,.bg-danger-gradient,.bg-warning-gradient{
             height: 92px;
@@ -448,6 +448,13 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                             <div class="widget-user-image">
                                 <img  src="../supplier_logo/<?php if($logo != ""){ echo $logo; }else{ echo "user.png"; } ?>" class="brround" alt="User Avatar">
                             </div>
+                            <hr/>
+                            <div class="widget-user-header br-te-5  br-ts-5  bg-primary">
+                                <h5>Target Pieces - <?php echo $target_eff; ?></h5>
+                                <h5>Actual Pieces - <?php echo $actual_eff; ?></h5>
+                                <h5>Efficiency - <?php echo $eff; ?>%</h5>
+                                <br/>
+                            </div>
 
                         </div>
                     </div>
@@ -459,18 +466,9 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                         <h4 class="card-title mb-1 text-white">Current Staff Efficiency</h4>
                     </div>
                     <div class="card-body pt-0">
-                        <div class="card user-wideget user-wideget-widget widget-user">
-                            <div class="widget-user-header br-te-5  br-ts-5  bg-primary">
-                                <h6>Target Pieces - <?php echo $target_eff; ?></h6>
-                                <h6>Actual Pieces - <?php echo $actual_eff; ?></h6>
-                                <h6>Efficiency - <?php echo $eff; ?>%</h6>
-                            </div>
-                            <div class="widget-user-graph">
-                                <div id="eff_container" class="img-circle"></div>
-                            </div>
-
-                        </div>
+                        <div id="eff_container" class="img-circle"></div>
                     </div>
+
                 </div>
             </div>
             <!-- row -->
@@ -592,10 +590,10 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                     </span>
                         </div>
                         <div class="input-group mb-2">
-                            <a class="form-control btn ripple btn-success" href="<?php echo $siteURL; ?>events_module/add_good_piece.php?station=<?php echo $station;?>&station_event_id=<?php echo $station_event_id; ?>">IN-SPEC</a>
+                            <a class="form-control btn ripple btn-success" style="background-color: #008000 !important;" href="<?php echo $siteURL; ?>events_module/add_good_piece.php?station=<?php echo $station;?>&station_event_id=<?php echo $station_event_id; ?>">IN-SPEC</a>
                         </div>
                         <div class="text-wrap">
-                            <div class="example">
+                            <div class="example" style="margin: auto;clear: both;text-align: center;">
                                 <div class="btn-list">
 
                                     <?php
@@ -661,12 +659,13 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                 <tr>
                                     <th><label class="ckbox"><input type="checkbox" id="checkAll" ><span></span></label></th>
                                     <th class="text-center">S.No</th>
+                                    <th>Action</th>
                                     <th>Good Pieces</th>
                                     <th>Defect Name</th>
                                     <th>Bad Pieces</th>
                                     <th>Re-Work</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -685,6 +684,38 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                     <tr>
                                         <td class="text-center"><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["bad_pieces_id"]; ?>"><span></span></label></td>
                                         <td><?php echo ++$counter; ?></td>
+                                        <td class="">
+											<?php   if($rowc['good_pieces'] != ""){ ?>
+                                                <a  href="<?php echo $siteURL; ?>events_module/edit_good_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
+                                                    data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
+                                                    data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
+                                                    <i>
+                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                    </i>
+                                                </a>
+											<?php } elseif($rowc['bad_pieces'] != ""){?>
+                                                <a href="<?php echo $siteURL; ?>events_module/edit_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
+                                                   data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
+                                                   data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
+                                                    <i>
+                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                    </i>
+                                                </a>
+												<?php if($rowc['bad_pieces'] != "")  { ?>
+                                                    <a href="<?php echo $siteURL; ?>events_module/view_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
+                                                       data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
+                                                        <i class="fa fa-eye" style="padding: 4px;font-size: 14px;margin-left: -3px;"></i>
+                                                    </a> <?php }else{ echo $line; } ?>
+											<?php } else{ ?>
+                                                <a href="<?php echo $siteURL; ?>events_module/rework_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
+                                                   data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
+                                                   data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
+                                                    <i>
+                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                    </i>
+                                                </a>
+											<?php } ?>
+                                        </td>
                                         <td><?php if($rowc['good_pieces'] != ""){echo $rowc['good_pieces']; }else{ echo $line; } ?></td>
                                         <td><?php $un = $rowc['defect_name']; if($un != ""){ echo $un; }else{ echo $line; } ?></td>
                                         <td><?php if($rowc['bad_pieces'] != ""){echo $rowc['bad_pieces'];}else{ echo $line; } ?></td>
@@ -712,38 +743,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                             <td><span class="badge badge-primary">Rework Pieces</span></td>
                                         <?php } ?>
 
-                                        <td class="">
-                                            <?php   if($rowc['good_pieces'] != ""){ ?>
-                                                <a  href="<?php echo $siteURL; ?>events_module/edit_good_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                                    data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                                                    data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
-                                                    <i>
-                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                    </i>
-                                                </a>
-                                            <?php } elseif($rowc['bad_pieces'] != ""){?>
-                                                <a href="<?php echo $siteURL; ?>events_module/edit_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                                   data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                                                   data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
-                                                    <i>
-                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                    </i>
-                                                </a>
-                                                <?php if($rowc['bad_pieces'] != "")  { ?>
-                                                    <a href="<?php echo $siteURL; ?>events_module/view_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                                       data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
-                                                        <i class="fa fa-eye" style="padding: 4px;font-size: 14px;margin-left: -3px;"></i>
-                                                    </a> <?php }else{ echo $line; } ?>
-                                            <?php } else{ ?>
-                                                <a href="<?php echo $siteURL; ?>events_module/rework_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                                   data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                                                   data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
-                                                    <i>
-                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                    </i>
-                                                </a>
-                                            <?php } ?>
-                                        </td>
+
                                     </tr>
                                 <?php } ?>
                                 </tbody>
