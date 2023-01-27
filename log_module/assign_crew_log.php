@@ -274,10 +274,10 @@ include("../admin_menu.php");
                     <form action="" id="user_form" class="form-horizontal" method="post">
                     <div class="pd-30 pd-sm-20">
                         <div class="row row-xs">
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <label class="form-label mg-b-0">User : </label>
                             </div>
-                            <div class="col-md-5 mg-t-10 mg-md-t-0">
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
                                 <select  name="usr" id="usr" class="form-control form-select select2"  style="float: left;width: initial;" data-placeholder="Select User">
                                     <option value="" selected disabled>--- Select User ---</option>
                                     <?php
@@ -302,10 +302,10 @@ include("../admin_menu.php");
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <label class="form-label mg-b-0">Station : </label>
                             </div>
-                            <div class="col-md-5 mg-t-10 mg-md-t-0">
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
                                 <select  name="station" id="station" class="form-control form-select select2" style="float: left;width: initial;" data-placeholder="Select Station">
                                     <option value="" selected disabled>--- Select Station ---</option>
                                     <?php
@@ -329,13 +329,12 @@ include("../admin_menu.php");
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="pd-30 pd-sm-20">
+                        <br/>
                         <div class="row row-xs">
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <label class="form-label mg-b-0">Date From : </label>
                             </div>
-                            <div class="col-md-5 mg-t-10 mg-md-t-0">
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
                                 <div class="input-group">
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
@@ -343,10 +342,10 @@ include("../admin_menu.php");
                                     <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
                                 </div>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <label class="form-label mg-b-0">Date To : </label>
                             </div>
-                            <div class="col-md-5 mg-t-10 mg-md-t-0">
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
                                 <div class="input-group">
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
