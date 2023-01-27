@@ -243,7 +243,7 @@ while ($rowc = mysqli_fetch_array($qur)) {
                    <div class="row">
 
                        <div class="col-md-3">
-                           <a href="<?php echo $siteURL; ?>form_module/options.php?station=<?php echo $line; ?>&part_family=<?php echo $pf_no; ?>&part_number=<?php echo $p_no; ?>">
+                           <a href="<?php echo $siteURL; ?>form_module/options.php?station=<?php echo $line; ?>&part_family=<?php echo $pf_no; ?>&part_number=<?php echo $p_num; ?>">
                                <button type="button" class="btn mb-2 mb-md-0 btn-primary btn-block">Submit Form</button>
                            </a>
                        </div>
