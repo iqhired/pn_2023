@@ -8184,7 +8184,7 @@ h1, h2, h3, h4, h5,
     cursor: pointer;
     border-width: 1px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: initial;
     font-weight: 500;
     -webkit-box-shadow: 0px 10px 20px -6px rgba(0, 0, 0, 0.12);
     -moz-box-shadow: 0px 10px 20px -6px rgba(0, 0, 0, 0.12);
