@@ -522,12 +522,12 @@ include("../admin_menu.php");
                                             $cust_id = $rowc["account_id"];
                                             ?>
                                             <tr>
-                                                <td><input type="checkbox" id="delete_check[]" name="delete_check[]"
-                                                           value="<?php echo $c_id; ?>"></td>
+                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                           value="<?php echo $c_id; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?>
                                                 </td>
                                                 <td>
-                                                    <a href="edit_dashboard_config.php?id=<?php echo $c_id; ?>" class="btn btn-primary" data-id="<?php echo $cust_id; ?>"  style="background-color:#1e73be;"><i class="fa fa-edit"></i></a>
+                                                    <a href="edit_dashboard_config.php?id=<?php echo $c_id; ?>" class="btn btn-primary" data-id="<?php echo $cust_id; ?>"  style="background-color:legitRipple;"><i class="fa fa-edit"></i></a>
                                                     <!--<button type="button" id="edit" class="btn btn-info btn-xs"
                                                 data-id="<?php /*echo $rowc['c_id']; */?>"
                                                 data-cell_name="<?php /*echo $rowc['c_name']; */?>"
