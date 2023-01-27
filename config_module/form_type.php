@@ -254,15 +254,15 @@ if (count($_POST) > 0) {
 
     </style>
 
-    <!-- Main navbar -->
-    <?php
-    $cust_cam_page_header = "Form Type";
-    include("../header.php");
-    include("../admin_menu.php");
-    ?>
+<!-- Main navbar -->
+<?php
+$cust_cam_page_header = "Form Type";
+include("../header.php");
+include("../admin_menu.php");
+?>
 
 
-    <!-----body-------->
+<!-----body-------->
 <body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
@@ -346,7 +346,7 @@ if (count($_POST) > 0) {
 
 
                                 <div class="card-body pt-0">
-                                    <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create</button>
+                                    <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create Form Type</button>
 
                                 </div>
                             </div>
@@ -357,7 +357,7 @@ if (count($_POST) > 0) {
 <!-----------Create form sucessfully------------>
 
 
-</div>
+</div> 
 </div>
 
 
@@ -378,12 +378,12 @@ if (count($_POST) > 0) {
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl. No</th>
-                                             <th>Action</th>
+                                                <th>Action</th>
                                             <th>Form Type</th>
                                             <th>Is Work Order/Lot Required </th>
                                             <th>Form Enabled/Disbaled</th>
                                             <th>Form Rejection Loop</th>
-                                          
+                                        
                                         </tr>
                                         </thead>
                                         <tbody><?php
@@ -408,19 +408,19 @@ if (count($_POST) > 0) {
                                                 <td><?php echo $rowc["form_type_name"]; ?></td>
                                                 <td><?php if($rowc["wol"] == 0){ echo 'No' ;}else{ echo 'Yes' ;}?></td>
                                                 <td><label class="ckbox">
-                                                        <input type="checkbox" name="form_reject" id="form_reject" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_type_reject']==1 ? 'checked' : '');?>>
-                                                        <span></span></label></td>
+                                                    <input type="checkbox" name="form_reject" id="form_reject" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_type_reject']==1 ? 'checked' : '');?>>
+                                                <span></span></label></td>
                                                 <td><label class="ckbox">
-                                                        <input type="checkbox" name="rejection_loop" id="rejection_loop" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_rejection_loop']==1 ? 'checked' : '');?>>
-                                                        <span></span></label></td>
-                                               
+                                                    <input type="checkbox" name="rejection_loop" id="rejection_loop" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_rejection_loop']==1 ? 'checked' : '');?>>
+                                                <span></span></label></td>
+                                                
                                             </tr>
                                         <?php } ?>
                                         </tbody>
                                     </table>
 
                                 </div>
-</form>
+                            </form>
 
 
 <!-- edit modal -->
@@ -438,12 +438,12 @@ if (count($_POST) > 0) {
                     <div class="col-lg-12 col-md-12">
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-4">
+                            <div class="col-md-4">
                                     <label class="form-label mg-b-0">Form Type:*</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                    <input type="text" name="edit_name" id="edit_name" class="form-control" required>
-                                    <input type="hidden" name="edit_id" id="edit_id">
+                                     <input type="text" name="edit_name" id="edit_name" class="form-control" required>
+                                <input type="hidden" name="edit_id" id="edit_id">
                                 </div>
                             </div>
                         </div>
@@ -456,41 +456,39 @@ if (count($_POST) > 0) {
                                     <div class="row mg-t-15">
                                         <div class="col-lg-4">
                                     <label class="rdiobox">
-                                        <input id="edit_yes" name="edit_wol" value="yes" type="radio" checked> <span>Yes</span></label>
+                                                <input id="edit_yes" name="edit_wol" value="yes" type="radio" checked> <span>Yes</span></label></div>
+                                                <div class="col-lg-3 mg-t-10mg-lg-t-0">
+                                                <label class="rdiobox">
+                                                <input  id="edit_no" name="edit_wol" value="no" type="radio"> <span>No</span></label>
+                                            </div>
                                         </div>
-                                         <div class="col-lg-3 mg-t-10 mg-lg-t-0">
-                                    <label class="rdiobox">
-                                        <input  id="edit_no" name="edit_wol" value="no" type="radio"> <span>No</span></label>
-                                    </div>
-
+                                    
                                 </div>
-                            
-                        </div>
                             </div>
                         </div>
-
+                         
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">SAVE</button>
                 </div>
-        </div>
-        </form>
-
-
+                 </div>
+            </form>
+        
+     
     </div>
 </div>
-<!------------>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+                    <!------------>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div> 
+        </div>
+ </div>
 
-<script> $(document).on('click', '#delete', function () {
+ <script> $(document).on('click', '#delete', function () {
         var element = $(this);
         var del_id = element.attr("data-id");
         var info = 'id=' + del_id;
@@ -589,7 +587,6 @@ if (count($_POST) > 0) {
     });
 
 </script>
-
 <script>
     window.onload = function () {
         history.replaceState("", "", "<?php echo $scriptName; ?>config_module/form_type.php");
