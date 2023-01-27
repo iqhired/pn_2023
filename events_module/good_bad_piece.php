@@ -342,8 +342,8 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         }
         .img-circle {
             border-radius: 50%;
-            height: 32vh;
-            width: 42vh;
+            height: 50vh;
+            /*width: 42vh;*/
             background-color: #fff;
         }
         .widget-user-graph {
@@ -353,7 +353,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
             top: 2px;
         }
         .card .card{
-            height: 245px;
+            height: 290px;
         }
         .circle-icon {
             border-radius: 0px;
@@ -448,6 +448,13 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                             <div class="widget-user-image">
                                 <img  src="../supplier_logo/<?php if($logo != ""){ echo $logo; }else{ echo "user.png"; } ?>" class="brround" alt="User Avatar">
                             </div>
+                            <hr/>
+                            <div class="widget-user-header br-te-5  br-ts-5  bg-primary">
+                                <h5>Target Pieces - <?php echo $target_eff; ?></h5>
+                                <h5>Actual Pieces - <?php echo $actual_eff; ?></h5>
+                                <h5>Efficiency - <?php echo $eff; ?>%</h5>
+                                <br/>
+                            </div>
 
                         </div>
                     </div>
@@ -459,18 +466,9 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                         <h4 class="card-title mb-1 text-white">Current Staff Efficiency</h4>
                     </div>
                     <div class="card-body pt-0">
-                        <div class="card user-wideget user-wideget-widget widget-user">
-                            <div class="widget-user-header br-te-5  br-ts-5  bg-primary">
-                                <h6>Target Pieces - <?php echo $target_eff; ?></h6>
-                                <h6>Actual Pieces - <?php echo $actual_eff; ?></h6>
-                                <h6>Efficiency - <?php echo $eff; ?>%</h6>
-                            </div>
-                            <div class="widget-user-graph">
-                                <div id="eff_container" class="img-circle"></div>
-                            </div>
-
-                        </div>
+                        <div id="eff_container" class="img-circle"></div>
                     </div>
+
                 </div>
             </div>
             <!-- row -->
