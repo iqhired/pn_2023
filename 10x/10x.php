@@ -390,6 +390,9 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
               class="form-horizontal" method="post">
             <div class="row row-sm">
                 <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                    <div class="card-header">
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Submit 10x</span>
+                    </div>
                     <div class="card  box-shadow-0">
                         <div class="card-body pt-0">
                             <div class="pd-30 pd-sm-20">
