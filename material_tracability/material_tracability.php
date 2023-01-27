@@ -123,7 +123,7 @@ $logo = $rowccus['logo'];
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_css/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <!-- anychart documentation -->
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
@@ -191,6 +191,27 @@ $logo = $rowccus['logo'];
                 margin-left: 0rem;
                 margin-right: 0rem;
             }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
         }
 
         @media (min-width: 481px) and (max-width: 768px) {
@@ -203,6 +224,27 @@ $logo = $rowccus['logo'];
                 flex: 0 0 8.33333%;
                 max-width: 10.33333%!important;
             }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -211,6 +253,28 @@ $logo = $rowccus['logo'];
                 margin-left:-15rem;
                 margin-right: 0rem;
             }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+
 
         }
 
@@ -241,6 +305,40 @@ $logo = $rowccus['logo'];
             padding: 0.5em 0.5em!important;
             width: 100px;
             height: 23px;
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+
+        }
+        button.remove.btn.btn-sm.btn-danger-light {
+            margin-top: -36px;
+            margin-bottom: 10px;
+            margin-left: 156px;
+        }
+        .col-lg-3.mg-t-20.mg-lg-t-0.extra_input {
+            margin-left: -23px;
+            margin-top: 10px;
         }
 
     </style>
@@ -317,170 +415,169 @@ $logo = $rowccus['logo'];
     </div>
     <form action="material_backend.php" id="material_setting" enctype="multipart/form-data"
           class="form-horizontal" method="post">
-        <div class="row">
-            <div class="col-12 col-sm-12">
-
-                <div class="card">
+        <div class="row row-sm">
+            <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                <div class="card-header">
+                    <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability</span>
+                </div>
+                <div class="card  box-shadow-0">
                     <div class="card-body pt-0">
-                        <div class="card-header">
-                          <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability</span>
-                        </div>
                         <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Station :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <?php $form_id = $_GET['id'];
-                                    ?>
-                                    <input type="hidden" name="station_event_id"
-                                           value="<?php echo $station_event_id ?>">
-                                    <input type="hidden" name="customer_account_id" value="<?php echo $account_id ?>">
-                                    <input type="hidden" name="station" value="<?php echo $st; ?>">
-                                    <input type="hidden" name="line_number" value="<?php echo $line_no; ?>">
-                                    <?php if (!empty($station) || !empty($station_event_id)){ ?>
-                                    <input type="text" name="line_number1" id="line_number"
-                                           value="<?php echo $line_name ?>" class="form-control"
-                                           placeholder="Enter Line Number" style="pointer-events: none">
-                                    <?php } else { ?>
-                                    <input type="text" name="line_number1" id="line_number"
-                                           value="<?php echo $line_name ?>" class="form-control"
-                                           placeholder="Enter Line Number">
-                                  <?php  } ?>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Part Number :</label>
-                                </div>
-                                <?php if (!empty($station) || !empty($station_event_id)){ ?>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="hidden" name="part_number" value="<?php echo $part_number; ?>">
-                                    <input type="text" name="part_number1" id="part_number"
-                                           value="<?php echo $pm_part_number; ?>" class="form-control"
-                                           placeholder="Enter Part Number"  style="pointer-events: none">
-                                </div>
-                                <?php } else { ?>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                        <input type="hidden" name="part_number" value="<?php echo $part_number; ?>">
-                                        <input type="text" name="part_number1" id="part_number"
-                                               value="<?php echo $pm_part_number; ?>" class="form-control"
-                                               placeholder="Enter Part Number">
-                                    </div>
-                                <?php  } ?>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Part Family :</label>
-                                </div>
-                                <?php if (!empty($station) || !empty($station_event_id)){ ?>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="hidden" name="part_family" value="<?php echo $part_family; ?>">
-                                    <input type="text" name="part_family1" id="part_family"
-                                           value="<?php echo $pm_part_family_name; ?>" class="form-control"
-                                           placeholder="Enter Part Family" style="pointer-events: none">
-                                </div>
-                                <?php } else { ?>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                        <input type="hidden" name="part_family" value="<?php echo $part_family; ?>">
-                                        <input type="text" name="part_family1" id="part_family"
-                                               value="<?php echo $pm_part_family_name; ?>" class="form-control"
-                                               placeholder="Enter Part Family">
-                                    </div>
-                                <?php  } ?>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Part Name :</label>
-                                </div>
-                                <?php if (!empty($station) || !empty($station_event_id)){ ?>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="text" name="part_name" id="part_name"
-                                           value="<?php echo $pm_part_name; ?>" class="form-control"
-                                           placeholder="Enter Part Name" style="pointer-events: none">
-                                </div>
-                                <?php } else { ?>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                        <input type="text" name="part_name" id="part_name"
-                                               value="<?php echo $pm_part_name; ?>" class="form-control"
-                                               placeholder="Enter Part Name">
-                                    </div>
-                                <?php  } ?>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Material type :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <div class="SumoSelect" tabindex="0" role="button" aria-expanded="true">
-                                        <select name="material_type" id="material_type" class="form-control form-select select2" tabindex="-1">
-                                            <option value="" selected disabled>Select material Type</option>
-                                            <?php
-                                            $sql1 = "SELECT material_id, material_type,serial_num_required FROM `material_config`";
-                                            $result1 = mysqli_query($db, $sql1);
-                                            while ($row1 = $result1->fetch_assoc()) {
-
-                                                echo "<option value=" . $row1['material_id'] . "_" . $row1['serial_num_required'] . ">" . $row1['material_type'] . "</option>";
-
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Image :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="file" id="file" name="file" class="form-control"/>
-                                    <div class="container"></div>
-                                </div>
-                            </div>
-                            <br/>
-                            <?php
-                            $m_type = $_POST['material_type'];
-
-                            $sql = "SELECT serial_num_required FROM `material_config` where material_type = '$m_type'";
-                            $row = mysqli_query($db, $sql);
-                            $se_row = mysqli_fetch_assoc($row);
-
-                            $serial = $se_row['serial_num_required'];
-
-                            ?>
-                            <div class="row row-xs align-items-center mg-b-20" id = "serial_num">
-
-                            </div>
-                            <br/>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Material Status :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <div class="row mg-t-15">
-                                        <div class="col-lg-3">
-                                            <label class="rdiobox"><input id="pass" name="material_status" value="1" type="radio" checked> <span>Pass</span></label>
-                                        </div>
-                                        <div class="col-lg-3 mg-t-20 mg-lg-t-0">
-                                            <label class="rdiobox"><input id="fail" name="material_status" value="0" type="radio"> <span>Fail</span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br/>
-                            <div id="rej_fail" style="display: none;">
-
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Notes :</label>
-                                </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <textarea id="notes" name="material_notes" rows="4" placeholder="Enter Notes..." class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <button id="form_submit_btn" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Submit</button>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Station :</label>
                         </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+							<?php $form_id = $_GET['id'];
+							?>
+                            <input type="hidden" name="station_event_id"
+                                   value="<?php echo $station_event_id ?>">
+                            <input type="hidden" name="customer_account_id" value="<?php echo $account_id ?>">
+                            <input type="hidden" name="station" value="<?php echo $st; ?>">
+                            <input type="hidden" name="line_number" value="<?php echo $line_no; ?>">
+							<?php if (!empty($station) || !empty($station_event_id)){ ?>
+                                <input type="text" name="line_number1" id="line_number"
+                                       value="<?php echo $line_name ?>" class="form-control"
+                                       placeholder="Enter Line Number" style="pointer-events: none">
+							<?php } else { ?>
+                                <input type="text" name="line_number1" id="line_number"
+                                       value="<?php echo $line_name ?>" class="form-control"
+                                       placeholder="Enter Line Number">
+							<?php  } ?>
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Part Number :</label>
+                        </div>
+						<?php if (!empty($station) || !empty($station_event_id)){ ?>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <input type="hidden" name="part_number" value="<?php echo $part_number; ?>">
+                                <input type="text" name="part_number1" id="part_number"
+                                       value="<?php echo $pm_part_number; ?>" class="form-control"
+                                       placeholder="Enter Part Number"  style="pointer-events: none">
+                            </div>
+						<?php } else { ?>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <input type="hidden" name="part_number" value="<?php echo $part_number; ?>">
+                                <input type="text" name="part_number1" id="part_number"
+                                       value="<?php echo $pm_part_number; ?>" class="form-control"
+                                       placeholder="Enter Part Number">
+                            </div>
+						<?php  } ?>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Part Family :</label>
+                        </div>
+						<?php if (!empty($station) || !empty($station_event_id)){ ?>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <input type="hidden" name="part_family" value="<?php echo $part_family; ?>">
+                                <input type="text" name="part_family1" id="part_family"
+                                       value="<?php echo $pm_part_family_name; ?>" class="form-control"
+                                       placeholder="Enter Part Family" style="pointer-events: none">
+                            </div>
+						<?php } else { ?>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <input type="hidden" name="part_family" value="<?php echo $part_family; ?>">
+                                <input type="text" name="part_family1" id="part_family"
+                                       value="<?php echo $pm_part_family_name; ?>" class="form-control"
+                                       placeholder="Enter Part Family">
+                            </div>
+						<?php  } ?>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Part Name :</label>
+                        </div>
+						<?php if (!empty($station) || !empty($station_event_id)){ ?>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <input type="text" name="part_name" id="part_name"
+                                       value="<?php echo $pm_part_name; ?>" class="form-control"
+                                       placeholder="Enter Part Name" style="pointer-events: none">
+                            </div>
+						<?php } else { ?>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <input type="text" name="part_name" id="part_name"
+                                       value="<?php echo $pm_part_name; ?>" class="form-control"
+                                       placeholder="Enter Part Name">
+                            </div>
+						<?php  } ?>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Material type :</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <div class="SumoSelect" tabindex="0" role="button" aria-expanded="true">
+                                <select name="material_type" id="material_type" class="form-control form-select select2" tabindex="-1">
+                                    <option value="" selected disabled>Select material Type</option>
+									<?php
+									$sql1 = "SELECT material_id, material_type,serial_num_required FROM `material_config`";
+									$result1 = mysqli_query($db, $sql1);
+									while ($row1 = $result1->fetch_assoc()) {
+
+										echo "<option value=" . $row1['material_id'] . "_" . $row1['serial_num_required'] . ">" . $row1['material_type'] . "</option>";
+
+									}
+									?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Image :</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <input type="file" id="file" name="file" class="form-control"/>
+                            <div class="container"></div>
+                        </div>
+                    </div>
+                    <br/>
+					<?php
+					$m_type = $_POST['material_type'];
+
+					$sql = "SELECT serial_num_required FROM `material_config` where material_type = '$m_type'";
+					$row = mysqli_query($db, $sql);
+					$se_row = mysqli_fetch_assoc($row);
+
+					$serial = $se_row['serial_num_required'];
+
+					?>
+                    <div class="row row-xs align-items-center mg-b-20" id = "serial_num">
+
+                    </div>
+                    <br/>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Material Status :</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <div class="row mg-t-15">
+                                <div class="col-lg-3">
+                                    <label class="rdiobox"><input id="pass" name="material_status" value="1" type="radio" checked> <span>Pass</span></label>
+                                </div>
+                                <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                    <label class="rdiobox"><input id="fail" name="material_status" value="0" type="radio"> <span>Fail</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div id="rej_fail" style="display: none;">
+
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Notes :</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <textarea id="notes" name="material_notes" rows="4" placeholder="Enter Notes..." class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <button id="form_submit_btn" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Submit</button>
+                </div>
                     </div>
                 </div>
             </div>
