@@ -385,7 +385,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         }
         .text-center {
             text-align: center!important;
-            font-size: 15px;
+            font-size: x-large;
         }
         .bg-primary-gradient,.bg-success,.bg-danger-gradient,.bg-warning-gradient{
             height: 92px;
