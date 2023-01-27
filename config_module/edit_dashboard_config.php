@@ -428,11 +428,13 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
-                         <div class="col-md-1"></div>
+                    </div><div class="col-md-1"></div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">SAVE</button>
                         </div>
+
+
+                         
                     </div>
                 </div>
                 </form>

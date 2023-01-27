@@ -1,162 +1,205 @@
 <?php
 include("../config.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> | View Form</title>
+        <?php echo $sitename; ?> |View Form</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-          type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $siteURL; ?>assets/css/style_main.css" rel="stylesheet" type="text/css">
+
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.6.0.min.js"> </script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/media/fancybox.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_select2.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/gallery.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+
+
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=WindSong&display=swap');
+        .navbar {
 
-        .signature {
-
-            font-family: 'WindSong', swap;
-            font-size: 25px;
-            font-weight: 600;
+            padding-top: 0px!important;
         }
+        .dropdown .arrow {
 
-        .form_table_mobile {
-            display: none;
+            margin-top: -25px!important;
+            width: 1.5rem!important;
         }
-
-        #form_save_btn {
-            background-color: #1e73be;
-            margin-left: 35px;
-            padding: 12px 22px 10px 18px;
-            margin-bottom: 10px;
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
         }
 
-        .pn_none {
-            pointer-events: none;
-            color: #050505;
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
         }
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #191e3a!important;
-            line-height: 20px!important;
 
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
         }
-        .select2-container--disabled .select2-selection--single:not([class*=bg-]) {
-            color: #060818!important;
-            border-block-start: none;
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
 
-        }
-        .select2-container--disabled .select2-selection--single:not([class*=bg-]) {
-            color: #999;
-            border-bottom-style: inset;
-        }
-        .form-control {
-            font-size: 15px;
-        }
-        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-lg-2{
-                width: 35%!important;
+                margin-left: 0rem;
+                margin-right: 0rem;
             }
-            .content:first-child {
-                padding-top: 90px!important;
-            }
-            .col-md-3 {
-                width: 35%;
-                float: left;
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
             }
             .col-md-1 {
-                width: 5%;
-                float: right;
-            }
-            .col-md-8.form_col_item {
-                float: left;
-                width: 100%;
-            }
-            .col-md-4.form {
-                width: 100%;
-                float: right;
-                margin-top: 10px;
-            }
-
-            .form_table_mobile {
-                width: 100%;
-                background-color: #eee;
-                margin-top: 12px;
-            }
-            .form_row_mobile {
-                width: 100%;
-                height: auto;
-            }
-            .col-lg-8.mobile {
-                width: 58%;
-                float: right;
-                padding: 10px 30px 10px 26px;
-            }
-            label.col-lg-3.control-label.mobile {
-                width: 42%;
-                float: left;
-                padding: 10px 30px 10px 26px;
-            }
-            .form_table_mobile {
-                display: block;
-            }
-            table.form_table {
-                display: none;
-            }
-            .col-md-1 {
-                width: 50%;
-                float: right;
-            }
-            .col-md-2 {
-                width: 50%;
-                float: left;
-            }
-            .border-primary {
-                border-color: #ffffff;
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
             }
         }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+
     </style>
 </head>
-<body>
+
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "View Document";
 include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
-<!-- /main navbar -->
-<!-- Page container -->
-<div class="page-container">
 
-    <!-- Content area -->
-    <div class="content">
-       <?php
+<body class="ltr main-body app sidebar-mini" onload="openScanner()">
+<div class="main-content app-content">
+
+
+    <!---container--->
+    <!---breadcrumb--->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Document</a></li>
+                <li class="breadcrumb-item active" aria-current="page">View Document</li>
+            </ol>
+        </div>
+    </div>
+     <?php
 
              $station = $_GET['station'];
              $part =   $_GET['part_number'];
@@ -174,9 +217,21 @@ include("../heading_banner.php");
         }
 
             ?>
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title form_panel_title"><?php echo $station_name; ?>
+     
+
+
+<div class="row-body">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">View Document</span>
+                        </div>
+                    </br>
+
+                         <div class="col-md-12">
+                            <h5 class="panel-title form_panel_title"><?php echo $station_name; ?>
                 </h5>
                 <div class="row ">
                     <form action="" id="form_settings" enctype="multipart/form-data"
@@ -198,21 +253,23 @@ include("../heading_banner.php");
                             ?>
 
 
+
+
                         <div class="form_row row">
                             <a href="../document_files/<?php echo $id; ?>/<?php echo $file_name; ?>" target="_blank">
-                            <div class="col-md-6">
+                            </br>
+                            <div class="col-md-12">
 
-                            <input type="text" name="notes" class="form-control pn_none" id="notes"
+                            <input type="text" name="notes" class="form-control" id="notes"
                                        value="<?php echo $doc_name_station; ?>">
                             </div>
                             </a>
 
                         </div>
-                        <?php } }?>
-
-                            </div>
-                        </form>
-                    </div>
+                            <?php } }?>
+                        </div>
+                    </form>
+                </div>
                 <?php
                 $sql_part = "SELECT * FROM `pm_part_number` where pm_part_number_id = '$part'";
                 $qur_part = mysqli_query($db, $sql_part);
@@ -228,12 +285,15 @@ include("../heading_banner.php");
                 $event_status = $row_st['event_status'];
 
                 if ($event_status == '1'){ ?>
-                        <h5 class="panel-title form_panel_title"><?php echo $part_number."-".$part_name; ?></h5>
+
+
+                <h5 class="panel-title form_panel_title"><?php echo $part_number."-".$part_name; ?></h5>
+
                 <div class="row ">
                     <form action="" id="form_settings" enctype="multipart/form-data"
                           class="form-horizontal" method="post" autocomplete="off">
                         <div class="col-md-12">
-                            <?php
+                             <?php
                             $sql_file = sprintf("SELECT * FROM `document_files` where station = '$station' AND part_number = '$part' AND  part_number != '0' ");
                             $qurmain1 = mysqli_query($db,$sql_file);
                             while($rowcmain1 = mysqli_fetch_array($qurmain1)){
@@ -246,37 +306,32 @@ include("../heading_banner.php");
                                     $doc_name_part = $rowcmain1_p['doc_name'];
 
                                     ?>
-
-                                <div class="form_row row">
+                                </br>
+                                    <div class="form_row row">
                                     <a href="../document_files/<?php echo $id; ?>/<?php echo $file_name; ?>" target="_blank">
-                                        <div class="col-md-6">
+                                    </br>
+                                        <div class="col-md-12">
                                             <input type="text" name="notes" class="form-control pn_none" id="notes"
                                                    value="<?php echo $doc_name_part; ?>">
                                         </div>
                                     </a>
 
                                 </div>
-                            <?php } } ?>
-
+                                 <?php } } ?>
                         </div>
                     </form>
                 </div>
-               <?php  }  ?>
+                <?php  }  ?>
 
-               <?php } ?>
+               <?php } ?> 
+           </div> 
+       </div>
+                    </div>
                 </div>
-
             </div>
         </div>
-
-
-
-
-        <!-- /page container -->
-
-        <?php include('../footer.php') ?>
-        <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/core/app.js"></script>
-
+    </form>
+   <?php include('../footer1.php') ?>
+   </div>
 </body>
 
-</html>
