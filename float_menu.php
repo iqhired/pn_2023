@@ -43,7 +43,103 @@ $station = $_GET['station'];
         a.btn.bg-success.text-white.view_gpbp {
             height: 60px;
             width: 196px;
-            font-weight: 600!important;
+            font-weight: 400!important;
+        }
+        .example{
+            text-align: center !important;
+        }
+        .view_gpbp{
+            font-size: medium;
+        }
+        .btn-list>.btn, .btn-list>.dropdown {
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+
+
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+
         }
     </style>
 </head>
@@ -59,10 +155,10 @@ $station = $_GET['station'];
         <!-- breadcrumb -->
         <div class="breadcrumb-header justify-content-between">
             <div class="left-content">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item tx-15"><a href="line_status_grp_dashboard.php">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="cell_overview_dashboard.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>">Cell Dashboard</li>
-                </ol>
+<!--                <ol class="breadcrumb">-->
+<!--                    <li class="breadcrumb-item tx-15"><a href="line_status_grp_dashboard.php">Home</a></li>-->
+<!--                    <li class="breadcrumb-item active" aria-current="page"><a href="cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--">Cell Dashboard</li>-->
+<!--                </ol>-->
 
             </div>
 
@@ -103,13 +199,15 @@ while ($rowc = mysqli_fetch_array($qur)) {
     } else {
 
     } ?>
-      <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="col-md-3"><i class="fa fa-home" aria-hidden="true"></i></div>
-                <h2 class="heading-section"><?php echo $line_name;?> - Menu</h2>
-            </div>
+        <div class="row">
+      <div style="float: left;margin-left: 5%;margin-bottom: 2%;" class="col-lg-6 col-md-6">
+          <h2>You are in <?php echo $line_name;?></h2>
         </div>
-
+        <div style="text-align: end;" class="col-lg-4 col-md-4">
+            <a href="line_status_grp_dashboard.php" class="btn bg-success text-white">Home</a>
+            <a href="cell_overview_dashboard.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>" class="btn bg-success text-white">Cell</a>
+        </div>
+        </div>
         <div class="row ">
             <div class="col-lg-12 col-md-12">
                 <div class="card custom-card">
