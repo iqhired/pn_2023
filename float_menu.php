@@ -208,8 +208,11 @@ while ($rowc = mysqli_fetch_array($qur)) {
           <h2>You are in <?php echo $line_name;?></h2>
         </div>
         <div style="text-align: end;" class="col-lg-4 col-md-4">
-            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>
-            <a href="<?php echo $siteURL; ?>cell_overview_dashboard.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>
+<!--            <a href="--><?php //echo $siteURL; ?><!--line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>-->
+<!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>-->
+            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white">Home</a>
+            <a href="<?php echo $siteURL; ?>cell_overview_dashboard.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>" class="btn bg-success text-white">Cell</a>
+
         </div>
         </div>
         <div class="row ">
