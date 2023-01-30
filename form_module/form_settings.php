@@ -281,6 +281,12 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
             margin-left: 114px;
             margin-right: -102px;
         }
+        @media (min-width: 614px) and (max-width: 874px) {
+            .col-md-3.mg-t-5.mg-md-t-0 {
+                max-width:  110px!important;
+            }
+
+        }
     </style>
 </head>
 <body class="ltr main-body app horizontal">
