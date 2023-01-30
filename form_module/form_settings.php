@@ -285,7 +285,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
             .col-md-3.mg-t-5.mg-md-t-0 {
                 max-width:  110px!important;
             }
-
         }
     </style>
 </head>
