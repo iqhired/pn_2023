@@ -1,5 +1,7 @@
 <?php
 include("../config.php");
+
+$station = $_GET['station'];
 ?>
 
 <!DOCTYPE html>
@@ -111,40 +113,7 @@ include("../config.php");
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -180,15 +149,12 @@ include("../config.php");
 
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "View Document";
-include("../header.php");
-include("../admin_menu.php");
+include("../cell-menu.php");
+
 ?>
 
-<body class="ltr main-body app sidebar-mini" onload="openScanner()">
+<body class="ltr main-body app horizontal" onload="openScanner()">
 <div class="main-content app-content">
-
-
     <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
@@ -220,7 +186,7 @@ include("../admin_menu.php");
      
 
 
-<div class="row-body">
+<div class="row">
             <div class="col-lg-12 col-md-12">
 
                 <div class="card">

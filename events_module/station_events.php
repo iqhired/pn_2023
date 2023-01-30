@@ -35,7 +35,7 @@ $i = $_SESSION["role_id"];
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
 $station_id = null;
-$event_line = $_GET['line'];
+$event_line = $_GET['station'];
 $user_id = $_SESSION["id"];
 $chicagotime = date("Y-m-d H:i:s");
 if (count($_POST) > 0) {

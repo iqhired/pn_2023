@@ -1339,9 +1339,10 @@ include("../admin_menu.php");
             document.getElementById("notes").required = false;
         } else {
             if (list_value != '0') {
-                if (exact_val != 'none') {
+                if (exact_val == 'no' ||exact_val == 'yes') {
                     $("." + radio_id).css("background-color", "#ffadad");
                 }else{
+
                     $("." + radio_id).css("background-color", "#FFF");
                 }
             }
