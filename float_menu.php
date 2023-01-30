@@ -205,7 +205,7 @@ while ($rowc = mysqli_fetch_array($qur)) {
     } ?>
         <div class="row">
       <div style="float: left;margin-left: 5%;margin-bottom: 2%;" class="col-lg-6 col-md-6">
-          <h2><?php echo $line_name;?>Station Menu</h2>
+          <h2><?php echo $line_name;?> - Station Menu</h2>
         </div>
         <div style="text-align: end;" class="col-lg-4 col-md-4">
 <!--            <a href="--><?php //echo $siteURL; ?><!--line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>-->
