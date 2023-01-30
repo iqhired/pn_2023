@@ -27,8 +27,8 @@
 <?php  //include the timing configuration file
 include("timings_config.php"); ?>
 <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/time_display.js"></script>
-<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/push.min.js"></script>
-<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/serviceWorker.min.js"></script>
+<!--<script type="text/javascript" src="--><?php //echo $siteURL; ?><!--assets/js/push.min.js"></script>-->
+<!--<script type="text/javascript" src="--><?php //echo $siteURL; ?><!--assets/js/serviceWorker.min.js"></script>-->
  <script>
 	<?php
 
@@ -171,16 +171,16 @@ include("timings_config.php"); ?>
 	}
 	?>
     //push code
-    Push.create("<?php echo $name; ?>", {
-        body: "<?php echo $msg; ?>",
-        icon: '../assets/images/SGG_logo.png',
-        timeout: 4000,
-        onClick: function () {
-            window.location.href = "<?php echo $scriptName; ?><?php echo $link; ?>";
-            window.focus();
-            this.close();
-        }
-    });
+    //Push.create("<?php //echo $name; ?>//", {
+    //    body: "<?php //echo $msg; ?>//",
+    //    icon: '../assets/images/SGG_logo.png',
+    //    timeout: 4000,
+    //    onClick: function () {
+    //        window.location.href = "<?php //echo $scriptName; ?><!----><?php //echo $link; ?>//";
+    //        window.focus();
+    //        this.close();
+    //    }
+    //});
 
 	<?php            }
 	}
@@ -247,16 +247,16 @@ include("timings_config.php"); ?>
 	}
 
 	?>
-    Push.create("<?php echo $name; ?>", {
-        body: "<?php echo $msg; ?>",
-        icon: '<?php echo $siteURL; ?>assets/images/SGG_logo.png',
-        timeout: 4000,
-        onClick: function () {
-            window.location.href = "<?php echo $scriptName; ?><?php echo $link; ?>";
-            window.focus();
-            this.close();
-        }
-    });
+    //Push.create("<?php //echo $name; ?>//", {
+    //    body: "<?php //echo $msg; ?>//",
+    //    icon: '<?php //echo $siteURL; ?>//assets/images/SGG_logo.png',
+    //    timeout: 4000,
+    //    onClick: function () {
+    //        window.location.href = "<?php //echo $scriptName; ?><!----><?php //echo $link; ?>//";
+    //        window.focus();
+    //        this.close();
+    //    }
+    //});
 
 	<?php        }
 	}

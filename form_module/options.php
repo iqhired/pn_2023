@@ -507,7 +507,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             var part_family = $("#part_family").val();
             var part_number = $("#part_number").val();
             var form_type = $("#form_type").val();
-
+        });
     </script>
     <script type="text/javascript">
         $(function () {
