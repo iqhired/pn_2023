@@ -352,9 +352,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
             position: absolute;
             top: 2px;
         }
-        .card .card{
-            height: 290px;
-        }
+
         .circle-icon {
             border-radius: 0px;
             height: 50px;
@@ -387,9 +385,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
             text-align: center!important;
             font-size: x-large;
         }
-        .bg-primary-gradient,.bg-success,.bg-danger-gradient,.bg-warning-gradient{
-            height: 92px;
-        }
+
         a.btn.bg-danger-gradient.text-white.view_gpbp {
             height: 60px;
             width: 196px;
