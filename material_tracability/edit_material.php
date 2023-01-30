@@ -36,9 +36,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     header('location: ../dashboard.php');
 }
 $s_event_id = $_GET['station_event_id'];
-
-
-
+$station = $_GET['station'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,7 +124,13 @@ $s_event_id = $_GET['station_event_id'];
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
+    <!-- INTERNAL Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
 
     <style>
         .navbar {
@@ -227,8 +231,12 @@ $s_event_id = $_GET['station_event_id'];
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Material Traceabilty";
-include("../header.php");
-include("../admin_menu.php");
+if (!empty($station) || !empty($station_event_id)){
+	include("../cell-menu.php");
+}else{
+	include("../header.php");
+	include("../admin_menu.php");
+}
 ?>
 
 <body class="ltr main-body app sidebar-mini">

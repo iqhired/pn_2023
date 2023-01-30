@@ -36,6 +36,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 }
 
 $s_event_id = $_GET['station_event_id'];
+$station = $_GET['station'];
 $station_event_id = base64_decode(urldecode($s_event_id));
 $sqlmain = "SELECT * FROM `sg_station_event` where `station_event_id` = '$station_event_id'";
 $resultmain = mysqli_query($db,$sqlmain);
@@ -95,7 +96,7 @@ $logo = $rowccus['logo'];
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">x
+    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/colors.css" rel="stylesheet" type="text/css">
@@ -152,7 +153,7 @@ $logo = $rowccus['logo'];
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -200,17 +201,176 @@ $logo = $rowccus['logo'];
         .breadcrumb-header {
             margin-left: 0;
         }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+
+        }
+        button.remove.btn.btn-sm.btn-danger-light {
+            margin-top: -36px;
+            margin-bottom: 10px;
+            margin-left: 156px;
+        }
+        .col-lg-3.mg-t-20.mg-lg-t-0.extra_input {
+            margin-left: -23px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "View Material Traceability";
-include("../header.php");
-include("../admin_menu.php");
+if (!empty($station) || !empty($station_event_id)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
 
-<body class="ltr main-body app sidebar-mini">
+<body class="ltr main-body app horizontal">
 <!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
@@ -241,10 +401,10 @@ include("../admin_menu.php");
           class="form-horizontal" method="post" autocomplete="off">
         <div class="row row-sm">
             <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                <div class="card-header">
+                    <span class="main-content-title mg-b-0 mg-b-lg-1">View Material Traceability</span>
+                </div>
                 <div class="card  box-shadow-0">
-                    <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">View Material Traceability</span>
-                    </div>
                     <div class="card-body pt-0">
                         <div class="pd-30 pd-sm-20">
                             <?php

@@ -35,6 +35,7 @@ $c_name = $_GET['c_name'];
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
 $station = $_GET['station'];
+$station1 = $station;
 $station_event_id =  $_GET['station_event_id'];
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
@@ -109,7 +110,7 @@ if (count($_POST) > 0) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_css/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <!-- anychart documentation -->
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
@@ -197,9 +198,9 @@ if (count($_POST) > 0) {
                                         <tr <?php echo $style; ?>>
                                             <td> <?php echo ++$counter; ?></td>
                                             <td >
-                                                <a href="view_material.php?id=<?php echo $rowc['material_id']; ?>" class="btn btn-primary mg-t-5"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <a href="view_material.php?id=<?php echo $rowc['material_id']; ?>&station=<?php echo $station1; ?>" class="btn btn-primary mg-t-5"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
-                                                <a href="edit_material.php?id=<?php echo $rowc['material_id']; ?>" class="btn btn-primary mg-t-5"> <i class="fa fa-edit"></i></i></a>
+                                                <a href="edit_material.php?id=<?php echo $rowc['material_id']; ?>&station=<?php echo $station1; ?>" class="btn btn-primary mg-t-5"> <i class="fa fa-edit"></i></i></a>
 
                                             </td>
 
@@ -322,7 +323,7 @@ if (count($_POST) > 0) {
 </script>
 <script>
     window.onload = function () {
-        history.replaceState("", "", "<?php echo $siteURL; ?>material_tracability/material_search.phpcell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $line; ?>&station_event_id=<?php echo $station_event_id; ?>");
+        history.replaceState("", "", "<?php echo $siteURL; ?>material_tracability/material_search.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $line; ?>&station_event_id=<?php echo $station_event_id; ?>");
     }
 </script>
 <?php include('../footer1.php') ?>
