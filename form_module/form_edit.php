@@ -286,11 +286,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 
 
         }
-        button.remove.btn.btn-sm.btn-danger-light {
-            margin-top: -30px;
-            margin-bottom: 20px;
-            margin-left: 156px;
-        }
+
         .col-lg-3.mg-t-20.mg-lg-t-0.extra_input {
             margin-left: -23px;
             margin-top: 10px;
@@ -1436,28 +1432,33 @@ include("../admin_menu.php");
                                                         $arrteam = explode(',', $list_extra);
                                                         $radiocount = 1;
                                                         foreach ($arrteam as $arr) { ?>
+                                                    <div class="col-lg-3 mg-t-20 mg-lg-t-0">
                                                             <div class="list_extra" id="listextra_<?php echo $rowcount; ?>">
                                                                 <label  class="rdiobox">
                                                                     <input class="form-check-input" id="extra"
                                                                            name="default_list_<?php echo $rowcount; ?>[]"
+                                                                           name="default_list_<?php echo $rowcount; ?>[]"
                                                                            type="radio"
                                                                            value="extra_<?php echo $radiocount; ?>"
-                                                                           class="form-check-input" <?php if ($defaultlist == "extra_$radiocount") {
+                                                                           class="custom-control-input" <?php if ($defaultlist == "extra_$radiocount") {
                                                                         echo 'checked';
                                                                     } ?>><span>
-                                                <input type="search" name="radio_list_extra_<?php echo $rowcount; ?>[]" id="radio_list_extra_<?php echo $rowcount; ?>[]" value="<?php echo $arr; ?>" class="radio_input">
+                                                <input type="search" name="radio_list_extra_<?php echo $rowcount; ?>[]" id="radio_list_extra_<?php echo $rowcount; ?>[]" value="<?php echo $arr; ?>" class="form-control form-control-sm input_list_search">
                                                </span>
                                                                 </label>
-                                                                <button class="remove" onclick="removeDiv(this);"><i class="fa fa-trash"></i></button>
                                                             </div>
+                                                        <button class="remove btn btn-sm btn-danger-light" onclick="removeDiv(this);"><i class="fa fa-trash"></i></button>
+
+                                                    </div>
 
                                                             <?php $radiocount++;  }
                                                     }
                                                     ?>
 
                                                    </div>
-
+                                                <div class="col-lg-3 mg-t-20 mg-lg-t-0">
                                                 <div class="custom-control custom-radio add_other_options_<?php echo $rowcount; ?>" name="add_other_options_<?php echo $rowcount; ?>" id="add_other_options_<?php echo $rowcount; ?>"></div>
+                                                </div>
                                                 <input type="hidden" name="add_option_id"  id="add_option_id" value="0">
 
                                                 <button type="button" class="add_option_btn btn btn-primary legitRipple" id="add_other_<?php echo $rowcount; ?>" class="btn btn-primary legitRipple"><i class="fa fa-plus" aria-hidden="true"></i>

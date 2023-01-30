@@ -48,6 +48,8 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 <link href="<?php echo $siteURL; ?>assets/css/form_css/switcher.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="<?php echo $siteURL; ?>assets/css/menu.css" rel="stylesheet" type="text/css">
+<script src="https://kit.fontawesome.com/198f721d64.js" crossorigin="anonymous"></script>
+
 <style>
 
     .logo-horizontal {
@@ -75,9 +77,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
     .logo_img{
         height: 50px;
     }
-    .logo{
-        margin-bottom: 20px !important;
-    }
+
 
 </style>
 <!-- main-header -->
@@ -86,7 +86,12 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
         <a href="<?php echo $path?>" class="logo">
             <img class = "logo_img" src="<?php echo $siteURL; ?>assets/img/site_logo.png" alt="logo">
         </a>
+        <div style="text-align: end;" class="col-lg-4 col-md-4">
+            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>
+            <a href="<?php echo $siteURL; ?>cell_overview_dashboard.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>
+            <a href="<?php echo $siteURL; ?>float_menu.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station;?>" class="btn bg-success text-white"><i class="fa-solid fa-bars"></i></a>
 
+        </div>
     </div>
 </div>
 <!-- /main-header -->
@@ -126,7 +131,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
                     <a class="side-menu__item" data-bs-toggle="slide" href="<?php echo $siteURL; ?>view_station_status.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $line; ?>"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M20 17V7c0-2.168-3.663-4-8-4S4 4.832 4 7v10c0 2.168 3.663 4 8 4s8-1.832 8-4zM12 5c3.691 0 5.931 1.507 6 1.994C17.931 7.493 15.691 9 12 9S6.069 7.493 6 7.006C6.069 6.507 8.309 5 12 5zM6 9.607C7.479 10.454 9.637 11 12 11s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2V9.607zM6 17v-2.393C7.479 15.454 9.637 16 12 16s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2z"/></svg><span class="side-menu__label">View Station Status</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="<?php echo $siteURL; ?>events_module/station_events.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&line=<?php echo $line; ?>&part_family=<?php echo $pf_no; ?>&part_number=<?php echo $p_no; ?>"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M20 17V7c0-2.168-3.663-4-8-4S4 4.832 4 7v10c0 2.168 3.663 4 8 4s8-1.832 8-4zM12 5c3.691 0 5.931 1.507 6 1.994C17.931 7.493 15.691 9 12 9S6.069 7.493 6 7.006C6.069 6.507 8.309 5 12 5zM6 9.607C7.479 10.454 9.637 11 12 11s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2V9.607zM6 17v-2.393C7.479 15.454 9.637 16 12 16s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2z"/></svg><span class="side-menu__label">Add / Update Events</span></a>
+                    <a class="side-menu__item" data-bs-toggle="slide" href="<?php echo $siteURL; ?>events_module/station_events.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $line; ?>&part_family=<?php echo $pf_no; ?>&part_number=<?php echo $p_no; ?>"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M20 17V7c0-2.168-3.663-4-8-4S4 4.832 4 7v10c0 2.168 3.663 4 8 4s8-1.832 8-4zM12 5c3.691 0 5.931 1.507 6 1.994C17.931 7.493 15.691 9 12 9S6.069 7.493 6 7.006C6.069 6.507 8.309 5 12 5zM6 9.607C7.479 10.454 9.637 11 12 11s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2V9.607zM6 17v-2.393C7.479 15.454 9.637 16 12 16s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2z"/></svg><span class="side-menu__label">Add / Update Events</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M20.995 6.9a.998.998 0 0 0-.548-.795l-8-4a1 1 0 0 0-.895 0l-8 4a1.002 1.002 0 0 0-.547.795c-.011.107-.961 10.767 8.589 15.014a.987.987 0 0 0 .812 0c9.55-4.247 8.6-14.906 8.589-15.014zM12 19.897C5.231 16.625 4.911 9.642 4.966 7.635L12 4.118l7.029 3.515c.037 1.989-.328 9.018-7.029 12.264z"/><path d="m11 12.586-2.293-2.293-1.414 1.414L11 15.414l5.707-5.707-1.414-1.414z"/></svg><span class="side-menu__label">Forms</span><i class="fa fa-angle-down" aria-hidden="true"></i></a>
