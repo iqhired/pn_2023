@@ -55,6 +55,9 @@ $station = $_GET['station'];
         .btn-list>.btn, .btn-list>.dropdown {
             margin-bottom: 1rem;
         }
+        .main-content.horizontal-content {
+            margin-top: 30px !important;
+        }
         @media (min-width: 481px) and (max-width: 768px) {
             .row-body {
 

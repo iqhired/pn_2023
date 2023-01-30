@@ -86,7 +86,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
         <a href="<?php echo $path?>" class="logo">
             <img class = "logo_img" src="<?php echo $siteURL; ?>assets/img/site_logo.png" alt="logo">
         </a>
-        <div  style="text-align: end;margin-right: 25px;" class="col-lg-4 col-md-4">
+        <div  style="text-align: end;" class="col-lg-4 col-md-4">
             <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>
             <a href="<?php echo $siteURL; ?>cell_overview_dashboard.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>
             <a href="<?php echo $siteURL; ?>float_menu.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station;?>" class="btn bg-success text-white"><i class="fa-solid fa-bars"></i></a>
