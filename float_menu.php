@@ -205,13 +205,13 @@ while ($rowc = mysqli_fetch_array($qur)) {
     } ?>
         <div class="row">
       <div style="float: left;margin-left: 5%;margin-bottom: 2%;" class="col-lg-6 col-md-6">
-          <h2>You are in <?php echo $line_name;?></h2>
+          <h2><?php echo $line_name;?>Station Menu</h2>
         </div>
         <div style="text-align: end;" class="col-lg-4 col-md-4">
 <!--            <a href="--><?php //echo $siteURL; ?><!--line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>-->
 <!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>-->
-            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white">Home</a>
-            <a href="<?php echo $siteURL; ?>cell_overview_dashboard.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>" class="btn bg-success text-white">Cell</a>
+            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white">Main Home</a>
+            <a href="<?php echo $siteURL; ?>cell_overview_dashboard.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>" class="btn bg-success text-white">Cell Dashboard</a>
 
         </div>
         </div>
