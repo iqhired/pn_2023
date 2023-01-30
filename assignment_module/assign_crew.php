@@ -190,6 +190,70 @@ if ($ps != "") {
             margin-right: 6.25rem;
         }
 
+        @media (min-width: 320px) and (max-width: 480px) {
+
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+
+
+
+        }
+
+
 
 
         table.dataTable thead .sorting:after {
@@ -258,8 +322,8 @@ if ($ps != "") {
                     <div class="card-body pt-0">
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Select station :</label>
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Select station</label>
                                 </div>
                                 <div class="col-md-6">
                                     <select name="assign_line" id="assign_line" class="form-control form-select select2 select2-hidden-accessible" data-placeholder="Select Station" tabindex="-1" aria-hidden="true">
@@ -280,11 +344,13 @@ if ($ps != "") {
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-2 mg-t-5 mg-md-t-0">
+                            </div>
+
+                                <div class="card-body pt-0">
                                     <button class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Submit</button>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -345,7 +411,7 @@ if ($ps != "") {
                                 $positionname = $rowc003["position_name"];
                             }
                             ?>
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <label class="ckbox">
                                     <input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $asigncrewid; ?>"><span class="tx-13"></span>
                                     <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
@@ -367,8 +433,7 @@ if ($ps != "") {
                                     $positionname = $rowc004["position_name"];
                                 }
                                 ?>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-4">
+                                                                <div class="col-md-4">
                                     <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
                                 </div>
                                 <div class="col-md-6 mg-t-5 mg-md-t-0">
@@ -410,7 +475,7 @@ if ($ps != "") {
                         $priyantcount--;
                         ?>
                         <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <label class="ckbox">
                                     <input type="checkbox"  id="delete_check[]" name="delete_check[]" value="<?php echo $assigncrewid; ?>"><span class="tx-13"></span>
                                     <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
@@ -502,7 +567,7 @@ if ($ps != "") {
                         $priyantcount--;
                         ?>
                         <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <label class="ckbox">
                                     <input type="checkbox"  id="delete_check[]" name="delete_check[]" value="<?php echo $assigncrewid; ?>"><span class="tx-13"></span>
                                     <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
@@ -570,20 +635,19 @@ if ($ps != "") {
                         }
                         }
                         ?>
-                        <div class="row row-xs align-items-center mg-b-20">
+                      
                             <?php
                             if ($message_stauts_class == '') {
                             ?>
-                            <div class="col-md-3">
-                                         <button type="submit" onclick="submitForm('assign_crew_submit.php')" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">ASSIGN CREW<span class="legitRipple-ripple" style="left: 77.1927%; top: 62.5874%; transform: translate3d(-50%, -50%, 0px); width: 211.636%; opacity: 0;"></span></button>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" onclick="submitForm11('assign_crew_unassign_submit.php')" class="btn btn-danger pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">UNASSIGN CREW<span class="legitRipple-ripple" style="left: 77.1927%; top: 62.5874%; transform: translate3d(-50%, -50%, 0px); width: 211.636%; opacity: 0;"></span></button>
+                            <div class="card-body pt-0">
+                                         <button type="submit" onclick="submitForm('assign_crew_submit.php')" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">ASSIGN CREW<span class="legitRipple-ripple" ></span></button>
+                           
+                                <button type="submit" onclick="submitForm11('assign_crew_unassign_submit.php')" class="btn btn-danger pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">UNASSIGN CREW<span class="legitRipple-ripple"></span></button>
                             </div>
                             <?php } ?>
                         </div>
                     </div>
-                </div>
+                
             </div>
         </div>
     </div>

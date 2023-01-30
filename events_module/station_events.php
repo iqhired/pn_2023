@@ -209,7 +209,6 @@ if (count($_POST) > 0) {
         <?php echo $sitename; ?> | Station Events</title>
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <!-- Global stylesheets -->
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -264,7 +263,7 @@ if (count($_POST) > 0) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_css/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
@@ -274,8 +273,6 @@ if (count($_POST) > 0) {
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-
-
     <style>
         .navbar {
 
@@ -355,8 +352,79 @@ if (count($_POST) > 0) {
             width: 100px;
             height: 23px;
         }
+        @media (min-width: 614px) and (max-width: 874px) {
+            .col-md-1 {
+                max-width: 180px!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+            }
+            .col-md-1.media {
+                max-width: 0px!important;
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query{
+                max-width: 300px!important;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .col-md-1 {
+                margin-top: -30px;
+                max-width: 16.33333%!important;
+            }
+           .col-md-1.media{
+               display: none!important;
+           }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+                margin-left: 234px;
+                margin-top: -30px;
+                margin-bottom: 66px;
+            }
+            .row {
+                display: grid;
+                margin-bottom: -63px;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query {
+                margin-left: 234px;
+                margin-top: -57px;
+            }
+            .col-md-1#ex {
+                margin-top: -56px;
+            }
+        }
+        }
+        .sidebar-default .navigation li > a {
+            color: #f5f5f5;
+        }
 
 
+
+        .sidebar-default .navigation li > a:focus, .sidebar-default .navigation li > a:hover {
+            background-color: #20a9cc;
+        }
+
+        .red {
+            color: red;
+            display: none;
+        }
+        label.col-lg-4.control-label {
+            color: #333;
+        }
+
+        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            .col-lg-8 {
+                float: right;
+                width: 60% !important;
+            }
+
+            label.col-lg-3.control-label {
+                width: 40%;
+            }
+            label.col-lg-4.control-label {
+                width: 40%;
+            }
+        }
     </style>
 </head>
 
@@ -408,7 +476,6 @@ if (count($_POST) > 0) {
                                         <label class="form-label mg-b-0">Station  </label>
                                     </div>
                                     <?php if (!empty($event_line)){ ?>
-
                                     <div class="col-md-4 mg-t-10 mg-md-t-0" style="pointer-events: none">
                                         <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                             <option value="" selected disabled>--- Select Station ---</option>
@@ -498,10 +565,10 @@ if (count($_POST) > 0) {
                                                         $c_stations = implode("', '", $c_login_stations_arr);
                                                         $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id IN ('$c_stations') and is_deleted != 1 ORDER BY `line_name` ASC";
                                                         $result1 = $mysqli->query($sql1);
-                                                        //													                $                        $entry = 'selected';
+//													                $                        $entry = 'selected';
                                                         $i = 0;
                                                         while ($row1 = $result1->fetch_assoc()) {
-                                                            //														$entry = 'selected';
+//														$entry = 'selected';
                                                             if($i == 0 ){
                                                                 $entry = 'selected';
                                                                 $station = $row1['line_id'];
@@ -520,9 +587,9 @@ if (count($_POST) > 0) {
                                                         }
                                                         $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id ='$line_id' and is_deleted != 1";
                                                         $result1 = $mysqli->query($sql1);
-                                                        //
+//
                                                         while ($row1 = $result1->fetch_assoc()) {
-                                                            //
+//
                                                             $entry = 'selected';
                                                             $station = $row1['line_id'];
                                                             echo "<option value='" . $station . "'  $entry>" . $row1['line_name'] . "</option>";
@@ -551,12 +618,12 @@ if (count($_POST) > 0) {
                                             </select>
                                         </div>
                                  <?php   }?>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-1 media"></div>
+                                    <div class="col-md-1" id="ex" >
                                         <label class="form-label mg-b-0">Part Family  </label>
                                     </div>
                                     <?php if (!empty($event_line)){ ?>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0" style="pointer-events: none">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0 query" style="pointer-events: none">
                                         <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
                                             <option value="" selected disabled>--- Select Part Family ---</option>
                                             <?php
@@ -583,7 +650,7 @@ if (count($_POST) > 0) {
                                         </select>
                                     </div>
                                     <?php } else { ?>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0 query">
                                         <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
                                             <option value="" selected disabled>--- Select Part Family ---</option>
                                             <?php
@@ -609,56 +676,27 @@ if (count($_POST) > 0) {
                                             ?>
                                         </select>
                                     </div>
-                                    <?php   }?>
+                                    <?php   } ?>
                                 </div>
                             </div>
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
-
                                     <div class="col-md-1">
                                         <label class="form-label mg-b-0">Part Number  </label>
                                     </div>
                                     <?php if (!empty($event_line)){ ?>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0" style="pointer-events: none">
-                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
-                                            <option value="" selected disabled>--- Select Part Number ---</option>
-                                            <?php
-                                            $part_number = $_POST['part_number'];
-                                            if(empty($part_number) && !empty($_REQUEST['part_number'])){
-                                                $part_number = $_REQUEST['part_number'];
-                                            }
-                                            $sql1 = "SELECT * FROM `pm_part_number` where part_number = '$part_number' and is_deleted != 1  ORDER BY `part_name` ASC";
-                                            $result1 = $mysqli->query($sql1);
-                                            //                                            $entry = 'selected';
-                                            while ($row1 = $result1->fetch_assoc()) {
-                                                if ($part_number == $row1['part_number']) {
-                                                    $entry = 'selected';
-                                                } else {
-                                                    $entry = '';
-
-                                                }
-                                                echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <?php } else { ?>
-                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                            <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0" style="pointer-events: none">
+                                            <select name="part_number" id="part_number" class="select form-control select2" data-placeholder="Select Part Number">
                                                 <option value="" selected disabled>--- Select Part Number ---</option>
-                                                <?php
-                                                if(empty($station)){
-                                                    $station = $station_id;
-                                                }
-                                                $part_number = $_GET['part_number'];
+                                                <? $part_number = $_POST['part_number'];
                                                 if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                     $part_number = $_REQUEST['part_number'];
                                                 }
-                                                $sql1 = "SELECT * FROM `pm_part_number` where part_number = '$part_number' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
                                                 $result1 = $mysqli->query($sql1);
                                                 //                                            $entry = 'selected';
                                                 while ($row1 = $result1->fetch_assoc()) {
-                                                    if ($part_number == $row1['part_number']) {
+                                                    if ($part_number == $row1['pm_part_number_id']) {
                                                         $entry = 'selected';
                                                     } else {
                                                         $entry = '';
@@ -669,12 +707,33 @@ if (count($_POST) > 0) {
                                                 ?>
                                             </select>
                                         </div>
-                                    <?php   }?>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-1">
+                                    <?php } else { ?>
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                            <select name="part_number" id="part_number" class="select form-control select2" data-placeholder="Select Part Number">
+                                                <option value="" selected disabled>--- Select Part Number ---</option>
+                                                <?php $part_number = $_POST['part_number'];
+                                                if(empty($part_number) && !empty($_REQUEST['part_number'])){
+                                                    $part_number = $_REQUEST['part_number'];
+                                                }
+                                                $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                $result1 = $mysqli->query($sql1);
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    if ($part_number == $row1['pm_part_number_id']) {
+                                                        $entry = 'selected';
+                                                    } else {
+                                                        $entry = '';
+                                                    }
+                                                    echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    <?php } ?>
+                                    <div class="col-md-1 media"></div>
+                                    <div class="col-md-1" id="ex">
                                         <label class="form-label mg-b-0">Event Type   </label>
                                     </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0 query">
                                         <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-placeholder="Select Event Type">
                                             <option value="" selected disabled>--- Select Event Type ---</option>
                                             <?php
@@ -709,19 +768,15 @@ if (count($_POST) > 0) {
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card-body pt-0">
                              <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Create Station Event</button>
                              <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
                              </div>
                         </div>
                      </div>
-
                  </div>
             </div>
         </form>
-
-
 <!-- row  -->
 <?php
 if(count($_POST) > 0)
@@ -919,14 +974,13 @@ if(count($_POST) > 0)
 ?>
   </div>
 </div>
-<!-- Footer opened -->
-<?php include('../footer1.php') ?>
-
-<!-- Footer closed -->
 <script>
+
     $("#edit_save").click(function (e) {
         if ($("#edit_station_event_form")[0].checkValidity()){
+
         }
+        // e.preventDefault();
     });
     $(document).on('click', '#delete', function () {
         var element = $(this);
@@ -972,16 +1026,16 @@ if(count($_POST) > 0)
                 "                                            </div>\n" +
                 "                                        </div>\n" +
                 "                                    </div>";
+            // $('#reason_div').attr('required', true);
+            // $('#reason_div').prop('required',true);
+            // document.getElementById("reason_div").required = true;
+            // $("#reason_div").show();
         } else {
             document.getElementById("reason_div").innerHTML ="";
+            // document.getElementById("reason_div").required = false;
+            // $("#reason_div").hide();
         }
     });
-</script>
-
-<script>
-    //window.onload = function () {
-    //    history.replaceState("", "", "<?php //echo $scriptName; ?>//events_module/station_events.php");
- //   }
 </script>
 <script>
     $("#checkAll").click(function () {
@@ -1061,6 +1115,27 @@ if(count($_POST) > 0)
         var part_family = $("#part_family").val();
         var part_number = $("#part_number").val();
         var event_type_id = $("#event_type_id").val();
+// var flag= 0;
+// if(station == null){
+// 	$("#error1").show();
+// 	var flag= 1;
+// }
+// if(part_family == null){
+// 	$("#error2").show();
+// 	var flag= 1;
+// }
+// if(part_number == null){
+// 	$("#error3").show();
+// 	var flag= 1;
+// }
+// if(event_type_id == null){
+// 	$("#error4").show();
+// 	var flag= 1;
+// }
+// if (flag == 1) {
+//        return false;
+//        }
+
     });
 </script>
 <script type="text/javascript">
@@ -1073,5 +1148,5 @@ if(count($_POST) > 0)
         });
     });
 </script>
-
+<?php include('../footer1.php') ?>
 </body>
