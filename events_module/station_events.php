@@ -377,7 +377,7 @@ if (count($_POST) > 0) {
            }
             .col-md-4.mg-t-10.mg-md-t-0{
                 max-width: 300px;
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -30px;
                 margin-bottom: 66px;
             }
@@ -386,7 +386,7 @@ if (count($_POST) > 0) {
                 margin-bottom: -63px;
             }
             .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -57px;
             }
             .col-md-1#ex {
@@ -416,7 +416,7 @@ if (count($_POST) > 0) {
             }
             .col-md-4.mg-t-10.mg-md-t-0{
                 max-width: 300px;
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -30px;
                 margin-bottom: 66px;
             }
@@ -425,7 +425,7 @@ if (count($_POST) > 0) {
                 margin-bottom: -63px;
             }
             .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -57px;
             }
             .col-md-1#ex {
@@ -457,7 +457,7 @@ if (count($_POST) > 0) {
             }
             .col-md-4.mg-t-10.mg-md-t-0{
                 max-width: 300px;
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -30px;
                 margin-bottom: 66px;
             }
@@ -466,7 +466,7 @@ if (count($_POST) > 0) {
                 margin-bottom: -63px;
             }
             .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -57px;
             }
             .col-md-1#ex {
@@ -497,7 +497,7 @@ if (count($_POST) > 0) {
             }
             .col-md-4.mg-t-10.mg-md-t-0{
                 max-width: 300px;
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -30px;
                 margin-bottom: 66px;
             }
@@ -506,7 +506,7 @@ if (count($_POST) > 0) {
                 margin-bottom: -63px;
             }
             .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -57px;
             }
             .col-md-1#ex {
@@ -530,14 +530,14 @@ if (count($_POST) > 0) {
             }
             .col-md-1 {
                 margin-top: -30px;
-                max-width: 16.33333%!important;
+                max-width: 19.33333%!important;
             }
             .col-md-1.media{
                 display: none!important;
             }
             .col-md-4.mg-t-10.mg-md-t-0{
                 max-width: 300px;
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -30px;
                 margin-bottom: 66px;
             }
@@ -546,7 +546,7 @@ if (count($_POST) > 0) {
                 margin-bottom: -63px;
             }
             .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -57px;
             }
             .col-md-1#ex {
