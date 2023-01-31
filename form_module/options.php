@@ -189,7 +189,17 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             height: 23px;
         }
 
+        @media (min-width: 614px) and (max-width: 874px) {
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 462px!important;
+                margin-top: -26px!important;
+                margin-left: 114px!important;
+                font-size: 16px!important;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1064px) {
 
+        }
     </style>
 </head>
 
