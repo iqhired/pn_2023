@@ -25,7 +25,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
         header($redirect_logout_path);
     }
 
-//	header('location: ../logout.php');
+//  header('location: ../logout.php');
     exit;
 }
 //Set the time of the user's last activity
@@ -35,7 +35,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     header('location: ../dashboard.php');
 }
 
-
+ 
 
 $yesdate = date('Y-m-d',strtotime("365 days"));
 $datefrom = $yesdate;
@@ -47,21 +47,16 @@ $datefrom = $yesdate;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |document</title>
+        <?php echo $sitename; ?> |Edit Document</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
-    <!--    <link rel=stylesheet href=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css>-->
-    <!--    <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css>-->
+
 
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -76,179 +71,63 @@ $datefrom = $yesdate;
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
 
-
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
 
     <style>
+        .navbar {
 
-        @media (min-width: 576px)
-            .d-sm-block {
-                display: block!important;
-            }
-            .bg-white {
-                background-color: #191e3a!important;
-                height: 30px;
-            }
-            .shadow-sm {
-                box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-            }
-            .d-none {
-                display: none!important;
-            }
-            @media (min-width: 992px){
-                .navbar-expand-lg {
-                    flex-wrap: nowrap;
-                    justify-content: flex-start;
-                }
-
-            }
-            #preview {
-                padding-top: 20px;
-            }
-            .sidebar-default .navigation li>a {
-                color: #f5f5f5;
-            }
-            label.col-lg-2.control-label{
-                font-size: 16px;
-            }
-
-            .select2-container--default .select2-selection--single .select2-selection__rendered {
-
-                font-size: 16px;
-            }
-            .item_label {
-                font-size: 16px;
-            }
-
-            .sidebar-default .navigation li>a:focus,
-            .sidebar-default .navigation li>a:hover {
-                background-color: #20a9cc;
-            }
-
-            .form-control:focus {
-                border-color: transparent transparent #1e73be !important;
-                -webkit-box-shadow: 0 1px 0 #1e73be;
-                box-shadow: 0 1px 0 #1e73be !important;
-            }
-
-            .form-control {
-                border-color: transparent transparent #1e73be;
-                border-radius: 0;
-                -webkit-box-shadow: none;
-                box-shadow: none;
-                font-size: 16px;
-            }
-
-            span.select2-selection.select2-selection--multiple {
-                border-bottom: 1px solid #1b2e4b !important;
-            }
-            .select2-selection--multiple:not([class*=bg-]):not([class*=border-]) {
-                border-color: #1b2e4b;
-            }
-
-            .contextMenu{ position:absolute;  width:min-content; left: -18px; background:#e5e5e5; z-index:999;}
-
-            .red {
-                color: red;
-                display: none;
-            }
-            .remove_btn {
-                float: right;
-                width: 2%;
-            }
-            input.select2-search__field {
-                width: auto!important;
-
-            }
-            .collapse.in {
-                display: block!important;
-            }
-            .select2-search--dropdown .select2-search__field {
-                padding: 4px;
-                width: 100%!important;
-                box-sizing: border-box;
-            }
+            padding-top: 0px!important;
         }
+        .dropdown .arrow {
 
-        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-
-            .col-md-0\.5 {
-                float: right;
-                width: 5%;
-            }
-            .col-md-6 {
-                width: 60%;
-                float: left;
-            }
-            .col-lg-2 {
-                width: 38%!important;
-                float: left;
-
-            }
-
-            .col-md-3 {
-                width: 30%;
-                float: left;
-            }
-            .form-check.form-check-inline {
-                width: 70%;
-            }
-
+            margin-top: -25px!important;
+            width: 1.5rem!important;
         }
-
-        .form-check-inline .form-check-input {
-            position: static;
-            margin-top: -4px!important;
-            margin-right: 0.3125rem;
-            margin-left: 10px!important;
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
         }
-        .panel-heading>.dropdown .dropdown-toggle, .panel-title, .panel-title>.small, .panel-title>.small>a, .panel-title>a, .panel-title>small, .panel-title>small>a {
-            color: inherit !important;
-        }
-        .item_label{
-            margin-bottom: 0px !important;
-            margin-right: 10px !important;
-        }
-        .select2-selection--multiple {
-            border: 1px solid transparent !important;
-        }
-        .input-group-append {
-            width: 112%;
-        }
-        .col-lg-3.file {
-            width: 45%;
-        }
-        input[type="file"] {
-            display: block;
-        }
-        .imageThumb {
-            max-height: 100px;
-            border: 2px solid;
-            padding: 1px;
-            cursor: pointer;
-        }
-        .pip {
-            display: inline-block;
-            margin: 10px 10px 0 0;
-        }
-        .remove {
-            display: block;
-            background: #444;
-            border: 1px solid black;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-        }
-        .remove:hover {
-            background: white;
-            color: black;
-        }
-        .container {
-            margin: 0 auto;
+        .fs-6 {
+            font-size: 1rem!important;
         }
 
         .content_img {
-            /*width: 220px;*/
-            width: 112px;
+            width: 113px;
             float: left;
             margin-right: 5px;
             border: 1px solid gray;
@@ -264,30 +143,105 @@ $datefrom = $yesdate;
             width: 99%;
             text-align: center;
             color: red;
-            margin-top: 6px;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
         }
 
-        .content_img span:hover {
-            cursor: pointer;
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
         }
 
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
 
     </style>
-</head>
 
-<body>
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "Plantnavigator Documents";
+$cust_cam_page_header = "Edit Documents";
 include("../header.php");
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
-<!-- /main navbar -->
-<!-- Page container -->
-<div class="page-container">
-    <!-- Page content -->
-    <?php
+
+<!-----body-------->
+<body class="ltr main-body app sidebar-mini">
+<!-----main content----->
+<div class="main-content app-content">
+    <!---container--->
+    <!---breadcrumb--->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Document</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Upload Document</li>
+            </ol>
+        </div>
+    </div>
+      <?php
     $id = $_GET['id'];
     $_SESSION['edit_id'] = $id;
     $sql1 = "SELECT * FROM `document_data` where doc_id = '$id'";
@@ -324,51 +278,30 @@ include("../heading_banner.php");
             $file_name = $rowcmain1['file_name'];
         }
         ?>
-        <!-- Content area -->
-        <div class="content">
-            <!-- Main charts -->
-            <!-- Basic datatable -->
-            <div class="panel panel-flat">
-                <form action="edit_document_backend.php" id="document_setting" enctype="multipart/form-data" class="form-horizontal" method="post">
-                    <div class="panel-heading">
+   
 
-                        <?php if ($temp == "one") { ?>
-                            <br/>
-                            <div class="alert alert-success no-border">
-                                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button> <span class="text-semibold">Group</span> Created Successfully. </div>
-                        <?php } ?>
-                        <?php if ($temp == "two") { ?>
-                            <br/>
-                            <div class="alert alert-success no-border">
-                                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button> <span class="text-semibold">Group</span> Updated Successfully. </div>
-                        <?php } ?>
-                        <?php
-                                        if (!empty($import_status_message)) {
-                                            echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                                        }
-                                        ?>
+     <form action="edit_document_backend.php" id="document_setting" enctype="multipart/form-data" class="form-horizontal" method="post">
+        <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                
+                 
+                 <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">EDIT DOCUMENT </span>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Station </label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                         <input type="hidden" name="doc_id" value="<?php echo $id; ?>">
+                                        <select name="station" id="station" class="form-control form-select select2 " data-placeholder="Select Station ">
+                                             <option value="" selected disabled> Select Station</option>
+                                            
                                         <?php
-                                        if (!empty($_SESSION['import_status_message'])) {
-                                            echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                                            $_SESSION['message_stauts_class'] = '';
-                                            $_SESSION['import_status_message'] = '';
-                                        }
-                        ?>
-
-
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <div class="row">
-
-                                    <label class="col-lg-2 control-label" style="padding-top: 10px;">Station : </label>
-                                    <div class="col-md-6">
-                                        <input type="hidden" name="doc_id" value="<?php echo $id; ?>">
-<!--                                        <input type="hidden" name="station" value="--><?php //echo $station; ?><!--">-->
-                                        <select name="station" id="station" class="select form-control"
-                                                style="float: left;width: initial;">
-                                            <option value="" selected disabled>--- Select Station ---</option>
-                                            <?php
                                             $sql1 = "SELECT * FROM `cam_line` ";
                                             $result1 = $mysqli->query($sql1);
                                             //                                            $entry = 'selected';
@@ -383,23 +316,27 @@ include("../heading_banner.php");
                                                 echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
                                             }
                                             ?>
-                                        </select>
+                                    </select>
                                     </div>
-                                    <div id="error1" class="red">Document Name</div>
+                                    
                                 </div>
-                                </br>
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Document file : </label>
-                                    <div class="col-md-6">
-                                        <input type="file" name="file[]" id="file" class="form-control">
+
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Document File </label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input id="file" type="file" name="file[]" class="form-control" multiple>
                                         <div class="container"></div>
                                     </div>
                                 </div>
-                                <br/>
 
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Previous Image : </label>
-                                    <div class="col-md-6">
+
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Previous Image </label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
                                         <?php
                                         $query1 = sprintf("SELECT doc_id FROM  document_data where doc_id = '$id'");
                                         $qur1 = mysqli_query($db, $query1);
@@ -415,56 +352,67 @@ include("../heading_banner.php");
                                             $d_tag = "delete_image_" . $i;
                                             $r_tag = "remove_image_" . $i;
                                             ?>
-                                            <div class="col-lg-3 col-sm-6">
-                                                <div class="thumbnail">
-                                                    <div class="thumb">
-                                                        <img src="../document_files/<?php echo $item_id; ?>/<?php echo $image; ?>"
+                                        <div class="col-lg-3 col-sm-6">
+                                            <div class="thumbnail">
+                                                <div class="thumb">
+                                                   <img src="../document_files/<?php echo $item_id; ?>/<?php echo $image; ?>"
                                                              alt="">
-                                                        <input type="hidden"  id="<?php echo $d_tag; ?>" name="<?php echo $d_tag; ?>" class="<?php echo $d_tag; ?>" value="<?php echo $rowcimage['doc_file_id']; ?>">
-                                                        <span class="remove remove_image" id="<?php echo $r_tag; ?>">Remove Image </span>
-                                                    </div>
+                                                     <input type="hidden"  id="<?php echo $d_tag; ?>" name="<?php echo $d_tag; ?>" class="<?php echo $d_tag; ?>" value="<?php echo $rowcimage['doc_file_id']; ?>">
+                                                    <span class="remove remove_image" id="<?php echo $r_tag; ?>">Remove Image </span>
+
                                                 </div>
                                             </div>
-                                            <?php
-                                            $i++;} ?>
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="row">
-                                    <label class="col-lg-2 control-label" style="padding-top: 10px;">Document Name : </label>
-                                    <div class="col-md-6">
-                                        <input type="text" name="doc_name" id="doc_name" class="form-control"  value="<?php echo $doc_name; ?>" placeholder="Enter Doc name" required>
-                                    </div>
-                                    <div id="error1" class="red">Document Name</div>
-                                </div>
-                                <br/>
-
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Document Type : </label>
-                                    <div class="col-md-6">
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" id="pass" name="doc_type" value="1" class="form-check-input"  <?php if($doc_type == "1"){echo 'checked';} ?>  required>
-                                            <label for="pass" class="item_label">Station</label>
-
-                                            <input type="radio" id="fail" name="doc_type" value="0" class="form-check-input reject" <?php if($doc_type == "0"){echo 'checked';}?> required>
-                                            <label for="fail" class="item_label">Part Number</label>
                                         </div>
+                                        <?php
+                                        $i++;}
+                                }
+                                ?>
 
                                     </div>
-                                    <div id="error7" class="red">Please select station or part number</div>
+                                </div>
+
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Document Name</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="text" class="form-control" name="doc_name" id="doc_name"  value="<?php echo $doc_name; ?>"  placeholder="Enter Doc Name" required>
+                                    </div>
+                                
 
                                 </div>
 
-                               <?php if($doc_type == "0"){ ?>
-                                <div class="row desc" id="Carspart_number">
-                                    <br/>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Document Type </label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <div class="row mg-t-15">
+                                            <div class="col-lg-2">
+                                                <label class="rdiobox"><input id="pass" name="doc_type" value="1"  type="radio"  <?php if($doc_type == "1"){echo 'checked';} ?>  required> <span>Station </span></label>
+                                            </div>
+                                            <div class="col-lg-2 mg-t-20 mg-lg-t-0">
+                                                <label class="rdiobox"><input  id="fail" name="doc_type"  value="0" type="radio" <?php if($doc_type == "0"){echo 'checked';}?> required> <span>Part Number</span></label>
+                                            </div>
 
-                                    <div class="row">
-                                        <label class="col-lg-2 control-label" style="margin-left: 10px;">Part Number *  :</label>
-                                        <div class="col-md-6">
-                                            <select name="part_number" id="part_number" class="select" data-style="bg-slate" >
-                                                <option value="" selected disabled>--- Select Part Number ---</option>
-                                                <?php
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                 <?php if($doc_type == "0"){ ?>
+
+                                 <div class="row row-xs align-items-center mg-b-20 desc" id="Carspart_number" style="display: none;">
+
+
+
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-1">Part Number</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                            <option value="" selected disabled>--- Select Part Number ---</option>
+                                             <?php
                                                 $sql1 = "SELECT * FROM `pm_part_number` where station = '$station' ORDER BY `part_number` ASC  ";
                                                 $result1 = $mysqli->query($sql1);
                                                 while ($row1 = $result1->fetch_assoc()) {
@@ -477,21 +425,23 @@ include("../heading_banner.php");
                                                     echo "<option value='" . $row1['pm_part_number_id'] . "' $entry>" . $row1['part_number'] ." - ".$row1['part_name'] . "</option>";
                                                 }
                                                 ?>
-                                            </select>
-                                        </div>
+                                        </select>
                                     </div>
                                 </div>
-                                <br/>
-                                <?php } else { ?>
-                                   <div class="row desc" id="Cars0" style="display: none;">
-                                       <br/>
+                                 <?php } else { ?>
 
-                                       <div class="row">
-                                           <label class="col-lg-2 control-label" style="margin-left: 10px;">Part Number *  :</label>
-                                           <div class="col-md-6">
-                                               <select name="part_number" id="part_number" class="select" data-style="bg-slate" >
-                                                   <option value="" selected disabled>--- Select Part Number ---</option>
-                                                   <?php
+
+                                <div class="row row-xs align-items-center mg-b-20 desc" id="Cars0" style="display: none;">
+
+
+
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-1">Part Number</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                            <option value="" selected disabled>--- Select Part Number ---</option>
+                                             <?php
                                                    $sql1 = "SELECT * FROM `pm_part_number` where station = '$station' ORDER BY `part_number` ASC  ";
                                                    $result1 = $mysqli->query($sql1);
                                                    while ($row1 = $result1->fetch_assoc()) {
@@ -504,20 +454,23 @@ include("../heading_banner.php");
                                                        echo "<option value='" . $row1['pm_part_number_id'] . "' $entry>" . $row1['part_number'] ." - ".$row1['part_name'] . "</option>";
                                                    }
                                                    ?>
-                                               </select>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <br/>
+                                        </select>
+                                    </div>
+                                </div>
                                 <?php } ?>
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Document Category : </label>
-                                    <div class="col-md-6">
-                                        <select name="category" id="category" class="select" data-style="bg-slate">
-                                            <option value="" selected disabled>--- Select Category ---</option>
-                                            <?php
+                            
+                           
 
-                                            $sql2 = "SELECT * FROM `document_type` where enabled = '1' ORDER BY `document_type_name` ASC ";
+                           <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Document Category</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <select name="category" id="category" class="form-control form-select select2" data-placeholder="Select Category">
+                                            <option value="" selected disabled> Select Category</option>
+                                           <?php
+
+                                        $sql2 = "SELECT * FROM `document_type` where enabled = '1' ORDER BY `document_type_name` ASC ";
                                             $result2 = mysqli_query($db,$sql2);
                                             //                                            $entry = 'selected';
                                             while ($row1 = mysqli_fetch_assoc($result2)) {
@@ -533,56 +486,55 @@ include("../heading_banner.php");
                                         </select>
                                     </div>
                                 </div>
-                                <div id="error6" class="red">Please Enter Document Category</div>
-                                <br/>
 
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Status : </label>
-                                    <div class="col-md-6">
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" id="active" name="status" value="active" <?php if($status == "active"){echo 'checked';} ?> class="form-check-input" checked required>
-                                            <label for="pass" class="item_label">Active</label>
 
-                                            <input type="radio" id="inactive" name="status" value="inactive" <?php if($status == "inactive"){echo 'checked';} ?> class="form-check-input reject" required>
-                                            <label for="fail" class="item_label">Inactive</label>
-
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Status</label>
+                                    </div>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <div class="row mg-t-15">
+                                            <div class="col-lg-2">
+                                                <label  class="rdiobox"><input id="active" name="status" value="active" type="radio" <?php if($status == "active"){echo 'checked';} ?>> <span>Active</span></label>
+                                            </div>
+                                            <div class="col-lg-2 mg-t-20 mg-lg-t-0">
+                                                <label class="rdiobox"><input  id="inactive" name="status" value="inactive" type="radio" <?php if($status == "inactive"){echo 'checked';} ?> > <span>Inactive</span></label>
+                                            </div>
 
                                         </div>
-
-                                    </div>
-                                    <div id="error7" class="red">Please select station or part number</div>
-
-                                </div>
-                                <br/>
-
-
-                                <div class="row">
-                                    <!--<div class="col-md-4">-->
-                                    <label class="col-lg-2 control-label">Expiry Date : </label>
-                                    <div class="col-md-6">
-                                        <input type="date" name="exp_date" id="exp_date"  class="form-control" value="<?php echo $expirydate; ?>"  required>
                                     </div>
                                 </div>
-                                <br/>
-                                <hr/>
-                                <br/>
+
+
+
+                                 <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Expiry Date</label>
+                                    </div>
+                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                         <div class="input-group">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input class="form-control fc-datepicker" name="exp_date" id="exp_date"
+                                               value="<?php echo $expirydate; ?>" placeholder="MM/DD/YYYY" type="date">
+                                    </div>
+                                </div> 
                             </div>
                         </div>
+
+
+                                 <div class="card-body pt-0">
+
+                                    <button type="submit" id="form_submit_btn" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">SUBMIT</button>
+                                </div>
+                        </div>
                     </div>
-
-                    <div  class="panel-footer p_footer">
-                        <button type="submit" id="form_submit_btn" class="btn btn-primary submit_btn" style="background-color:#1e73be;">Submit</button>
-                    </div>
-                </form>
-
-
+                </div>
             </div>
         </div>
-    <?php } ?>
+    </form>
 </div>
-
-
-
 <script>
     $(document).ready(function() {
         $('.select').select2();
@@ -715,8 +667,7 @@ include("../heading_banner.php");
 
 </script>
 
-<?php include('../footer.php') ?>
-
+<?php include('../footer1.php') ?>
 </body>
+</head>
 
-</html>

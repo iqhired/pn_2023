@@ -16,14 +16,7 @@ if(count($_POST)>0) {
 
     $sql0 = "UPDATE `document_data` SET `doc_name`='$doc_name',`station`='$station',`doc_type`='$doc_type',`doc_category`='$category',`part_number`='$part_number',`status`='$status',`expiry_date`='$exp_date',`created_at`='$created_by' WHERE `doc_id` = '$doc_id'";
     $result0 = mysqli_query($db, $sql0);
-    if ($result0) {
-        $_SESSION['message_stauts_class'] = 'alert-success';
-        $_SESSION['import_status_message'] = 'Document Updated Sucessfully.';
-    } else {
-        $_SESSION['message_stauts_class'] = 'alert-danger';
-        $_SESSION['import_status_message'] = 'Please retry';
-
-    }
+    
 
 //    $qur04 = mysqli_query($db, "SELECT * FROM  document_data where doc_name = '$doc_name' ORDER BY `doc_id` DESC ");
 //    $rowc04 = mysqli_fetch_array($qur04);
@@ -72,7 +65,7 @@ if(count($_POST)>0) {
 
 
 }
-$page = "edit_document.php?id=$doc_id";
+$page = "document_search.php?id=$doc_id";
 header('Location: '.$page, true, 303);
 exit;
 
