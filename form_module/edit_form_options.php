@@ -175,7 +175,74 @@ if ($i != "super" && $i != "admin") {
             margin-right: 112px;
             display: block;
         }
+        @media (min-width: 614px) and (max-width: 874px) {
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 462px!important;
+                margin-top: -26px!important;
+                margin-left: 114px!important;
+                font-size: 16px!important;
+            }
 
+        }
+        @media (min-width: 768px){
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam {
+                display: none;
+            }
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
+        @media (min-width: 481px) and (max-width: 768px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
+        @media (min-width: 614px) and (max-width: 874px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
     </style>
 </head>
 
@@ -266,7 +333,7 @@ include("../admin_menu.php");
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-1"></div>
+                            <div class="col-md-1 exam"></div>
                             <div class="col-md-1">
                                 <label class="form-label mg-b-0">Part Family</label>
                             </div>
@@ -327,7 +394,7 @@ include("../admin_menu.php");
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-1"></div>
+                            <div class="col-md-1 exam"></div>
                             <div class="col-md-1">
                                 <label class="form-label mg-b-0">Form Type</label>
                             </div>
