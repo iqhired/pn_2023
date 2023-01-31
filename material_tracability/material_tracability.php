@@ -287,7 +287,7 @@ $logo = $rowccus['logo'];
             width: 0;
 
         }
-        .main-content .container, .main-content .container-fluid {
+        .main-content .image_box, .main-content .container-fluid {
             padding-left: 20px;
             padding-right: 238px;
         }
@@ -365,8 +365,6 @@ $logo = $rowccus['logo'];
     while ($row1 = $result1->fetch_assoc()) {
         $line_name = $row1['line_name'];
         $line_no = $row1['line_id'];
-
-
     }
     ?>
 
@@ -531,7 +529,7 @@ $logo = $rowccus['logo'];
                         </div>
                         <div class="col-md-8 mg-t-5 mg-md-t-0">
                             <input type="file" id="file" name="file" class="form-control"/>
-                            <div class="container"></div>
+                            <div class="image_box"></div>
                         </div>
                     </div>
                     <br/>
@@ -635,11 +633,11 @@ $logo = $rowccus['logo'];
             success: function (response) {
 
                 if (response != 0) {
-                    var count = $('.container .content_img').length;
+                    var count = $('.image_box .content_img').length;
                     count = Number(count) + 1;
 
                     // Show image preview with Delete button
-                    $('.container').append("<div class='content_img' id='content_img_" + count + "' ><img src='" + response + "' width='100' height='100'><span class='delete' id='delete_" + count + "'>Delete</span></div>");
+                    $('.image_box').append("<div class='content_img' id='content_img_" + count + "' ><img src='" + response + "' width='100' height='100'><span class='delete' id='delete_" + count + "'>Delete</span></div>");
                 }
             }
         });
@@ -647,7 +645,7 @@ $logo = $rowccus['logo'];
 
 
     // Remove file
-    $('.container').on('click', '.content_img .delete', function () {
+    $('.image_box').on('click', '.content_img .delete', function () {
 
         var id = this.id;
         var split_id = id.split('_');
@@ -673,7 +671,7 @@ $logo = $rowccus['logo'];
                     // $('#content_img_'+num)[0].remove();
                     var elem = document.getElementById(id);
                     document.getElementById(id).style.display = 'none';
-                    var nodes = $(".container")[2].childNodes;
+                    var nodes = $(".image_box")[2].childNodes;
                     for (var i = 0; i < nodes.length; i++) {
                         var node = nodes[i];
                         if (node.id == id) {
