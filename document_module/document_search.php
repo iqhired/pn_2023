@@ -263,6 +263,7 @@ include("../admin_menu.php");
      <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
+
                  <div class="card">
                     <div class="card-body">
                          <div class="card-header">
