@@ -206,6 +206,9 @@ if ($ps != "") {
             .breadcrumb-header {
                 margin-left: 38px;
             }
+            .col-md-4.exa{
+                font-size: 11px!important;
+            }
 
         }
 
@@ -216,7 +219,7 @@ if ($ps != "") {
                 max-width: 10.33333%!important;
             }
             .col-md-4 {
-                width: 30%;
+                width: 33%;
             }
             .col-md-8.mg-t-5.mg-md-t-0 {
                 width: 70%;
@@ -229,33 +232,11 @@ if ($ps != "") {
             .breadcrumb-header {
                 margin-left: 38px;
             }
+            .col-md-4.exa{
+                font-size: 10px!important;
+            }
 
         }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-
-            .col-md-4 {
-                width: 30%;
-            }
-            .col-md-8.mg-t-5.mg-md-t-0 {
-                width: 70%;
-            }
-
-
-            .d-sm-none {
-                z-index: 1!important;
-            }
-            .breadcrumb-header {
-                margin-left: 38px;
-            }
-
-
-
-        }
-
-
-
-
         table.dataTable thead .sorting:after {
             content: ""!important;
             top: 49%;
@@ -283,7 +264,6 @@ if ($ps != "") {
             width: 100px;
             height: 23px;
         }
-
     </style>
 </head>
 <!-- Main navbar -->
@@ -321,31 +301,57 @@ if ($ps != "") {
                     </div>
                     <div class="card-body pt-0">
                         <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Select station</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="assign_line" id="assign_line" class="form-control form-select select2 select2-hidden-accessible" data-placeholder="Select Station" tabindex="-1" aria-hidden="true">
-                                        <option value="" selected disabled>Select Station</option>
-                                        <?php
-                                        $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            $lin = $row1['line_id'];
-                                            if ($lin == $assign_line) {
-                                                $entry = 'selected';
-                                            } else {
-                                                $entry = '';
+                                <?php if(!empty($station)){ ?>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Select station</label>
+                                    </div>
+                                    <div class="col-md-6" style="pointer-events: none;">
+                                        <select name="assign_line" id="assign_line" class="form-control form-select select2 select2-hidden-accessible" data-placeholder="Select Station" tabindex="-1" aria-hidden="true">
+                                            <option value="" selected disabled>Select Station</option>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 and line_id = '$station'";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                $lin = $row1['line_id'];
+                                                if ($lin == $assign_line) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
                                             }
-                                            echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-
+                                <?php } else { ?>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-4">
+                                        <label class="form-label mg-b-0">Select station</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select name="assign_line" id="assign_line" class="form-control form-select select2 select2-hidden-accessible" data-placeholder="Select Station" tabindex="-1" aria-hidden="true">
+                                            <option value="" selected disabled>Select Station</option>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                $lin = $row1['line_id'];
+                                                if ($lin == $assign_line) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <?php } ?>
                                 <div class="card-body pt-0">
                                     <button class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Submit</button>
                                 </div>
@@ -497,8 +503,8 @@ if ($ps != "") {
                         if ($priyantcount != "0") {
                         for ($i = 0; $i < $priyantcount;) {
                         ?>
-                        <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-4">
+                        <div class="row row-xs align-items-center mg-b-20 example">
+                            <div class="col-md-4 media_query">
                                 <select name="position[]" id="position" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
                                     <option value="1" selected >Select Position </option>
                                     <?php
@@ -528,7 +534,7 @@ if ($ps != "") {
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 exa">
                                 <select name="resource_type[]" id="resource_type<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-count="<?php echo $cnt; ?>">
                                     <option value="Cross Training" selected >Select Resource Type</option>
                                     <option value="Cross Training"  >Cross Training</option>
@@ -590,7 +596,7 @@ if ($ps != "") {
                         for ($i = 0; $i < $priyantcount;) {
                         ?>
                         <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-4">
+                            <div class="col-md-4 media_query">
                                 <select name="position[]" id="position" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true">
                                     <option value="1" selected >Select Position</option>
                                     <?php
@@ -620,7 +626,7 @@ if ($ps != "") {
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 exa">
                                 <select name="resource_type[]" id="resource_type<?php echo $cnt; ?>" class="form-control form-select select2 select2-hidden-accessible" data-bs-placeholder="Select Country" tabindex="-1" aria-hidden="true" data-count="<?php echo $cnt; ?>">
                                     <option value="On Break" selected >Select Resource Type</option>
                                     <option value="On Break"  >On Break</option>
