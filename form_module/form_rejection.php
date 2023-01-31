@@ -183,6 +183,13 @@ if (count($_POST) > 0) {
                 margin-left: 0rem;
                 margin-right: 0rem;
             }
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
         }
 
         @media (min-width: 481px) and (max-width: 768px) {
@@ -195,6 +202,13 @@ if (count($_POST) > 0) {
                 flex: 0 0 8.33333%;
                 max-width: 10.33333%!important;
             }
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -202,6 +216,13 @@ if (count($_POST) > 0) {
 
                 margin-left:-15rem;
                 margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
             }
 
         }
