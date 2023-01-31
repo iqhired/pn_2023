@@ -196,14 +196,63 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 114px!important;
                 font-size: 16px!important;
             }
+
         }
         @media (min-width: 768px){
             .col-md-1 {
                 flex: 1 0 0.33333%;
                 max-width: 34.33333%!important;
             }
+            .col-md-1.exam {
+                display: none;
+            }
         }
-        @media (min-width: 769px) and (max-width: 1064px) {
+        @media (min-width: 320px) and (max-width: 480px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
+        @media (min-width: 481px) and (max-width: 768px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+            .col-md-1.exam{
+                display: none!important;
+            }
+        }
+        @media (min-width: 614px) and (max-width: 874px) {
+
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
             .col-md-1.exam{
                 display: none!important;
             }
