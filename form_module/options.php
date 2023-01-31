@@ -197,8 +197,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 font-size: 16px!important;
             }
         }
+        @media (min-width: 768px){
+            .col-md-1 {
+                flex: 1 0 0.33333%;
+                max-width: 34.33333%!important;
+            }
+        }
         @media (min-width: 769px) and (max-width: 1064px) {
-
+            .col-md-1.exam{
+                display: none!important;
+            }
         }
     </style>
 </head>
@@ -313,7 +321,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-1 exam"></div>
                                 <div class="col-md-1">
                                     <label class="form-label mg-b-0">Part Family</label>
                                 </div>
@@ -380,7 +388,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-1 exam"></div>
                                 <div class="col-md-1">
                                     <label class="form-label mg-b-0">Form Type</label>
                                 </div>
