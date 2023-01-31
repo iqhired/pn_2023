@@ -377,7 +377,7 @@ if (count($_POST) > 0) {
            }
             .col-md-4.mg-t-10.mg-md-t-0{
                 max-width: 300px;
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -30px;
                 margin-bottom: 66px;
             }
@@ -386,45 +386,176 @@ if (count($_POST) > 0) {
                 margin-bottom: -63px;
             }
             .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 234px;
+                margin-left: 215px;
                 margin-top: -57px;
             }
             .col-md-1#ex {
                 margin-top: -56px;
             }
         }
-        }
-        .sidebar-default .navigation li > a {
-            color: #f5f5f5;
-        }
-
-
-
-        .sidebar-default .navigation li > a:focus, .sidebar-default .navigation li > a:hover {
-            background-color: #20a9cc;
-        }
-
-        .red {
-            color: red;
-            display: none;
-        }
-        label.col-lg-4.control-label {
-            color: #333;
-        }
-
-        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-            .col-lg-8 {
-                float: right;
-                width: 60% !important;
+        @media (min-width: 320px) and (max-width: 480px) {
+            .col-md-1 {
+                max-width: 180px!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+            }
+            .col-md-1.media {
+                max-width: 0px!important;
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query{
+                max-width: 300px!important;
+            }
+            .col-md-1 {
+                margin-top: -30px;
+                max-width: 16.33333%!important;
+            }
+            .col-md-1.media{
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+                margin-left: 215px;
+                margin-top: -30px;
+                margin-bottom: 66px;
+            }
+            .row {
+                display: grid;
+                margin-bottom: -63px;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query {
+                margin-left: 215px;
+                margin-top: -57px;
+            }
+            .col-md-1#ex {
+                margin-top: -56px;
             }
 
-            label.col-lg-3.control-label {
-                width: 40%;
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .col-md-1 {
+                max-width: 180px!important;
             }
-            label.col-lg-4.control-label {
-                width: 40%;
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+            }
+            .col-md-1.media {
+                max-width: 0px!important;
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query{
+                max-width: 300px!important;
+            }
+            .col-md-1 {
+                margin-top: -30px;
+                max-width: 16.33333%!important;
+            }
+            .col-md-1.media{
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+                margin-left: 215px;
+                margin-top: -30px;
+                margin-bottom: 66px;
+            }
+            .row {
+                display: grid;
+                margin-bottom: -63px;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query {
+                margin-left: 215px;
+                margin-top: -57px;
+            }
+            .col-md-1#ex {
+                margin-top: -56px;
             }
         }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .col-md-1 {
+                max-width: 180px!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+            }
+            .col-md-1.media {
+                max-width: 0px!important;
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query{
+                max-width: 300px!important;
+            }
+            .col-md-1 {
+                margin-top: -30px;
+                max-width: 16.33333%!important;
+            }
+            .col-md-1.media{
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+                margin-left: 215px;
+                margin-top: -30px;
+                margin-bottom: 66px;
+            }
+            .row {
+                display: grid;
+                margin-bottom: -63px;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query {
+                margin-left: 215px;
+                margin-top: -57px;
+            }
+            .col-md-1#ex {
+                margin-top: -56px;
+            }
+        }
+
+        @media (min-width: 482px) and (max-width: 767px) {
+            .col-md-1 {
+                max-width: 180px!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+            }
+            .col-md-1.media {
+                max-width: 0px!important;
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query{
+                max-width: 300px!important;
+            }
+            .col-md-1 {
+                margin-top: -30px;
+                max-width: 19.33333%!important;
+            }
+            .col-md-1.media{
+                display: none!important;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0{
+                max-width: 300px;
+                margin-left: 215px;
+                margin-top: -30px;
+                margin-bottom: 66px;
+            }
+            .row {
+                display: grid;
+                margin-bottom: -63px;
+            }
+            .col-md-4.mg-t-10.mg-md-t-0.query {
+                margin-left: 215px;
+                margin-top: -57px;
+            }
+            .col-md-1#ex {
+                margin-top: -56px;
+            }
+        }
+
+
+
     </style>
 </head>
 
