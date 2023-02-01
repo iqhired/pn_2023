@@ -270,7 +270,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Good Bad Piece</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add Bad Piece</li>
             </ol>
         </div>
@@ -330,11 +330,6 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                             </div>
                         </div>
                     </div>
-
-
-                        
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-2">
@@ -386,13 +381,12 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                 </div>
                             </div>
 
-
                              <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="row row-xs">
+                                 <div class="col-md-2">
                                     <label class="form-label mg-b-0">Previous Image:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                  <div class="col-md-8 mg-t-10 mg-md-t-0">
                                     <div class="container"></div>
                                     <?php
                                     $time_stamp = $_SESSION['good_timestamp_id'];
@@ -425,6 +419,51 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     ?>
 
                                     </div>
+                               </div>
+                            </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Cross Section Image:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <div class="container"></div>
+                                           <div class="col-lg-3 col-sm-6">
+                                                <div class="thumbnail">
+                                                    <div class="thumb">
+                                                        <img src="<?php echo $siteURL; ?>assets/images/part_images/cs/201166568A.jpg" alt=""/>'
+
+                                                        <input type="hidden"  id="<?php echo $d_tag; ?>" name="<?php echo $d_tag; ?>" class="<?php echo $d_tag; ?> >" value="<?php echo $rowcimage['good_image_id']; ?>">
+                                                        <span class="remove remove_image" id="<?php echo $r_tag; ?>">Remove Image </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Defect Block:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <select name="defect_block" id="defect_block" class="form-control form-select select2"
+                                            data-style="bg-slate">
+                                        <option value="" selected disabled>- Select Defect Block -</option>
+                                        <option value="<?php echo defect_block[0];?>">A1</option>
+                                        <option value="<?php echo defect_block[1];?>">A2</option>
+                                        <option value="<?php echo defect_block[2];?>">A3</option>
+                                        <option value="<?php echo defect_block[3];?>">B1</option>
+                                        <option value="<?php echo defect_block[4];?>">B2</option>
+                                        <option value="<?php echo defect_block[5];?>">B3</option>
+                                        <option value="<?php echo defect_block[6];?>">C1</option>
+                                        <option value="<?php echo defect_block[7];?>">C2</option>
+                                        <option value="<?php echo defect_block[8];?>">C3</option>
+
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -433,8 +472,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                 <?php if(($idddd != 0) && ($printenabled == 1)){?>
                     <iframe height="100" id="resultFrame" style="display: none;" src="./pp.php"></iframe>
                 <?php }?>
-                                    <button type="submit"  id="submitForm_bad" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
-
+                                 <button type="submit"  id="submitForm_bad" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
                                 </div>
                     </div>
                  </div>
