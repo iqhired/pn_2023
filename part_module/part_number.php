@@ -119,7 +119,7 @@ if (count($_POST) > 0) {
             }
             if (empty($errors) == true) {
               //  gridify($file_tmp, "../assets/images/Cross_sec/" . $name ."_".time().'_'. $file_name);
-                gridify("http://localhost/pn/assets/images/Cross_sec/E06263_Tesla_S_Inner_Trim_(P000955854).png", "testing");
+                gridify(site_URL."/assets/images/Cross_sec/E06263_Tesla_S_Inner_Trim_(P000955854).png", "testing");
             }
         }
         else
@@ -435,7 +435,7 @@ if (count($_POST) > 0) {
             </div>
 
         </div>
-        <form action="" id="user_form" class="form-horizontal" method="post">
+        <form action="" id="user_form" class="form-horizontal" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
@@ -617,7 +617,7 @@ if (count($_POST) > 0) {
         </form>
 
         <!-- row  -->
-        <form action="" id="update-form" method="post" class="form-horizontal">
+        <form action="" id="update-form" method="post" class="form-horizontal" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-12 col-sm-12">
                     <div class="card">
