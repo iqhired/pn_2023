@@ -43,13 +43,19 @@ function convertYMDToMDY($date){
     return $date;
 }
 
-function gridify($image, $output, $xgrid = 3, $ygrid = 3)
-{
+/**
+ * This method Draws a grid on the image uploaded and divide the image in yXy grid.
+ * @param $image
+ * @param $output
+ * @param int $xgrid
+ * @param int $ygrid
+ */
+function gridify($image, $output, $xgrid = 3, $ygrid = 3) {
 	$imgpath = "$image";
 	$ext = pathinfo($image, PATHINFO_EXTENSION);
-	if($ext == "jpg" || $ext == "jpeg")
+	if($ext == "jpg" || $ext == "jpeg" || $ext == "JPG" || $ext == "JPEG")
 		$img = imagecreatefromjpeg($image);
-	elseif($ext == "png")
+	elseif($ext == "png" || $ext == "PNG")
 		$img = imagecreatefrompng($image);
 	elseif($ext == "gif")
 		$img = imagecreatefromgif($image);
@@ -61,8 +67,8 @@ function gridify($image, $output, $xgrid = 3, $ygrid = 3)
 	$red   = imagecolorallocate($img, 255,   0,   0);
 
 // Number of cells
-	$xgrid = 3;
-	$ygrid = 3;
+//	$xgrid = 3;
+//	$ygrid = 3;
 
 // Calulate each cell width/height
 	$xgridsize = $width / $xgrid;
@@ -93,11 +99,21 @@ function gridify($image, $output, $xgrid = 3, $ygrid = 3)
 	}
 	// Save output as file
 	//site_URL.'assets/images/part_images/cs/' path to store
-	$output_name = $output .'_'. time() .'.jpg';
+	$output_name =  'cs_'. $output .'.jpg';
 	imagejpeg($img, $output_name);
 	imagedestroy($img);
 //	shell_exec("open -a Preview '$output_name'");
 }
+
+/**
+ * This method is used to write the text on the image
+ * @param $img
+ * @param $cellX
+ * @param $cellWidth
+ * @param $cellY
+ * @param $cellHeight
+ * @param $text
+ */
 function addTextToCell($img, $cellX, $cellWidth, $cellY, $cellHeight, $text) {
 
 	// Calculate text size
@@ -119,5 +135,43 @@ function addTextToCell($img, $cellX, $cellWidth, $cellY, $cellHeight, $text) {
 
 }
 
+/**
+ * This method is used to check if session has expired
+ * and then to redirect to appropriate Login screen
+ */
+function checkSession(){
+	if (!isset($_SESSION['user'])) {
+		if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
+			header('location:'.site_URL.'/tab_logout.php');
+		} else {
+			header('location:'.site_URL.'/logout.php');
+		}
+	}
+
+//Set the session duration for 10800 seconds - 3 hours
+	$duration = auto_logout_duration;
+//Read the request time of the user
+	$time = $_SERVER['REQUEST_TIME'];
+//Check the user's session exist or not
+	if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
+		//Unset the session variables
+		session_unset();
+		//Destroy the session
+		session_destroy();
+		if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
+			header('location:'.site_URL.'/tab_logout.php');
+		} else {
+			header('location:'.site_URL.'/logout.php');
+		}
+		exit;
+	}
+//Set the time of the user's last activity
+	$_SESSION['LAST_ACTIVITY'] = $time;
+
+//	$i = $_SESSION["role_id"];
+//	if ($i != "super" && $i != "admin") {
+//		header('location: ../dashboard.php');
+//	}
+}
 
 ?>
