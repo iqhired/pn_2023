@@ -3,9 +3,6 @@ include("../config.php");
 //include("../sup_config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    header('location: logout.php');
-}
 
 
 //Set the session duration for 10800 seconds - 3 hours
@@ -182,34 +179,7 @@ if (count($_POST) > 0) {
             margin-left: -8.75rem;
             margin-right: 6.25rem;
         }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -220,7 +190,10 @@ if (count($_POST) > 0) {
             width: 0;
 
         }
-
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
         .main-footer {
             margin-left: -127px;
             margin-right: 112px;
@@ -236,6 +209,21 @@ if (count($_POST) > 0) {
             width: 100px;
             height: 23px;
         }
+        .col-md-1\.5 {
+            width: 12%;
+        }
+        .col-md-0\.5 {
+            width: 4%;
+        }
+        .card-title {
+            margin-bottom: 0;
+            margin-left: 15px;
+        }
+        @media (min-width: 482px) and (max-width: 767px)
+            .main-content.horizontal-content {
+                margin-top: 0px;
+            }
+
 
     </style>
 </head>
@@ -341,17 +329,13 @@ include("../admin_menu.php");
 
 
 
-<form action="" method="post" class="form-horizontal">
+<form action="delete_part_family.php" method="post" class="form-horizontal">
     <div class="row-body">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-
-                    <button type="submit" class="btn btn-danger  submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                    <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
                 </div>
-
-
-
                 <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -382,7 +366,7 @@ include("../admin_menu.php");
                                                 <td><?php echo ++$counter; ?></td>
 
                                                 <td>
-                                                    <button type="button" id="edit" class="btn btn-info btn-xs"
+                                                    <button type="button" id="edit" class="btn btn-primary btn-xs"
                                                             data-id="<?php echo $rowc['pm_part_family_id']; ?>"
                                                             data-name="<?php echo $rowc['part_family_name']; ?>"
                                                             data-station="<?php echo $rowc['station']; ?>"
