@@ -421,7 +421,6 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     </div>
                                </div>
                             </div>
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-2">
@@ -432,10 +431,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                            <div class="col-lg-3 col-sm-6">
                                                 <div class="thumbnail">
                                                     <div class="thumb">
-                                                        <img src="<?php echo $siteURL; ?>assets/images/part_images/cs/201166568A.jpg" alt=""/>'
-
-                                                        <input type="hidden"  id="<?php echo $d_tag; ?>" name="<?php echo $d_tag; ?>" class="<?php echo $d_tag; ?> >" value="<?php echo $rowcimage['good_image_id']; ?>">
-                                                        <span class="remove remove_image" id="<?php echo $r_tag; ?>">Remove Image </span>
+                                                        <img src="<?php echo $siteURL; ?>assets/images/part_images/cs/<?php echo $pm_part_number;?>.jpg" alt=""/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -446,12 +442,12 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Defect Block:</label>
+                                    <label class="form-label mg-b-0">Defect Zone:</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
                                     <select name="defect_block" id="defect_block" class="form-control form-select select2"
                                             data-style="bg-slate">
-                                        <option value="" selected disabled>- Select Defect Block -</option>
+                                        <option value="" selected disabled>- Select Defect Zone -</option>
                                         <option value="<?php echo defect_block[0];?>">A1</option>
                                         <option value="<?php echo defect_block[1];?>">A2</option>
                                         <option value="<?php echo defect_block[2];?>">A3</option>
