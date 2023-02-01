@@ -51,7 +51,7 @@ function convertYMDToMDY($date){
  * @param int $ygrid
  */
 function gridify($image, $output, $xgrid = 3, $ygrid = 3) {
-	$imgpath = "$image";
+	$imgpath = $image;
 	$ext = pathinfo($image, PATHINFO_EXTENSION);
 	if($ext == "jpg" || $ext == "jpeg" || $ext == "JPG" || $ext == "JPEG")
 		$img = imagecreatefromjpeg($image);
@@ -99,7 +99,7 @@ function gridify($image, $output, $xgrid = 3, $ygrid = 3) {
 	}
 	// Save output as file
 	//site_URL.'assets/images/part_images/cs/' path to store
-	$output_name =  'cs_'. $output .'.jpg';
+	$output_name =  $output .'.jpg';
 	imagejpeg($img, $output_name);
 	imagedestroy($img);
 //	shell_exec("open -a Preview '$output_name'");

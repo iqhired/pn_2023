@@ -1,32 +1,7 @@
 <?php include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    header('location: ../logout.php');
-}
-
-
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    header($redirect_logout_path);
-//	header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin") {
-    header('location: ../dashboard.php');
-}
+checkSession();
 $assign_by = $_SESSION["id"];
 
 if (count($_POST) > 0) {
@@ -107,6 +82,7 @@ if (count($_POST) > 0) {
             $file_type = $_FILES['cs_file']['type'];
             $file_ext = strtolower(end(explode('.', $file_name)));
             $extensions = array("jpeg", "jpg", "png", "pdf","JPG","JPEG","PNG");
+			$fname = $name .'.'.'jpg';
             if (in_array($file_ext, $extensions) === false) {
                 $errors[] = "extension not allowed, please choose a JPEG or PNG file.";
                 $message_stauts_class = 'alert-danger';
@@ -118,9 +94,16 @@ if (count($_POST) > 0) {
                 $import_status_message = 'Error: File size must be less than 2 MB';
             }
             if (empty($errors) == true) {
-              //  gridify($file_tmp, "../assets/images/Cross_sec/" . $name ."_".time().'_'. $file_name);
-                gridify(site_URL."/assets/images/Cross_sec/E06263_Tesla_S_Inner_Trim_(P000955854).png", "testing");
+				move_uploaded_file($file_tmp, $file_name);
+                gridify($file_name, $name);
+                copy($fname,"../assets/images/part_images/cs/" . $fname);
             }
+			if (file_exists($file_name)) {
+				unlink($file_name);
+			}
+			if (file_exists($fname)) {
+				unlink($fname);
+			}
         }
         else
         {
@@ -231,6 +214,37 @@ if (count($_POST) > 0) {
             }
 
         }
+		if (isset($_FILES['cs_file'])) {
+			$errors = array();
+			$file_name = $_FILES['cs_file']['name'];
+			$file_size = $_FILES['cs_file']['size'];
+			$file_tmp = $_FILES['cs_file']['tmp_name'];
+			$file_type = $_FILES['cs_file']['type'];
+			$file_ext = strtolower(end(explode('.', $file_name)));
+			$extensions = array("jpeg", "jpg", "png", "pdf","JPG","JPEG","PNG");
+			$fname = $e_part_number .'.'.'jpg';
+			if (in_array($file_ext, $extensions) === false) {
+				$errors[] = "extension not allowed, please choose a JPEG or PNG file.";
+				$message_stauts_class = 'alert-danger';
+				$import_status_message = 'Error: Extension not allowed, please choose a JPEG or PNG file.';
+			}
+			if ($file_size > 2097152) {
+				$errors[] = 'File size must be excately 2 MB';
+				$message_stauts_class = 'alert-danger';
+				$import_status_message = 'Error: File size must be less than 2 MB';
+			}
+			if (empty($errors) == true) {
+				move_uploaded_file($file_tmp, $file_name);
+				gridify($file_name, $e_part_number);
+				copy($fname,"../assets/images/part_images/cs/" . $fname);
+			}
+			if (file_exists($file_name)) {
+				unlink($file_name);
+			}
+			if (file_exists($fname)) {
+				unlink($fname);
+			}
+		}
         if ($result1) {
             $message_stauts_class = 'alert-success';
             $import_status_message = 'Part Number Updated successfully.';
