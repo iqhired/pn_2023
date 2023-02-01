@@ -28,6 +28,10 @@ $i = $_SESSION["role_id"];
 //    header('location: ../dashboard.php');
 //}
 $station_event_id = $_GET['station_event_id'];
+$station = $_GET['station'];
+
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 
 if(empty($_SESSION['$station_event_id'])){
     $_SESSION['good_timestamp_id'] = time();
@@ -231,17 +235,21 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 </head>
 
 <!-- Main navbar -->
-<?php
-$cust_cam_page_header = "Add Bad Piece";
-include("../header.php");
-include("../admin_menu.php");
+<body class="ltr main-body app horizontal" onload="openScanner()">
+
+<?php if (!empty($station) || !empty($station_event_id)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
 
-<body class="ltr main-body app sidebar-mini" onload="openScanner()">
     <div class="main-content app-content">
-   
-     
-    <!---container--->
+        <div class="main-container container-fluid">
+
+
+        <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -270,7 +278,7 @@ include("../admin_menu.php");
          <input type="hidden" name="bad_pieces_id" id="bad_pieces_id" class="form-control" value="<?php echo $bad_pieces_id; ?>" >
         
 
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 
                 <div class="card">
@@ -359,6 +367,7 @@ include("../admin_menu.php");
 
 
 </div>
+    </div>
 <script>
         $(document).ready(function () {
             $('.select').select2();

@@ -28,6 +28,10 @@ $i = $_SESSION["role_id"];
 //    header('location: ../dashboard.php');
 //}
 $station_event_id = $_GET['station_event_id'];
+$station = $_GET['station'];
+
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 
 if(empty($_SESSION['$station_event_id'])){
     $_SESSION['good_timestamp_id'] = time();
@@ -229,13 +233,16 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 </head>
 
 <!-- Main navbar -->
-<?php
-$cust_cam_page_header = "Update Bad Piece";
-include("../header.php");
-include("../admin_menu.php");
+<body class="ltr main-body app horizontal" onload="openScanner()">
+
+<?php if (!empty($station) || !empty($station_event_id)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
 
-<body class="ltr main-body app sidebar-mini" onload="openScanner()">
     <div class="main-content app-content">
    
      

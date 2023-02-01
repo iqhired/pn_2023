@@ -28,6 +28,11 @@ $i = $_SESSION["role_id"];
 //    header('location: ../dashboard.php');
 //}
 $station_event_id = $_GET['station_event_id'];
+$station = $_GET['station'];
+
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
+
 $sqlmain = "SELECT * FROM `sg_station_event` where `station_event_id` = '$station_event_id'";
 $resultmain = $mysqli->query($sqlmain);
 $rowcmain = $resultmain->fetch_assoc();
@@ -245,18 +250,24 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
     </style>
 </head>
+<body class="ltr main-body app horizontal">
 
 <!-- Main navbar -->
-<?php
-$cust_cam_page_header = "Add / Edit Events Category";
-include("../header.php");
-include("../admin_menu.php");
+<?php if (!empty($station) || !empty($station_event_id)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
 
+
 <!-----body-------->
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
+
+        <div class="main-container container-fluid">
+
     <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
@@ -284,7 +295,7 @@ include("../admin_menu.php");
                             <input type="hidden" name="cell_id" value="<?php echo $cell_id; ?>">
                             <input type="hidden" name="c_name" value="<?php echo $cell_name; ?>">
        
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -313,8 +324,10 @@ include("../admin_menu.php");
                             </div> 
                         </div> 
                     </form>
-                </div> 
+                </div>
+</div>
             </div>
+
   
 </div>
 
