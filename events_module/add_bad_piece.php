@@ -285,23 +285,23 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                             $defect_list_name = $row1['defect_list_name'];
                             ?>
-                            <input type="hidden" name="station_event_id" value="<?php echo $station_event_id; ?>" >
-                            <input type="hidden" name="edit_seid" value="<?php echo $station_event_id; ?>">
-                            <input type="hidden" name="line_id" value="<?php echo $p_line_id; ?>">
-                            <input type="hidden" name="pe" value="<?php echo $printenabled; ?>">
-                            <input type="hidden" name="time" value="<?php echo time(); ?>">
-                            <input type="hidden" name="line_name" value="<?php echo $p_line_name; ?>">
-                            <input type="hidden" name="ipe" value="<?php echo $individualenabled; ?>">
-
-                            <input type="hidden" name="cell_id" value="<?php echo $cell_id; ?>">
-                            <input type="hidden" name="c_name" value="<?php echo $cell_name; ?>">
 
 
 
 
-    <form action="create_good_bad_piece.php" id="asset_update"  enctype="multipart/form-data" class="form-horizontal" method="post">
-        
 
+    <form action="" id="bad_form"  enctype="multipart/form-data" class="form-horizontal" method="post">
+
+        <input type="hidden" name="station_event_id" value="<?php echo $station_event_id; ?>" >
+        <input type="hidden" name="edit_seid" value="<?php echo $station_event_id; ?>">
+        <input type="hidden" name="line_id" value="<?php echo $p_line_id; ?>">
+        <input type="hidden" name="pe" value="<?php echo $printenabled; ?>">
+        <input type="hidden" name="time" value="<?php echo time(); ?>">
+        <input type="hidden" name="line_name" value="<?php echo $p_line_name; ?>">
+        <input type="hidden" name="ipe" value="<?php echo $individualenabled; ?>">
+
+        <input type="hidden" name="cell_id" value="<?php echo $cell_id; ?>">
+        <input type="hidden" name="c_name" value="<?php echo $cell_name; ?>">
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 

@@ -742,6 +742,6 @@ else
         }
     }
 }
-$page = $siteURL."events_module/good_bad_piece.php?station_event_id=$station_event_id";
+$page = siteURL."events_module/good_bad_piece.php?station_event_id=$station_event_id";
 header('Location: ' . $page, true, 303);
 ?>
