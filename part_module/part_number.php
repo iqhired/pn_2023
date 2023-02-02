@@ -24,9 +24,6 @@ if (count($_POST) > 0) {
 
     if ($name != "") {
         $name = $_POST['part_number'];
-
-//logo
-//            if (isset($_FILES['image'])) {
         if (isset($_FILES['image'])) {
             $errors = array();
             $file_name = $_FILES['image']['name'];
@@ -46,43 +43,21 @@ if (count($_POST) > 0) {
                 $import_status_message = 'Error: File size must be less than 2 MB';
             }
             if (empty($errors) == true) {
+                $part_file = $name ."_".time().'_'. $file_name;
                 move_uploaded_file($file_tmp, "../assets/images/part_images/" . $name ."_".time().'_'. $file_name);
-                $sql0 = "INSERT INTO `pm_part_number`(`part_images` ,`part_number` ,`part_name` , `customer_part_number`, `station` , `part_family` , `npr` , `through_put` , `budget_scrape_rate` , `net_weight` ,  `part_length`,`length_range`, `notes` ,`color_code`,`created_by`) VALUES ('$file_name','$name','$part_name','$customer_part_number','$station','$part_family','$npr','$through_put','$budget_scrape_rate','$net_weight','$part_length','$length_range','$notes','$color','$assign_by')";
+
             }
         }
-        else
-        {
-            $sql0 = "INSERT INTO `pm_part_number`(`part_number` ,`part_name` , `customer_part_number`, `station` , `part_family` , `npr` , `through_put` , `budget_scrape_rate` , `net_weight` ,  `part_length`,`length_range`, `notes` ,`color_code`,`created_by`) VALUES ('$name','$part_name','$customer_part_number','$station','$part_family','$npr','$through_put','$budget_scrape_rate','$net_weight','$part_length','$length_range','$notes','$color','$assign_by')";
-        }
-
-//logo code over
-
-        if(!isset($sql0)){
-            $sql0 = "INSERT INTO `pm_part_number`(`part_number` ,`part_name` , `customer_part_number`, `station` , `part_family` , `npr` , `through_put` , `budget_scrape_rate` , `net_weight` ,  `part_length`,`length_range`, `notes` ,`color_code`,`created_by`) VALUES ('$name','$part_name','$customer_part_number','$station','$part_family','$npr','$through_put','$budget_scrape_rate','$net_weight','$part_length','$length_range','$notes','$color','$assign_by')";
-        }
-        $result0 = mysqli_query($db, $sql0);
-        if ($result0) {
-            $message_stauts_class = 'alert-success';
-            $import_status_message = 'Part Number Created successfully.';
-        } else {
-            $message_stauts_class = 'alert-danger';
-            $import_status_message = 'Error: Please Insert valid data';
-        }
-    }
-
-    if ($name != "") {
-        $name = $_POST['part_number'];
-//logo
-//            if (isset($_FILES['image'])) {
         if (isset($_FILES['cs_file'])) {
+
             $errors = array();
-            $file_name = $_FILES['cs_file']['name'];
-            $file_size = $_FILES['cs_file']['size'];
-            $file_tmp = $_FILES['cs_file']['tmp_name'];
-            $file_type = $_FILES['cs_file']['type'];
-            $file_ext = strtolower(end(explode('.', $file_name)));
-            $extensions = array("jpeg", "jpg", "png", "pdf","JPG","JPEG","PNG");
-			$fname = $name .'.'.'jpg';
+            $file_name_d = $_FILES['cs_file']['name'];
+            $file_size_d = $_FILES['cs_file']['size'];
+            $file_tmp_d = $_FILES['cs_file']['tmp_name'];
+            $file_type_d = $_FILES['cs_file']['type'];
+            $file_ext = strtolower(end(explode('.', $file_name_d)));
+            $extensions_d = array("jpeg", "jpg", "png", "pdf","JPG","JPEG","PNG");
+            $fname_d = $name .'.'.'jpg';
             if (in_array($file_ext, $extensions) === false) {
                 $errors[] = "extension not allowed, please choose a JPEG or PNG file.";
                 $message_stauts_class = 'alert-danger';
@@ -94,21 +69,19 @@ if (count($_POST) > 0) {
                 $import_status_message = 'Error: File size must be less than 2 MB';
             }
             if (empty($errors) == true) {
-				move_uploaded_file($file_tmp, $file_name);
-                gridify($file_name, $name);
-                copy($fname,"../assets/images/part_images/cs/" . $fname);
+                move_uploaded_file($file_tmp_d, $file_name_d);
+                gridify($file_name_d, $name);
+                copy($fname_d,"../assets/images/part_images/cs/" . $fname_d);
             }
-			if (file_exists($file_name)) {
-				unlink($file_name);
-			}
-			if (file_exists($fname)) {
-				unlink($fname);
-			}
+            if (file_exists($file_name_d)) {
+                unlink($file_name);
+            }
+            if (file_exists($fname_d)) {
+                unlink($fname_d);
+            }
+
         }
-        else
-        {
-            $sql0 = "INSERT INTO `pm_part_number`(`part_number` ,`part_name` , `customer_part_number`, `station` , `part_family` , `npr` , `through_put` , `budget_scrape_rate` , `net_weight` ,  `part_length`,`length_range`, `notes` ,`color_code`,`created_by`) VALUES ('$name','$part_name','$customer_part_number','$station','$part_family','$npr','$through_put','$budget_scrape_rate','$net_weight','$part_length','$length_range','$notes','$color','$assign_by')";
-        }
+        $sql0 = "INSERT INTO `pm_part_number`(`part_images` ,`defect_part_images` ,`part_number` ,`part_name` , `customer_part_number`, `station` , `part_family` , `npr` , `through_put` , `budget_scrape_rate` , `net_weight` ,  `part_length`,`length_range`, `notes` ,`color_code`,`created_by`) VALUES ('$part_file','$fname_d','$name','$part_name','$customer_part_number','$station','$part_family','$npr','$through_put','$budget_scrape_rate','$net_weight','$part_length','$length_range','$notes','$color','$assign_by')";
 
 //logo code over
 
@@ -124,6 +97,8 @@ if (count($_POST) > 0) {
             $import_status_message = 'Error: Please Insert valid data';
         }
     }
+    //logo code over
+
     //edit
     $edit_name = $_POST['edit_name'];
     if ($edit_name != "") {
@@ -214,12 +189,12 @@ if (count($_POST) > 0) {
             }
 
         }
-		if (isset($_FILES['cs_file'])) {
+		if (isset($_FILES['edit_cs_file'])) {
 			$errors = array();
-			$file_name = $_FILES['cs_file']['name'];
-			$file_size = $_FILES['cs_file']['size'];
-			$file_tmp = $_FILES['cs_file']['tmp_name'];
-			$file_type = $_FILES['cs_file']['type'];
+			$file_name = $_FILES['edit_cs_file']['name'];
+			$file_size = $_FILES['edit_cs_file']['size'];
+			$file_tmp = $_FILES['edit_cs_file']['tmp_name'];
+			$file_type = $_FILES['edit_cs_file']['type'];
 			$file_ext = strtolower(end(explode('.', $file_name)));
 			$extensions = array("jpeg", "jpg", "png", "pdf","JPG","JPEG","PNG");
 			$fname = $e_part_number .'.'.'jpg';
@@ -244,6 +219,16 @@ if (count($_POST) > 0) {
 			if (file_exists($fname)) {
 				unlink($fname);
 			}
+            $qurtemp = mysqli_query($db, "select defect_part_images as pd from pm_part_number where pm_part_number_id = '$id'");
+          //  $pnum = ($qurtemp->fetch_assoc())['pd'];
+            if(isset($fname)){
+           //     $part_img = $pnum . ',' . $fname;
+                $sql0 = "update pm_part_number set defect_part_images = '$fname'   where pm_part_number_id = '$id'";
+                $result11 = mysqli_query($db, $sql0);
+            }else{
+                $sql0 = "update pm_part_number set defect_part_images = '$fname'  where pm_part_number_id = '$id'";
+                $result11 = mysqli_query($db, $sql0);
+            }
 		}
         if ($result1) {
             $message_stauts_class = 'alert-success';
@@ -419,6 +404,30 @@ if (count($_POST) > 0) {
         @media (min-width: 482px) and (max-width: 767px)
             .main-content.horizontal-content {
                 margin-top: 0px;
+            }
+
+            span.remove {
+                border: 2px solid red;
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+                color: red;
+                cursor: pointer;
+            }
+            .imageThumb {
+                width: 120px;
+                float: left;
+                margin-right: 5px;
+                border: 1px solid gray;
+                border-radius: 3px;
+                padding: 5px;
+                margin-top: 10px;
+            }
+            img.image_src {
+                width: 110px;
+            }
+            .pip{
+                width: 120px;
             }
 
 
@@ -726,6 +735,14 @@ if (count($_POST) > 0) {
                                                             echo $rowc['part_images'];
                                                         }
                                                         ?>"
+                                                        data-defect_part_images="<?php
+                                                        if(substr($rowc['defect_part_images'] , 0 , 1)=== ","){
+                                                            $str = ltrim($rowc['defect_part_images'], ',');
+                                                            echo $str;
+                                                        }else{
+                                                            echo $rowc['defect_part_images'];
+                                                        }
+                                                        ?>"
                                                         data-notes="<?php echo $rowc['notes']; ?>" data-toggle="modal"
                                                         data-target="#edit_modal_theme_primary">   <i>
                                                         <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
@@ -762,7 +779,7 @@ if (count($_POST) > 0) {
             </div>
         </form>
 
-        <!-- edit modal -->
+
         <div id="edit_modal_theme_primary" class="modal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -891,19 +908,22 @@ if (count($_POST) > 0) {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="pd-30 pd-sm-20">
                                                 <div class="row row-xs">
                                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                                        <label class="form-label mg-b-0"> Net Weight ( kg ) </label>
+                                                        <label class="form-label mg-b-0"> Net Weight ( kg )</label>
                                                     </div>
+
                                                     <div class="col-md-8 mg-t-10 mg-md-t-0">
                                                         <input type="text" name="edit_net_weight" id="edit_net_weight"
                                                                class="form-control" >
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="pd-30 pd-sm-20">
+                                            <div class ="pd-30 pd-sm-20">
                                                 <div class="row row-xs">
+
                                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                                         <label class="form-label mg-b-0">Length ( mm )</label>
                                                     </div>
@@ -945,17 +965,37 @@ if (count($_POST) > 0) {
                                                     </div>
                                                 </div>
                                             </div>
+                                                 <div class="pd-30 pd-sm-20">
+                                                   <div class="row row-xs">
+                                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                                        <label class="form-label mg-b-0">Part Images</label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                                        <img src="" alt="Image not Available" name="edit_p_image[]" id="edit_p_image" style="height:150px;width:150px;"/>
+                                                     </div>
+                                                 </div>
+                                              </div>
                                             <div class="pd-30 pd-sm-20">
                                                 <div class="row row-xs">
                                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                                         <label class="form-label mg-b-0">Cross Section File</label>
                                                     </div>
                                                     <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                                        <input type="file" name="cs_file" id="cs_file" class="form-control">
+                                                        <input type="file" name="edit_cs_file" id="edit_cs_file" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                                <div class="pd-30 pd-sm-20">
+                                                    <div class="row row-xs">
+                                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                                            <label class="form-label mg-b-0">Cross Section Preview File</label>
+                                                        </div>
+                                                        <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                                            <img src="" alt="Image not Available" name="edit_defect_image[]" id="edit_defect_image" style="height:150px;width:150px;"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                          </div>
                                     </div>
                                 </div>
                             </div>
@@ -1009,6 +1049,7 @@ if (count($_POST) > 0) {
             var notes = $(this).data("notes");
             var color = $(this).data("color_code");
             var part_images = $(this).data("part_images");
+            var defect_images = $(this).data("defect_part_images");
             var image_path =  "./assets/images/part_images/"
             $("#edit_name").val(name);
             $("#edit_part_name").val(part_name);
@@ -1025,6 +1066,10 @@ if (count($_POST) > 0) {
             $("#edit_color_code").val(color);
             if(part_images !== null && part_images !== '') {
                 $("#edit_p_image").attr("src","../assets/images/part_images/"+part_images);
+
+            }
+            if(defect_images !== null && defect_images !== '') {
+                $("#edit_defect_image").attr("src","../assets/images/part_images/cs/"+defect_images);
 
             }
 
@@ -1062,10 +1107,11 @@ if (count($_POST) > 0) {
             if(part_images !== null && part_images !== '') {
                 var pm_files = part_images.split(",");
                 for (var i = 0; i < pm_files.length; i++) {
-                    $("<span class=\"pip\" id=\"" +i+"\" >" +
-                        "<img style=\"height:150px;width:150px;\" name=\"edit_image[" +i+"]\" id=\"edit_image_" +i+"\" src=\"" + "../assets/images/part_images/"+ pm_files[i] + "\"/>" +
-                        "<br/><span class=\"remove\">Remove image</span>" +
-                        "</span>").insertAfter("#edit_image");
+                    $("<div class=\"pip\" id=\"" +i+"\" >" +
+                        "<div class=\"imageThumb\">" +
+                        "<img class=\"image_src\" name=\"edit_image[" +i+"]\" id=\"edit_image_" +i+"\" src=\"" + "../assets/images/part_images/"+ pm_files[i] + "\"/>" +
+                        "<span class=\"remove\">Remove image</span>" +
+                        "</div></div>").insertAfter("#edit_image");
 
                 }
                 $(".remove").click(function(){
@@ -1084,7 +1130,62 @@ if (count($_POST) > 0) {
         });
     });
 </script>
+
 <script>
+    $("#image").on("change", function(e) {
+        var files = e.target.files,
+            filesLength = files.length;
+        var tot = e.currentTarget.attributes.length;
+        var ij = tot - filesLength + 1 ;
+        var j =0 ;
+        for (var i = ij ; i <= tot; i++) {
+            var f = files[j];
+            var fileReader = new FileReader();
+            fileReader.onload = (function(e) {
+                var file = e.target;
+                $("<div class=\"pip\" id=\"" +(ij++)+"\" >" +
+                    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + f.name + "\"/>" +
+                    "<br/><span class=\"remove\">Remove image</span>" +
+                    "</div>").insertAfter("#image");
+                $(".remove").click(function(){
+                    $(this).parent(".pip").remove();
+                });
+
+            });
+            fileReader.readAsDataURL(f);
+
+            // console.log(files);
+            j++;
+        }
+        console.log(files);
+    });
+
+    $("#cs_file").on("change", function(e) {
+        var files = e.target.files,
+            filesLength = files.length;
+        var tot = e.currentTarget.attributes.length;
+        var ij = tot - filesLength + 1 ;
+        var j =0 ;
+        for (var i = ij ; i <= tot; i++) {
+            var f = files[j];
+            var fileReader = new FileReader();
+            fileReader.onload = (function(e) {
+                var file = e.target;
+                $("<div class=\"pip\" id=\"" +(ij++)+"\" >" +
+                    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + f.name + "\"/>" +
+                    "<span class=\"remove\">Remove image</span>" +
+                    "</div>").insertAfter("#cs_file");
+                $(".remove").click(function(){
+                    $(this).parent(".pip").remove();
+                });
+            });
+            fileReader.readAsDataURL(f);
+
+            // console.log(files);
+            j++;
+        }
+        console.log(files);
+    });
     $("#edit_image").on("change", function(e) {
         var files = e.target.files,
             filesLength = files.length;
@@ -1096,12 +1197,13 @@ if (count($_POST) > 0) {
             var fileReader = new FileReader();
             fileReader.onload = (function(e) {
                 var file = e.target;
-                $("<span class=\"pip\" id=\"" +(ij++)+"\" >" +
+                $("<div class=\"pip\" id=\"" +(ij++)+"\" >" +
                     "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + f.name + "\"/>" +
                     "<br/><span class=\"remove\">Remove image</span>" +
-                    "</span>").insertAfter("#edit_image");
+                    "</div>").insertAfter("#edit_image");
                 $(".remove").click(function(){
                     $(this).parent(".pip").remove();
+
                 });
 
                 // Old code here
@@ -1119,6 +1221,34 @@ if (count($_POST) > 0) {
         }
         console.log(files);
     });
+
+    $("#edit_cs_file").on("change", function(e) {
+        var files = e.target.files,
+            filesLength = files.length;
+        var tot = e.currentTarget.attributes.length;
+        var ij = tot - filesLength + 1 ;
+        var j =0 ;
+        for (var i = ij ; i <= tot; i++) {
+            var f = files[j];
+            var fileReader = new FileReader();
+            fileReader.onload = (function(e) {
+                var file = e.target;
+                $("<div class=\"pip\" id=\"" +(ij++)+"\" >" +
+                    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + f.name + "\"/>" +
+                    "<span class=\"remove\">Remove image</span>" +
+                    "</div>").insertAfter("#edit_cs_file");
+                $(".remove").click(function(){
+                    $(this).parent(".pip").remove();
+                });
+            });
+            fileReader.readAsDataURL(f);
+
+            // console.log(files);
+            j++;
+        }
+        console.log(files);
+    });
+
     $(".remove").click(function(){
         $(this).parent(".pip").remove();
     });
