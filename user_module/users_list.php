@@ -13,36 +13,36 @@ $duration = $auto_logout_duration;
 $time = $_SERVER['REQUEST_TIME'];
 //Check the user's session exist or not
 if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-	//Unset the session variables
-	session_unset();
-	//Destroy the session
-	session_destroy();
-	header($redirect_logout_path);
-//	header('location: ../logout.php');
-	exit;
+    //Unset the session variables
+    session_unset();
+    //Destroy the session
+    session_destroy();
+    header($redirect_logout_path);
+//  header('location: ../logout.php');
+    exit;
 }
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 //if($_SESSION['user'] != "admin"){
-//	header('location: dashboard.php');
+//  header('location: dashboard.php');
 //}
 $i = $_SESSION["role_id"];
 if ($i != "super" && $i != "admin") {
     header('location: ../dashboard.php');
 }
 if (count($_POST) > 0) {
-	
-	$choose = $_POST['choose'];
+    
+    $choose = $_POST['choose'];
     if($choose == '5')
-	{
-		$message_stauts_class = 'alert-info';
+    {
+        $message_stauts_class = 'alert-info';
             $import_status_message = 'select user to remove from approver list.';
-		$ch = '5';	
+        $ch = '5';  
             
-	}
-	else
-	{	
-	
+    }
+    else
+    {   
+    
     $name = $_POST['name'];
     require '../vendor/autoload.php';
     include ("../email_config.php");
@@ -57,9 +57,9 @@ if (count($_POST) > 0) {
         $job_title_description = $_POST['job_title_description'];
         $shift_location = $_POST['shift_location'];
         $total_days = $_POST['total_days'];
-		$station = $_POST['station'];
-		$position = $_POST['position'];
-		$trainee1 = $_POST['trainee1'];
+        $station = $_POST['station'];
+        $position = $_POST['position'];
+        $trainee1 = $_POST['trainee1'];
         $status = '1';
         $signature = '- Plantnavigator Admin';
         $link = $siteURL;
@@ -95,7 +95,7 @@ if ($email != "") {
     $message .= '</body></html>';*/
 
             //   $headers = "From: admin@plantnavigator.com\r\n";
-//	$headers .= 'Cc: ' . $email . "\r\n";
+//  $headers .= 'Cc: ' . $email . "\r\n";
             $subject = "Account created.";
             $mail->addAddress($email, $firstname);
             $mail->isHTML(true);
@@ -234,19 +234,19 @@ if ($email != "") {
     $update_id = $_POST['update_id'];
     if ($update_id != "") {
 
-		$update_position = $_POST['update_position'];
-		$update_station = $_POST['update_station'];
+        $update_position = $_POST['update_position'];
+        $update_station = $_POST['update_station'];
 
     $sql = "update cam_users set training_station='$_POST[update_station]',training_position='$_POST[update_position]',training='1' where users_id='$update_id'";
     $result1 = mysqli_query($db, $sql);
     if ($result1) {
-		$message_stauts_class = 'alert-success';
+        $message_stauts_class = 'alert-success';
         $import_status_message = 'Trainee Details Updated Successfully.';
     } else {
         $message_stauts_class = 'alert-danger';
         $import_status_message = 'Error: Please Try Again.';
     }
-}	
+}   
 
 }
 }
@@ -271,199 +271,318 @@ if (!empty($_GET['import_status'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php echo $sitename; ?> | Users</title>
-        <!-- Global stylesheets -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-        <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <?php echo $sitename; ?> |Users</title>
+    <!-- Global stylesheets -->
+
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+    <!---------------->
+
+     <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
-        <!-- /global stylesheets -->
-        <!-- Core JS files -->
-        <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>
-        <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-        <!-- /core JS files -->
-        <!-- Theme JS files -->
-        <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/notifications/sweet_alert.min.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/components_modals.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
- 	<script type="text/javascript" src="../assets/js/pages/components_popups.js"></script>
+       
+
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+<script type="text/javascript" src="../assets/js/pages/components_popups.js"></script>
         <script type="text/javascript" src="../assets/js/plugins/forms/styling/switchery.min.js"></script>
-        <style>
-            .sidebar-default .navigation li>a{color:#f5f5f5};
-            a:hover {
-                background-color: #20a9cc;
-            }
-            .sidebar-default .navigation li>a:focus, .sidebar-default .navigation li>a:hover {
-                background-color: #20a9cc;
-            }
-            @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-                .col-lg-4{
-                    width: 45%!important;
-                }
-                .col-lg-8{
-                    width: 55%!important;
-                }
-                .col-md-6 {
-                    width: 60%;
-                    float: left;
-                }
-                .modal-dialog {
-                    position: relative;
-                    width: auto;
-                    margin: 50px;
-                }
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
 
+    <style>
+        .navbar {
+
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
             }
-        </style>
-    </head>
+        }
 
-        <!-- Main navbar -->
-        <?php
-        $cust_cam_page_header = "Create or Add Users";
-        include("../header.php");
-        include("../admin_menu.php");
-        include("../heading_banner.php");
-        ?>
-    <body class="alt-menu sidebar-noneoverflow">
-        <!-- /main navbar -->
-        <!-- Page container -->
-        <div class="page-container">
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
 
-                    <div class="content">
-                        <!-- Main charts -->
-                        <!-- Basic datatable -->
-                        <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <h5 class="panel-title">Users List</h5>  
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="text-right">
-                                            <button type="button"  class="btn btn-primary" style="background-color:#1e73be;" data-toggle="modal"  data-target="#modal_theme_primary">Create User</button>
-                                        </div>
-                                    </div>
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+
+    </style>
+</head>
+
+<!-- Main navbar -->
+<?php
+$cust_cam_page_header = "Create or Add Users";
+include("../header.php");
+include("../admin_menu.php");
+?>
+
+<!-----body-------->
+<body class="ltr main-body app sidebar-mini">
+<!-----main content----->
+<div class="main-content app-content">
+    <!---container--->
+    <!---breadcrumb--->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">User Config</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add/Update User</li>
+            </ol>
+        </div>
+    </div>
+
+    <form action="" id="upload_csv" class="form-horizontal" method="post" id="import_form">
+        <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                     <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">USERS LIST</span>
+                        </div>
+
+
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">File</label>
                                 </div>
-                                <hr>						
-                                <div class="row">
-
-                                    <form action="" id="upload_csv" method="post" enctype="multipart/form-data" id="import_form">
-                                        <div class="col-md-4">
-                                            <input type="file" name="file" />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="submit" class="btn btn-primary" style="background-color:#1e73be;" name="import_data" value="IMPORT">
-                                            <a href="export.php" class="btn btn-primary" style="background-color:#1e73be;"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
-                                        </div>
-
-                                    </form>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <input type="file" class="form-control" name="file"  required>
                                 </div>
-                                <?php if (!empty($import_status_message)) { ?>
-                                    <?php echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>'; ?>
-                                <?php } ?>	
-                                <?php if (!empty($_SESSION['import_status_message'])) { ?>
-                                    <?php
-                                    echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                                    $_SESSION['message_stauts_class'] = '';
-                                    $_SESSION['import_status_message'] = '';
-                                    ?>
-                                <?php }
-								
-								?>
-								
+                            
+                               <button type="button"  class="btn btn-primary" data-toggle="modal"  data-target="#modal_theme_primary">Create User</button>
+                                        
                             </div>
                         </div>
 
-                        <form action="" id="update-form" method="post" class="form-horizontal">
+
+
+
+
+                        <div class="card-body pt-0">
+                                    <button type="submit" name="import_data"class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Import</button>
+                                 
+                                  <a href="export.php" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn" style="background-color:#1e73be;"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
+
+
+                                </div>
+                    </div>
+                </div>
+                
+            </form>
+            </div>
+
+        </div>
+
+
+
+        <form action="delete_users_list.php"  id="update-form" method="post" class="form-horizontal">
+    <div class="row-body">
+        <div class="col-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                </div>
+
+                <div class="card-body pt-0 example1-table">
+                    <div class="table-responsive">
+                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-primary" onclick="submitForm('delete_users_list.php')"  style="background-color:#1e73be;">Delete</button>
-                                    <!-- <button type="submit" class="btn btn-primary" style="background-color:#1e73be;" >Delete</button> -->
-                                </div>
-                                <div class="col-md-4">	
-                                </div>
-                                <div class="col-md-2">
-                                    <select class="form-control" name="choose" id="choose"  required>
-                                        <option value="" disabled selected>Select Action </option> 
-                                        <option value="1" >Add to Group </option> 
-                                        <option value="2" >Remove from Group </option> 
-                                        <option value="3" >Add to Approver list </option> 
-										<option value="5" <?php if($ch == '5'){ echo "selected"; } ?>>Remove from Approver list</option> 
-										<option value="4" >Filter Trainee </option> 
-										
-                                    </select>
-                                </div>
-                                <div class="col-md-2 group_div" style="display:none">
-                                    <select class="form-control" name="group_id" id="group_id"   required>
-                                        <option value="" disabled selected>Select Group </option> 
-                                        <?php
-                                        $sql1 = "SELECT * FROM `sg_group`";
-                                        $result1 = $mysqli->query($sql1);
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            echo "<option value='" . $row1['group_id'] . "'>" . $row1['group_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="button" class="btn btn-primary" onclick="submitForm11('user_list_option_backend.php')"  style="background-color:#1e73be;">Go</button>
-                                    <!--<button type="button" class="btn btn-primary" onclick="submitForm11('add_user_to_group.php')"  style="background-color:#1e73be;">Go</button>
-                                        <button type="submit" class="btn btn-primary" style="background-color:#1e73be;" >Add Users</button>  -->
-                                </div>
-                            </div><br/>
-                            <!-- Main charts -->
-                            <!-- Basic datatable -->
-                            <div class="panel panel-flat">                        						
-                                <table class="table datatable-basic">
-                                    <thead>
+                                <div class="col-sm-12">
+                                    
+                                    <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                        <thead>
                                         <tr>
-                                            <th><input type="checkbox" id="checkAll" ></th>
-                                            <th>S.No</th>
+                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                            <th>Sl. No</th>
+                                                <th>Action</th>
                                             <th>Name</th>
-                                            <th>Group</th>
+                                            <th>Group </th>
                                             <th>Role</th>
-											<th>Trainee</th>
-                                            <th>Action</th>
+                                            <th>Trainee</th>
+                                        
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
+                                        </thead>
+                                        <tbody>
+                                            <?php
                                         $query = sprintf("SELECT * FROM  cam_users where role != '1' AND is_deleted !='1' order by `firstname` ;  ");
 $sessiontraiong = $_SESSION['training'];
  if($sessiontraiong == "1")
  {
-		$query = sprintf("SELECT * FROM  cam_users where role != '1' and training = '1' AND is_deleted !='1' order by `firstname` ;  ");
+        $query = sprintf("SELECT * FROM  cam_users where role != '1' and training = '1' AND is_deleted !='1' order by `firstname` ;  ");
  $_SESSION['training'] = "";
  }
  if($ch == '5')
  {
-		$query = sprintf("SELECT * FROM  cam_users where pin_flag = '1' and role != '1'  AND is_deleted !='1' order by `firstname` ; ");
+        $query = sprintf("SELECT * FROM  cam_users where pin_flag = '1' and role != '1'  AND is_deleted !='1' order by `firstname` ; ");
  }
 
-										$qur = mysqli_query($db, $query);
+                                        $qur = mysqli_query($db, $query);
                                         while ($rowc = mysqli_fetch_array($qur)) {
                                             ?> 
                                             <tr>
-                                                <td><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["users_id"]; ?>"></td>
+                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["users_id"]; ?>"><span></span></label></td>
                                                 <td><?php echo ++$counter; ?></td>
+                                                <td>
+                                                    <button type="button" id="edit" class="btn btn-primary btn-xs" data-trainee="<?php echo $rowc['training']; ?>"  data-station="<?php echo $rowc['training_station']; ?>" data-position="<?php echo $rowc['training_position']; ?>"  data-id="<?php echo $rowc['users_id']; ?>" data-name="<?php echo $rowc['user_name']; ?>"   data-email="<?php echo $rowc['email']; ?>" data-phone="<?php echo $rowc['mobile']; ?>" data-role="<?php echo $rowc['role']; ?>" data-s_q1="<?php echo $rowc['s_question1']; ?>" data-s_q2="<?php echo $rowc['s_question2']; ?>" data-s_q3="<?php echo $rowc['s_question3']; ?>" data-firstname="<?php echo $rowc['firstname']; ?>" data-lastname="<?php echo $rowc['lastname']; ?>" data-hiring_date="<?php echo $rowc['hiring_date']; ?>" data-total_days="<?php echo $rowc['total_days']; ?>" data-job_title_description="<?php echo $rowc['job_title_description']; ?>" data-shift_location="<?php echo $rowc['shift_location']; ?>" data-toggle="modal" style="background-color:#1e73be;" data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i> </button>
+            <!--                                &nbsp;  <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['users_id']; ?>">Delete </button>
+                                                    -->                             
+                                                </td>
                                                 <td><?php echo $rowc["firstname"]; ?>&nbsp;<?php echo $rowc["lastname"]; ?></td>
                                                 <?php
                                                 $position = "";
@@ -482,102 +601,120 @@ $sessiontraiong = $_SESSION['training'];
                                                     echo $rowc1["role_name"];
                                                     ?>
                                                 </td>
-												<td >
+                                                <td >
                                                        <?php
                                                         $training = $rowc["training"];
                                                             if ($training == '1') {
                                                                 ?>
-															<label class="checkbox-switchery switchery-xs " style="margin-bottom:16px;" >	
+                                                            <label class="checkbox-switchery switchery-xs " style="margin-bottom:16px;" >   
                                                                 <input type="checkbox" style="opacity:0;"  class="switchery custom_switch" checked='checked' data-id="<?php echo $rowc['users_id']; ?>" data-available="<?php echo $rowc['training']; ?>" >
                                                             </label>
-															<?php } else { ?>		
+                                                            <?php } else { ?>       
                                                             <label class="checkbox-switchery switchery-xs " style="margin-bottom:16px;" >
-															<input type="checkbox" style="opacity:0;" class="switchery custom_switch" data-id="<?php echo $rowc['users_id']; ?>" data-available="<?php echo $rowc['training']; ?>" data-toggle="modal" data-target="#update_modal_theme_primary">
-															</label>
+                                                            <input type="checkbox" style="opacity:0;" class="switchery custom_switch" data-id="<?php echo $rowc['users_id']; ?>" data-available="<?php echo $rowc['training']; ?>" data-toggle="modal" data-target="#update_modal_theme_primary">
+                                                            </label>
                                                                 <?php
                                                             } ?>
                                                     
                                                 </td> 
-                                                <td>
-                                                    <button type="button" id="edit" class="btn btn-info btn-xs" data-trainee="<?php echo $rowc['training']; ?>"  data-station="<?php echo $rowc['training_station']; ?>" data-position="<?php echo $rowc['training_position']; ?>"  data-id="<?php echo $rowc['users_id']; ?>" data-name="<?php echo $rowc['user_name']; ?>"   data-email="<?php echo $rowc['email']; ?>" data-phone="<?php echo $rowc['mobile']; ?>" data-role="<?php echo $rowc['role']; ?>" data-s_q1="<?php echo $rowc['s_question1']; ?>" data-s_q2="<?php echo $rowc['s_question2']; ?>" data-s_q3="<?php echo $rowc['s_question3']; ?>" data-firstname="<?php echo $rowc['firstname']; ?>" data-lastname="<?php echo $rowc['lastname']; ?>" data-hiring_date="<?php echo $rowc['hiring_date']; ?>" data-total_days="<?php echo $rowc['total_days']; ?>" data-job_title_description="<?php echo $rowc['job_title_description']; ?>" data-shift_location="<?php echo $rowc['shift_location']; ?>" data-toggle="modal" style="background-color:#1e73be;" data-target="#edit_modal_theme_primary">Edit </button>
-            <!--								&nbsp;	<button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['users_id']; ?>">Delete </button>
-                                                    -->								
-                                                </td>
+                                                
                                             </tr>
                                         <?php } ?>
                                     </tbody>
-                                </table>
-                        </form>
+                                      
+                                    </table>
 
-                    </div>
-                    <!-- /basic datatable -->
-                    <!-- /main charts -->
-                    <div id="modal_theme_primary" class="modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header bg-primary">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h6 class="modal-title">Create User</h6>
+
+
                                 </div>
-                                <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal" method="post">
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">UserName:*</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" name="name" id="name" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Email:</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="email" name="email" id="email" class="form-control" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">First Name:*</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" name="firstname" id="firstname" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Last Name:*</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" name="lastname" id="lastname" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Hiring Date:*</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="date" name="hiring_date" id="hiring_date" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="total_days" id="total_days" class="form-control" disabled>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Job title description:*</label>
-                                                    <div class="col-lg-8">
-                                                        <select name="job_title_description" id="job_title_description" class="select" >
+                            </form>
+
+                            <div id="modal_theme_primary" class="modal col-lg-12 col-md-12">
+    <div class="modal-dialog" style="width:100%">
+        <div class="modal-content">
+            <div class="card-header">
+                <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                <span class="main-content-title mg-b-0 mg-b-lg-1">Create User</span>
+            </div>
+
+
+            <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal"
+                  method="post">
+                <div class="card-body" style="">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Username</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="text" name="name" id="name" class="form-control" required>
+                               
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Email</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="email" name="email" id="email" class="form-control" required>
+                              
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">First Name</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="text" name="firstname" id="firstname" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Last Name</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="text" name="lastname" id="lastname" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Hiring Date</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="date" name="hiring_date" id="hiring_date" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+            <input type="hidden" name="total_days" id="total_days" class="form-control" disabled>
+
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Job Title Description</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                      <select name="job_title_description" id="job_title_description" class="form-control" >
                                                             <option value="" selected disabled>--- Select Job-Title ---</option>
                                                             <?php
                                                             $sql1 = "SELECT * FROM `cam_job_title`";
@@ -587,16 +724,18 @@ $sessiontraiong = $_SESSION['training'];
                                                             }
                                                             ?>
                                                         </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Shift Location:*</label>
-                                                    <div class="col-lg-8">
-                                                        <select name="shift_location" id="shift_location" class="select"  >
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Shift Location</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <select name="shift_location" id="shift_location" class="form-control"  >
                                                             <option value="" selected disabled>--- Select Shift/Location ---</option>
                                                             <?php
                                                             $sql1 = "SELECT * FROM `cam_shift`";
@@ -606,16 +745,17 @@ $sessiontraiong = $_SESSION['training'];
                                                             }
                                                             ?>
                                                         </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-												<div class="form-group">
-                                                <label class="col-lg-4 control-label">Role:*</label>
-                                                <div class="col-lg-8">
-                                                    <select name="role" id="role" class="select" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Role</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <select name="role" id="role" class="form-control" >
                                                         <option value="" selected disabled>--- Select Role ---</option>
                                                         <?php
                                                         $sql1 = "SELECT * FROM `cam_role` where role_id != '1'";
@@ -625,28 +765,31 @@ $sessiontraiong = $_SESSION['training'];
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>
-                                            </div></div>
-                                        </div>
-										
-										<div class="row">
-                                            <div class="col-md-12">
-												<div class="form-group">
-                                                <label class="col-lg-4 control-label">Trainee:</label>
-                                                <div class="col-lg-8">
-                                                    <label class="checkbox-switchery switchery-xs " style="margin-bottom:16px;" >	
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Trainee</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <label class="checkbox-switchery switchery-xs " style="margin-bottom:16px;" >  
                                                                 <input type="checkbox" id="trainee1" name="trainee1" style="opacity:0;"  class="switchery switch_trainee" >
-                                                    </label>
-                                                </div>
-                                            </div></div>
-                                        </div>
-										
-										<div class="row" id="station_row" style="display:none;">
-                                            <div class="col-md-12">
-												<div class="form-group">
-                                                <label class="col-lg-4 control-label">Training Station:</label>
-                                                <div class="col-lg-8">
-                                                    <select name="station" id="station" class="select" >
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                         <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs" id="station_row" style="display:none;">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Training Station</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <select name="station" id="station" class="form-control" >
                                                         <option value="" selected disabled>--- Select Station ---</option>
                                                         <?php
                                                         $sql1 = "SELECT * FROM `cam_line` ";
@@ -656,15 +799,17 @@ $sessiontraiong = $_SESSION['training'];
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>
-                                            </div></div>
-                                        </div>
-										<div class="row" id="position_row" style="display:none;">
-                                            <div class="col-md-12">
-											<div class="form-group">
-                                                <label class="col-lg-4 control-label">Training Position:</label>
-                                                <div class="col-lg-8">
-                                                    <select name="position" id="position" class="select" >
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="pd-30 pd-sm-20" >
+                            <div class="row row-xs" id="position_row" style="display:none;">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Training Position</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <select name="position" id="position" class="form-control" >
                                                         <option value="" selected disabled>--- Select Position ---</option>
                                                         <?php
                                                         $sql1 = "SELECT * FROM `cam_position` ";
@@ -674,85 +819,114 @@ $sessiontraiong = $_SESSION['training'];
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>
-                                            </div>
-                                        </div></div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- edit modal -->
-                    <div id="edit_modal_theme_primary" class="modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header bg-primary">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h6 class="modal-title">Update User</h6>
+                         <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                </div>
+
+
+            
+
+
+            </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+                   
+
+
+<div id="edit_modal_theme_primary" class="modal col-lg-12 col-md-12">
+    <div class="modal-dialog" style="width:100%">
+        <div class="modal-content">
+            <div class="card-header">
+                <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                <span class="main-content-title mg-b-0 mg-b-lg-1">Update User</span>
+            </div>
+
+
+            <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal"
+                  method="post">
+                <div class="card-body">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Username</label>
                                 </div>
-                                <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal" method="post">
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">UserName:*</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" name="edit_name" id="edit_name" class="form-control" required>
-                                                        <input type="hidden" name="edit_id" id="edit_id" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Email:</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="email" name="edit_email" id="edit_email" class="form-control" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">First Name:*</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" name="edit_firstname" id="edit_firstname" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Last Name:*</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" name="edit_lastname" id="edit_lastname" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Hiring Date:*</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="date" name="edit_hiring_date" id="edit_hiring_date" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Job title description:*</label>
-                                                    <div class="col-lg-8">
-                                                        <select name="edit_job_title_description" id="edit_job_title_description" class="form-control"  >
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="text" name="edit_name" id="edit_name" class="form-control" required>
+                                      <input type="hidden" name="edit_id" id="edit_id" >
+                               
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Email</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="email" name="edit_email" id="edit_email" class="form-control" required>
+                              
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">First Name</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="text" name="edit_firstname" id="edit_firstname" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Last Name</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="text" name="edit_lastname" id="edit_lastname" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Hiring Date</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="date" name="edit_hiring_date" id="edit_hiring_date" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Job Title Description</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <select name="edit_job_title_description" id="edit_job_title_description" class="form-control"  >
                                                             <option value="" disabled>--- Select Job-Title ---</option>
                                                             <?php
                                                             $sql1 = "SELECT * FROM `cam_job_title`";
@@ -761,17 +935,19 @@ $sessiontraiong = $_SESSION['training'];
                                                                 echo "<option value='" . $row1['job_name'] . "'$entry>" . $row1['job_name'] . "</option>";
                                                             }
                                                             ?>
-                                                        </select>				
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Shift Location:*</label>
-                                                    <div class="col-lg-8">
-                                                        <select name="edit_shift_location" id="edit_shift_location" class="form-control"  >
+                                                        </select>   
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Shift Location</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <select name="edit_shift_location" id="edit_shift_location" class="form-control"  >
                                                             <option value=""  disabled>--- Select Shift/Location ---</option>
                                                             <?php
                                                             $sql1 = "SELECT * FROM `cam_shift`";
@@ -780,50 +956,47 @@ $sessiontraiong = $_SESSION['training'];
                                                                 echo "<option value='" . $row1['shift_name'] . "'$entry>" . $row1['shift_name'] . "</option>";
                                                             }
                                                             ?>
-                                                        </select>	
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Mobile:</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" name="edit_mobile" id="edit_mobile" class="form-control" pattern= "[0-9]{10}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">New Password</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" name="newpass" id="newpass" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-2">
-                                                        <button type="button" name="generate" id="generate" >Generate</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Profile Pic</label>
-                                                    <div class="col-lg-8">
-                                                        <input type="file" name="image" id="image" class="form-control" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Role:</label>
-                                                    <div class="col-lg-8">
-                                                        <select name="edit_role" id="edit_role" class="form-control" >
+                                                        </select>   
+                                </div>
+                            </div>
+                        </div>
+
+                       <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Mobile</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <input type="text" name="edit_mobile" id="edit_mobile" class="form-control" pattern= "[0-9]{10}" >
+                              
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        
+
+                         <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Profile Pic</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <input type="file" name="image" id="image" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Role</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                      <select name="edit_role" id="edit_role" class="form-control" >
                                                             <option value="" selected disabled>--- Select Role ---</option>
                                                             <?php
 //$select = $row['department_head_user_id'];
@@ -841,17 +1014,34 @@ $sessiontraiong = $_SESSION['training'];
                                                             ?>
                                                         </select>
                                                     </div>
-                                                    <!-- -->
+                            </div>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">New Password</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                                        <input type="text" name="newpass" id="newpass" class="form-control">
+                                </div>
+                                <div class="col-md-4"></div>
+                                
+                                <div class="card-body pt-0">
+                                                        <button type="button" class="btn btn-primary pd-x-15 mg-r-5 mg-t-5 submit_btn" name="generate" id="generate" >Generate</button>
+                                                   
                                                 </div>
-                                            </div>
-                                        </div>
-										
-										<div class="row" id="edit_station_row">
-                                            <div class="col-md-12">
-												<div class="form-group">
-                                                <label class="col-lg-4 control-label">Training Station:</label>
-                                                <div class="col-lg-8">
-                                                    <select name="edit_station" id="edit_station" class="form-control" >
+                            </div>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs" id="edit_station_row" style="display:none;">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Training Station</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <select name="edit_station" id="edit_station" class="form-control" >
                                                         <option value="" selected disabled>--- Select Station ---</option>
                                                         <?php
                                                         $sql1 = "SELECT * FROM `cam_line` ";
@@ -861,15 +1051,17 @@ $sessiontraiong = $_SESSION['training'];
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>
-                                            </div></div>
-                                        </div>
-										<div class="row" id="edit_position_row">
-                                            <div class="col-md-12">
-											<div class="form-group">
-                                                <label class="col-lg-4 control-label">Training Position:</label>
-                                                <div class="col-lg-8">
-                                                    <select name="edit_position" id="edit_position" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="pd-30 pd-sm-20" >
+                            <div class="row row-xs" id="edit_position_row" style="display:none;">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Training Position</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <select name="edit_position" id="edit_position" class="form-control" >
                                                         <option value="" selected disabled>--- Select Position ---</option>
                                                         <?php
                                                         $sql1 = "SELECT * FROM `cam_position` ";
@@ -879,39 +1071,49 @@ $sessiontraiong = $_SESSION['training'];
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>
-                                            </div>
-                                        </div></div>
-										
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Dashboard content -->
 
-<!-- update trainee-->
 
-                    <div id="update_modal_theme_primary" class="modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header bg-primary">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h6 class="modal-title">Update Trainee Info</h6>
+                         <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                </div>
+
+
+            
+
+
+            </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div id="update_modal_theme_primary" class="modal col-lg-12 col-md-12">
+    <div class="modal-dialog" style="width:100%">
+        <div class="modal-content">
+            <div class="card-header">
+                <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                <span class="main-content-title mg-b-0 mg-b-lg-1">Update Trainee Info</span>
+            </div>
+
+
+            <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal"
+                  method="post">
+                <div class="card-body" style="">
+                    <div class="col-lg-12 col-md-12">
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs" id="update_station1">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Training Station</label>
                                 </div>
-                                <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal" method="post">
-                                    <div class="modal-body">
-                                        
-                                        <div class="row" id="update_station1">
-                                            <div class="col-md-12">
-												<div class="form-group">
-                                                <label class="col-lg-4 control-label">Training Station:*</label>
-                                                <div class="col-lg-8">
-                                                    <select name="update_station" id="update_station" class="form-control" required>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <select name="update_station" id="update_station" class="form-control" required>
                                                         <option value="" selected disabled>--- Select Station ---</option>
                                                         <?php
                                                         $sql1 = "SELECT * FROM `cam_line` ";
@@ -922,16 +1124,18 @@ $sessiontraiong = $_SESSION['training'];
                                                         ?>
                                                     </select>
                                                         <input type="hidden" name="update_id" id="update_id" >
-                                                </div>
-                                            </div>
-											</div>
-                                        </div>
-										<div class="row" id="update_position1">
-                                            <div class="col-md-12">
-												<div class="form-group">
-                                                <label class="col-lg-4 control-label">Training Position:*</label>
-                                                <div class="col-lg-8">
-                                                    <select name="update_position" id="update_position" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs" id="update_position1">
+                            <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Position Station</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                     <select name="update_position" id="update_position" class="form-control" required>
                                                         <option value="" selected disabled>--- Select Position ---</option>
                                                         <?php
                                                         $sql1 = "SELECT * FROM `cam_position` ";
@@ -941,23 +1145,30 @@ $sessiontraiong = $_SESSION['training'];
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>
-                                            </div>
-											</div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
+
+
+                         <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                </div>
                     </div>
-
-
-                    <!-- /dashboard content -->
-                    <script> $(document).on('click', '#delete', function () {
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+ </div>
+  </div> 
+</div> 
+</div> 
+</div> 
+</div> 
+</div>
+    <script> $(document).on('click', '#delete', function () {
                             var element = $(this);
                             var del_id = element.attr("data-id");
                             var info = 'id=' + del_id;
@@ -985,20 +1196,20 @@ $sessiontraiong = $_SESSION['training'];
                                 var station = $(this).data("station");
                                 var position = $(this).data("position");
                                 var trainee = $(this).data("trainee");
-								
-								if(trainee == "1")
-								{
-									
-									$('#edit_station_row').show();
-									$('#edit_position_row').show();
-								}
-								else
-								{
-									$('#edit_station_row').hide();
-									$('#edit_position_row').hide();
-								}
                                 
-								$("#edit_name").val(name);
+                                if(trainee == "1")
+                                {
+                                    
+                                    $('#edit_station_row').show();
+                                    $('#edit_position_row').show();
+                                }
+                                else
+                                {
+                                    $('#edit_station_row').hide();
+                                    $('#edit_position_row').hide();
+                                }
+                                
+                                $("#edit_name").val(name);
                                 $("#edit_email").val(email);
                                 $("#edit_mobile").val(phone);
                                 $("#edit_id").val(edit_id);
@@ -1034,11 +1245,15 @@ $sessiontraiong = $_SESSION['training'];
                             $("#total_days").val(fin);
                         });
                     </script>
-                </div>
-                <!-- /content area -->
-    </div>
 
-    <!-- /page container -->
+
+
+    
+
+
+
+</div>
+
 <script>
 window.onload = function() {
     history.replaceState("", "", "<?php echo $scriptName; ?>user_module/users_list.php");
@@ -1122,17 +1337,17 @@ window.onload = function() {
             } else {
                 $(".group_div").hide();
             }
-			if (selected_val == 5 ) {
+            if (selected_val == 5 ) {
             $('#update-form').submit();
-			}
+            }
         });
     </script>
-	    <script>
+        <script>
         $(document).on("click", ".custom_switch", function () {
             //      var available_var = '<?php echo $available_var; ?>';
             var update_id = $(this).data("id");
             var available_var = $(this).data("available");
-			$("#update_id").val(update_id);	
+            $("#update_id").val(update_id); 
                                 
 if(available_var == "1")
 {
@@ -1152,7 +1367,7 @@ if(available_var == "1")
             }); 
 }
         });
-		
+        
         $(document).on("click", ".custom_switch2", function () {
             //      var available_var = '<?php echo $available_var; ?>';
             var edit_id = $(this).data("id");
@@ -1174,49 +1389,54 @@ if(available_var == "1")
         });
 
 
-		
-	 $(document).on("click", ".switch_trainee", function () {	
-var abc = 	 $(this).is(':checked'); 
+        
+     $(document).on("click", ".switch_trainee", function () {   
+var abc =    $(this).is(':checked'); 
 if(abc == true){
-	$("#station").prop("required", true);
-	$("#position").prop("required", true);
-	
-	$("#station_row").show();
-	$("#position_row").show();
+    $("#station").prop("required", true);
+    $("#position").prop("required", true);
+    
+    $("#station_row").show();
+    $("#position_row").show();
 }else{
-	
-	$("#station").prop("required", false);
-	$("#position").prop("required", false);
-	$("#station_row").hide();
-	$("#position_row").hide();
+    
+    $("#station").prop("required", false);
+    $("#position").prop("required", false);
+    $("#station_row").hide();
+    $("#position_row").hide();
 }
 
-	 });
-		
-	 $(document).on("click", ".switch_edit_trainee", function () {	
-var abc = 	 $(this).is(':checked'); 
+     });
+        
+     $(document).on("click", ".switch_edit_trainee", function () {  
+var abc =    $(this).is(':checked'); 
 if(abc == true){
-	$("#edit_station").prop("required", true);
-	$("#edit_position").prop("required", true);
-	
-	$("#edit_station_row").show();
-	$("#edit_position_row").show();
+    $("#edit_station").prop("required", true);
+    $("#edit_position").prop("required", true);
+    
+    $("#edit_station_row").show();
+    $("#edit_position_row").show();
 }else{
-	
-	$("#edit_station").prop("required", false);
-	$("#edit_position").prop("required", false);
-	$("#edit_station_row").hide();
-	$("#edit_position_row").hide();
+    
+    $("#edit_station").prop("required", false);
+    $("#edit_position").prop("required", false);
+    $("#edit_station_row").hide();
+    $("#edit_position_row").hide();
 }
 
-	 });		
-		
-	//$("#example1").datatable();
-	//$('#example1').DataTable({
-	//});
+     });        
+        
+    //$("#example1").datatable();
+    //$('#example1').DataTable({
+    //});
 
     </script>
-        <?php include ('../footer.php') ?>
-        <script type="text/javascript" src="../assets/js/core/app.js"></script>
+        <?php include ('../footer1.php') ?>
+
 </body>
+
 </html>
+
+
+
+
