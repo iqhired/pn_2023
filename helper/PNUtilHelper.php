@@ -169,9 +169,44 @@ function checkSession(){
 	$_SESSION['LAST_ACTIVITY'] = $time;
 
 //	$i = $_SESSION["role_id"];
-//	if ($i != "super" && $i != "admin") {
+//	if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
 //		header('location: ../dashboard.php');
 //	}
 }
 
+/**
+ *
+ */
+function displaySuccessMessage(){
+	session_start();
+	if (isset($_SESSION['success'])) {
+		set_time_limit(10);
+		echo '<p style="color:green">' . $_SESSION['success'] . "</p>";
+		unset($_SESSION['success']);
+	}
+}
+
+/**
+ *
+ */
+function displayFailureMessage(){
+	session_start();
+	if (isset($_SESSION['error'])) {
+		echo '<p style="color:red">' . $_SESSION['error'] . "</p>";
+		unset($_SESSION['error']);
+	}
+}
+
+
+/**
+ *
+ */
+function displaySFMessage(){
+	session_start();
+	if (!empty($_SESSION['import_status_message'])) {
+		echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+		unset($_SESSION['message_stauts_class']);
+		unset($_SESSION['import_status_message']);
+	}
+}
 ?>

@@ -2,40 +2,7 @@
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
-}
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
-
-//	header('location: ../logout.php');
-    exit;
-}
-$is_tab_login = $_SESSION['is_tab_user'];
-$is_cell_login = $_SESSION['is_cell_login'];
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-    header('location: ../dashboard.php');
-}
+checkSession();
 if (count($_POST) > 0) {
     $name = $_POST['name'];
 //create
@@ -44,7 +11,7 @@ if (count($_POST) > 0) {
         $sqlquery = "INSERT INTO `cam_job_title`(`job_name`,`created_at`,`updated_at`) VALUES ('$name','$chicagotime','$chicagotime')";
         if (!mysqli_query($db, $sqlquery)) {
             $message_stauts_class = 'alert-danger';
-            $import_status_message = 'Error: Job-Title with this Name Already Exists';
+            $import_status_message = 'Error: Job-Title with this Name ( '. $name .' ) Already Exists.';
         } else {
             $temp = "one";
         }
@@ -284,13 +251,7 @@ include("../admin_menu.php");
                 if (!empty($import_status_message)) {
                     echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
                 }
-                ?>
-                <?php
-                if (!empty($_SESSION['import_status_message'])) {
-                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                    $_SESSION['message_stauts_class'] = '';
-                    $_SESSION['import_status_message'] = '';
-                }
+				displaySFMessage();
                 ?>
                 <div class="card">
                     <div class="card-body">
