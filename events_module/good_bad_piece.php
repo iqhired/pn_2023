@@ -2,39 +2,7 @@
 $chicagotime = date("Y-m-d H:i:s");
 
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
-}
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
-
-//	header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-    header('location: ../line_status_overview_dashboard.php');
-}
+checkSession();
 $user_id = $_SESSION["id"];
 $def_ch = $_POST['def_ch'];
 $chicagotime = date("Y-m-d H:i:s");
@@ -201,19 +169,12 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
     <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css"
           rel="stylesheet">
-
-
-
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
-
-
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-
-
 
     <style>
 
@@ -371,6 +332,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         .text-center {
             text-align: center!important;
             background-image: none!important;
+            font-size: large;
         }
         .badge {
             padding: 0.5em 0.5em!important;
@@ -381,11 +343,6 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
             width: 196px;
             height: 60px;
         }
-        .text-center {
-            text-align: center!important;
-            font-size: x-large;
-        }
-
         a.btn.bg-danger-gradient.text-white.view_gpbp {
             height: 60px;
             width: 196px;
@@ -428,6 +385,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         <!-- /breadcrumb -->
 
         <!-- row -->
+        <div class="row"><?php displaySFMessage(); ?></div>
         <div class="row">
             <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
@@ -574,7 +532,6 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                 </div>
             </div>
         </div>
-
         <div class="row ">
             <div class="col-sm-12 col-md-12">
                 <div class="card custom-card">
