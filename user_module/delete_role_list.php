@@ -13,6 +13,7 @@ if ($delete_check != "") {
         }
         $i++;
     }
+
 } else {
     $_SESSION['message_stauts_class'] = 'alert-danger';
     $_SESSION['import_status_message'] = 'Please Select Role.';
