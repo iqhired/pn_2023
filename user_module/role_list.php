@@ -17,7 +17,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     //Destroy the session
     session_destroy();
     header($redirect_logout_path);
-//	header('location: ../logout.php');
+//  header('location: ../logout.php');
     exit;
 }
 //Set the time of the user's last activity
@@ -26,7 +26,7 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 //echo "<script type='text/javascript'>alert('$message');</script>";
 
 //if($_SESSION['user'] != "admin"){
-//	header('location: dashboard.php');
+//  header('location: dashboard.php');
 //}
 $i = $_SESSION["role_id"];
 if ($i != "super" && $i != "admin") {
@@ -62,7 +62,7 @@ if (count($_POST) > 0) {
         foreach ($side_menu1 as $side_menu) {
             $array_side_menu .= $side_menu . ",";
         }
-//		$array_side_menu = $old_value.$array_side_menu;
+//      $array_side_menu = $old_value.$array_side_menu;
         $sql = "update cam_role set role_name='$_POST[name]',type='$_POST[type]',side_menu='$array_side_menu',updated_at='$chicagotime' where role_id='$id'";
         $result1 = mysqli_query($db, $sql);
         if ($result1) {
@@ -74,132 +74,263 @@ if (count($_POST) > 0) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php echo $sitename; ?> | Role</title>
-        <!-- Global stylesheets -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-        <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
-        <!-- /global stylesheets -->
-        <!-- Core JS files -->
-        <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-        <script type="text/javascript" src="../assets/js/core/libraries/jquery.min.js"></script>
-        <script type="text/javascript" src="../assets/js/core/libraries/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-        <!-- /core JS files -->
-        <!-- Theme JS files -->
-        <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="../assets/js/core/app.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/notifications/sweet_alert.min.js"></script>
-        <script type="text/javascript" src="../assets/js/pages/components_modals.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/forms/styling/uniform.min.js"></script>
-        <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-        <style>
-            .sidebar-default .navigation li>a{color:#f5f5f5};
-            a:hover {
-                background-color: #20a9cc;
-            }
-            .sidebar-default .navigation li>a:focus, .sidebar-default .navigation li>a:hover {
-                background-color: #20a9cc;
-            }
-			.red{
-				color:red;
-			}
-            .panel-title {
-                margin-top: 25px;
-                font-size: 15px;
-            }
-            @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-                .col-lg-4{
-                    width: 45%!important;
-                }
-                .col-lg-8{
-                    width: 55%!important;
-                }
-                .col-md-4 {
-                    width: 25%;
-                    margin-top: 58px;
-                }
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <?php echo $sitename; ?> |Role</title>
+    <!-- Global stylesheets -->
 
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- Internal Select2 css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+
+    <style>
+        .navbar {
+
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .mt-4 {
+            margin-top: 0rem!important;
+        }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
             }
-            .row {
-                margin-top: 15px;
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
             }
-        </style>
-    </head>
-    <body>
-        <!-- Main navbar -->
-        <?php
-        $cust_cam_page_header = "Add/Update User Role(s)";
-        include("../header_folder.php");
-        include("../admin_menu.php");
-        include("../heading_banner.php");
-        ?>
-        <!-- /main navbar -->
-        <!-- Page container -->
-        <div class="page-container">
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
 
-                    <!-- Content area -->
-                    <div class="content">
-                        <!-- Main charts -->
-                        <!-- Basic datatable -->
-                        <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <h5 class="panel-title">Role List</h5>
-                                <hr/>
-                               <form action="" id="user_form" class="form-horizontal" method="post">
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
 
-                                    <div class="col-md-12">
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
 
-                                                <div class="col-md-3">
-                                                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter Role">
-                                                        <input type="hidden" name="edit_id" id="edit_id" >
-                                                       <input type="hidden" name="old_value" id="old_value" >
-						        	<div id="error2" class="red" style="display:none">Please Enter Role</div>
+        }
 
-                                        </div>
-                                        <!--<div class="col-md-4">-->
-                                        <div class="col-md-2">
-                                            <label class="control-label" style="float: left;padding-top: 10px; font-weight: 500;">Type : </label>
-                                            <select  name="type" id="type" class="form-control" style="float: left; width: initial;" >
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+
+    </style>
+</head>
+
+
+<!-- Main navbar -->
+<?php
+$cust_cam_page_header = "Add/Update User Role";
+include("../header.php");
+include("../admin_menu.php");
+?>
+
+
+<body class="ltr main-body app sidebar-mini">
+<!-----main content----->
+<div class="main-content app-content">
+    <!---container--->
+    <!---breadcrumb--->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">User Config</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add/Update User Role</li>
+            </ol>
+        </div>
+    </div>
+
+
+
+     <form action="" id="user_form" class="form-horizontal" method="post">
+        <div class="row-body">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                         <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">ADD/UPDATE USER ROLE</span>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Role</label>
+                                </div>
+                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Role" required>
+                                     <input type="hidden" name="edit_id" id="edit_id" >
+                                    <input type="hidden" name="old_value" id="old_value" >
+                                </div>
+
+                                <div class="col-md-1"></div>
+                                <div class="col-md-1">
+                                    <label class="form-label mg-b-0">Type </label>
+                                </div>
+                                <div class="col-md-2 mg-t-10 mg-md-t-0">
+                                    <select  name="type" id="type" class="form-control" style="float: left; width: initial;" >
                                                 <!--        <option value="" selected disabled>--- Select Ratings ---</option>-->
                                                 <option value="user" >User</option>
                                                 <option value="pn_user" >PN User</option>
                                                 <option value="admin" >Admin</option>
                                             </select>
-                                        </div><!--<input type="number" name="priority_order" id="priority_order" class="form-control" placeholder="Enter Priority Order" required>-->
-                                        <!--</div>-->
-                                        <div class="col-md-4">
-                                            <button type="submit" class="btn btn-primary create" style="background-color:#1e73be;">Create Role</button>
+                                </div>
+
+
+                                <div class="col-md-1"></div>
+                                <div class="card-body pt-0">
+                                    <button type="submit" class="btn btn-primary create" style="background-color:#1e73be;">Create Role</button>
                                             <button type="submit" class="btn btn-primary update" style="background-color:#1e73be;display:none;" >Update Role</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row ">
+                                        <div class="col-md-5">
+                                            <label class="form-label mg-b-0">Select Modules for Access & Permission</label>
                                         </div>
+                                        <div class="row ">
 
-                                    </div>
-
-
-                        <br/>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <h5 class="panel-title">Select Modules for Access & Permission</h5>
-<!--                                        <div id="error1" class="red" style="display:none;color:red;">Please select Module</div>-->
-
-
-
-                                        <div class="row">
                                             <div id="error1" class="red" style="display:none;color:red;">Please select Module</div>
                                             <?php
                                             $query12 = sprintf("SELECT * FROM  side_menu where side_menu_id != '1' and parent_id = '0' and enabled = '1'  order by menu_name ASC");
@@ -209,6 +340,7 @@ if (count($_POST) > 0) {
 
                                                 ?>
                                                 <div class="col-md-2 rmchk">
+
                                                     <div class="checkbox">
                                                         <label>
                                                             <input type="checkbox" class="control-primary chk_menu" name="menu_value[]" id="<?php echo $parentid; ?>" value="<?php echo $rowc12["side_menu_id"]; ?>" >
@@ -242,83 +374,78 @@ if (count($_POST) > 0) {
                                             ?>
 
                                         </div>
+                                        
 
                                     </div>
                                 </div>
-                            </div>
-                        </form>
 
 
-                        <?php if ($temp == "one") { ?>
-                            <br/>					<div class="alert alert-success no-border">
-                                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-                                <span class="text-semibold">Role</span> Created Successfully.
-                            </div>
-                        <?php } ?>
-                        <?php if ($temp == "two") { ?>
-                            <br/>					<div class="alert alert-success no-border">
-                                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-                                <span class="text-semibold">Role</span> Updated Successfully.
-                            </div>
-                        <?php } ?>
-                        <?php
-                        if (!empty($import_status_message)) {
-                            echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                        }
-                        ?>
-                        <?php
-                        if (!empty($_SESSION['import_status_message'])) {
-                            echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                            $_SESSION['message_stauts_class'] = '';
-                            $_SESSION['import_status_message'] = '';
-                        }
-                        ?>
                     </div>
                 </div>
-                <form action="delete_role_list.php" method="post" class="form-horizontal">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-primary" style="background-color:#1e73be;" >Delete</button>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="panel panel-flat">
-                        <table class="table datatable-basic">
-                            <thead>
-                            <tr>
-                                <th><input type="checkbox" id="checkAll" ></th>
-                                <th>S.No</th>
-                                <th>Role</th>
-                                <th>Type</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
+            </form>
+            </div>
+        </div>
+
+<form action="delete_role_list.php" method="post" class="form-horizontal">
+    <div class="row-body">
+        <div class="col-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                </div>
+
+                <div class="card-body pt-0 example1-table">
+                    <div class="table-responsive">
+                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                        <thead>
+                                        <tr>
+                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                            <th>Sl. No</th>
+                                            <th>Action</th>
+                                            <th>Role</th>
+                                            <th>Type</th>
+
+                                        
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
                             $query = sprintf("SELECT * FROM  cam_role where role_id != '1' AND is_deleted !='1'");
                             $qur = mysqli_query($db, $query);
                             while ($rowc = mysqli_fetch_array($qur)) {
                                 ?>
                                 <tr>
-                                    <td><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["role_id"]; ?>"></td>
+                                    <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["role_id"]; ?>"><span></span></label></td>
                                     <td><?php echo ++$counter; ?></td>
-                                    <td><?php echo $rowc["role_name"]; ?></td>
-                                    <td><?php echo $rowc['type']; ?></td>
                                     <td>
-                                        <button type="button" id="edit" class="btn btn-info btn-xs" data-id="<?php echo $rowc['role_id']; ?>" data-side_menu="<?php echo $rowc['side_menu']; ?>" data-name="<?php echo $rowc['role_name']; ?>" data-type="<?php echo $rowc['type']; ?>"   style="background-color:#1e73be;" >Edit </button>
-                                        <!--									&nbsp;
-                                                                                                                            <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['role_id']; ?>">Delete </button>
+                                        <button type="button" id="edit" class="btn btn-primary btn-xs" data-id="<?php echo $rowc['role_id']; ?>" data-side_menu="<?php echo $rowc['side_menu']; ?>" data-name="<?php echo $rowc['role_name']; ?>" data-type="<?php echo $rowc['type']; ?>"   style="background-color:#1e73be;" > <i class="fa fa-edit"></i></button>
+                                        <!--                                    &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['role_id']; ?>">Delete </button>
                                                     -->
                                     </td>
+                                    <td><?php echo $rowc["role_name"]; ?></td>
+                                    <td><?php echo $rowc['type']; ?></td>
+                                    
                                 </tr>
                             <?php } ?>
-                            </tbody>
-                        </table>
-                </form>
+                                   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
             </div>
-            <!-- /basic datatable -->
-            <!-- /main charts -->
-            <div id="modal_theme_primary1" class="modal fade">
+        </div>
+    </div>
+</form>
+
+ <div id="modal_theme_primary1" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -346,7 +473,9 @@ if (count($_POST) > 0) {
                     </div>
                 </div>
             </div>
-            <!-- edit modal -->
+
+
+
             <div id="edit_modal_theme_primary" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -409,7 +538,9 @@ if (count($_POST) > 0) {
                     </div>
                 </div>
             </div>
-            <!-- Dashboard content -->
+
+
+             <!-- Dashboard content -->
             <!-- /dashboard content -->
             <script> $(document).on('click', '#delete', function () {
                     var element = $(this);
@@ -423,7 +554,7 @@ if (count($_POST) > 0) {
                     $(document).on('click', '#edit', function () {
                         $('input:checkbox').removeAttr('checked');
                         var rmchk = "rmchk span";
-                        //		console.log(abc);
+                        //      console.log(abc);
                         //$(".cl"+value_c).hide();
                         //     $(".cl"+value_c).find('input:checkbox:first').prop('checked', false);
                         //  $(".cl"+value_c).prop('checked', false);
@@ -458,16 +589,21 @@ if (count($_POST) > 0) {
                 });
             </script>
 
-        </div>
-        <!-- /content area -->
+
+
+
+
+
+
+
+
+
+  
+
+
+
     </div>
-    <!-- /main content -->
-</div>
-<!-- /page content -->
-</div>
-<!-- /page container -->
-        <!-- /dashboard content -->
-        <script> $(document).on('click', '#delete', function () {
+            <script> $(document).on('click', '#delete', function () {
                 var element = $(this);
                 var del_id = element.attr("data-id");
                 var info = 'id=' + del_id;
@@ -479,7 +615,7 @@ if (count($_POST) > 0) {
                 $(document).on('click', '#edit', function () {
                     $('input:checkbox').removeAttr('checked');
                     var rmchk = "rmchk span";
-                    //		console.log(abc);
+                    //      console.log(abc);
                     //$(".cl"+value_c).hide();
                     //     $(".cl"+value_c).find('input:checkbox:first').prop('checked', false);
                     //  $(".cl"+value_c).prop('checked', false);
@@ -514,15 +650,7 @@ if (count($_POST) > 0) {
             });
         </script>
 
-        </div>
-        <!-- /content area -->
-        </div>
-        <!-- /main content -->
-        </div>
-        <!-- /page content -->
-        </div>
-        <!-- /page container -->
-        <script>
+         <script>
             window.onload = function() {
                 $(".control-primary").uniform({
                     radioClass: 'choice',
@@ -581,7 +709,7 @@ if (count($_POST) > 0) {
 
                 } else {
                     var abc = "cl" +value_c+" span";
-                    //		console.log(abc);
+                    //      console.log(abc);
                     $(".cl"+value_c).hide();
                     $(".cl"+value_c).find('input:checkbox:first').prop('checked', false);
                     //  $(".cl"+value_c).prop('checked', false);
@@ -593,6 +721,6 @@ if (count($_POST) > 0) {
 
         </script>
 
-<?php include ('../footer.php') ?>
+<?php include ('../footer1.php') ?>
 </body>
-</html>
+
