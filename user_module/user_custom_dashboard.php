@@ -253,7 +253,7 @@ else {
 
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "Event Type";
+$cust_cam_page_header = "Custom Dashboard";
 include("../header.php");
 include("../admin_menu.php");
 ?>
