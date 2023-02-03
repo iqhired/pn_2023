@@ -285,7 +285,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <?php
         $station_event_id = $_GET['station_event_id'];
         $bad_pieces_id = $_GET['bad_pieces_id'];
-        $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' AND gbpd.bad_pieces_id = '$bad_pieces_id' order by gbpd.bad_pieces_id DESC");
+        $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.part_defect_zone as defect_zone ,gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' AND gbpd.bad_pieces_id = '$bad_pieces_id' order by gbpd.bad_pieces_id DESC");
         $qur = mysqli_query($db, $query);
         while ($result_good = mysqli_fetch_array($qur)) {
             $good_pieces = $result_good['good_pieces'];
@@ -293,7 +293,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             $bad_pieces_id = $result_good['bad_pieces_id'];
             $defect_name = $result_good['defect_name'];
             $bad_pieces = $result_good['bad_pieces'];
-            $defect_zone = $result_good['part_defect_zone'];
+            $defect_zone = $result_good['defect_zone'];
 
             ?>
 
@@ -406,7 +406,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     <label class="form-label mg-b-0">Defect Zone :</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                    <input type="number" name="defect_zone" min="1" id="defect_zone" class="form-control" placeholder="Enter Pieces..." value="<?php echo $defect_zone; ?>" readonly>
+                                    <input type="number" value="<?php echo $defect_zone; ?>" name="defect_zone" min="1" id="defect_zone" class="form-control" placeholder="Enter Zone..."  readonly>
                                 </div>
                             </div>
                         </div>
