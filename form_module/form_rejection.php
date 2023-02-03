@@ -171,61 +171,9 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam{
-                display: none!important;
-            }
-        }
 
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
 
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam{
-                display: none!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam{
-                display: none!important;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -255,77 +203,12 @@ if (count($_POST) > 0) {
             width: 100px;
             height: 23px;
         }
-        @media (min-width: 614px) and (max-width: 874px) {
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 462px!important;
-                margin-top: -26px!important;
-                margin-left: 114px!important;
-                font-size: 16px!important;
-            }
 
-        }
-        @media (min-width: 768px){
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam {
-                display: none;
-            }
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam{
-                display: none!important;
-            }
-        }
-        @media (min-width: 481px) and (max-width: 768px) {
-
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam{
-                display: none!important;
-            }
-        }
-        @media (min-width: 769px) and (max-width: 1024px) {
-
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam{
-                display: none!important;
-            }
-        }
-        @media (min-width: 482px) and (max-width: 767px) {
-
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam{
-                display: none!important;
-            }
-        }
-        @media (min-width: 614px) and (max-width: 874px) {
-
-            .col-md-1 {
-                flex: 1 0 0.33333%;
-                max-width: 34.33333%!important;
-            }
-            .col-md-1.exam{
-                display: none!important;
-            }
-        }
     </style>
 </head>
 
+
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Add / Create Form";
@@ -333,10 +216,10 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!-- container -->
+    <div class="main-container container">
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -349,7 +232,7 @@ include("../admin_menu.php");
 
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -431,7 +314,7 @@ include("../admin_menu.php");
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-1 exam"></div>
+                                <div class="col-md-1 "></div>
                                 <div class="col-md-1">
                                     <label class="form-label mg-b-0">Part Family</label>
                                 </div>
@@ -504,7 +387,7 @@ include("../admin_menu.php");
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-1 exam"></div>
+                                <div class="col-md-1 "></div>
                                 <div class="col-md-1">
                                     <label class="form-label mg-b-0">Form Type</label>
                                 </div>
@@ -550,7 +433,7 @@ include("../admin_menu.php");
                                         <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
                                     </div><!-- input-group -->
                                 </div>
-                                <div class="col-md-1 exam"></div>
+                                <div class="col-md-1 "></div>
                                 <div class="col-md-1">
                                     <label class="form-label mg-b-0">Date To</label>
                                 </div>
@@ -586,11 +469,9 @@ include("../admin_menu.php");
     {
         ?>
 
-        <div class="row-body">
-
-            <div class="col-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
                 <div class="card">
-
                     <div class="card-body pt-0">
                         <div class="table-responsive">
                             <table class="table  table-bordered text-nowrap mb-0" id="example2">
@@ -777,6 +658,7 @@ include("../admin_menu.php");
             });
         });
     </script>
+  </div>
 </div>
 <!-- /content area -->
 

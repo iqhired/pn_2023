@@ -505,11 +505,12 @@ else if($good_bad_piece_name != "")
         if($good_bad_pieces_id != "")
         {
             $bp = $rowc['bad_pieces'];
+            $defect_zone = $_POST['defect_zone'];
             $bad_pieces = $bp + $good_bad_piece_name;
-            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `defect_name`, `bad_pieces`,  `created_at`,`created_by`, `modified_at`) VALUES ('$station_event_id','$add_defect_name','$good_bad_piece_name','$chicagotime','$user','$chicagotime')";
+            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `defect_name`, `bad_pieces`,`part_defect_zone`,  `created_at`,`created_by`, `modified_at`) VALUES ('$station_event_id','$add_defect_name','$good_bad_piece_name','$defect_zone','$chicagotime','$user','$chicagotime')";
             $result11 = mysqli_query($db, $sql1);
 //				$sql1 = "update good_bad_pieces set bad_pieces ='$bad_pieces' where station_event_id ='$station_event_id' and event_status = '1' and defect_name = '$add_defect_name'";
-            $sql1 = "update good_bad_pieces set bad_pieces ='$bad_pieces' , modified_at = '$chicagotime' where station_event_id ='$station_event_id' and event_status = '1'";
+            $sql1 = "update good_bad_pieces set bad_pieces ='$bad_pieces' ,part_defect_zone ='$defect_zone' , modified_at = '$chicagotime' where station_event_id ='$station_event_id' and event_status = '1'";
             $result11 = mysqli_query($db, $sql1);
             if ($result11) {
                 $_SESSION['message_stauts_class'] = 'alert-success';
@@ -689,14 +690,15 @@ if($editgood_name != "")
 else
 {
     $bad_pieces_id = $_POST['bad_pieces_id'];
+    $edit_defect_zone = $_POST['edit_defect_zone'];
     $query = sprintf("SELECT ('$editbad_name' - bad_pieces) as b_total , ('$editre_work' - rework) as r_total from good_bad_pieces_details where `station_event_id` = '$edit_seid' and bad_pieces_id = '$edit_gbid'");
     $qur = mysqli_query($db, $query);
     while ($rowc = mysqli_fetch_array($qur)) {
         $bps =  $rowc['b_total'];
         $rwps =  $rowc['r_total'];
-        $sql1 = "update good_bad_pieces_details set bad_pieces ='$editbad_name' , rework = '$editre_work' ,modified_by='$user', modified_at = '$chicagotime'  where bad_pieces_id ='$edit_gbid'";
+        $sql1 = "update good_bad_pieces_details set bad_pieces ='$editbad_name' ,part_defect_zone ='$edit_defect_zone' , rework = '$editre_work' ,modified_by='$user', modified_at = '$chicagotime'  where bad_pieces_id ='$edit_gbid'";
         $result11 = mysqli_query($db, $sql1);
-        $sql1 = "update good_bad_pieces set bad_pieces =( bad_pieces + '$bps'),rework =( rework + '$rwps') , modified_at = '$chicagotime' where good_bad_pieces_id ='$edit_id'";
+        $sql1 = "update good_bad_pieces set bad_pieces =( bad_pieces + '$bps'),rework =( rework + '$rwps') , part_defect_zone ='$edit_defect_zone' ,modified_at = '$chicagotime' where good_bad_pieces_id ='$edit_id'";
         $result11 = mysqli_query($db, $sql1);
         if ($result11) {
             $_SESSION['message_stauts_class'] = 'alert-success';
@@ -742,6 +744,6 @@ else
         }
     }
 }
-$page = siteURL."events_module/good_bad_piece.php?station_event_id=$station_event_id";
+$page = "good_bad_piece.php?station_event_id=$station_event_id";
 header('Location: ' . $page, true, 303);
 ?>
