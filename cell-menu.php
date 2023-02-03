@@ -78,6 +78,11 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
         height: 50px;
     }
 
+    .btn-menu{
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
 
 </style>
 <!-- main-header -->
@@ -90,9 +95,9 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 <!--            <a href="--><?php //echo $siteURL; ?><!--line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>-->
 <!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>-->
 <!--            <a href="--><?php //echo $siteURL; ?><!--float_menu.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--&station=--><?php //echo $station;?><!--" class="btn bg-success text-white"><i class="fa-solid fa-bars"></i></a>-->
-            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white">Main Home</a>
+            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn btn-menu text-white">Main Home</a>
 <!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white">Cell Dashboard</a>-->
-            <a href="<?php echo $siteURL; ?>float_menu.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station;?>" class="btn bg-success text-white">Station Menu</a>
+            <a href="<?php echo $siteURL; ?>float_menu.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station;?>" class="btn btn-menu text-white">Station Menu</a>
 
         </div>
     </div>

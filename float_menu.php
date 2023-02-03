@@ -35,11 +35,11 @@ $station = $_GET['station'];
     <title>Dashboard Menus</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/gfont.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/198f721d64.js" crossorigin="anonymous"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/fawesomekit.js" crossorigin="anonymous"></script>
     <style>
         a.btn.bg-success.text-white.view_gpbp {
             height: 60px;

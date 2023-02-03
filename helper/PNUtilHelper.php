@@ -169,9 +169,28 @@ function checkSession(){
 	$_SESSION['LAST_ACTIVITY'] = $time;
 
 	$i = $_SESSION["role_id"];
-	if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-		header('location: '.site_URL.'/line_status_overview_dashboard.php');
+//	if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
+//		header('location: '.site_URL.'/line_status_overview_dashboard.php');
+//	}
+}
+
+/**
+ * 
+ */
+function goHome(){
+	$i = $_SESSION["role_id"];
+	$is_tab_login = $_SESSION['is_tab_user'];
+	$is_cell_login = $_SESSION['is_cell_login'];
+	if(!empty($is_cell_login) && $is_cell_login == 1){
+		$path = site_URL. "cell_line_dashboard.php";
+	}else{
+		if(!empty($i) && ($is_tab_login != null)){
+			$path = site_URL . "/line_tab_dashboard.php";
+		}else{
+			$path = site_URL . "/line_status_grp_dashboard.php";
+		}
 	}
+	header('location:'.$path);
 }
 
 /**
@@ -204,7 +223,7 @@ function displayFailureMessage(){
 function displaySFMessage(){
 	session_start();
 	if (!empty($_SESSION['import_status_message'])) {
-		echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+		echo '<div><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div></div>';
 		unset($_SESSION['message_stauts_class']);
 		unset($_SESSION['import_status_message']);
 	}

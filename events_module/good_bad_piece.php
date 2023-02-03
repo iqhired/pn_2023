@@ -385,7 +385,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         <!-- /breadcrumb -->
 
         <!-- row -->
-        <div class="row"><?php displaySFMessage(); ?></div>
+        <?php displaySFMessage(); ?>
         <div class="row">
             <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
