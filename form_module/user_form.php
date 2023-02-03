@@ -209,16 +209,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 60%;
+                width: 45%;
             }
             .col-md-6 {
-                width: 55%;
+                width: 45%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 65%;
+                width: 40%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 22%;
+                width: 10%;
             }
             .col-lg-2\.5.mg-t-20.mg-lg-t-0 {
                 max-width: 80%!important;
@@ -246,16 +246,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 60%;
+                width: 45%;
             }
             .col-md-6 {
-                width: 55%;
+                width: 45%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 65%;
+                width: 40%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 22%;
+                width: 10%;
             }
         }
 
@@ -280,16 +280,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 60%;
+                width: 45%;
             }
             .col-md-6 {
-                width: 55%;
+                width: 45%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 65%;
+                width: 40%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 22%;
+                width: 10%;
             }
 
         }
@@ -315,16 +315,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 60%;
+                width: 45%;
             }
             .col-md-6 {
-                width: 55%;
+                width: 45%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 65%;
+                width: 40%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 22%;
+                width: 10%;
             }
 
         }
