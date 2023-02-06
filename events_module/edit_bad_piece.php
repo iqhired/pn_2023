@@ -33,6 +33,28 @@ $station = $_GET['station'];
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
 
+$sqlmain = "SELECT * FROM `sg_station_event` where `station_event_id` = '$station_event_id'";
+$resultmain = $mysqli->query($sqlmain);
+$rowcmain = $resultmain->fetch_assoc();
+$part_family = $rowcmain['part_family_id'];
+$part_number = $rowcmain['part_number_id'];
+$p_line_id = $rowcmain['line_id'];
+
+$sqlprint = "SELECT * FROM `cam_line` where `line_id` = '$p_line_id'";
+$resultnumber = $mysqli->query($sqlprint);
+$rowcnumber = $resultnumber->fetch_assoc();
+$printenabled = $rowcnumber['print_label'];
+$p_line_name = $rowcnumber['line_name'];
+$individualenabled = $rowcnumber['indivisual_label'];
+
+
+$sqlnumber = "SELECT * FROM `pm_part_number` where `pm_part_number_id` = '$part_number'";
+$resultnumber = $mysqli->query($sqlnumber);
+$rowcnumber = $resultnumber->fetch_assoc();
+$pm_part_number = $rowcnumber['part_number'];
+$pm_part_name = $rowcnumber['part_name'];
+$pm_npr= $rowcnumber['npr'];
+$defect_list_id = $_GET['defect_list_id'];
 if(empty($_SESSION['$station_event_id'])){
     $_SESSION['good_timestamp_id'] = time();
 }
@@ -244,11 +266,10 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 ?>
 
     <div class="main-content app-content">
-   
-     
-    <!---container--->
-    <!---breadcrumb--->
-    <div class="breadcrumb-header justify-content-between">
+        <div class="main-container container">
+       <!---container--->
+       <!---breadcrumb--->
+          <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Good Bad Piece</a></li>
@@ -256,11 +277,11 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             </ol>
         </div>
     </div>
-    <!-- Page content -->
+         <!-- Page content -->
         <?php
         $station_event_id = $_GET['station_event_id'];
         $bad_pieces_id = $_GET['bad_pieces_id'];
-        $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' AND gbpd.bad_pieces_id = '$bad_pieces_id' order by gbpd.bad_pieces_id DESC");
+        $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id ,gbpd.part_defect_zone as defect_zone , gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' AND gbpd.bad_pieces_id = '$bad_pieces_id' order by gbpd.bad_pieces_id DESC");
         $qur = mysqli_query($db, $query);
         while ($result_good = mysqli_fetch_array($qur)) {
             $good_pieces = $result_good['good_pieces'];
@@ -268,17 +289,18 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             $bad_pieces_id = $result_good['bad_pieces_id'];
             $defect_name = $result_good['defect_name'];
             $bad_pieces = $result_good['bad_pieces'];
+            $defect_zone = $result_good['defect_zone'];
 
             ?>
 
     <form action="create_good_bad_piece.php" id="asset_update"  enctype="multipart/form-data" class="form-horizontal" method="post">
         <input type="hidden" name="station_event_id" id="station_event_id" class="form-control" value="<?php echo $station_event_id; ?>" >
         <input type="hidden" name="bad_pieces_id" id="bad_pieces_id" class="form-control" value="<?php echo $bad_pieces_id; ?>" >
-        
 
-        <div class="row-body" >
+
+        <div class="row" >
             <div class="col-lg-12 col-md-12">
-                
+
                 <div class="card">
                     <div class="card-body">
                          <div class="card-header">
@@ -362,7 +384,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                                     ?>
 
                                     <div class="container"></div>
-                                    
+
 
                                             <div class="col-lg-3 col-sm-6">
                                                 <div class="thumbnail">
@@ -381,13 +403,60 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     </div>
                             </div>
                         </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-10">
+                                    <label class="form-label mg-b-0">Using the dropdown option below, please specifyin which zone the defect occured</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Cross Section Image:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <div class="container"></div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="thumbnail">
+                                            <div class="thumb">
+                                                <img src="<?php echo $siteURL; ?>assets/images/part_images/cs/<?php echo $pm_part_number;?>.jpg" alt=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Defect Zone:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <select name="edit_defect_zone" id="edit_defect_zone" class="form-control form-select select2"
+                                            data-style="bg-slate">
+                                        <option value="" selected disabled>- Select Defect Zone -</option>
+                                        <option value="<?php echo defect_block[0];?>" <?php if($defect_zone == defect_block[0]){echo 'selected';}?>>A1</option>
+                                        <option value="<?php echo defect_block[1];?>" <?php if($defect_zone == defect_block[1]){echo 'selected';}?>>A2</option>
+                                        <option value="<?php echo defect_block[2];?>" <?php if($defect_zone == defect_block[2]){echo 'selected';}?>>A3</option>
+                                        <option value="<?php echo defect_block[3];?>" <?php if($defect_zone == defect_block[3]){echo 'selected';}?>>B1</option>
+                                        <option value="<?php echo defect_block[4];?>" <?php if($defect_zone == defect_block[4]){echo 'selected';}?>>B2</option>
+                                        <option value="<?php echo defect_block[5];?>" <?php if($defect_zone == defect_block[5]){echo 'selected';}?>>B3</option>
+                                        <option value="<?php echo defect_block[6];?>" <?php if($defect_zone == defect_block[6]){echo 'selected';}?>>C1</option>
+                                        <option value="<?php echo defect_block[7];?>" <?php if($defect_zone == defect_block[7]){echo 'selected';}?>>C2</option>
+                                        <option value="<?php echo defect_block[8];?>" <?php if($defect_zone == defect_block[8]){echo 'selected';}?>>C3</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <input type="hidden" name="edit_id" id="edit_id" value="<?php echo $good_bad_pieces_id; ?>">
                                     <input type="hidden" name="edit_gbid" id="edit_gbid" value="<?php echo $result_good['bad_pieces_id']; ?>">
                                     <input type="hidden" name="edit_seid" id="edit_seid" value="<?php echo $station_event_id; ?>">
                                     <input type="hidden" name="good_bad_piece_id" id="good_bad_piece_id" value="<?php echo $good_bad_pieces_id; ?>">
 
                         <div class="card-body pt-0">
-                             
+
                 <?php if(($idddd != 0) && ($printenabled == 1)){?>
                     <iframe height="100" id="resultFrame" style="display: none;" src="./pp.php"></iframe>
                 <?php }?>
@@ -403,8 +472,8 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         </div>
     </form>
       <?php } ?>
-
-</div>
+        </div>
+    </div>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <script>
         Webcam.set({
@@ -434,8 +503,6 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             } );
         }
     </script>
-
-
     <script>
         $(document).on('click', '.remove_image', function () {
             var del_id = this.id.split("_")[2];
@@ -477,7 +544,6 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         });
 
     </script>
-
     <script>
         $(document).on('click', '.remove_image', function () {
             var del_id = this.id.split("_")[2];
@@ -494,7 +560,6 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             location.reload(true);
         });
     </script>
-
     <script>
         $(document).ready(function () {
             $('.select').select2();
@@ -507,7 +572,6 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             history.replaceState("", "", "<?php echo $scriptName; ?>events_module/edit_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id; ?>");
         }
     </script>
-
     <?php include ('../footer1.php') ?>
 
 </body>

@@ -32,6 +32,29 @@ $station = $_GET['station'];
 
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
+$sqlmain = "SELECT * FROM `sg_station_event` where `station_event_id` = '$station_event_id'";
+$resultmain = $mysqli->query($sqlmain);
+$rowcmain = $resultmain->fetch_assoc();
+$part_family = $rowcmain['part_family_id'];
+$part_number = $rowcmain['part_number_id'];
+$p_line_id = $rowcmain['line_id'];
+
+$sqlprint = "SELECT * FROM `cam_line` where `line_id` = '$p_line_id'";
+$resultnumber = $mysqli->query($sqlprint);
+$rowcnumber = $resultnumber->fetch_assoc();
+$printenabled = $rowcnumber['print_label'];
+$p_line_name = $rowcnumber['line_name'];
+$individualenabled = $rowcnumber['indivisual_label'];
+
+
+$sqlnumber = "SELECT * FROM `pm_part_number` where `pm_part_number_id` = '$part_number'";
+$resultnumber = $mysqli->query($sqlnumber);
+$rowcnumber = $resultnumber->fetch_assoc();
+$pm_part_number = $rowcnumber['part_number'];
+$pm_part_name = $rowcnumber['part_name'];
+$pm_npr= $rowcnumber['npr'];
+$defect_list_id = $_GET['defect_list_id'];
+
 
 if(empty($_SESSION['$station_event_id'])){
     $_SESSION['good_timestamp_id'] = time();
@@ -262,7 +285,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <?php
         $station_event_id = $_GET['station_event_id'];
         $bad_pieces_id = $_GET['bad_pieces_id'];
-        $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' AND gbpd.bad_pieces_id = '$bad_pieces_id' order by gbpd.bad_pieces_id DESC");
+        $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.part_defect_zone as defect_zone ,gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' AND gbpd.bad_pieces_id = '$bad_pieces_id' order by gbpd.bad_pieces_id DESC");
         $qur = mysqli_query($db, $query);
         while ($result_good = mysqli_fetch_array($qur)) {
             $good_pieces = $result_good['good_pieces'];
@@ -270,6 +293,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             $bad_pieces_id = $result_good['bad_pieces_id'];
             $defect_name = $result_good['defect_name'];
             $bad_pieces = $result_good['bad_pieces'];
+            $defect_zone = $result_good['defect_zone'];
 
             ?>
 
@@ -352,7 +376,40 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                 </div>
                             </div>
                         </div>
-
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-10">
+                                    <label class="form-label mg-b-0">Using the dropdown option below, please specifyin which zone the defect occured</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Cross Section Image:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <div class="container"></div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="thumbnail">
+                                            <div class="thumb">
+                                                <img src="<?php echo $siteURL; ?>assets/images/part_images/cs/<?php echo $pm_part_number;?>.jpg" alt=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-2">
+                                    <label class="form-label mg-b-0">Defect Zone :</label>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <input type="number" value="<?php echo $defect_zone; ?>" name="defect_zone" min="1" id="defect_zone" class="form-control" placeholder="Enter Zone..."  readonly>
+                                </div>
+                            </div>
+                        </div>
 
                     
 

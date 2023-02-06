@@ -423,6 +423,14 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                             </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
+                                <div class="col-md-10">
+                                    <label class="form-label mg-b-0">Using the dropdown option below, please specifyin which zone the defect occured</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
                                 <div class="col-md-2">
                                     <label class="form-label mg-b-0">Cross Section Image:</label>
                                 </div>
@@ -445,7 +453,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     <label class="form-label mg-b-0">Defect Zone:</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                    <select name="defect_block" id="defect_block" class="form-control form-select select2"
+                                    <select name="defect_zone" id="defect_zone" class="form-control form-select select2"
                                             data-style="bg-slate">
                                         <option value="" selected disabled>- Select Defect Zone -</option>
                                         <option value="<?php echo defect_block[0];?>">A1</option>
