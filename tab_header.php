@@ -162,7 +162,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 
 <div class="header">
     <a href="<?php echo $path?>" class="logo">
-        <img class = "logo_img" src="<?php echo $siteURL; ?>assets/img/SGG_logo.png" alt="logo">
+        <img class = "logo_img" src="<?php echo $siteURL; ?>assets/img/site_logo.png" alt="logo">
     </a>
 
     <div class="header-right">
