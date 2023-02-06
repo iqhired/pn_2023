@@ -6,6 +6,7 @@ $timestamp = date('H:i:s');
 $message = date("Y-m-d H:i:s");
 $cell_id = $_SESSION['cell_id'];
 $_SESSION['line_cust_dash'] =0;
+$_SESSION['is_cell_login'] = 1;
 $role = $_SESSION['role_id'];
 $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
 ?>

@@ -27,14 +27,24 @@ $line_cust_dash = $_SESSION['line_cust_dash'];
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
 $station = $_GET['station'];
+$is_tab_login = $_SESSION['is_tab_user'];
+$is_cell_login = $_SESSION['is_cell_login'];
 $path = '';
+$main_menu = '';
+$station_menu='';
 if(!empty($is_cell_login) && $is_cell_login == 1){
-	$path = $siteURL. "cell_line_dashboard.php";
+	$path = site_URL. "cell_line_dashboard.php";
+	$main_menu = $path;
+	$station_menu = site_URL . "tab_float_menu.php?station=".$station;
 }else{
 	if(!empty($i) && ($is_tab_login != null)){
-		$path = "../line_tab_dashboard.php";
+		$path = site_URL . "line_tab_dashboard.php";
+		$main_menu = $path;
+		$station_menu = site_URL . "tab_float_menu.php?station=".$station;
 	}else{
-		$path = $siteURL . "line_status_grp_dashboard.php";
+		$path = site_URL . "line_status_grp_dashboard.php";
+		$main_menu = $path;
+		$station_menu = site_URL."float_menu.php?cell_id=" .$cellID."&c_name=".$c_name."&station=".$station;
 	}
 }
 ?>
@@ -95,9 +105,9 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 <!--            <a href="--><?php //echo $siteURL; ?><!--line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>-->
 <!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>-->
 <!--            <a href="--><?php //echo $siteURL; ?><!--float_menu.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--&station=--><?php //echo $station;?><!--" class="btn bg-success text-white"><i class="fa-solid fa-bars"></i></a>-->
-            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn btn-menu text-white">Main Home</a>
+            <a href="<?php echo $main_menu; ?>" class="btn btn-menu text-white">Main Home</a>
 <!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white">Cell Dashboard</a>-->
-            <a href="<?php echo $siteURL; ?>float_menu.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station;?>" class="btn btn-menu text-white">Station Menu</a>
+            <a href="<?php echo $station_menu; ?>" class="btn btn-menu text-white">Station Menu</a>
 
         </div>
     </div>

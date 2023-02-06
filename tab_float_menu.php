@@ -8,7 +8,14 @@ $cell_id = $_SESSION['cell_id'];
 $station = $_GET['station'];
 $_SESSION['line_cust_dash'] =0;
 $role = $_SESSION['role_id'];
+$is_tab_login = $_SESSION['is_tab_user'];
+$is_cell_login = $_SESSION['is_cell_login'];
 $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
+if(!empty($is_cell_login) && $is_cell_login == 1){
+	$main_menu = site_URL. "cell_line_dashboard.php";
+}else{
+	$main_menu = site_URL. "line_tab_dashboard.php";
+}
 ?>
 <!Doctype html>
 <html lang="en">
@@ -165,7 +172,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
                 <h2><?php echo $line_name;?> - Station Menu</h2>
             </div>
             <div style="text-align: end;" class="col-lg-5 col-md-5">
-            <a href="<?php echo $siteURL; ?>line_tab_dashboard.php" class="btn bg-success text-white">Main Home</a>
+            <a href="<?php echo $main_menu; ?>" class="btn bg-success text-white">Main Home</a>
             </div>
         </div>
         <div class="row">
@@ -185,7 +192,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
                                         <?php if ($event_status != '0' && $event_status != '') { ?>
                                             <a href="<?php echo $siteURL; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Good & Bad Piece</a>
                                             <?php } ?>
-                                        <a href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
+                                        <a target="_blank" href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
 
                                         <a href="<?php echo $siteURL; ?>events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Add/Update Events</a>
 
@@ -201,7 +208,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
                                         <?php if ($event_status != '0' && $event_status != '') { ?>
                                             <a href="<?php echo $siteURL; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Good & Bad Piece</a>
                                         <?php } ?>
-                                        <a href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
+                                        <a target="_blank" href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
 
                                         <a href="<?php echo $siteURL; ?>events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Add/Update Events</a>
 
