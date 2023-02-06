@@ -10,6 +10,8 @@ $message = "";
 include("config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $status = '0';
+$_SESSION['is_cell_login'] = null;
+$_SESSION['cell_id'] = null;
 if (!empty($_POST['user']) && !empty($_POST['pass']) ){
     $user = $_POST["user"];
     $password = md5($_POST["pass"]);
