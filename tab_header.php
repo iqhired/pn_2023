@@ -187,7 +187,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
                                 <div class="media-body">
                                     <label class="checkbox-switchery switchery-xs">
                                         <input type="checkbox"  class="switchery custom_switch_db" <?php echo $select; ?> style="margin-left: -4px;">
-                                        <h5 style="width: 136px;">Custom Dashboard</h5></label>
+                                        <h5 style="width: 136px;font-size: small;">Custom Dashboard</h5></label>
 
                                 </div>
                             <?php }
