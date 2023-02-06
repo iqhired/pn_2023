@@ -33,6 +33,7 @@ if(!empty($result1)) {
 <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/styling/uniform.min.js"></script>
 <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/styling/switchery.min.js"></script>
 <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/components_dropdowns.js"></script>
+<link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
 <style>
     .header {
         overflow: hidden;
@@ -192,7 +193,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
                                     <div class="media-body">
                                         <label class="checkbox-switchery switchery-xs">
                                             <input type="checkbox"  class="switchery custom_switch_db" <?php echo $select; ?> style="margin-left: -4px;">
-                                            <h5 style="width: 136px;">Custom Dashboard</h5></label>
+                                            <h5 style="width: 136px;font-size: small;"">Custom Dashboard</h5></label>
 
                                     </div>
                                 <?php }
