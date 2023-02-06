@@ -490,8 +490,8 @@ if(count($_POST) > 0)
 <?php } ?>
 </div>
 <script>
-    $('#date_to').datetimepicker({format: 'mm-dd-yyyy H:i:s'});
-    $('#date_from').datetimepicker({format: 'mm-dd-yyyy H:i:s'});
+    $('#date_to').datetimepicker({format: 'mm-dd-yyyy HH:ii:ss'});
+    $('#date_from').datetimepicker({format: 'mm-dd-yyyy HH:ii:ss'});
     $(function () {
         $('input:radio').change(function () {
             var abc = $(this).val()
