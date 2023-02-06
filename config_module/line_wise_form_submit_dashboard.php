@@ -17,7 +17,7 @@ $result2 = mysqli_query($db, $sql2);
 $cam2 = mysqli_fetch_array($result2);
 $station_event_id = $cam2['station_event_id'];
 
-$sql3 = "SELECT * FROM `form_frequency_data` WHERE station_event_id = '$station_event_id'";
+$sql3 = "SELECT * FROM `form_user_data` WHERE station_event_id = '$station_event_id'";
 $result3 = mysqli_query($db, $sql3);
 $cam3 = mysqli_fetch_array($result3);
 $f_type = $cam3['form_type'];
@@ -534,7 +534,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Submit in: ' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Forms Need to Submitted within 2 hours: ' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
@@ -566,7 +566,7 @@ include("../hp_header.php");
                         ?>
                         </div>
                     <?php }  ?>
-                    <?php if(!empty($f_type)){ ?>
+                    <?php if($f_type == 5){ ?>
                     <?php
                     $countervariable++;
                     //select the form based on station
@@ -946,7 +946,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Submit in: ' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Forms Need to Submitted within 2 hours: ' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
@@ -978,7 +978,7 @@ include("../hp_header.php");
                         ?>
                         </div>
                     <?php }  ?>
-                    <?php if(!empty($f_type)){ ?>
+                    <?php if($f_type == 3){ ?>
                     <?php
                     $countervariable++;
                     //select the form based on station
@@ -1354,7 +1354,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Submit in: ' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Forms Need to Submitted within 2 hours:' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
