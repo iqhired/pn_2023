@@ -338,7 +338,7 @@ include("tab_menu.php"); ?>
 
                 if ($countervariable % 4 == 0) {
                     ?>
-                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB()">
+                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $line; ?>')">
                         <div class="card custom-card">
                             <div class="card-header d-flex custom-card-header border-bottom-0 ">
                                 <h5 class="card-title"><?php echo $rowc["line_name"]; ?></h5>
@@ -393,7 +393,7 @@ include("tab_menu.php"); ?>
                     <?php
                 } else {
                     ?>
-                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB()">
+                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $line; ?>')">
                         <div class="card custom-card">
                             <div class="card-header d-flex custom-card-header border-bottom-0 ">
                                 <h5 class="card-title"><?php echo $rowc["line_name"]; ?></h5>
@@ -478,8 +478,8 @@ include("tab_menu.php"); ?>
     </div>
 </div>
 <script>
-    function cellDB() {
-        window.open("<?php echo $siteURL . "tab_float_menu.php" ; ?>" + , "_self")
+    function cellDB(station) {
+        window.open("<?php echo $siteURL . "tab_float_menu.php?station=" ; ?>"  + station , "_self")
     }
 </script>
 <?php include("footer1.php");?> <!-- /page container -->
