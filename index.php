@@ -185,7 +185,7 @@ if ($tmp == "forgotpass_success") {
                     ?>
                     <div class="form-icon">
                         <div class="text-center" >
-                            <div class="icon-object border-slate-300 text-slate-300" style="background-color:white;"><img src="<?php echo $siteURL; ?>assets/images/SGG_logo.png" alt=""  style="width:100px;"/></div>
+                            <div class="icon-object border-slate-300 text-slate-300" style="background-color:white;"><img src="<?php echo $siteURL; ?>assets/images/site_logo.png" alt=""  style="width:100px;"/></div>
                             <h3 class="title">Plantnavigator</h3>
                         </div>
 
