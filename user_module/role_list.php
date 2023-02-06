@@ -89,6 +89,13 @@ if (count($_POST) > 0) {
 
 
     <!-- /global stylesheets -->
+      <link href="../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
+        <!-- /global stylesheets -->
+        <!-- Core JS files -->
+        <!-- /core JS files -->
+        <!-- Theme JS files -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -281,8 +288,7 @@ include("../admin_menu.php");
 
 
 
-     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+    <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -290,48 +296,74 @@ include("../admin_menu.php");
                             <span class="main-content-title mg-b-0 mg-b-lg-1">ADD/UPDATE USER ROLE</span>
                         </div>
 
-                        <div class="pd-30 pd-sm-20">
+                         <div class="page-container">
+
+                    <!-- Content area -->
+                    <div class="content">
+                        <!-- Main charts -->
+                        <!-- Basic datatable -->
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Role List</h5>
+                                <hr/>
+
+                                 <form action="" id="user_form" class="form-horizontal" method="post">
+
+                                    <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Role</label>
-                                </div>
+                               
                                 <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Role" required>
-                                     <input type="hidden" name="edit_id" id="edit_id" >
-                                    <input type="hidden" name="old_value" id="old_value" >
+                                                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter Role">
+                                                     <input type="hidden" name="edit_id" id="edit_id" >
+                                                       <input type="hidden" name="old_value" id="old_value" >
                                 </div>
 
+
+
                                 <div class="col-md-1"></div>
-                                <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Type </label>
-                                </div>
-                                <div class="col-md-2 mg-t-10 mg-md-t-0">
-                                    <select  name="type" id="type" class="form-control" style="float: left; width: initial;" >
+
+                               
+
+                                    
+
+                                        <div class="col-md-2">
+                                            <label class="control-label" style="float: left;padding-top: 10px; font-weight: 500;">Type  </label>
+                                            <select  name="type" id="type" class="form-control" style="float: left; width: initial;" >
                                                 <!--        <option value="" selected disabled>--- Select Ratings ---</option>-->
                                                 <option value="user" >User</option>
                                                 <option value="pn_user" >PN User</option>
                                                 <option value="admin" >Admin</option>
                                             </select>
-                                </div>
-
-
-                                <div class="col-md-1"></div>
-                                <div class="card-body pt-0">
-                                    <button type="submit" class="btn btn-primary create" style="background-color:#1e73be;">Create Role</button>
-                                            <button type="submit" class="btn btn-primary update" style="background-color:#1e73be;display:none;" >Update Role</button>
-
-                                </div>
-                            </div>
-                        </div>
-
-                                <div class="pd-30 pd-sm-20">
-                                    <div class="row ">
-                                        <div class="col-md-5">
-                                            <label class="form-label mg-b-0">Select Modules for Access & Permission</label>
                                         </div>
-                                        <div class="row ">
+                                         <div class="col-md-4">
+                                            <button type="submit" class="btn btn-primary create" style="background-color:#1e73be;">Create Role</button>
+                                            <button type="submit" class="btn btn-primary update" style="background-color:#1e73be;display:none;" >Update Role</button>
+                                        </div>
+
+                                    
+</div>
+
+
+
+
+
+                                    </div>
+
+
+                                     <br/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <h5 class="panel-title">Select Modules for Access & Permission</h5>
+                                         <hr/>
+<!--                                        <div id="error1" class="red" style="display:none;color:red;">Please select Module</div>-->
+
+                                          <div class="row">
 
                                             <div id="error1" class="red" style="display:none;color:red;">Please select Module</div>
+                                             <hr/>
+
+
                                             <?php
                                             $query12 = sprintf("SELECT * FROM  side_menu where side_menu_id != '1' and parent_id = '0' and enabled = '1'  order by menu_name ASC");
                                             $qur12 = mysqli_query($db, $query12);
@@ -339,11 +371,15 @@ include("../admin_menu.php");
                                                 $parentid = $rowc12["side_menu_id"];
 
                                                 ?>
+
+
                                                 <div class="col-md-2 rmchk">
+
 
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" class="control-primary chk_menu" name="menu_value[]" id="<?php echo $parentid; ?>" value="<?php echo $rowc12["side_menu_id"]; ?>" >
+
+                                                        <input type="checkbox" class="control-primary chk_menu" name="menu_value[]" id="<?php echo $parentid; ?>" value="<?php echo $rowc12["side_menu_id"]; ?>" >
                                                             <?php echo $rowc12["menu_name"]; ?>
                                                         </label>
                                                     </div>
@@ -374,26 +410,51 @@ include("../admin_menu.php");
                                             ?>
 
                                         </div>
-                                        
 
                                     </div>
-                                </div>
+
+                                       
+
+
+
+
+
+
+
+
+
+                                        </div>
+                                        </div>
+                                    </div>
+
+                               
+
+
+                            </div>
+                             </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                    
+
+
+
+
+
+
 
 
                     </div>
-                </div>
-            </form>
-            </div>
-        </div>
-
-<form action="delete_role_list.php" method="post" class="form-horizontal">
-    <div class="row-body">
+                    <form action="delete_role_list.php" method="post" class="form-horizontal">
+    <div class="row">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
                 </div>
-
                 <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -439,13 +500,12 @@ include("../admin_menu.php");
                     </div>
                 </div>
                 
-
             </div>
         </div>
     </div>
 </form>
 
- <div id="modal_theme_primary1" class="modal fade">
+<div id="modal_theme_primary1" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -474,9 +534,7 @@ include("../admin_menu.php");
                 </div>
             </div>
 
-
-
-            <div id="edit_modal_theme_primary" class="modal fade">
+             <div id="edit_modal_theme_primary" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -540,7 +598,8 @@ include("../admin_menu.php");
             </div>
 
 
-             <!-- Dashboard content -->
+
+  <!-- Dashboard content -->
             <!-- /dashboard content -->
             <script> $(document).on('click', '#delete', function () {
                     var element = $(this);
@@ -595,15 +654,13 @@ include("../admin_menu.php");
 
 
 
+                </div>
+
+            </div>
+        </div>
 
 
-
-  
-
-
-
-    </div>
-            <script> $(document).on('click', '#delete', function () {
+ <script> $(document).on('click', '#delete', function () {
                 var element = $(this);
                 var del_id = element.attr("data-id");
                 var info = 'id=' + del_id;
@@ -660,7 +717,7 @@ include("../admin_menu.php");
                     radioClass: 'choice',
                     wrapperClass: 'border-danger-600 text-danger-800'
                 });
-                history.replaceState("", "", "<?php echo $scriptName; ?>user_module/role_list.php");
+                history.replaceState("", "", "<?php echo $scriptName; ?>user_module/role_list1.php");
             }
         </script>
         <script>
@@ -721,6 +778,7 @@ include("../admin_menu.php");
 
         </script>
 
+ </div>
 <?php include ('../footer1.php') ?>
-</body>
 
+</body>
