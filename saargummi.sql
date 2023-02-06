@@ -4,3 +4,5 @@ ALTER TABLE `form_frequency_data` ADD `event_type_id` INT(10) NULL DEFAULT NULL 
 ALTER TABLE `pm_part_number` ADD `defect_part_images` LONGTEXT NULL DEFAULT NULL AFTER `is_deleted`;
 ALTER TABLE `pm_part_number` ADD `part_defect_zone` VARCHAR(255) NOT NULL AFTER `defect_part_images`;
 ALTER TABLE `pm_part_number` CHANGE `part_defect_zone` `part_defect_zone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+ALTER TABLE `form_frequency_data` ADD `line_up_time` VARCHAR(255) NULL DEFAULT NULL AFTER `station_event_id`;
+ALTER TABLE `form_frequency_data` ADD `up_time` VARCHAR(255) NULL DEFAULT NULL AFTER `line_up_time`;
