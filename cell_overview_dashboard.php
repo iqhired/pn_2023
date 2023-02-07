@@ -299,6 +299,13 @@ if (isset($cellID)) {
             background-color: #fff !important;
             border-bottom: 1px solid #f0f0f8!important;
         }
+        .header{
+            background-color: #1c4e8018 !important;
+        }
+        .navbar{
+            background-color: #073857 !important;
+            height: 40px !important;
+        }
 
 
 
