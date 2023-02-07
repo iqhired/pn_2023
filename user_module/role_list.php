@@ -717,7 +717,7 @@ include("../admin_menu.php");
                     radioClass: 'choice',
                     wrapperClass: 'border-danger-600 text-danger-800'
                 });
-                history.replaceState("", "", "<?php echo $scriptName; ?>user_module/role_list1.php");
+                history.replaceState("", "", "<?php echo $scriptName; ?>user_module/role_list.php");
             }
         </script>
         <script>
