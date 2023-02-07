@@ -327,11 +327,23 @@ if (($is_tab_login || $is_cell_login)) {
                 </div>
             </div>
         </div>
+    </form>
         <div class="row-body row-sm">
             <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">SPC Analytics Trend Graph</span>
+                        <form action="export_spc_data.php" method="post" name="export_excel">
+                                <input type="hidden" value="<?php echo $form_type_name; ?>" name="form_type" id="form_type">
+                                <input type="hidden" value="<?php echo $part_family_name; ?>" name="part_family" id="part_family">
+                                <input type="hidden" value="<?php echo $part_number . '-' .$part_name; ?>" name="part_num" id="part_num">
+                                <input type="hidden" value="<?php echo $station; ?>" name="line_id" id="line_id">
+                                <input type="hidden" value="<?php echo $form_iitem_id; ?>" name="form_item_id" id="form_item_id">
+                                <input type="hidden" value="<?php echo $date_to; ?>" name="date_to" id="date_to">
+                                <input type="hidden" value="<?php echo $date_from; ?>" name="date_from" id="date_from">
+                                <input type="hidden" value="<?php echo $form_create_id; ?>" name="form_create" id="form_create">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">SPC Analytics Trend Graph</span>
+                                <button type="submit" style="width: 118px!important;margin-left: 777px!important;" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
+                        </form>
                     </div>
                     <div class="card-body pt-0">
                         <div class="pd-30 pd-sm-20">
@@ -345,7 +357,7 @@ if (($is_tab_login || $is_cell_login)) {
                 </div>
             </div>
         </div>
-    </form>
+
 </div>
 <script>
     anychart.onDocumentReady(function () {

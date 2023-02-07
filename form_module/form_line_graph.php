@@ -34,7 +34,7 @@ $sql = "SELECT data_item_value as data_item_value , data_item_desc as data_item_
 		}else if($row['data_item_desc'] == 'numeric'){
 			$val = $c_date . "~" . $row['data_item_value'];
             $upper_tol = $c_date . "~" . ($item_normal + $row['item_upper_tol']);
-            $lower_tol = $c_date . "~" . ($item_normal + $row['item_lower_tol']);
+            $lower_tol = $c_date . "~" . ($item_normal - $row['item_lower_tol']);
 			$posts[] = array('item_value'=> $val,'upper_tol'=>$upper_tol,'lower_tol'=>$lower_tol);
 		}
     }
