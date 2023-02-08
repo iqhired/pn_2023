@@ -33,7 +33,7 @@ $c_name = $_GET['c_name'];
 
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
-$station = $_GET['station'];
+$station_id = $_GET['station'];
 $station_event_id =  $_GET['station_event_id'];
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
@@ -348,9 +348,9 @@ if (count($_POST) > 0) {
                                     <tr>
                                         <td> <?php echo ++$counter; ?></td>
                                         <td>
-                                            <a href="view_10x.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&id=<?php echo $rowc['10x_id']; ?>&station_event_id=<?php echo $station_event_id;?>" class="btn btn-primary" style="background-color:#1e73be;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="view_10x.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station_id;?>&id=<?php echo $rowc['10x_id']; ?>&station_event_id=<?php echo $station_event_id;?>" class="btn btn-primary" style="background-color:#1e73be;"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
-                                            <a href="edit_10x.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&id=<?php echo $rowc['10x_id']; ?>&station_event_id=<?php echo $station_event_id;?>" class="btn btn-primary" style="background-color:#1e73be;"> <i class="fa fa-edit"></i></i></a>
+                                            <a href="edit_10x.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station_id;?>&id=<?php echo $rowc['10x_id']; ?>&station_event_id=<?php echo $station_event_id;?>" class="btn btn-primary" style="background-color:#1e73be;"> <i class="fa fa-edit"></i></i></a>
                                         </td>
 
                                         <td> <?php echo $station ?></td>
