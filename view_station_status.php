@@ -345,6 +345,10 @@ $assign_line = htmlspecialchars($_GET["station"]);
             }
 
         }
+        .text-semibold {
+            font-weight: 500;
+            color: black;
+        }
 
 
         /*.dropdown a:hover {background-color: #ddd;}*/
