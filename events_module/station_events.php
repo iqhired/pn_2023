@@ -805,7 +805,7 @@ if (count($_POST) > 0) {
                                                     if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                         $part_number = $_REQUEST['part_number'];
                                                     }
-                                                    $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and part_number NOT LIKE 'E0__%' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                    $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and  is_deleted != 1  ORDER BY `part_name` ASC";
                                                     $result1 = $mysqli->query($sql1);
                                                     //                                            $entry = 'selected';
                                                     while ($row1 = $result1->fetch_assoc()) {
