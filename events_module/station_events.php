@@ -189,8 +189,7 @@ if (count($_POST) > 0) {
     <title>
         <?php echo $sitename; ?> | Station Events</title>
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Global stylesheets -->
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -203,12 +202,6 @@ if (count($_POST) > 0) {
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <!-- INTERNAL Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
-    <!-- STYLES CSS -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
@@ -244,16 +237,7 @@ if (count($_POST) > 0) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
-
-    <!-- INTERNAL Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
-
-
-    <!-- STYLES CSS -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
     <style>
         .navbar {
 
@@ -897,7 +881,7 @@ if (count($_POST) > 0) {
                                         <div class="col-md-1">
                                             <label class="form-label mg-b-0">Station  </label>
                                         </div>
-                                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                            <div class="col-md-4 mg-t-10 mg-md-t-0" style="pointer-events: none">
                                                 <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                                     <option value="" selected disabled>--- Select Station ---</option>
                                                     <?php
@@ -986,12 +970,12 @@ if (count($_POST) > 0) {
                                                     $result1 = $mysqli->query($sql1);
                                                     //                                            $entry = 'selected';
                                                     while ($row1 = $result1->fetch_assoc()) {
-                                                        if ($part_family == $row1['pm_part_family_id']) {
-                                                            $entry = 'selected';
-                                                        } else {
-                                                            $entry = '';
-
-                                                        }
+//                                                        if ($part_family == $row1['pm_part_family_id']) {
+//                                                            $entry = 'selected';
+//                                                        } else {
+//                                                            $entry = '';
+//
+//                                                        }
                                                         echo "<option value='" . $row1['pm_part_family_id'] . "'  $entry>" . $row1['part_family_name'] . "</option>";
                                                     }
                                                     ?>
@@ -1011,14 +995,14 @@ if (count($_POST) > 0) {
                                                     if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                         $part_number = $_REQUEST['part_number'];
                                                     }
-                                                    $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and pm_part_number_id = '$part_number' AND is_deleted != 1  ORDER BY `part_name` ASC";
+                                                    $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' AND is_deleted != 1  ORDER BY `part_name` ASC";
                                                     $result1 = $mysqli->query($sql1);
                                                     while ($row1 = $result1->fetch_assoc()) {
-                                                        if ($part_number == $row1['pm_part_number_id']) {
-                                                            $entry = 'selected';
-                                                        } else {
-                                                            $entry = '';
-                                                        }
+//                                                        if ($part_number == $row1['pm_part_number_id']) {
+//                                                            $entry = 'selected';
+//                                                        } else {
+//                                                            $entry = '';
+//                                                        }
                                                         echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
                                                     }
                                                     ?>
@@ -1078,10 +1062,7 @@ if (count($_POST) > 0) {
             </div>
         </form>
 <!-- row  -->
-<?php
-if(count($_POST) > 0)
-{
-    ?>
+
     <div class="row">
 
         <div class="col-lg-12 col-md-12">
@@ -1269,9 +1250,7 @@ if(count($_POST) > 0)
                 </form>
             </div>
     </div>
-    <?php
-}
-?>
+
   </div>
 </div>
 <script>
