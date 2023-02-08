@@ -56,9 +56,10 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 
 <!-- SWITCHER CSS -->
 <link href="<?php echo $siteURL; ?>assets/css/form_css/switcher.css" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="<?php echo $siteURL; ?>assets/css/form_css/font-awesome.css" rel="stylesheet"/>
 <link href="<?php echo $siteURL; ?>assets/css/menu.css" rel="stylesheet" type="text/css">
-<script src="https://kit.fontawesome.com/198f721d64.js" crossorigin="anonymous"></script>
+<script src="<?php echo $siteURL; ?>assets/js/fontawesome.js"></script>
+
 
 <style>
 
