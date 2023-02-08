@@ -1,26 +1,8 @@
 <?php include("config.php");
-if (!isset($_SESSION['user'])) {
-    header('location: logout.php');
-}
-
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    header($redirect_logout_path);
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
+checkSession();
 /*$_SESSION['timestamp_id'] = '';
 $_SESSION['f_type'] = '';*/
-$timestamp = date('H:i:s');
+//$timestamp = date('H:i:s');
 $message = date("Y-m-d H:i:s");
 $is_cust_dash = $_SESSION['is_cust_dash'];
 $line_cust_dash = $_SESSION['line_cust_dash'];

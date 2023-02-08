@@ -3,42 +3,12 @@ include("../config.php");
 include("../config/pn_config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
-}
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
 
-//	header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
+//check user
+checkSession();
 
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
-
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user") {
-    header('location: ../dashboard.php');
-}
 $s_event_id = $_GET['station_event_id'];
 $station = $_GET['station'];
 
@@ -104,7 +74,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_css/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <!-- anychart documentation -->
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
@@ -358,30 +328,29 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             margin-right: 6.25rem;
         }
         @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
+            .col-md-8.mg-t-5.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 200px!important;
             }
         }
 
         @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
+            .col-md-8.mg-t-5.mg-md-t-0{
+                max-width: 300px!important;
             }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
+            .col-md-4{
+                max-width: 200px!important;
             }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
+            .col-md-8.mg-t-5.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 200px!important;
             }
 
         }
@@ -411,6 +380,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         }
 
     </style>
+
 </head>
 <body class="ltr main-body app horizontal">
 <!-- Main navbar -->
@@ -474,7 +444,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                         <div class="alert alert-success no-border">
                             <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
                                         class="sr-only">Close</span></button>
-                            <span class="text-semibold">Material Tracability.</span> Created Successfully.
+                            <span class="text-semibold">Edit 10x.</span> Created Successfully.
                         </div>
                     </div>
                 <?php } ?>
@@ -483,7 +453,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                         <div class="alert alert-success no-border">
                             <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
                                         class="sr-only">Close</span></button>
-                            <span class="text-semibold">Material Tracability.</span> Updated Successfully.
+                            <span class="text-semibold">Edit 10x.</span> Updated Successfully.
                         </div>
                     </div>
                 <?php } ?>
@@ -491,14 +461,9 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                 if (!empty($import_status_message)) {
                     echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
                 }
+                displaySFMessage();
                 ?>
-                <?php
-                if (!empty($_SESSION['import_status_message'])) {
-                    echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                    $_SESSION['message_stauts_class'] = '';
-                    $_SESSION['import_status_message'] = '';
-                }
-                ?>
+
             </div>
         </div>
         <form action="edit_10x_backend.php" id="10x_setting" enctype="multipart/form-data" class="form-horizontal" method="post">
@@ -507,7 +472,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                             <div class="card">
                                                 <div class="card-body pt-0">
                                                     <div class="card-header">
-                                                        <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability</span>
+                                                        <span class="main-content-title mg-b-0 mg-b-lg-1">Edit 10x</span>
                                                     </div>
                                                     <div class="pd-30 pd-sm-20">
                                                         <div class="row row-xs align-items-center mg-b-20">

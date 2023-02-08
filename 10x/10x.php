@@ -4,44 +4,15 @@ include("../config/pn_config.php");
 $chicagotime = date("Y-m-d H:i:s");
 
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
-        header($redirect_tab_logout_path);
-    } else {
-        header($redirect_logout_path);
-    }
-}
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
-        header($redirect_tab_logout_path);
-    } else {
-        header($redirect_logout_path);
-    }
+//check user
+checkSession();
 
-    //	header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user") {
-    header('location: ../dashboard.php');
-}
 $s_event_id = $_GET['station_event_id'];
 $station = $_GET['station'];
 $f_type = $_GET['f_type'];
 $_SESSION['10x_station'] = $station;
 
-if($f_type == 'n'){
+if($f_type == 'n' && empty($_SESSION['f_type'])){
     $_SESSION['timestamp_id'] = time();
     $_SESSION['f_type'] = 'n';
 }
@@ -93,6 +64,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <!-- Global stylesheets -->
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
+    <link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -145,6 +117,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <style>
         .navbar {
 
@@ -317,6 +290,11 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             margin-left: 114px;
             margin-right: -102px;
         }
+        img, svg {
+           /*vertical-align: middle;*/
+            height: 120px!important;
+            width: 250px!important;
+        }
     </style>
 </head>
 <body class="ltr main-body app horizontal">
@@ -364,13 +342,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         if (!empty($import_status_message)) {
             echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
         }
-        ?>
-        <?php
-        if (!empty($_SESSION['import_status_message'])) {
-            echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-            $_SESSION['message_stauts_class'] = '';
-            $_SESSION['import_status_message'] = '';
-        }
+        displaySFMessage();
         ?>
             </div>
         </div>
