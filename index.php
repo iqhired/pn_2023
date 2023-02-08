@@ -162,6 +162,7 @@ if ($tmp == "forgotpass_success") {
     <title><?php echo $sitename; ?></title>
     <link rel="shortcut icon" href="<?php echo $siteURL; ?>assets/images/favicon.jpg">
     <!-- Global stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -201,10 +202,11 @@ if ($tmp == "forgotpass_success") {
                         <div class="form-group">
                             <span class="input-icon"><i class="fa fa-lock"></i></span>
                             <input class="form-control" type="password" placeholder="Password" name="pass" id="pass" required="required">
+                            <span class="input-icon" onclick="myFunction()" style="cursor: pointer;float: right;"><i class="fa fa-eye" aria-hidden="true"></i></span>
                         </div>
 
                             <label class="checkbox-inline" style="padding-top: 0px;">
-                                <input type="checkbox" class="styled" checked="checked">
+                                <input type="checkbox" class="styled" >
                                 <span class="forgot-pass">Remember Me </span>
                             </label>
 
@@ -231,6 +233,16 @@ if ($tmp == "forgotpass_success") {
             //alert(role);
         });
     });
+</script>
+<script>
+    function myFunction() {
+        var x = document.getElementById("pass");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
 </script>
 </body>
 </html>

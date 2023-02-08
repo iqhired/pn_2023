@@ -109,6 +109,8 @@ if (count($_POST) > 0) {
         <!-- Main content -->
         <div class="content-wrapper">
             <!-- Content area -->
+            <div style="float:right;padding: 20px;background-color: #333c;margin-right: 50px;"><a href="<?php echo $siteURL;?>" style="background-color: #1e73be;" class="btn btn-primary legitRipple" role="button">Login<span class="legitRipple-ripple" style="left: 70.8955%; top: 84.2105%; transform: translate3d(-50%, -50%, 0px); transition-duration: 0.2s, 0.5s; width: 207.886%;"></span></a></div>
+
             <form action="" name="form" id="form" class="form-validate" method="post">
                 <div class="panel panel-body login-form" style="background-color:#333c;color:white;">
                     <?php
@@ -117,7 +119,7 @@ if (count($_POST) > 0) {
                     }
                     ?>
                     <div class="text-center" >
-                        <div class="icon-object border-slate-300 text-slate-300" style="background-color:white;"><img src="assets/images/SGG_logo.png" alt=""  style="width:100px;"/></div>
+                        <div class="icon-object border-slate-300 text-slate-300" style="background-color:white;"><img src="assets/images/site_logo.png" alt=""  style="width:100px;"/></div>
                         <h5 class="content-group">Forgot Password</h5>
                     </div>
                     <div class="form-group has-feedback has-feedback-left">
