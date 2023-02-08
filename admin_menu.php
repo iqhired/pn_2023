@@ -375,54 +375,54 @@ $msg = explode(',', $msg); ?>
                 </div>
             </div>
         <?php } ?>
-        <?php if (in_array('45', $msg)) { ?>
-            <div class="mobile-toggle">
-                <a data-bs-toggle="collapse" href="#collapseCpp" role="button" aria-expanded="false"
-                   aria-controls="collapseCpp">
-
-                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                           class="lazyload blur-up mobile" style="float: left;">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="3" y1="9" x2="21" y2="9"></line>
-                                        <line x1="9" y1="21" x2="9" y2="9"></line>
-                                    </svg></span><span class="ms-2 fw-light">Station Events</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class="arrow">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </a>
-                <div class="collapse my-2" id="collapseCpp">
-                    <div class="ms-4">
-                        <?php if (in_array('46', $msg)) { ?>
-                            <div class="mt-3">
-                                <a href="<?php echo $siteURL; ?>events_module/station_events.php"
-                                   class="text-muted mobile">
-                                    Add/update Events
-                                </a>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
-        <?php if (in_array('7', $msg)) { ?>
-            <div class="mobile-toggle">
-                <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php" role="button">
-
-                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                           class="lazyload blur-up mobile" style="float: left;">
-                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                                    </svg></span><span class="ms-2 ">Crew Assignment</span>
-
-                </a>
-
-            </div>
-        <?php } ?>
+<!--        --><?php //if (in_array('45', $msg)) { ?>
+<!--            <div class="mobile-toggle">-->
+<!--                <a data-bs-toggle="collapse" href="#collapseCpp" role="button" aria-expanded="false"-->
+<!--                   aria-controls="collapseCpp">-->
+<!---->
+<!--                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+<!--                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                           class="lazyload blur-up mobile" style="float: left;">-->
+<!--                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>-->
+<!--                                        <line x1="3" y1="9" x2="21" y2="9"></line>-->
+<!--                                        <line x1="9" y1="21" x2="9" y2="9"></line>-->
+<!--                                    </svg></span><span class="ms-2 fw-light">Station Events</span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+<!--                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                         class="arrow">-->
+<!--                        <polyline points="6 9 12 15 18 9"></polyline>-->
+<!--                    </svg>-->
+<!--                </a>-->
+<!--                <div class="collapse my-2" id="collapseCpp">-->
+<!--                    <div class="ms-4">-->
+<!--                        --><?php //if (in_array('46', $msg)) { ?>
+<!--                            <div class="mt-3">-->
+<!--                                <a href="--><?php //echo $siteURL; ?><!--events_module/station_events.php"-->
+<!--                                   class="text-muted mobile">-->
+<!--                                    Add/update Events-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        --><?php //} ?>
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        --><?php //} ?>
+<!--        --><?php //if (in_array('7', $msg)) { ?>
+<!--            <div class="mobile-toggle">-->
+<!--                <a href="--><?php //echo $siteURL; ?><!--assignment_module/assign_crew.php" role="button">-->
+<!---->
+<!--                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+<!--                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                           class="lazyload blur-up mobile" style="float: left;">-->
+<!--                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>-->
+<!--                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>-->
+<!--                                        <line x1="12" y1="22.08" x2="12" y2="12"></line>-->
+<!--                                    </svg></span><span class="ms-2 ">Crew Assignment</span>-->
+<!---->
+<!--                </a>-->
+<!---->
+<!--            </div>-->
+<!--        --><?php //} ?>
         <?php if (in_array('65', $msg)) { ?>
             <div class="mobile-toggle">
                 <a data-bs-toggle="collapse" href="#collapsePython" role="button" aria-expanded="false"
@@ -1302,30 +1302,30 @@ $msg = explode(',', $msg); ?>
                         </div>
                     </li>
                 <?php } ?>
-                <?php if (in_array('7', $msg)) { ?>
-                    <li class="nav-item">
-                        <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php" class="nav-link">Crew
-                            Assignment</a>
-                    </li>
-                <?php } ?>
-                <?php if (in_array('45', $msg)) { ?>
-                    <li class="nav-item" id="ic">
-                        <a class="nav-link" href="#">Station Events
-                            <svg xmlns="http://www.w3.org/2000/svg" class="arrow" viewBox="0 0 20 20"
-                                 style="margin-left: 112px;">
-                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
-                            </svg>
-                        </a>
-                        <div class="menu ">
-                            <ul>
-                                <?php if (in_array('46', $msg)) { ?>
-                                    <li><a href="<?php echo $siteURL; ?>events_module/station_events.php">Add/Update
-                                            Events</a></li>
-                                <?php } ?>
-                            </ul>
-                        </div>
-                    </li>
-                <?php } ?>
+<!--                --><?php //if (in_array('7', $msg)) { ?>
+<!--                    <li class="nav-item">-->
+<!--                        <a href="--><?php //echo $siteURL; ?><!--assignment_module/assign_crew.php" class="nav-link">Crew-->
+<!--                            Assignment</a>-->
+<!--                    </li>-->
+<!--                --><?php //} ?>
+<!--                --><?php //if (in_array('45', $msg)) { ?>
+<!--                    <li class="nav-item" id="ic">-->
+<!--                        <a class="nav-link" href="#">Station Events-->
+<!--                            <svg xmlns="http://www.w3.org/2000/svg" class="arrow" viewBox="0 0 20 20"-->
+<!--                                 style="margin-left: 112px;">-->
+<!--                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>-->
+<!--                            </svg>-->
+<!--                        </a>-->
+<!--                        <div class="menu ">-->
+<!--                            <ul>-->
+<!--                                --><?php //if (in_array('46', $msg)) { ?>
+<!--                                    <li><a href="--><?php //echo $siteURL; ?><!--events_module/station_events.php">Add/Update-->
+<!--                                            Events</a></li>-->
+<!--                                --><?php //} ?>
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                --><?php //} ?>
                 <?php if (in_array('65', $msg)) { ?>
                     <li class="nav-item" id="ic">
                         <a class="nav-link">Supplier
