@@ -41,7 +41,7 @@ $station = $_GET['station'];
 $f_type = $_GET['f_type'];
 $_SESSION['10x_station'] = $station;
 
-if($f_type == 'n' && empty($_SESSION['f_type'])){
+if($f_type == 'n'){
     $_SESSION['timestamp_id'] = time();
     $_SESSION['f_type'] = 'n';
 }
