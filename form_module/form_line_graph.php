@@ -1,5 +1,4 @@
-<?php include("../s_config.php");
-include("../config.php");
+<?php include("../config.php");
 $form_create_id = $_POST['form_create'];
 $date_from = $_POST['date_from'];
 $date_to = $_POST['date_to'];
