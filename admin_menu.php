@@ -814,24 +814,17 @@ $msg = explode(',', $msg); ?>
                                                     Restore User
                                                 </a>
                                             </div>
+                                        <?php }
+                                        if (in_array('90', $msg)) { ?>
+                                            <div class="mt-3">
+                                                <a href="<?php echo $siteURL; ?>group.php"
+                                                   class="text-muted mobile">
+                                                    User Group
+                                                </a>
+                                            </div>
                                         <?php } ?>
                                     </div>
                                 </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                <?php } ?>
-                <?php if (in_array('16', $msg)) { ?>
-                    <div class="collapse my-2" id="collapseJava">
-                        <div class="ms-4">
-                            <div class="mt-3">
-                                <a href="<?php echo $siteURL; ?>group.php" data-bs-toggle="collapse"
-                                   href="#collapseJava2" role="button" aria-expanded="false"
-                                   aria-controls="collapseJava2">
-                                    User Group(s)
-                                </a>
 
                             </div>
 
@@ -1787,6 +1780,12 @@ $msg = explode(',', $msg); ?>
                                                             <a href="<?php echo $siteURL; ?>user_module/restore_user.php"
                                                                class="mega-link"><h3 class="text-muted fs-6">Restore User</h3></a>
                                                         </div>
+                                                    <?php }
+                                                    if (in_array('90', $msg)) { ?>
+                                                        <div class="mb-3">
+                                                            <a href="<?php echo $siteURL; ?>group.php"
+                                                               class="mega-link"><h3 class="text-muted fs-6">User Group</h3></a>
+                                                        </div>
                                                     <?php } ?>
                                                 </div>
                                             </div>
@@ -1796,7 +1795,7 @@ $msg = explode(',', $msg); ?>
                                     </div>
                                 </div>
                             <?php } ?>
-                            <?php if (in_array('16', $msg)) { ?>
+                           <!-- <?php /*if (in_array('16', $msg)) { */?>
                                 <div class='tutorial_section'>
                                     <div class="toggle" id="toggle-2">
                                         <span>
@@ -1835,7 +1834,7 @@ $msg = explode(',', $msg); ?>
                                             <div class="col-md-6 mt-2">
                                                 <div class="p-3">
                                                     <div class="mb-3">
-                                                        <a href="<?php echo $siteURL; ?>group.php" class="mega-link"><h3
+                                                        <a href="<?php /*echo $siteURL; */?>group.php" class="mega-link"><h3
                                                                     class="text-muted fs-6">User Group</h3></a>
                                                     </div>
                                                 </div>
@@ -1845,7 +1844,7 @@ $msg = explode(',', $msg); ?>
 
                                     </div>
                                 </div>
-                            <?php } ?>
+                            --><?php /*} */?>
                             <?php if (in_array('75', $msg)) { ?>
                                 <div class='tutorial_section'>
                                     <div class="toggle" id="toggle-2">
