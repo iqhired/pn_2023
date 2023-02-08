@@ -20,8 +20,9 @@ if ($request == 1) {
     }
     $a_timestamp = $_SESSION['assets_timestamp_id'] ;
 
-    $data1 = file_get_contents($_FILES['file']['tmp_name']);
-    $data1 = base64_encode($data1);
+    //base64 image conversion @..vck...@
+   /* $data1 = file_get_contents($_FILES['file']['tmp_name']);
+    $data1 = base64_encode($data1);*/
     if ($uploadOk == 0) {
         echo 0;
     } else {
@@ -32,7 +33,7 @@ if ($request == 1) {
         /*$img = file_get_contents();
         $hex_string = ;*/
         if (move_uploaded_file($file_tmp, $destination)) {
-            $sql = "INSERT INTO `station_assets_images`(`station_asset_image`,`station_asset_id`,`created_at`,`image_type`) VALUES ('$data1','$a_timestamp','$created_by','C')";
+            $sql = "INSERT INTO `station_assets_images`(`station_asset_image`,`station_asset_id`,`created_at`,`image_type`) VALUES ('$f_name','$a_timestamp','$created_by','C')";
             $result1 = mysqli_query($db, $sql);
             if ($result1) {
                 echo $destination;
@@ -56,7 +57,7 @@ if($request == 2){
 //	$mid_arr = explode ( ',' , $temp_mid);
     // Check file exist or not
     if( file_exists($path) ){
-        $sql = "DELETE FROM `station_assets_images` where station_asset_image ='$data'";
+        $sql = "DELETE FROM `station_assets_images` where station_asset_image ='$file1'";
         $result1 = mysqli_query($db, $sql);
         // Remove file
         unlink($path);
