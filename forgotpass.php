@@ -119,7 +119,7 @@ if (count($_POST) > 0) {
                     }
                     ?>
                     <div class="text-center" >
-                        <div class="icon-object border-slate-300 text-slate-300" style="background-color:white;"><img src="assets/images/SGG_logo.png" alt=""  style="width:100px;"/></div>
+                        <div class="icon-object border-slate-300 text-slate-300" style="background-color:white;"><img src="assets/images/site_logo.png" alt=""  style="width:100px;"/></div>
                         <h5 class="content-group">Forgot Password</h5>
                     </div>
                     <div class="form-group has-feedback has-feedback-left">
