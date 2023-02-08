@@ -286,15 +286,23 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                         <div class="card">
-                            <div class="card-body pt-0">
+<!--                            <div class="card-body pt-0">-->
                                 <div class="card-header">
                                     <span class="main-content-title mg-b-0 mg-b-lg-1">View 10x</span>
                                 </div>
                                 <div class="pd-30 pd-sm-20">
-                                    <div class="card-header" style="background-color: lightgrey;text-align: center;">
-                                        <span style="" class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $line_number; ?></span>
-                                    </div>
+<!--                                    <div class="card-header" style="background-color: lightgrey;text-align: center;">-->
+<!--                                        <span style="" class="main-content-title mg-b-0 mg-b-lg-1">--><?php //echo $line_number; ?><!--</span>-->
+<!--                                    </div>-->
                                     <br/>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-4">
+                                            <label class="form-label mg-b-0">Station : </label>
+                                        </div>
+                                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                            <input type="text" class="form-control" value="<?php echo $line_number; ?>" disabled>
+                                        </div>
+                                    </div>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <input type="hidden" name="name" id="name"
                                                value="<?php echo $rowcmain['station_event_id']; ?>">
