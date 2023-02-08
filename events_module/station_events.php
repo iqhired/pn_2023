@@ -859,7 +859,7 @@ if (count($_POST) > 0) {
                                                 $row_event = mysqli_fetch_assoc($res_station);
                                                 $event_type_id = $row_event['event_type_id'];
 
-                                                $sql1 = "SELECT event_type_id ,event_type_name, FIND_IN_SET('$station', stations) from `event_type` where FIND_IN_SET('$station', stations) IS NOT NULL and FIND_IN_SET('$station', stations) > 0 and event_type_id = '$event_type_id' and is_deleted != 1 ORDER BY so ASC";
+                                                $sql1 = "SELECT event_type_id ,event_type_name, FIND_IN_SET('$station', stations) from `event_type` where FIND_IN_SET('$station', stations) IS NOT NULL and FIND_IN_SET('$station', stations) > 0 and is_deleted != 1 ORDER BY so ASC";
                                                 $result1 = $mysqli->query($sql1);
 
                                                 if ($result1 != null) {
@@ -1042,7 +1042,7 @@ if (count($_POST) > 0) {
                                                 $row_event = mysqli_fetch_assoc($res_station);
                                                 $event_type_id = $row_event['event_type_id'];
 
-                                                $sql1 = "SELECT event_type_id ,event_type_name, FIND_IN_SET('$station', stations) from `event_type` where FIND_IN_SET('$station', stations) IS NOT NULL and FIND_IN_SET('$station', stations) > 0 and event_type_id = '$event_type_id' AND is_deleted != 1 ORDER BY so ASC";
+                                                $sql1 = "SELECT event_type_id ,event_type_name, FIND_IN_SET('$station', stations) from `event_type` where FIND_IN_SET('$station', stations) IS NOT NULL and FIND_IN_SET('$station', stations) > 0 AND is_deleted != 1 ORDER BY so ASC";
                                                 $result1 = $mysqli->query($sql1);
                                                 if ($result1 != null) {
                                                     $count = $result1->num_rows;
@@ -1056,7 +1056,6 @@ if (count($_POST) > 0) {
                                                             echo "<option disabled value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
                                                         } else {
                                                             echo "<option value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
-
                                                         }
                                                         $count = $count - 1;
                                                     }
