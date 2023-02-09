@@ -1,31 +1,7 @@
 <?php include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    header('location: ../logout.php');
-}
-
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    header($redirect_logout_path);
-//  header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin") {
-    header('location: ../dashboard.php');
-}
+checkSession();
 $edit_name = $_POST['edit_cell_name'];
 $enabled = $_POST['edit_enabled'];
 $edit_file = $_FILES['upload_image']['name'];
@@ -111,7 +87,7 @@ if ($edit_name != "") {
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>

@@ -4,31 +4,8 @@ $import_status_message = "";
 include("../sup_config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-	header('location: ../logout.php');
-}
+checkSession();
 
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-	//Unset the session variables
-	session_unset();
-	//Destroy the session
-	session_destroy();
-	header($redirect_logout_path);
-//	header('location: ../logout.php');
-	exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin") {
-	header('location: ../dashboard.php');
-}
 if (count($_POST) > 0) {
 	$cust_name = $_POST['cust_name'];
 //create
@@ -137,6 +114,8 @@ if (count($_POST) > 0) {
 	}
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -316,14 +295,9 @@ include("../header_folder.php");
 							if (!empty($import_status_message)) {
 								echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
 							}
+                            displaySFMessage();
 							?>
-							<?php
-							if (!empty($_SESSION[import_status_message])) {
-								echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-								$_SESSION['message_stauts_class'] = '';
-								$_SESSION['import_status_message'] = '';
-							}
-							?>
+
                         </div>
                         <div class="panel-footer p_footer">
                             <div class="col-md-4">
