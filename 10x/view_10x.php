@@ -244,6 +244,33 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             pointer-events: none;
             color: #050505;
         }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .col-md-8.mg-t-5.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 200px!important;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .col-md-8.mg-t-5.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 200px!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .col-md-8.mg-t-5.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 200px!important;
+            }
+
+        }
     </style>
 </head>
 <body class="ltr main-body app horizontal">
