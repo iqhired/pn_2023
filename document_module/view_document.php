@@ -61,7 +61,7 @@ $station = $_GET['station'];
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/webcam.js"></script>
 
 
     <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
