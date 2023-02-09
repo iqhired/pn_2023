@@ -406,7 +406,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     <label class="form-label mg-b-0">Defect Zone :</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                    <input type="number" value="<?php echo $defect_zone; ?>" name="defect_zone" min="1" id="defect_zone" class="form-control" placeholder="Enter Zone..."  readonly>
+                                    <input type="text" value="<?php echo $defect_zone; ?>" name="defect_zone" min="1" id="defect_zone" class="form-control" placeholder="Enter Zone..."  readonly>
                                 </div>
                             </div>
                         </div>

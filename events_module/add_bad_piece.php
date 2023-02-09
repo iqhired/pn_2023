@@ -54,7 +54,7 @@ $pm_part_number = $rowcnumber['part_number'];
 $pm_part_name = $rowcnumber['part_name'];
 $pm_npr= $rowcnumber['npr'];
 $defect_list_id = $_GET['defect_list_id'];
-
+$rwork = $_REQUEST['rwork'];
 
 
 $gp_timestamp = time();
@@ -82,8 +82,8 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"> </script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -133,10 +133,11 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/webcam.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>-->
 
 
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
 
     <style>
@@ -301,6 +302,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         <input type="hidden" name="ipe" value="<?php echo $individualenabled; ?>">
 
         <input type="hidden" name="cell_id" value="<?php echo $cell_id; ?>">
+        <input type="hidden" id="rww" value="0">
         <input type="hidden" name="c_name" value="<?php echo $cell_name; ?>">
         <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -321,10 +323,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     <div class="row mg-t-15">
                                             <div class="col-lg-3">
                                                 <label class="rdiobox">
-                                                    <input  name="bad_type" value="bad_piece" type="radio" checked> <span>Bad Piece</span></label>
+                                                    <input  name="bad_type" value="bad_piece" type="radio" <?php echo ($rwork=='1')?'':'checked' ?>> <span>Bad Piece</span></label>
                                             </div>
                                             <div class="col-lg-3 mg-t-20 mg-lg-t-0">
-                                                <label class="rdiobox"><input   name="bad_type" value="rework" type="radio"> <span>  Re-Work</span></label>
+                                                <label class="rdiobox"><input   name="bad_type" value="rework" type="radio" <?php echo ($rwork=='1')?'checked':'' ?>> <span>  Re-Work</span></label>
                                             </div>
                                 </div>
                             </div>
@@ -424,7 +426,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-10">
-                                    <label class="form-label mg-b-0">Using the dropdown option below, please specifyin which zone the defect occured</label>
+                                    <label class="form-label mg-b-0">Using the dropdown option below, please specifying which zone the defect occured</label>
                                 </div>
                             </div>
                         </div>
@@ -501,14 +503,34 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 <script>
     function take_snapshot() {
         Webcam.snap( function(data_uri) {
+            // var data = "&btype="+document.getElementsByName("bad_type")[0].checked;
             var formData =  $(".image-tag").val(data_uri);
+            document.getElementById('rww').value = document.getElementsByName("bad_type")[1].checked;
             document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
             $.ajax({
                 url: "bad_piece_cam_backend.php",
                 type: "POST",
-                data: formData,
+                data:formData,
                 success: function (msg) {
-                    window.location.reload()
+                    var url = window.location.href;
+                    var url = new URL(url);
+                    var search_params = url.searchParams;
+                    var isRtype = document.getElementById('rww').value;
+                    search_params.set('rwork', '0');
+                    if(isRtype == "true"){
+                        search_params.set('rwork', '1');
+                    }
+                    // change the search property of the main url
+                    url.search = search_params.toString();
+
+// the new url string
+                    var new_url = url.toString();
+                    // if (url.indexOf('?') > -1){
+                    //     url += rw
+                    // }else{
+                    //     url += ('?'+rw)
+                    // }
+                    window.location.href = new_url;
                 },
 
             });
