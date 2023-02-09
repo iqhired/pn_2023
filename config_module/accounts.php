@@ -4,60 +4,8 @@ $import_status_message = "";
 //include("../sup_config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    header('location: ../logout.php');
-}
-// server should keep session data for 3 hour
-/*ini_set('session.gc_maxlifetime', 10800);*/
+checkSession();
 
-// each client remember their session id for exactly 1 hour
-/*session_set_cookie_params(10800);
-//start the session if not started
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}*/
-//set button for whenever we want destroy the session
-/*if (! empty($_SESSION['user']))
-{
-    */?><!--
-
-    <p>here is my super-secret content</p>
-    <a href='../logout.php'>Click here to log out</a>
-
-    --><?php
-/*}
-else
-{
-    echo 'You are not logged in. <a href="index.php">Click here</a> to log in.';
-}*/
-//its automatically session logout from web page
-/*if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 10800)) {
-    // last request was more than 30 minutes ago
-    session_unset();     // unset $_SESSION variable for the run-time
-    session_destroy();   // destroy session data in storage
-}*/
-$_SESSION['LAST_ACTIVITY'] = time();
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    header($redirect_logout_path);
-//  header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin") {
-    header('location: ../dashboard.php');
-}
 if (count($_POST) > 0) {
     $cust_name = $_POST['cust_name'];
 //create
@@ -183,7 +131,7 @@ if (count($_POST) > 0) {
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -392,14 +340,10 @@ include("../admin_menu.php");
                 if (!empty($import_status_message)) {
                     echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
                 }
+                displaySFMessage();
+
                 ?>
-                <?php
-                if (!empty($_SESSION['import_status_message'])) {
-                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                    $_SESSION['message_stauts_class'] = '';
-                    $_SESSION['import_status_message'] = '';
-                }
-                ?>
+
 
                 <div class="card">
                     <div class="card-body">

@@ -1,1237 +1,463 @@
-<?php
-include("../config.php");
-$available_var = $_SESSION['available'];
-$taskvar = $_SESSION['taskavailable'];
-$is_cust_dash = $_SESSION['is_cust_dash'];
-$line_cust_dash = $_SESSION['line_cust_dash'];
-$tab_line = $_SESSION['tab_station'];
-$is_tab_login = $_SESSION['is_tab_user'];
-$tm_task_id = "";
-$iid = $_SESSION["id"];
 
-$cell_id = $_SESSION['cell_id'];
-$is_cell_login = $_SESSION['is_cell_login'];
-if (isset($cell_id) && '' != $cell_id) {
-    $sql1 = "SELECT stations FROM `cell_grp` where c_id = '$cell_id'";
-    $result1 = $mysqli->query($sql1);
-    while ($row1 = $result1->fetch_assoc()) {
-        $c_login_stations = $row1['stations'];
-    }
-    if (isset($c_login_stations) && '' != $c_login_stations) {
-        $c_login_stations_arr = array_filter(explode(',', $c_login_stations));
-    }
-}
+<head>
 
-$sql1 = "SELECT * FROM `tm_task` where assign_to = '$iid' and status='1'";
-$result1 = $mysqli->query($sql1);
-while ($row1 = $result1->fetch_assoc()) {
-    $tm_task_id = $row1['tm_task_id'];
-}
-?>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Nowa – Laravel Bootstrap 5 Admin & Dashboard Template">
+    <meta name="Author" content="Spruko Technologies Private Limited">
+    <meta name="Keywords" content="admin dashboard, admin dashboard laravel, admin panel template, blade template, blade template laravel, bootstrap template, dashboard laravel, laravel admin, laravel admin dashboard, laravel admin panel, laravel admin template, laravel bootstrap admin template, laravel bootstrap template, laravel template"/>
 
-<?php
-$path = '';
-if (!empty($is_cell_login) && $is_cell_login == 1) {
-    $path = $siteURL . "cell_line_dashboard.php";
-} else {
-    if (!empty($i) && ($is_tab_login != null)) {
-        $path = "../line_tab_dashboard.php";
-    } else {
-        $path = $siteURL . "line_status_grp_dashboard.php";
-    }
-}
-?>
+    <!-- Title -->
+    <title> Nowa – Laravel Bootstrap 5 Admin & Dashboard Template </title>
 
-<style type="text/css">
-    /* ============ desktop view ============ */
+    <!-- FAVICON -->
+    <link rel="icon" href="https://laravel8.spruko.com/nowa/assets/img/brand/favicon.png" type="image/x-icon"/>
 
-    @media all and (min-width: 992px) {
+    <!-- ICONS CSS -->
+    <link href="https://laravel8.spruko.com/nowa/assets/plugins/icons/icons.css" rel="stylesheet">
 
-        .dropdown-menu li{
-            position: relative!important;
-        }
-        .dropdown-menu .submenu{
-            display: none!important;
-            position: absolute!important;
-            left:100%; top:-7px!important;
-        }
-        .dropdown-menu .submenu-left{
-            right:100%!important; left:auto!important;
-        }
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://laravel8.spruko.com/nowa/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
-        .dropdown-menu > li:hover{ background-color: #f1f1f1!important }
-        .dropdown-menu > li:hover > .submenu{
-            display: block!important;
-        }
+    <!-- RIGHT-SIDEMENU CSS -->
+    <link href="https://laravel8.spruko.com/nowa/assets/plugins/sidebar/sidebar.css" rel="stylesheet">
 
-        .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu.show{
-            top: 52px!important;
-        }
-        a.nav-link.dropdown-toggle.show {
-            display: flex!important;
-        }
-        svg {
-            display: initial!important;
-        }
-
-    }
-    /* ============ desktop view .end// ============ */
-
-    /* ============ small devices ============ */
-    @media (max-width: 991px) {
-
-        .dropdown-menu .dropdown-menu{
-            margin-left:0.7rem; margin-right:0.7rem; margin-bottom: .5rem;
-        }
-
-    }
-    /* ============ small devices .end// ============ */
-
-</style>
-
-<!---->
-<!--  END NAVBAR  -->
-<!--  BEGIN MAIN CONTAINER  -->
-<div class="main-container" id="container">
-
-    <div class="overlay"></div>
-    <div class="search-overlay"></div>
-
-    <!--  BEGIN NAVBAR  -->
-    <div class="header-container">
-        <header class="header navbar navbar-expand-sm">
-
-            <a href="#" class="sidebarCollapse" data-placement="bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="feather feather-menu">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </a>
-
-            <div class="nav-logo align-self-center">
-                <a class="navbar-brand" href="<?php echo $path ?>">
-                    <img alt="logo" src="<?php echo $siteURL; ?>assets/img/SGG_logo.png">
-                </a>
-            </div>
+    <!-- P-SCROLL BAR CSS -->
+    <link href="https://laravel8.spruko.com/nowa/assets/plugins/perfect-scrollbar/p-scrollbar.css" rel="stylesheet" />
 
 
-            <!--             <ul class="navbar-item flex-row mr-auto">-->
-            <!--                <li class="nav-item align-self-center search-animated">-->
-            <!--                    <form class="form-inline search-full form-inline search" role="search">-->
-            <!--                        <div class="search-bar">-->
-            <!--                            <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder="Search...">-->
-            <!--                        </div>-->
-            <!--                    </form>-->
-            <!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search toggle-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>-->
-            <!--                </li>-->
-            <!--            </ul>-->
+    <!-- INTERNAL Select2 css -->
+    <link href="https://laravel8.spruko.com/nowa/assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+
+    <!-- INTERNAL Data table css -->
+    <link href="https://laravel8.spruko.com/nowa/assets/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="https://laravel8.spruko.com/nowa/assets/plugins/datatable/css/buttons.bootstrap5.min.css"  rel="stylesheet">
+    <link href="https://laravel8.spruko.com/nowa/assets/plugins/datatable/responsive.bootstrap5.css" rel="stylesheet" />
 
 
-            <ul class="navbar-item flex-row nav-dropdowns">
+    <!-- STYLES CSS -->
+    <link href="https://laravel8.spruko.com/nowa/assets/css/style.css" rel="stylesheet">
+    <link href="https://laravel8.spruko.com/nowa/assets/css/style-dark.css" rel="stylesheet">
+    <link href="https://laravel8.spruko.com/nowa/assets/css/style-transparent.css" rel="stylesheet">
 
 
-                <!--                <li class="nav-item dropdown message-dropdown">-->
-                <!---->
-                <!--                    <div class="dropdown-menu p-0 position-absolute" aria-labelledby="messageDropdown">-->
-                <!--                        <div class="">-->
-                <!--                            <a class="dropdown-item">-->
-                <!--                                <div class="">-->
-                <!---->
-                <!--                                    <div class="media">-->
-                <!--                                        <div class="user-img">-->
-                <!--                                            <div class="avatar avatar-xl">-->
-                <!--                                                <span class="avatar-title rounded-circle">KY</span>-->
-                <!--                                            </div>-->
-                <!--                                        </div>-->
-                <!--                                        <div class="media-body">-->
-                <!--                                            <div class="">-->
-                <!--                                                <h5 class="usr-name">Kara Young</h5>-->
-                <!--                                                <p class="msg-title">ACCOUNT UPDATE</p>-->
-                <!--                                            </div>-->
-                <!--                                        </div>-->
-                <!--                                    </div>-->
-                <!---->
-                <!--                                </div>-->
-                <!--                            </a>-->
-                <!--                            <a class="dropdown-item">-->
-                <!--                                <div class="">-->
-                <!--                                    <div class="media">-->
-                <!--                                        <div class="user-img">-->
-                <!--                                            <div class="avatar avatar-xl">-->
-                <!--                                                <span class="avatar-title rounded-circle">DA</span>-->
-                <!--                                            </div>-->
-                <!--                                        </div>-->
-                <!--                                        <div class="media-body">-->
-                <!--                                            <div class="">-->
-                <!--                                                <h5 class="usr-name">Daisy Anderson</h5>-->
-                <!--                                                <p class="msg-title">ACCOUNT UPDATE</p>-->
-                <!--                                            </div>-->
-                <!--                                        </div>-->
-                <!--                                    </div>-->
-                <!--                                </div>-->
-                <!--                            </a>-->
-                <!--                            <a class="dropdown-item">-->
-                <!--                                <div class="">-->
-                <!---->
-                <!--                                    <div class="media">-->
-                <!--                                        <div class="user-img">-->
-                <!--                                            <div class="avatar avatar-xl">-->
-                <!--                                                <span class="avatar-title rounded-circle">OG</span>-->
-                <!--                                            </div>-->
-                <!--                                        </div>-->
-                <!--                                        <div class="media-body">-->
-                <!--                                            <div class="">-->
-                <!--                                                <h5 class="usr-name">Oscar Garner</h5>-->
-                <!--                                                <p class="msg-title">ACCOUNT UPDATE</p>-->
-                <!--                                            </div>-->
-                <!--                                        </div>-->
-                <!--                                    </div>-->
-                <!---->
-                <!--                                </div>-->
-                <!--                            </a>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </li>-->
+    <!-- SKIN-MODES CSS -->
+    <link href="https://laravel8.spruko.com/nowa/assets/css/skin-modes.css" rel="stylesheet" />
 
-                <nav id="topbar">
-                    <ul class="navbar-nav theme-brand flex-row  text-center">
-                        <li class="nav-item theme-logo">
-                            <a href="<?php echo $path ?>">
-                                <img src="<?php echo $siteURL; ?>assets/img/SGG_logo.png" class="navbar-logo"
-                                     alt="logo">
-                            </a>
-                        </li>
+    <!-- ANIMATION CSS -->
+    <link href="https://laravel8.spruko.com/nowa/assets/css/animate.css" rel="stylesheet">
 
-                    </ul>
-                </nav>
+    <!-- SWITCHER CSS -->
+    <link href="https://laravel8.spruko.com/nowa/assets/switcher/css/switcher.css" rel="stylesheet"/>
+    <link href="https://laravel8.spruko.com/nowa/assets/switcher/demo.css" rel="stylesheet"/>
 
-                <li class="nav-item dropdown notification-dropdown">
+</head>
+       <!-- main-header -->
+        <div class="main-header sticky nav nav-item hor-header" style="margin-bottom: -63px;">
+            <div class="main-container container">
+                <div class="main-header-left ">
+                    <div class="responsive-logo">
+                        <a href="https://laravel8.spruko.com/nowa/index" class="header-logo">
+                            <img src="https://laravel8.spruko.com/nowa/assets/img/brand/logo.png" class="mobile-logo logo-1" alt="logo">
+                            <img src="https://laravel8.spruko.com/nowa/assets/img/brand/logo-white.png" class="mobile-logo dark-logo-1" alt="logo">
+                        </a>
+                    </div>
+                    <div class="app-sidebar__toggle" data-bs-toggle="sidebar">
+                        <a class="open-toggle" href="javascript:void(0);"><i class="header-icon fe fe-align-left"></i></a>
+                        <a class="close-toggle" href="javascript:void(0);"><i class="header-icon fe fe-x"></i></a>
+                    </div>
+                    <div class="logo-horizontal">
+                        <a href="https://laravel8.spruko.com/nowa/index" class="header-logo">
+                            <img src="https://laravel8.spruko.com/nowa/assets/img/brand/logo.png" class="mobile-logo logo-1" alt="logo">
+                            <img src="https://laravel8.spruko.com/nowa/assets/img/brand/logo-white.png" class="mobile-logo dark-logo-1" alt="logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="main-header-right">
+                    <button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon fe fe-more-vertical "></span>
+                    </button>
+					<?php if(empty($menu_req)){?>
+                        <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                            <ul class="nav nav-item header-icons navbar-nav-right ms-auto">
+                                <li class="nav-link search-icon d-lg-none d-block">
+                                    <form class="navbar-form" role="search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                            <span class="input-group-btn">
+														<button type="reset" class="btn btn-default">
+															<i class="fas fa-times"></i>
+														</button>
+														<button type="submit" class="btn btn-default nav-link resp-btn">
+															<svg xmlns="http://www.w3.org/2000/svg" height="24px" class="header-icon-svgs" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+														</button>
+													</span>
+                                        </div>
+                                    </form>
+                                </li>
 
-                    <span><h2 style="width: max-content;"><?php echo $cam_page_header; ?></h2></span>
-
-                </li>
-
-                <?php
-                $loginid = $_SESSION["id"];
-                $sidebar_user_id = $_SESSION['session_user'];
-                /*$query10 = sprintf("SELECT DISTINCT `sender`,`receiver` FROM sg_chatbox where sender = '$loginid' OR receiver = '$sidebar_user_id' ORDER BY createdat DESC ;  ");*/
-                $query_not = sprintf("SELECT DISTINCT sg_chatbox.`sg_chatbox_id`,sg_chatbox.`message`,sg_chatbox.`createdat`,sg_chatbox.`sender`,cam_users.`user_name`,cam_users.`users_id`,cam_users.`profile_pic` FROM sg_chatbox INNER JOIN cam_users ON sg_chatbox.`sender`= cam_users.`users_id` WHERE `sender` !=$loginid AND `flag`=$loginid ");
-                $qur_not = mysqli_query($db, $query_not); ?>
-
-
-                <li class="nav-item dropdown notification-dropdown mobile">
-                    <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-bell">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                        </svg>
-                    </a>
-                    <?php
-                    while ($rowc_not = mysqli_fetch_array($qur_not)) {
-                        $name = $rowc_not["user_name"];
-                        $us_id = $rowc_not["users_id"];
-                        $se_id = $rowc_not["sender"];
-                        $id = $rowc_not["sg_chatbox_id"];
-                        $msg = $rowc_not["message"];
-                        $date = $rowc_not["createdat"]; ?>
-                        <div class="dropdown-menu position-absolute" aria-labelledby="notificationDropdown">
-                            <div class="notification-scroll">
-                                <div class="dropdown-item">
-                                    <div class="media server-log">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-server">
-                                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                                            <line x1="6" y1="6" x2="6" y2="6"></line>
-                                            <line x1="6" y1="18" x2="6" y2="18"></line>
-                                        </svg>
-                                        <div class="media-body">
-                                            <div class="data-info">
-                                                <a href="#" data-toggle="tab" data-id="<?php echo $se_id; ?>"
-                                                   value="<?php echo $id; ?>" class="use1_namelist">
-                                                    <h6 class=""><?php echo $name; ?> · <?php echo $date; ?>day ago</h6>
-                                                    <p class=""><?php echo $msg; ?></p>
-                                                    <input type="hidden" id="not_id" name="id"
-                                                           value="<?php echo $id; ?>">
-                                                    <input type="hidden" id="login_id" name="login_id"
-                                                           value="<?php echo $loginid; ?>">
-                                            </div>
-
-                                            <div class="icon-status">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                     class="feather feather-x">
-                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
+                                <li class="dropdown main-profile-menu nav nav-item nav-link ps-lg-2">
+                                    <a class="new nav-link profile-user d-flex" href="" data-bs-toggle="dropdown"><img alt="" src="https://laravel8.spruko.com/nowa/assets/img/faces/2.jpg" class=""></a>
+                                    <div class="dropdown-menu">
+                                        <div class="menu-header-content p-3 border-bottom">
+                                            <div class="d-flex wd-100p">
+                                                <div class="main-img-user"><img alt="" src="https://laravel8.spruko.com/nowa/assets/img/faces/2.jpg" class=""></div>
+                                                <div class="ms-3 my-auto">
+                                                    <h6 class="tx-15 font-weight-semibold mb-0">Teri Dactyl</h6><span class="dropdown-title-text subtext op-6  tx-12">Premium Member</span>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a class="dropdown-item" href="https://laravel8.spruko.com/nowa/profile"><i class="far fa-user-circle"></i>Profile</a>
+                                        <a class="dropdown-item" href="https://laravel8.spruko.com/nowa/chat"><i class="far fa-smile"></i> chat</a>
+                                        <a class="dropdown-item" href="https://laravel8.spruko.com/nowa/mail-read"><i class="far fa-envelope "></i>Inbox</a>
+                                        <a class="dropdown-item" href="https://laravel8.spruko.com/nowa/mail"><i class="far fa-comment-dots"></i>Messages</a>
+                                        <a class="dropdown-item" href="https://laravel8.spruko.com/nowa/mail-settings"><i class="far fa-sun"></i>  Settings</a>
+                                        <a class="dropdown-item" href="https://laravel8.spruko.com/nowa/signup"><i class="far fa-arrow-alt-circle-left"></i> Sign Out</a>
                                     </div>
-                                </div>
-                            </div>
+                                </li>
+
+                            </ul>
                         </div>
-                    <?php } ?>
-                </li>
-
-                <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
-                    <a href="#" class="nav-link dropdown-toggle user" id="user-profile-dropdown"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="media">
-                            <div class="media-body align-self-center">
-                                <h6><?php echo $_SESSION['fullname']; ?></h6>
-                                <!--   <p>Manager</p> -->
-                            </div>
-                            <img src="<?php echo $siteURL; ?>user_images/<?php echo $_SESSION["uu_img"]; ?>" alt="">
-
-                        </div>
-                    </a>
-
-                    <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
-                        <div class="user-profile-section">
-                            <div class="media mx-auto slack">
-                                <!--    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-slack"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"></path><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"></path><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"></path><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"></path><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"></path><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"></path><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"></path></svg>-->
-                                <?php if ($is_cust_dash == 0) {
-                                    $select = "";
-                                } else {
-                                    $select = "checked='checked'";
-                                }
-                                if (isset($line_cust_dash)) { ?>
-                                    <div class="media-body">
-                                        <label class="checkbox-switchery switchery-xs">
-                                            <input type="checkbox"
-                                                   class="switchery custom_switch_db" <?php echo $select; ?>
-                                                   style="margin-left: -4px;">
-                                            <h5 style="width: 136px;">Custom Dashboard</h5></label>
-
-                                    </div>
-                                <?php }
-                                if ($available_var == "0") {
-                                    $select = "";
-                                } else {
-                                    $select = "checked='checked'";
-                                }
-                                if ($taskvar != "") { ?>
-                                    <div class="media-body">
-                                        <?php if ($tm_task_id == "") { ?>
-                                            <label class="checkbox-switchery switchery-xs ">
-                                                <input type="checkbox"
-                                                       class="switchery custom_switch" <?php echo $select; ?>
-                                                       style="margin-left: -4px;">
-                                                <h5 style="width: 136px;margin-left: -11px;">Available</h5></label>
-                                        <?php } else { ?>
-                                            <label class="checkbox-switchery switchery-xs ">
-                                                <input type="checkbox"
-                                                       class="switchery custom_switch" <?php echo $select; ?> disabled>
-                                                <h5 style="width: 136px;margin-left: -11px;">Available</h5></label>
-                                        <?php } ?>
-                                    </div>
-                                <?php } ?>
-                            </div>
-
-                        </div>
-
-                        <div class="dropdown-item">
-                            <a href="<?php echo $siteURL; ?>profile.php">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-user" style="display: inline">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                                <span> Profile</span>
-                            </a>
-                        </div>
-
-                        <div class="dropdown-item">
-                            <a href="<?php echo $siteURL; ?>change_pass.php">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-lock" style="display: inline">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                                <span>Change Password</span>
-                            </a>
-                        </div>
-                        <?php if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) { ?>
-                            <div class="dropdown-item">
-                                <a href="<?php echo $siteURL; ?>tab_logout.php">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-log-out"
-                                         style="display: inline">
-                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                        <polyline points="16 17 21 12 16 7"></polyline>
-                                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                                    </svg>
-                                    <span>Log Out</span>
-                                </a>
-                            </div>
-                        <?php } else { ?>
-                            <div class="dropdown-item">
-                                <a href="<?php echo $siteURL; ?>logout.php">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-log-out"
-                                         style="display: inline">
-                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                        <polyline points="16 17 21 12 16 7"></polyline>
-                                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                                    </svg>
-                                    <span>Log Out</span>
-                                </a>
-                            </div>
-                        <?php } ?>
                     </div>
-                </li>
-            </ul>
-        </header>
-    </div>
-    <!--  END NAVBAR  -->
+					<?php } ?>
+                </div>
+            </div>
+        </div>
+        <!-- /main-header -->
+<?php if(empty($menu_req)){?>
+        <!-- main-sidebar -->
+        <div class="sticky" style="margin-bottom: -63px;">
+            <aside class="app-sidebar ps horizontal-main">
+                <div class="main-sidebar-header active">
+                    <a class="header-logo active" href="https://laravel8.spruko.com/nowa/index">
+                        <img src="https://laravel8.spruko.com/nowa/assets/img/brand/logo.png" class="main-logo  desktop-logo" alt="logo">
+                        <img src="https://laravel8.spruko.com/nowa/assets/img/brand/logo-white.png" class="main-logo  desktop-dark" alt="logo">
+                        <img src="https://laravel8.spruko.com/nowa/assets/img/brand/favicon.png" class="main-logo  mobile-logo" alt="logo">
+                        <img src="https://laravel8.spruko.com/nowa/assets/img/brand/favicon-white.png" class="main-logo  mobile-dark" alt="logo">
+                    </a>
+                </div>
+                <div class="main-sidemenu is-expanded container">
+                    <div class="slide-left disabled active d-none" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg></div>
+                    <ul class="side-menu open" style="margin-right: 0px; flex-wrap: nowrap; margin-left: 0px;">
+                        <li class="side-item side-item-category">Main</li>
+                        <li class="slide is-expanded">
+                            <a class="side-menu__item active is-expanded" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z"></path></svg><span class="side-menu__label">Dashboards</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu open">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Dashboards</a></li>
+                                <li class="is-expanded"><a class="slide-item active" href="https://laravel8.spruko.com/nowa/index">Dashboard-1</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/index1">Dashboard-2</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/index2">Dashboard-3</a></li>
+                            </ul>
+                        </li>
+                        <li class="side-item side-item-category">WEB APPS</li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 6h-4V5h4v4zm-9 4H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6H5v-4h4v4zm8-6c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"></path></svg><span class="side-menu__label">Apps</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Apps</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/cards">Cards</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/draggablecards">Darggablecards</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/rangeslider">Range-slider</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/calendar">Calendar</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/contacts">Contacts</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/image-compare">Image-compare</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/notification">Notification</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/widget-notification">Widget-notification</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/treeview">Treeview</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/file-manager">File-manager</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/file-manager1">File-manager1</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/file-details">File-details</a></li>
+                            </ul>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M20 17V7c0-2.168-3.663-4-8-4S4 4.832 4 7v10c0 2.168 3.663 4 8 4s8-1.832 8-4zM12 5c3.691 0 5.931 1.507 6 1.994C17.931 7.493 15.691 9 12 9S6.069 7.493 6 7.006C6.069 6.507 8.309 5 12 5zM6 9.607C7.479 10.454 9.637 11 12 11s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2V9.607zM6 17v-2.393C7.479 15.454 9.637 16 12 16s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2z"></path></svg><span class="side-menu__label">Elements</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Elements</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/alerts">Alerts</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/avatar">Avatar</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/breadcrumbs">Breadcrumbs</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/buttons">Buttons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/badge">Badge</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/dropdown">Dropdown</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/thumbnails">Thumbnails</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/list-group">List Group</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/navigation">Navigation</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/images">Images</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/pagination">Pagination</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/popover">Popover</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/progress">Progress</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/spinners">Spinners</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/media-object">Media Object</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/typography">Typography</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/tooltip">Tooltip</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/toast">Toast</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/tags">Tags</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/tabs">Tabs</a></li>
+                            </ul>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M20.995 6.9a.998.998 0 0 0-.548-.795l-8-4a1 1 0 0 0-.895 0l-8 4a1.002 1.002 0 0 0-.547.795c-.011.107-.961 10.767 8.589 15.014a.987.987 0 0 0 .812 0c9.55-4.247 8.6-14.906 8.589-15.014zM12 19.897C5.231 16.625 4.911 9.642 4.966 7.635L12 4.118l7.029 3.515c.037 1.989-.328 9.018-7.029 12.264z"></path><path d="m11 12.586-2.293-2.293-1.414 1.414L11 15.414l5.707-5.707-1.414-1.414z"></path></svg><span class="side-menu__label">Advanced UI</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Advanced UI</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/accordion">Accordion</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/carousel">Carousel</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/collapse">Collapse</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/modals">Modals</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/timeline">Timeline</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/sweet-alert">Sweet Alert</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/rating">Ratings</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/counters">Counters</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/search">Search</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/userlist">Userlist</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/blog">Blog</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/blog-details">Blog-details</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/edit-post">Edit-post</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/file-attached-tags">File Attachments</a></li>
+                            </ul>
+                        </li>
+                        <li class="side-item side-item-category">Pages</li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M22 7.999a1 1 0 0 0-.516-.874l-9.022-5a1.003 1.003 0 0 0-.968 0l-8.978 4.96a1 1 0 0 0-.003 1.748l9.022 5.04a.995.995 0 0 0 .973.001l8.978-5A1 1 0 0 0 22 7.999zm-9.977 3.855L5.06 7.965l6.917-3.822 6.964 3.859-6.918 3.852z"></path><path d="M20.515 11.126 12 15.856l-8.515-4.73-.971 1.748 9 5a1 1 0 0 0 .971 0l9-5-.97-1.748z"></path><path d="M20.515 15.126 12 19.856l-8.515-4.73-.971 1.748 9 5a1 1 0 0 0 .971 0l9-5-.97-1.748z"></path></svg><span class="side-menu__label">Pages</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Pages</a></li>
+                                <li class="sub-slide">
+                                    <a class="slide-item" data-bs-toggle="sub-slide" href="javascript:void(0);"><span class="sub-side-menu__label">Authentication</span><i class="sub-angle fe fe-chevron-right"></i></a>
+                                    <ul class="sub-slide-menu">
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/signin">Sign In</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/signup">Sign Up</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/forgot">Forgot Password</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/reset">Reset Password</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/lockscreen">Lockscreen</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/underconstruction">UnderConstruction</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/error404">404 Error</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/error500">500 Error</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/error501">501 Error</a></li>
+                                    </ul>
+                                </li>
+                                <li class="sub-slide">
+                                    <a class="slide-item" data-bs-toggle="sub-slide" href="javascript:void(0);"><span class="sub-side-menu__label">Switcher</span><i class="sub-angle fe fe-chevron-right"></i></a>
+                                    <ul class="sub-slide-menu">
 
-    <!--  BEGIN MAIN CONTAINER  -->
-    <div class="main-container" id="container">
-
-        <div class="overlay"></div>
-        <div class="search-overlay"></div>
-
-        <!--  BEGIN TOPBAR  -->
-        <div class="topbar-nav header navbar navbar-expand-lg navbar-dark" role="banner">
-            <nav id="topbar">
-                <ul class="navbar-nav theme-brand flex-row  text-center">
-                    <li class="nav-item theme-logo">
-                        <a href="<?php echo $path ?>">
-                            <img src="<?php echo $siteURL; ?>assets/img/SGG_logo.png" class="navbar-logo" alt="logo">
-                        </a>
-                    </li>
-
-                </ul>
-                <ul class="navbar-nav list-unstyled menu-categories" id="topAccordion">
-                    <li class="menu submenu single-menu mobile">
-                        <a href="#" class="nav-link dropdown-toggle user" id="user-profile-dropdown"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="media">
-                                <img src="<?php echo $siteURL; ?>user_images/<?php echo $_SESSION["uu_img"]; ?>" alt="">
-                                <div class="media-body align-self-center">
-                                    <h6 class="tab"><?php echo $_SESSION['fullname']; ?></h6>
-                                    <!--   <p>Manager</p> -->
-                                </div>
-
-
-                            </div>
-                        </a>
-
-                    </li>
-                    <?php
-                    $msg = $_SESSION["side_menu"];
-                    $msg = explode(',', $msg);
-                    if (in_array('67', $msg)) { ?>
-                        <li class="nav-item dropdown menu active">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-home">
-                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                    </svg>
-                                    <!--                                Boards-->
-                                    <span>Boards</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-chevron-down">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </a>
-                            <ul  class="dropdown-menu" id="dashboard" data-parent="#topAccordion">
-                                <li>
-                                    <?php if (in_array('68', $msg)) { ?>
-                                <li>
-                                    <a href="#appInvoice" class="dropdown-item"> Dashboard
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                             stroke-linejoin="round" class="feather feather-chevron-right">
-                                            <polyline points="9 18 15 12 9 6"></polyline>
-                                        </svg>
-                                    </a>
-                                    <ul class="submenu" id="appInvoice" data-parent="#app">
-                                        <li>
-                                            <a class="dropdown-item" href="<?php echo $siteURL; ?>line_status_grp_dashboard.php"> Cell
-                                                Overview </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="<?php echo $siteURL; ?>dashboard.php"> Crew Status Overview </a>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/switcherpage">Switcherpage</a></li>
+                                    </ul>
+                                </li>
+                                <li class="sub-slide">
+                                    <a class="slide-item" data-bs-toggle="sub-slide" href="javascript:void(0);"><span class="sub-side-menu__label">Ecommerce</span><i class="sub-angle fe fe-chevron-right"></i></a>
+                                    <ul class="sub-slide-menu">
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/shop">Shop</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/product-details">Product-Details</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/product-cart">Cart</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/check-out">Check-out</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/wish-list">Wish-list</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/profile">Profile</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/profile-notifications">Notifications-list</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/aboutus">About us</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/settings">Settings</a></li>
+                                <li class="sub-slide">
+                                    <a class="slide-item" data-bs-toggle="sub-slide" href="javascript:void(0);"><span class="sub-side-menu__label">Mail</span><i class="sub-angle fe fe-chevron-right"></i></a>
+                                    <ul class="sub-slide-menu">
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/mail">Mail</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/mail-compose">Mail Compose</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/mail-read">Read-mail</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/mail-settings">mail-settings</a></li>
+                                        <li><a class="sub-side-menu__item" href="https://laravel8.spruko.com/nowa/chat">Chat</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/invoice">Invoice</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/pricing">Pricing</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/gallery">Gallery</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/todotask">Todotask</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/faq">Faqs</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/emptypage">Empty Page</a></li>
+                            </ul>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M12 22c4.879 0 9-4.121 9-9s-4.121-9-9-9-9 4.121-9 9 4.121 9 9 9zm0-16c3.794 0 7 3.206 7 7s-3.206 7-7 7-7-3.206-7-7 3.206-7 7-7zm5.284-2.293 1.412-1.416 3.01 3-1.413 1.417zM5.282 2.294 6.7 3.706l-2.99 3-1.417-1.413z"></path><path d="M11 9h2v5h-2zm0 6h2v2h-2z"></path></svg><span class="side-menu__label">Utilities</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Utilities</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/background">Background</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/border">Border</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/display">Display</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/flex">Flex</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/height">Height</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/margin">Margin</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/padding">Padding</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/position">Position</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/width">Width</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/extras">Extras</a></li>
+                            </ul>
+                        </li>
+                        <li class="side-item side-item-category">General</li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M20 7h-1.209A4.92 4.92 0 0 0 19 5.5C19 3.57 17.43 2 15.5 2c-1.622 0-2.705 1.482-3.404 3.085C11.407 3.57 10.269 2 8.5 2 6.57 2 5 3.57 5 5.5c0 .596.079 1.089.209 1.5H4c-1.103 0-2 .897-2 2v2c0 1.103.897 2 2 2v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zm-4.5-3c.827 0 1.5.673 1.5 1.5C17 7 16.374 7 16 7h-2.478c.511-1.576 1.253-3 1.978-3zM7 5.5C7 4.673 7.673 4 8.5 4c.888 0 1.714 1.525 2.198 3H8c-.374 0-1 0-1-1.5zM4 9h7v2H4V9zm2 11v-7h5v7H6zm12 0h-5v-7h5v7zm-5-9V9.085L13.017 9H20l.001 2H13z"></path></svg><span class="side-menu__label">Icons</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons">Font Awesome </a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons2">Material Design Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons3">Simple Line Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons4">Feather Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons5">Ionic Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons6">Flag Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons7">Pe7 Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons8">Themify Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons9">Typicons Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons10">Weather Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons11">Material Icons</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/icons12">Bootstrap Icons</a></li>
+                            </ul>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M20 7h-4V4c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H4c-1.103 0-2 .897-2 2v9a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V9c0-1.103-.897-2-2-2zM4 11h4v8H4v-8zm6-1V4h4v15h-4v-9zm10 9h-4V9h4v10z"></path></svg><span class="side-menu__label">Charts</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Charts</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/chart-morris">Morris Charts</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/chart-flot">Flot Charts</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/chart-chartjs">ChartJS</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/chart-echart">Echart</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/chart-sparkline">Sparkline</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/chart-peity">Chart-peity</a></li>
+                            </ul>
+                        </li>
+                        <li class="side-item side-item-category">MULTI LEVEL</li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg><span class="side-menu__label">Menu-levels</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Menu-Levels</a></li>
+                                <li><a class="slide-item" href="javascript:void(0);">Level-1</a></li>
+                                <li class="sub-slide">
+                                    <a class="slide-item" data-bs-toggle="sub-slide" href="javascript:void(0);"><span class="sub-side-menu__label">Level-2</span><i class="sub-angle fe fe-chevron-down me-4"></i></a>
+                                    <ul class="sub-slide-menu">
+                                        <li><a class="sub-side-menu__item" href="javascript:void(0);">Level-2.1</a></li>
+                                        <li><a class="sub-side-menu__item" href="javascript:void(0);">Level-2.2</a></li>
+                                        <li class="sub-slide2">
+                                            <a class="sub-side-menu__item" data-bs-toggle="sub-slide2" href="javascript:void(0);"><span class="sub-side-menu__label">Level-2.3</span><i class="sub-angle2 fe fe-chevron-down"></i></a>
+                                            <ul class="sub-slide-menu1">
+                                                <li><a class="sub-slide-item2" href="javascript:void(0);">Level-2.3.1</a></li>
+                                                <li><a class="sub-slide-item2" href="javascript:void(0);">Level-2.3.2</a></li>
+                                                <li><a class="sub-slide-item2" href="javascript:void(0);">Level-2.3.3</a></li>
+                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <?php } ?>
-                                </li>
-                                <?php if (in_array('69', $msg)) { ?>
-                                    <li>
-                                        <a href="#appInvoice" class="dropdown-item"> GBP Dashboard
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-chevron-right">
-                                                <polyline points="9 18 15 12 9 6"></polyline>
-                                            </svg>
-                                        </a>
-                                        <ul class="submenu" id="appInvoice" data-parent="#app">
-                                            <?php
-                                            $sql1 = "SELECT * FROM `cam_line` WHERE gbd_id = '1'";
-                                            $result1 = $mysqli->query($sql1);
-
-                                            while ($row1 = mysqli_fetch_array($result1)) {
-
-                                                $gbd_id = $row1['gbd_id'];
-                                                $line_name = $row1['line_name'];
-                                                $line_id = $row1['line_id'];
-                                                if ($gbd_id == 1) { ?>
-                                                    <li>
-                                                        <a class="dropdown-item" target="_blank"
-                                                           href="<?php echo $siteURL; ?>config_module/gbp_dashboard.php?id=<?php echo $line_id ?>"
-                                                           target="_blank"> <?php echo $line_name ?> </a>
-                                                    </li>
-
-                                                <?php } else {
-
-                                                }
-                                            } ?>
-
-                                        </ul>
-                                    </li>
-                                <?php } ?>
-                                <?php if (in_array('70', $msg)) { ?>
-                                    <li>
-                                        <a href="#appInvoice" data-toggle="collapse" aria-expanded="false"
-                                           class="dropdown-toggle"> Custom Dashboard
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-chevron-right">
-                                                <polyline points="9 18 15 12 9 6"></polyline>
-                                            </svg>
-                                        </a>
-                                        <ul class="submenu" id="appInvoice" data-parent="#app">
-                                            <?php
-                                            $sql1 = "SELECT * FROM `cam_line` WHERE enabled = '1'";
-                                            $result1 = $mysqli->query($sql1);
-
-                                            while ($row1 = mysqli_fetch_array($result1)) {
-
-                                                $gbd_id = $row1['gbd_id'];
-                                                $line_name = $row1['line_name'];
-                                                $line_id = $row1['line_id'];
-                                                if ($gbd_id == 1) { ?>
-                                                    <li>
-                                                        <a class="dropdown-item" target="_blank"
-                                                           href="<?php echo $siteURL; ?>config_module/sg_cust_dashboard.php?id=<?php echo $line_id ?>"
-                                                           target="_blank"> <?php echo $line_name ?> </a>
-                                                    </li>
-
-                                                <?php }
-                                            } ?>
-
-                                        </ul>
-                                    </li>
-                                <?php } ?>
-                                <?php if (in_array('4', $msg)) { ?>
-                                    <li>
-                                        <a href="#appInvoice" data-toggle="collapse" aria-expanded="false"
-                                           class="dropdown-toggle"> Taskboard
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-chevron-right">
-                                                <polyline points="9 18 15 12 9 6"></polyline>
-                                            </svg>
-                                        </a>
-                                        <ul class="submenu" id="appInvoice" data-parent="#app">
-                                            <?php
-                                            if (in_array('9', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>taskboard_module/taskboard.php">
-                                                        Taskboard </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('11', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>taskboard_module/create_taskboard.php">
-                                                        Create Taskboard </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('12', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>taskboard_module/create_task.php">
-                                                        Create/Edit Task </a>
-                                                </li>
-                                            <?php }
-                                            ?>
-
-                                        </ul>
-                                    </li>
-                                <?php }
-                                ?>
                             </ul>
                         </li>
-                    <?php } ?>
-                    <!-- Forms Menu -->
-                    <?php if (in_array('23', $msg)) {
-                        ?>
-                        <li class="nav-item dropdown menu">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-cpu">
-                                        <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
-                                        <rect x="9" y="9" width="6" height="6"></rect>
-                                        <line x1="9" y1="1" x2="9" y2="4"></line>
-                                        <line x1="15" y1="1" x2="15" y2="4"></line>
-                                        <line x1="9" y1="20" x2="9" y2="23"></line>
-                                        <line x1="15" y1="20" x2="15" y2="23"></line>
-                                        <line x1="20" y1="9" x2="23" y2="9"></line>
-                                        <line x1="20" y1="14" x2="23" y2="14"></line>
-                                        <line x1="1" y1="9" x2="4" y2="9"></line>
-                                        <line x1="1" y1="14" x2="4" y2="14"></line>
-                                    </svg>
-                                    <span>Forms</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-chevron-down">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu" id="app" data-parent="#topAccordion">
-                                <?php if (in_array('42', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>form_module/form_settings.php"> Add/Create
-                                            Form </a>
-                                    </li>
-                                <?php }
-                                if (in_array('50', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>form_module/edit_form_options.php"> Edit
-                                            Form </a>
-                                    </li>
-                                <?php }
-                                if (in_array('38', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>form_module/options.php"> Submit Form </a>
-                                    </li>
-                                <?php }
-                                if (in_array('44', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>form_module/form_search.php">View Form</a>
-                                    </li>
-                                <?php }
-                                if (in_array('60', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>form_module/forms_recycle_bin.php">Restore
-                                            Form</a>
-                                    </li>
-                                <?php } ?>
+                        <li class="side-item side-item-category">COMPONENTS</li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M19.937 8.68c-.011-.032-.02-.063-.033-.094a.997.997 0 0 0-.196-.293l-6-6a.997.997 0 0 0-.293-.196c-.03-.014-.062-.022-.094-.033a.991.991 0 0 0-.259-.051C13.04 2.011 13.021 2 13 2H6c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V9c0-.021-.011-.04-.013-.062a.99.99 0 0 0-.05-.258zM16.586 8H14V5.414L16.586 8zM6 20V4h6v5a1 1 0 0 0 1 1h5l.002 10H6z"></path></svg><span class="side-menu__label">Forms</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Forms</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/form-elements">Form Elements</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/form-advanced">Advanced Forms</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/form-layouts">Form Layouts</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/form-validation">Form Validation</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/form-wizards">Form Wizards</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/form-editor">Form Editor</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/form-sizes">Form-element-sizes</a></li>
                             </ul>
                         </li>
-                    <?php } ?>
-                    <!-- Station Events-->
-                    <?php if (in_array('45', $msg)) { ?>
-                        <li class="nav-item dropdown menu">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-layout">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="3" y1="9" x2="21" y2="9"></line>
-                                        <line x1="9" y1="21" x2="9" y2="9"></line>
-                                    </svg>
-                                    <span>Station Events</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-chevron-down">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </a>
-
-                            <ul class="dropdown-menu" id="tables" data-parent="#topAccordion">
-                                <?php if (in_array('46', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>events_module/station_events.php"> Add/Update
-                                            Events </a>
-                                    </li>
-                                <?php } ?>
-
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm0 2 .001 4H5V5h14zM5 11h8v8H5v-8zm10 8v-8h4.001l.001 8H15z"></path></svg><span class="side-menu__label">Tables</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Tables</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/table-basic">Basic Tables</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/table-data">Data Tables</a></li>
                             </ul>
                         </li>
-                    <?php } ?>
-                    <!-- Crew Assignment -->
-                    <?php if (in_array('7', $msg)) { ?>
-                        <li class="nav-item dropdown menu">
-                            <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php" class="nav-link dropdown-toggle">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-box">
-                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                                    </svg>
-                                    <span>Crew Assignment</span>
-                                </div>
-                            </a>
+                        <li class="slide">
+                            <a class="side-menu__item" href="https://laravel8.spruko.com/nowa/widgets"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6h-4v-4h4v4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2zM7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"></path></svg><span class="side-menu__label">Widgets</span></a>
                         </li>
-                    <?php } ?>
-
-                    <!-- Communicator -->
-                    <?php if (in_array('65', $msg)) { ?>
-                        <li class="nav-item dropdown menu">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-zap">
-                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                                    </svg>
-                                    <span>Communicator</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-chevron-down">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu" id="uiKit" data-parent="#topAccordion">
-                                <?php if (in_array('5', $msg)) { ?>
-                                    <li><a class="dropdown-item" href="<?php echo $siteURL; ?>group_mail_module.php"> Mail </a></li>
-                                <?php }
-                                if (in_array('6', $msg)) { ?>
-                                    <li><a class="dropdown-item" href="<?php echo $siteURL; ?>chatbot/chat.php"> Chat </a></li>
-                                <?php } ?>
-
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M2.002 9.63c-.023.411.207.794.581.966l7.504 3.442 3.442 7.503c.164.356.52.583.909.583l.057-.002a1 1 0 0 0 .894-.686l5.595-17.032c.117-.358.023-.753-.243-1.02s-.66-.358-1.02-.243L2.688 8.736a1 1 0 0 0-.686.894zm16.464-3.971-4.182 12.73-2.534-5.522a.998.998 0 0 0-.492-.492L5.734 9.841l12.732-4.182z"></path></svg><span class="side-menu__label">Maps</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu">
+                                <li class="side-menu__label1"><a href="javascript:void(0);">Maps</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/map-leaflet">Leaflet Maps</a></li>
+                                <li><a class="slide-item" href="https://laravel8.spruko.com/nowa/map-vector">Vector Maps</a></li>
                             </ul>
                         </li>
-                    <?php } ?>
-                    <!--
-                                        <li class="menu single-menu">
-                                            <a href="#forms" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                                <div class="">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                                                    <span>Order</span>
-                                                </div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                            </a>
-                                            <ul class="collapse submenu list-unstyled" id="forms"  data-parent="#topAccordion">
-                                                <li>
-                                                    <a href="form_bootstrap_basic.html"> Create Order </a>
-                                                </li>
-                                                <li>
-                                                    <a href="form_input_group_basic.html"> Historical Order </a>
-                                                </li>
-
-                                            </ul>
-                                        </li> -->
-                    <!-- Admin Config -->
-                    <?php if (in_array('66', $msg)) { ?>
-                        <li class="nav-item dropdown menu">
-                            <a href="#page"  data-bs-toggle="dropdown" class="nav-link dropdown-toggle">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-file">
-                                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
-                                        <polyline points="13 2 13 9 20 9"></polyline>
-                                    </svg>
-                                    <span>Admin Config</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-chevron-down">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu" id="page" data-parent="#topAccordion">
-
-                                <?php if (in_array('18', $msg)) { ?>
-                                    <li>
-                                        <a href="#user-register" data-toggle="collapse" aria-expanded="false"
-                                           class="dropdown-toggle">Config
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-chevron-right">
-                                                <polyline points="9 18 15 12 9 6"></polyline>
-                                            </svg>
-                                        </a>
-
-                                        <ul class="submenu" id="user-register"
-                                            data-parent="#page">
-                                            <?php if (in_array('29', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/create_assets.php"> Assets
-                                                        Config </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('62', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/dashboard_config.php">
-                                                        Cell Dashboard Config </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('71', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/create_cust_dashboard.php">
-                                                        Create Custom Dashboard </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('56', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/accounts.php"> Customer
-                                                        Accounts </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('63', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/defect_group.php"> Defect
-                                                        Group </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('55', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/defect_list.php"> Defect
-                                                        List </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('52', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/event_category.php"> Event
-                                                        category </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('47', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/event_type.php"> Event
-                                                        Type </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('43', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/form_type.php"> Form
-                                                        Type </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('26', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/job_title.php"> Job
-                                                        Title </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('53', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/form_measurement_unit.php">
-                                                        Measurement Unit </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('27', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/shift_location.php">
-                                                        Shift/Location </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('24', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/line.php"> Station </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('28', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/station_pos_rel.php">
-                                                        Station Position Config</a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('25', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>config_module/position.php">
-                                                        Position </a>
-                                                </li>
-                                            <?php } ?>
-
-                                        </ul>
-                                    </li>
-                                <?php } ?>
-                                <!-- Parts Config -->
-                                <?php if (in_array('20', $msg)) { ?>
-                                    <li >
-                                        <a href="#user-passRecovery"
-                                           class="dropdown-item">Parts
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2"
-                                                 stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-chevron-right">
-                                                <polyline points="9 18 15 12 9 6"></polyline>
-                                            </svg>
-                                        </a>
-                                        <ul class="submenu" id="user-passRecovery"
-                                            data-parent="#page">
-                                            <?php if (in_array('34', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>part_module/part_number.php"><span>Part Number</span></a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('35', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>part_module/part_family.php"><span>Part Family</span></a>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
-                                    </li>
-                                <?php } ?>
-                                <!-- Report Config -->
-                                <?php if (in_array('19', $msg)) { ?>
-                                    <li>
-                                        <a href="#user-register" data-toggle="collapse" aria-expanded="false"
-                                           class="dropdown-toggle"> Report Config
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2"
-                                                 stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-chevron-right">
-                                                <polyline points="9 18 15 12 9 6"></polyline>
-                                            </svg>
-                                        </a>
-                                        <ul class="submenu" id="user-register"
-                                            data-parent="#page">
-                                            <?php if (in_array('32', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>report_config_module/assignment_log_config.php">
-                                                        Assignment Mail Config </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('31', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>report_config_module/communicator_config.php">
-                                                        Communicator Config </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('33', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>report_config_module/task_log_config.php">
-                                                        Task Log Config </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('64', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>cronjobs/training_mail_config.php">
-                                                        Training Completion Mail Config </a>
-                                                </li>
-                                            <?php } ?>
-
-                                        </ul>
-
-                                    </li>
-                                <?php } ?>
-                                <!-- User Group Config-->
-                                <?php if (in_array('16', $msg)) { ?>
-                                    <li class="sub-sub-submenu-list">
-                                        <a href="<?php echo $siteURL; ?>group.php"> User Group(s) </a>
-                                    </li>
-                                <?php } ?>
-                                <!-- User Config-->
-                                <?php if (in_array('8', $msg)) { ?>
-                                    <li>
-                                        <a href="#pages-error"
-                                           class="dropdown-item"> User Config
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2"
-                                                 stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-chevron-right">
-                                                <polyline points="9 18 15 12 9 6"></polyline>
-                                            </svg>
-                                        </a>
-
-                                        <ul class="submenu" id="pages-error"
-                                            data-parent="#more">
-                                            <?php if (in_array('13', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>user_module/users_list.php">
-                                                        Add/Update
-                                                        User </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('14', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>user_module/role_list.php"> Add User
-                                                        Role(s) </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('61', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>user_module/user_custom_dashboard.php">
-                                                        Custom Dashboard </a>
-                                                </li>
-                                            <?php }
-                                            if (in_array('15', $msg)) { ?>
-                                                <li>
-                                                    <a class="dropdown-item" href="<?php echo $siteURL; ?>user_module/user_ratings.php"> User
-                                                        Station-Pos Ratings </a>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
-
-                                    </li>
-                                <?php } ?>
-
-                            </ul>
-                        </li>
-                    <?php } ?>
-                    <!-- Logs -->
-                    <?php if (in_array('22', $msg)) { ?>
-                        <li class="nav-item dropdown menu">
-                            <a class="nav-link dropdown-toggle" href="#more" data-bs-toggle="dropdown">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-plus-circle">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                                    </svg>
-                                    <span>Logs</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-chevron-down">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </a>
-
-                            <ul class="dropdown-menu" id="more" data-parent="#topAccordion">
-                                <?php if (in_array('36', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>log_module/assign_crew_log.php"> Crew Assignment
-                                            Log</a>
-                                    </li>
-                                <?php }
-                                //								if (in_array('37', $msg)) { ?>
-                                <!--                                    <li>-->
-                                <!--                                        <a href="--><?php //echo $siteURL; ?><!--log_module/chat_log.php"> Chat Log </a>-->
-                                <!--                                    </li>-->
-                                <!--								--><?php //}
-                                if (in_array('40', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>log_module/task_crew_log.php"> Task Crew Log</a>
-                                    </li>
-                                <?php }
-                                if (in_array('51', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>log_module/station_events_log.php"> Station
-                                            Events Log </a>
-                                    </li>
-                                <?php }
-                                if (in_array('59', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>log_module/good_bad_pieces_log.php"> Good Bad
-                                            Pieces Log </a>
-                                    </li>
-                                <?php }
-                                if (in_array('21', $msg)) { ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $siteURL; ?>table.php"> Training Matrix </a>
-                                    </li>
-                                <?php } ?>
-                            </ul>
-
-
-
-                        </li>
-                    <?php } ?>
-
-                    <!---- Profile ------>
-
-                    <li class="menu single-menu mobile">
-                        <a href="#profile" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-plus-circle">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                </svg>
-                                <span>Profile</span>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round" class="feather feather-chevron-down">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </a>
-
-                        <ul class="collapse submenu list-unstyled mobile" id="profile" data-parent="#topAccordion">
-
-                            <li>
-                                <a href="<?php echo $siteURL; ?>profile.php"> Profile</a>
-                            </li>
-
-                            <li>
-                                <a href="<?php echo $siteURL; ?>change_pass.php"> Change Password </a>
-                            </li>
-
-                            <li>
-                                <a href="<?php echo $siteURL; ?>logout.php">Log Out</a>
-                            </li>
-
-
-                        </ul>
-
-
-
-                    </li>
-
-                </ul>
-            </nav>
+                    </ul>
+                    <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg></div>
+                </div>
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></aside>
         </div>
-        <!--  END TOPBAR  -->
+<?php }?>
+        <!-- main-sidebar -->
+<!-- BACK-TO-TOP -->
+<a href="#top" id="back-to-top"><i class="las la-arrow-up"></i></a>
 
-        <!--  BEGIN CONTENT PART  -->
-        <!--    <div id="content" class="main-content">-->
-        <!--        <div class="layout-px-spacing">-->
-        <!--            <div class="page-header">-->
-        <!--                <nav class="breadcrumb-one" aria-label="breadcrumb">-->
-        <!--                    <ol class="breadcrumb">-->
-        <!--                        <li class="breadcrumb-item"><a href="#">Dashboad</a></li>-->
-        <!--                        <li class="breadcrumb-item active" aria-current="page"><a href="#">Analytics</a></li>-->
-        <!--                    </ol>-->
-        <!--                </nav>-->
-        <!--                <div class="dropdown filter custom-dropdown-icon">-->
-        <!--                    <a class="dropdown-toggle btn" href="#" role="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="text"><span>Show</span> : Daily Analytics</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></a>-->
-        <!---->
-        <!--                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="filterDropdown">-->
-        <!--                        <a class="dropdown-item" data-value="<span>Show</span> : Daily Analytics" href="#">Daily Analytics</a>-->
-        <!--                        <a class="dropdown-item" data-value="<span>Show</span> : Weekly Analytics" href="#">Weekly Analytics</a>-->
-        <!--                        <a class="dropdown-item" data-value="<span>Show</span> : Monthly Analytics" href="#">Monthly Analytics</a>-->
-        <!--                        <a class="dropdown-item" data-value="Download All" href="#">Download All</a>-->
-        <!--                        <a class="dropdown-item" data-value="Share Statistics" href="#">Share Statistics</a>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!---->
-        <!--        </div>-->
-        <!--    </div>-->
-        <!--  END CONTENT PART  -->
+<!-- JQUERY JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/jquery/jquery.min.js"></script>
 
-    </div>
+<!-- BOOTSTRAP JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/bootstrap/js/popper.min.js"></script>
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script>
-        $(document).on("click", ".custom_switch", function () {
-            var available_var = '<?php echo $available_var; ?>';
-            $.ajax({
-                url: "available.php",
-                type: "post",
-                data: {available_var: available_var},
-                success: function (response) {
-                    //alert(response);
-                    location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
-                }
-            });
-        });
+<!-- IONICONS JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/ionicons/ionicons.js"></script>
 
-        $(document).on("click", ".custom_switch_db", function () {
-            var is_cust_dash = '<?php echo $is_cust_dash; ?>';
-            $.ajax({
-                url: "switch_cust_db.php",
-                type: "post",
-                data: {is_cust_dash: is_cust_dash},
-                success: function (response) {
-                    //alert(response);
-                    console.log(response);
-                    location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
-                }
-            });
-        });
-        //redirect ti chat page
+<!-- MOMENT JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/moment/moment.js"></script>
 
-        $( ".use1_namelist" ).click(function( event ) {
-            $(".chat-list").html(" ");
-            var user_id = $(this).data("id");
-            var chat_id = $(this).attr("value");
-            //alert(chat_id);
-            $.ajax({
-                type : 'POST',
-                url : 'chatbot/chat_div.php',
-                data : {
-                    user_id : user_id,
-                    chat_id : chat_id,
-                },
-                success : function(data) {
-                    window.setTimeout(function(){
-                        window.location.href = "chatbot/chat.php";
+<!-- P-SCROLL JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/perfect-scrollbar/p-scroll.js"></script>
 
-                    }, 10);
+<!-- SIDEBAR JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/side-menu/sidemenu.js"></script>
 
-                }
-            });
-        });
+<!-- STICKY JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/js/sticky.js"></script>
 
-        //notification status checking
-        var data_interval = setInterval(function() {
-            var id =  $("#login_id").val();
-            //alert(data);
-            $.ajax({
-                url:"chatbot/status_count.php",
-                method:"POST",
-                data:{id:id},
-                dataType : 'json',
-                encode   : true,
-                success:function(res)
+<!-- Chart-circle js -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/circle-progress/circle-progress.min.js"></script>
 
-                {
+<!-- RIGHT-SIDEBAR JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/sidebar/sidebar.js"></script>
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/sidebar/sidebar-custom.js"></script>
 
-                    if(res > 0){
-                        //alert(res);
-                        $("#bell_icon").css('color','red');
-                        //$("#bell_icon").css('margin-top','0px');
-                        $("#bell_count").text(res);
 
-                    }else{
+<!-- Internal Chart.Bundle js-->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/chartjs/Chart.bundle.min.js"></script>
 
-                    }
+<!-- Moment js -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/raphael/raphael.min.js"></script>
 
-                }
-            });
-        }, 1000);
-    </script>
+<!-- INTERNAL Apexchart js -->
+<script src="https://laravel8.spruko.com/nowa/assets/js/apexcharts.js"></script>
 
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="<?php echo $siteURL; ?>bootstrap/js/popper.min.js"></script>
-    <script src="<?php echo $siteURL; ?>bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?php echo $siteURL; ?>plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/app.js"></script>
-    <script>
-        $(document).ready(function() {
-            App.init();
-        });
-    </script>
-    <script src="<?php echo $siteURL; ?>assets/js/custom.js"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
-    <script src="<?php echo $siteURL; ?>assets/js/dashboard/dash_2.js"></script>
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+<!--Internal Sparkline js -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+<!--Internal  index js -->
+<script src="https://laravel8.spruko.com/nowa/assets/js/index.js"></script>
+
+<!-- Chart-circle js -->
+<script src="https://laravel8.spruko.com/nowa/assets/js/chart-circle.js"></script>
+
+<!-- Internal Data tables -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/datatable/js/dataTables.bootstrap5.js"></script>
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/datatable/dataTables.responsive.min.js"></script>
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/datatable/responsive.bootstrap5.min.js"></script>
+
+<!-- INTERNAL Select2 js -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/select2/js/select2.full.min.js"></script>
+<script src="https://laravel8.spruko.com/nowa/assets/js/select2.js"></script>
+
+
+<!-- EVA-ICONS JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/plugins/eva-icons/eva-icons.min.js"></script>
+
+<!-- THEME-COLOR JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/js/themecolor.js"></script>
+
+<!-- CUSTOM JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/js/custom.js"></script>
+
+<!-- exported JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/js/exported.js"></script>
+
+<!-- SWITCHER JS -->
+<script src="https://laravel8.spruko.com/nowa/assets/switcher/js/switcher.js"></script>
