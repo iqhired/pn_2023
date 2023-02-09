@@ -46,7 +46,8 @@ if (isset($cellID)) {
 <body class="ltr main-body app horizontal">
 <div>
     <?php
-    $cust_cam_page_header = "Cell Status Dashboard";
+//	$menu_req = 1;
+//    $cust_cam_page_header = "Cell Status Dashboard";
     include("admin_menu1.php");
 
     ?>

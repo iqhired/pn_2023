@@ -78,7 +78,8 @@
                     <button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon fe fe-more-vertical "></span>
                     </button>
-                    <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
+					<?php if(empty($menu_req)){?>
+                        <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
                         <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                             <ul class="nav nav-item header-icons navbar-nav-right ms-auto">
                                 <li class="nav-link search-icon d-lg-none d-block">
@@ -96,6 +97,7 @@
                                         </div>
                                     </form>
                                 </li>
+
                                 <li class="dropdown main-profile-menu nav nav-item nav-link ps-lg-2">
                                     <a class="new nav-link profile-user d-flex" href="" data-bs-toggle="dropdown"><img alt="" src="https://laravel8.spruko.com/nowa/assets/img/faces/2.jpg" class=""></a>
                                     <div class="dropdown-menu">
@@ -115,15 +117,16 @@
                                         <a class="dropdown-item" href="https://laravel8.spruko.com/nowa/signup"><i class="far fa-arrow-alt-circle-left"></i> Sign Out</a>
                                     </div>
                                 </li>
+
                             </ul>
                         </div>
                     </div>
-
+					<?php } ?>
                 </div>
             </div>
         </div>
         <!-- /main-header -->
-
+<?php if(empty($menu_req)){?>
         <!-- main-sidebar -->
         <div class="sticky" style="margin-bottom: -63px;">
             <aside class="app-sidebar ps horizontal-main">
@@ -379,6 +382,7 @@
                 </div>
                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></aside>
         </div>
+<?php }?>
         <!-- main-sidebar -->
 <!-- BACK-TO-TOP -->
 <a href="#top" id="back-to-top"><i class="las la-arrow-up"></i></a>
