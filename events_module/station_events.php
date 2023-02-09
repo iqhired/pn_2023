@@ -660,24 +660,11 @@ if(isset($_POST['update_btn'])){
                                             <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
                                                 <option value="" selected disabled>--- Select Part Family ---</option>
                                                 <?php
-                                                if(empty($station)){
-                                                    $station = $station_id;
-                                                }
-                                                $part_family = $_POST['part_family'];
-                                                if(empty($part_family) && !empty($_REQUEST['part_family'])){
-                                                    $part_family = $_REQUEST['part_family'];
-                                                }
-                                                $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1 and station = '$station' ORDER BY `part_family_name` ASC";
+                                                $sql1 = "SELECT * FROM `pm_part_family` ORDER BY `part_family_name` ASC ";
                                                 $result1 = $mysqli->query($sql1);
                                                 //                                            $entry = 'selected';
                                                 while ($row1 = $result1->fetch_assoc()) {
-                                                    if ($part_family == $row1['pm_part_family_id']) {
-                                                        $entry = 'selected';
-                                                    } else {
-                                                        $entry = '';
-
-                                                    }
-                                                    echo "<option value='" . $row1['pm_part_family_id'] . "'  $entry>" . $row1['part_family_name'] . "</option>";
+                                                    echo "<option value='" . $row1['pm_part_family_id'] . "'  >" . $row1['part_family_name'] . "</option>";
                                                 }
                                                 ?>
                                             </select>
@@ -709,34 +696,11 @@ if(isset($_POST['update_btn'])){
                                             <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-placeholder="Select Event Type">
                                                 <option value="" selected disabled>--- Select Event Type ---</option>
                                                 <?php
-                                                $event_type_id = $_POST['event_type_id'];
-                                                if(empty($event_type_id) && !empty($_REQUEST['station_event_id'])){
-                                                    $station_event_id = $_REQUEST['station_event_id'];
-                                                }
-
-                                                $station_event_query = "SELECT * FROM `sg_station_event` WHERE line_id = '$station' and part_family_id='$part_family_id' and part_number_id='$part_number' and station_event_id = '$station_event_id'";
-                                                $res_station = mysqli_query($db,$station_event_query);
-                                                $row_event = mysqli_fetch_assoc($res_station);
-                                                $event_type_id = $row_event['event_type_id'];
-
-                                                $sql1 = "SELECT event_type_id ,event_type_name, FIND_IN_SET('$station', stations) from `event_type` where FIND_IN_SET('$station', stations) IS NOT NULL and FIND_IN_SET('$station', stations) > 0 AND is_deleted != 1 ORDER BY so ASC";
+                                                $sql1 = "SELECT event_type_id ,event_cat_id,event_type_name, FIND_IN_SET('$station_id', stations) from `event_type` where FIND_IN_SET('$station_id', stations) IS NOT NULL and FIND_IN_SET('$station_id', stations) > 0 ORDER BY so ASC";
                                                 $result1 = $mysqli->query($sql1);
-                                                if ($result1 != null) {
-                                                    $count = $result1->num_rows;
-                                                    while ($row1 = $result1->fetch_assoc()) {
-                                                        if ($event_type_id == $row1['event_type_id']) {
-                                                            $entry = 'selected';
-                                                        } else {
-                                                            $entry = '';
-                                                        }
-                                                        echo "<option value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
-                                                        /* if ($count == 1) {
-                                                             echo "<option disabled value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
-                                                         } else {
-                                                             echo "<option value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
-                                                         }
-                                                         $count = $count - 1;*/
-                                                    }
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    echo "<option value='" . $row1['event_type_id'] ."_".$row1['event_cat_id']. "'  >" . $row1['event_type_name'] . "</option>";
+
                                                 }
                                                 ?>
                                             </select>
@@ -828,15 +792,28 @@ if(isset($_POST['update_btn'])){
                                         <div class="col-md-1" id="ex" >
                                             <label class="form-label mg-b-0">Part Family  </label>
                                         </div>
-                                        <div class="col-md-4 mg-t-10 mg-md-t-0 query" style="pointer-events: none;">
-                                            <select name="edit_part_family" id="edit_part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0 query">
+                                            <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
                                                 <option value="" selected disabled>--- Select Part Family ---</option>
                                                 <?php
-                                                $sql1 = "SELECT * FROM `pm_part_family` ORDER BY `part_family_name` ASC ";
+                                                if(empty($station)){
+                                                    $station = $station_id;
+                                                }
+                                                $part_family = $_POST['part_family'];
+                                                if(empty($part_family) && !empty($_REQUEST['part_family'])){
+                                                    $part_family = $_REQUEST['part_family'];
+                                                }
+                                                $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1 and station = '$station' ORDER BY `part_family_name` ASC";
                                                 $result1 = $mysqli->query($sql1);
                                                 //                                            $entry = 'selected';
                                                 while ($row1 = $result1->fetch_assoc()) {
-                                                    echo "<option value='" . $row1['pm_part_family_id'] . "'  >" . $row1['part_family_name'] . "</option>";
+                                                    if ($part_family == $row1['pm_part_family_id']) {
+                                                        $entry = 'selected';
+                                                    } else {
+                                                        $entry = '';
+
+                                                    }
+                                                    echo "<option value='" . $row1['pm_part_family_id'] . "'  $entry>" . $row1['part_family_name'] . "</option>";
                                                 }
                                                 ?>
                                             </select>
@@ -848,14 +825,25 @@ if(isset($_POST['update_btn'])){
                                         <div class="col-md-1">
                                             <label class="form-label mg-b-0">Part Number  </label>
                                         </div>
-                                        <div class="col-md-4 mg-t-10 mg-md-t-0" style="pointer-events: none;">
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
                                             <select name="part_number" id="part_number" class="select form-control select2" data-placeholder="Select Part Number">
                                                 <option value="" selected disabled>--- Select Part Number ---</option>
                                                 <?php
-                                                $sql1 = "SELECT * FROM `pm_part_number` ORDER BY `part_number` ASC ";
+                                                $part_number = $_POST['part_number'];
+                                                if(empty($part_number) && !empty($_REQUEST['part_number'])){
+                                                    $part_number = $_REQUEST['part_number'];
+                                                }
+                                                $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
                                                 $result1 = $mysqli->query($sql1);
+                                                //                                            $entry = 'selected';
                                                 while ($row1 = $result1->fetch_assoc()) {
-                                                    echo "<option value='" . $row1['pm_part_number_id'] . "'  >" . $row1['part_number'] . "</option>";
+                                                    if ($part_number == $row1['pm_part_number_id']) {
+                                                        $entry = 'selected';
+                                                    } else {
+                                                        $entry = '';
+
+                                                    }
+                                                    echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
                                                 }
                                                 ?>
                                             </select>
@@ -868,11 +856,34 @@ if(isset($_POST['update_btn'])){
                                             <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-placeholder="Select Event Type">
                                                 <option value="" selected disabled>--- Select Event Type ---</option>
                                                 <?php
-                                                $sql1 = "SELECT event_type_id ,event_cat_id,event_type_name, FIND_IN_SET('$station_id', stations) from `event_type` where FIND_IN_SET('$station_id', stations) IS NOT NULL and FIND_IN_SET('$station_id', stations) > 0 ORDER BY so ASC";
-                                                $result1 = $mysqli->query($sql1);
-                                                while ($row1 = $result1->fetch_assoc()) {
-                                                    echo "<option value='" . $row1['event_type_id'] ."_".$row1['event_cat_id']. "'  >" . $row1['event_type_name'] . "</option>";
+                                                $event_type_id = $_POST['event_type_id'];
+                                                if(empty($event_type_id) && !empty($_REQUEST['station_event_id'])){
+                                                    $station_event_id = $_REQUEST['station_event_id'];
+                                                }
 
+                                                $station_event_query = "SELECT * FROM `sg_station_event` WHERE line_id = '$station' and part_family_id='$part_family_id' and part_number_id='$part_number' and station_event_id = '$station_event_id'";
+                                                $res_station = mysqli_query($db,$station_event_query);
+                                                $row_event = mysqli_fetch_assoc($res_station);
+                                                $event_type_id = $row_event['event_type_id'];
+
+                                                $sql1 = "SELECT event_type_id ,event_type_name, FIND_IN_SET('$station', stations) from `event_type` where FIND_IN_SET('$station', stations) IS NOT NULL and FIND_IN_SET('$station', stations) > 0 AND is_deleted != 1 ORDER BY so ASC";
+                                                $result1 = $mysqli->query($sql1);
+                                                if ($result1 != null) {
+                                                    $count = $result1->num_rows;
+                                                    while ($row1 = $result1->fetch_assoc()) {
+                                                        if ($event_type_id == $row1['event_type_id']) {
+                                                            $entry = 'selected';
+                                                        } else {
+                                                            $entry = '';
+                                                        }
+                                                        echo "<option value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
+                                                        /* if ($count == 1) {
+                                                             echo "<option disabled value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
+                                                         } else {
+                                                             echo "<option value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
+                                                         }
+                                                         $count = $count - 1;*/
+                                                    }
                                                 }
                                                 ?>
                                             </select>
