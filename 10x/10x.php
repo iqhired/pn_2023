@@ -64,7 +64,6 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <!-- Global stylesheets -->
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
-    <link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -290,20 +289,19 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             margin-left: 114px;
             margin-right: -102px;
         }
-        img, svg {
-           /*vertical-align: middle;*/
-            height: 120px!important;
-            width: 250px!important;
+        .remove {
+            cursor: pointer;
         }
+        .thumbnail {
+            width: 150px;
+        }
+
     </style>
 </head>
 <body class="ltr main-body app horizontal">
-<?php if (!empty($station)){
+<?php
     include("../cell-menu.php");
-}else{
-    include("../header.php");
-    include("../admin_menu.php");
-}
+
 ?>
 <!-- main-content -->
 <div class="main-content app-content">
