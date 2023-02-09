@@ -9,6 +9,9 @@ $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
 $station_id = null;
 $event_line = $_GET['station'];
+if (($station_id == null || $station_id == '') && (($event_line != null) && ($event_line != ''))) {
+	$station_id = $event_line;
+}
 $part_family_id = $_GET['part_family'];
 
 //check the station is line-up or line-down
@@ -16,7 +19,7 @@ $sqlc = "SELECT * FROM `sg_station_event` WHERE `line_id` = '$event_line' ORDER 
 $resc = mysqli_query($db, $sqlc);
 $rowc = mysqli_fetch_array($resc);
 $event_type_id = $rowc['event_type_id'];
-
+$e_type_id = $event_type_id;
 $user_id = $_SESSION["id"];
 $chicagotime = date("Y-m-d H:i:s");
 if (count($_POST) > 0) {
@@ -113,7 +116,7 @@ if(isset($_POST['submit_btn'])) {
         if (($part_number != "") && ($station_id != "") && ($part_family_id != "") && ($event_type_id != "")) {
 
 //production cycle is already active code
-            $sql_production = "select * from sg_station_event where line_id = '$station_id'  and event_status = '1'";
+            $sql_production = "select * from sg_station_event where line_id = '$station_id'  and event_status = '1' and event_type_id != 7;";
             $res_production = mysqli_query($db, $sql_production);
             $firstrow_production = mysqli_fetch_array($res_production);
 //		$condition = $firstrow_production['station_event_id'];
@@ -122,11 +125,9 @@ if(isset($_POST['submit_btn'])) {
                 $message_stauts_class = 'alert-danger';
                 $import_status_message = 'Error: This Station already has an active event.';
             } else {
-
                 $sql0 = "INSERT INTO `sg_station_event`(`line_id` , `part_family_id`, `part_number_id` , `event_type_id` ,`created_on`,`created_by`,`modified_on`,`modified_by`) VALUES ('$station_id','$part_family_id','$part_number','$event_type_id','$chicagotime','$user_id','$chicagotime','$user_id')";
                 $result0 = mysqli_query($db, $sql0);
                 $station_event_id = ($db->insert_id);
-
                 if ($result0) {
                     $qur1 = "select (count(station_event_id)) as seq_num from sg_station_event_log WHERE station_event_id='$station_event_id'";
                     $res = mysqli_query($db, $qur1);
@@ -161,6 +162,8 @@ if(isset($_POST['submit_btn'])) {
 
                     $message_stauts_class = 'alert-success';
                     $import_status_message = 'Station Event Created successfully.';
+					$uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=".$part_family_id."&part_number=".$part_number."&station_event_id=".$station_event_id;
+					header("Location:".$uuu);
                 } else {
                     $message_stauts_class = 'alert-danger';
                     $import_status_message = 'Error: Please Insert valid data';
@@ -193,6 +196,14 @@ if(isset($_POST['update_btn'])){
     }
     $sql = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`reason`,`event_seq` , `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',1,'$chicagotime','$user_id')";
     $result0 = mysqli_query($db, $sql);
+    if($event_type_id == 7){
+		$uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=&part_number=&station_event_id=";
+		header("Location:".$uuu);
+    }else{
+		$uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=".$part_family_id."&part_number=".$part_number."&station_event_id=".$station_event_id;
+		header("Location:".$uuu);
+    }
+
 }
 
 ?>
@@ -203,7 +214,7 @@ if(isset($_POST['update_btn'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> | Station Events</title>
+         <?php echo $sitename; ?> | Station Events</title>
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
@@ -575,143 +586,6 @@ if(isset($_POST['update_btn'])){
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Station Events</span>
                         </div>
-                        <?php if($event_type_id == 7){ ?>
-                            <div class="card-body">
-                                <div class="pd-30 pd-sm-20">
-                                    <div class="row row-xs">
-                                        <div class="col-md-1">
-                                            <label class="form-label mg-b-0">Station  </label>
-                                        </div>
-                                        <div class="col-md-4 mg-t-10 mg-md-t-0" style="pointer-events: none">
-                                            <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
-                                                <option value="" selected disabled>--- Select Station ---</option>
-                                                <?php
-                                                if($is_tab_login){
-                                                    $station_id=$tab_line;
-                                                    $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$tab_line' and is_deleted != 1 ORDER BY `line_name` ASC";
-                                                    $result1 = $mysqli->query($sql1);
-                                                    //                                            $entry = 'selected';
-                                                    while ($row1 = $result1->fetch_assoc()) {
-                                                        $entry = 'selected';
-                                                        echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
-                                                    }
-                                                }else if($is_cell_login){
-                                                    if(empty($_REQUEST)){
-                                                        $c_stations = implode("', '", $c_login_stations_arr);
-                                                        $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id IN ('$c_stations') and is_deleted != 1 ORDER BY `line_name` ASC";
-                                                        $result1 = $mysqli->query($sql1);
-//													                $                        $entry = 'selected';
-                                                        $i = 0;
-                                                        while ($row1 = $result1->fetch_assoc()) {
-//														$entry = 'selected';
-                                                            if($i == 0 ){
-                                                                $entry = 'selected';
-                                                                $station = $row1['line_id'];
-                                                                echo "<option value='" . $station . "'  $entry>" . $row1['line_name'] . "</option>";
-
-                                                            }else{
-                                                                echo "<option value='" . $row1['line_id'] . "'  >" . $row1['line_name'] . "</option>";
-
-                                                            }
-                                                            $i++;
-                                                        }
-                                                    }else{
-                                                        $line_id = $_REQUEST['line'];
-                                                        if(empty($line_id)){
-                                                            $line_id = $_REQUEST['station'];
-                                                        }
-                                                        $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id ='$line_id' and is_deleted != 1";
-                                                        $result1 = $mysqli->query($sql1);
-//
-                                                        while ($row1 = $result1->fetch_assoc()) {
-//
-                                                            $entry = 'selected';
-                                                            $station = $row1['line_id'];
-                                                            echo "<option value='" . $station . "'  $entry>" . $row1['line_name'] . "</option>";
-
-                                                        }
-                                                    }
-
-                                                }else{
-                                                    $station = $station_id;
-                                                    $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC";
-                                                    $result1 = $mysqli->query($sql1);
-                                                    while ($row1 = $result1->fetch_assoc()) {
-                                                        $lid = $row1['line_id'];
-                                                        if ($station == $lid) {
-                                                            $station = $lid;
-                                                            $entry = 'selected';
-                                                        } else {
-                                                            $entry = '';
-
-                                                        }
-                                                        echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
-                                                    }
-                                                }
-
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1 media"></div>
-                                        <div class="col-md-1" id="ex" >
-                                            <label class="form-label mg-b-0">Part Family  </label>
-                                        </div>
-                                        <div class="col-md-4 mg-t-10 mg-md-t-0 query">
-                                            <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
-                                                <option value="" selected disabled>--- Select Part Family ---</option>
-                                                <?php
-                                                $sql1 = "SELECT * FROM `pm_part_family` ORDER BY `part_family_name` ASC ";
-                                                $result1 = $mysqli->query($sql1);
-                                                //                                            $entry = 'selected';
-                                                while ($row1 = $result1->fetch_assoc()) {
-                                                    echo "<option value='" . $row1['pm_part_family_id'] . "'  >" . $row1['part_family_name'] . "</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pd-30 pd-sm-20">
-                                    <div class="row row-xs">
-                                        <div class="col-md-1">
-                                            <label class="form-label mg-b-0">Part Number  </label>
-                                        </div>
-                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                            <select name="part_number" id="part_number" class="select form-control select2" data-placeholder="Select Part Number">
-                                                <option value="" selected disabled>--- Select Part Number ---</option>
-                                                <?php
-                                                $sql1 = "SELECT * FROM `pm_part_number` ORDER BY `part_number` ASC ";
-                                                $result1 = $mysqli->query($sql1);
-                                                while ($row1 = $result1->fetch_assoc()) {
-                                                    echo "<option value='" . $row1['pm_part_number_id'] . "'  >" . $row1['part_number'] . "</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1 media"></div>
-                                        <div class="col-md-1" id="ex">
-                                            <label class="form-label mg-b-0">Event Type   </label>
-                                        </div>
-                                        <div class="col-md-4 mg-t-10 mg-md-t-0 query">
-                                            <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-placeholder="Select Event Type">
-                                                <option value="" selected disabled>--- Select Event Type ---</option>
-                                                <?php
-                                                $sql1 = "SELECT event_type_id ,event_cat_id,event_type_name, FIND_IN_SET('$station_id', stations) from `event_type` where FIND_IN_SET('$station_id', stations) IS NOT NULL and FIND_IN_SET('$station_id', stations) > 0 ORDER BY so ASC";
-                                                $result1 = $mysqli->query($sql1);
-                                                while ($row1 = $result1->fetch_assoc()) {
-                                                    echo "<option value='" . $row1['event_type_id'] ."_".$row1['event_cat_id']. "'  >" . $row1['event_type_name'] . "</option>";
-
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <button type="submit" name="submit_btn" class="btn btn-primary mg-t-5 submit_btn">Start Event</button>
-                                </div>
-                            </div>
-                        <?php }else{ ?>
                             <div class="card-body">
                                 <div class="pd-30 pd-sm-20">
                                     <div class="row row-xs">
@@ -890,12 +764,17 @@ if(isset($_POST['update_btn'])){
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body pt-0">
-                                    <button type="submit" name="update_btn" id="update_btn" class="btn btn-primary mg-t-5 update_btn">Update Event</button>
-                                </div>
-                            </div>
-                        <?php } ?>
 
+								<?php if($e_type_id == 7){ ?>
+                                    <div class="card-body pt-0">
+                                        <button type="submit" name="submit_btn" class="btn btn-primary mg-t-5 submit_btn">Start Event</button>
+                                    </div>
+								<?php } else{?>
+                                    <div class="card-body pt-0">
+                                        <button type="submit" name="update_btn" id="update_btn" class="btn btn-primary mg-t-5 update_btn">Update Event</button>
+                                    </div>
+								<?php } ?>
+                            </div>
                     </div>
                 </div>
             </div>
