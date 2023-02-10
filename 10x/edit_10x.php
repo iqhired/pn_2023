@@ -27,7 +27,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <title>
         <?php echo $sitename; ?> |Edit 10x</title>
     <!-- Global stylesheets -->
-    <link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+<!--    <link href="--><?php //echo $siteURL; ?><!--assets/css/bootstrap.css" rel="stylesheet" type="text/css">-->
     <link href="<?php echo $siteURL; ?>assets/css/style_main.css" rel="stylesheet" type="text/css">
 <!--    <script src="--><?php //echo $siteURL; ?><!--assets/js/libs/jquery-3.6.0.min.js"> </script>-->
     <!-- INTERNAL Select2 css -->
