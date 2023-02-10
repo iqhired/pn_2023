@@ -197,33 +197,40 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             margin-right: 6.25rem;
         }
         @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
+            .col-md-6.mg-t-10.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 178px!important;
             }
         }
 
         @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
+            .col-md-6.mg-t-10.mg-md-t-0{
+                max-width: 300px!important;
             }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
+            .col-md-4{
+                max-width: 178px!important;
             }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
+            .col-md-6.mg-t-10.mg-md-t-0{
+                max-width: 300px!important;
             }
-
+            .col-md-4{
+                max-width: 178px!important;
+            }
         }
+        @media (min-width: 614px) and (max-width: 874px) {
+            .col-md-6.mg-t-10.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 178px!important;
+            }
+        }
+
 
 
         table.dataTable thead .sorting:after {
@@ -313,10 +320,10 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs" id="badpiece">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Defect Name:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <input type="text" name="editdefect_name" id="editdefect_name" class="form-control" value="<?php echo $defect_name; ?>"  required readonly>
                                 </div>
                             </div>
@@ -324,10 +331,10 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Bad Pieces :</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <input type="number" name="editbad_name" min="1" id="editbad_name" class="form-control" placeholder="Enter Pieces..." value="<?php echo $bad_pieces; ?>" readonly>
                                 </div>
                             </div>
@@ -335,10 +342,10 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Defect Image:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     
                                     <?php
                                             $time_stamp = $_SESSION['good_timestamp_id'];
@@ -349,7 +356,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                                 $i =0 ;
                                                 while ($rowcimage = mysqli_fetch_array($qurimage)) {
                                                     $image = $rowcimage['good_image_name'];
-                                                    $mime_type = "image/gif";
+                                                   /* $mime_type = "image/gif";*/
                                                     $file_content = file_get_contents("$image");
                                                     $d_tag = "delete_image_" . $i;
                                                     $r_tag = "remove_image_" . $i;
@@ -357,7 +364,9 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                                     <div class="col-lg-3 col-sm-6">
                                                         <div class="thumbnail">
                                                             <div class="thumb">
-                                                                <?php echo '<img src="' . $image . '" style="" />'; ?>
+                                                                <img src="../assets/images/bad_piece_image/<?php echo $bad_pieces_id; ?>/<?php echo $image; ?>"
+                                                                     alt="">
+                                                                <?php /*echo '<img src="' . $image . '" style="" />'; */?>
                                                                 <div class="caption-overflow">
                                                                 <span>
                                                                 <a href="<?php echo $image; ?>"
@@ -385,10 +394,10 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Cross Section Image:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <div class="container"></div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div class="thumbnail">
@@ -402,10 +411,10 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Defect Zone :</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <input type="text" value="<?php echo $defect_zone; ?>" name="defect_zone" min="1" id="defect_zone" class="form-control" placeholder="Enter Zone..."  readonly>
                                 </div>
                             </div>
