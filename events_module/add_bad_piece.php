@@ -225,6 +225,40 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             width: 100px;
             height: 23px;
         }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .col-md-6.mg-t-10.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 178px!important;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .col-md-6.mg-t-10.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 178px!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .col-md-6.mg-t-10.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 178px!important;
+            }
+        }
+        @media (min-width: 614px) and (max-width: 874px) {
+            .col-md-6.mg-t-10.mg-md-t-0{
+                max-width: 300px!important;
+            }
+            .col-md-4{
+                max-width: 178px!important;
+            }
+        }
 
     </style>
 </head>
@@ -292,10 +326,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                          <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Select Type</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <div class="row mg-t-15">
                                             <div class="col-lg-3">
                                                 <label class="rdiobox">
@@ -310,10 +344,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                     </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Defect Name:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <input type="text" name="add_defect_name" id="add_defect_name" class="form-control" value="<?php echo $defect_list_name; ?>" readonly>
                                 </div>
                             </div>
@@ -322,10 +356,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">No of Pieces:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <input type="number" name="good_bad_piece_name" id="good_bad_piece_name" class="form-control" placeholder="Enter Pieces..." value="1" required>
                                 </div>
                             </div>
@@ -333,10 +367,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Image:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <?php if(($idddd == 0)){?>
                                     <div id="my_camera"></div>
                                         <br/>
@@ -361,10 +395,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                              <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
-                                 <div class="col-md-2">
+                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Previous Image:</label>
                                 </div>
-                                  <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                  <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <div class="container"></div>
                                     <?php
                                     $time_stamp = $_SESSION['good_timestamp_id'];
@@ -410,10 +444,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Cross Section Image:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <div class="container"></div>
                                            <div class="col-lg-3 col-sm-6">
                                                 <div class="thumbnail">
@@ -428,10 +462,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Defect Zone:</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <select name="defect_zone" id="defect_zone" class="form-control form-select select2"
                                             data-style="bg-slate">
                                         <option value="" selected disabled>- Select Defect Zone -</option>
