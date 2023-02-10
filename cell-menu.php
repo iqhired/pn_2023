@@ -207,7 +207,8 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 <!-- main-sidebar -->
 
 <!-- JQUERY JS -->
-<script src="<?php echo $siteURL;?>assets/js/form_js/jquery-min.js"></script>
+<!--<script src="--><?php //echo $siteURL;?><!--assets/js/form_js/jquery-min.js"></script>-->
+<!--<script src="--><?php //echo $siteURL;?><!--assets/js/libs/jquery-3.4.1.min.js"></script>-->
 
 <!-- BOOTSTRAP JS -->
 <script src="<?php echo $siteURL;?>assets/js/form_js/popper-min.js"></script>
