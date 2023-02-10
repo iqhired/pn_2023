@@ -234,6 +234,8 @@ if(isset($_POST['update_btn'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
          <?php echo $sitename; ?> | Station Events</title>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
@@ -241,7 +243,6 @@ if(isset($_POST['update_btn'])){
     <!-- Theme JS files -->
     <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
@@ -280,10 +281,9 @@ if(isset($_POST['update_btn'])){
     <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
     <!--Bootstrap-datepicker js-->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <style>
         .navbar {
 
@@ -579,10 +579,10 @@ if(isset($_POST['update_btn'])){
     include("../admin_menu.php");
 }
 ?>
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!-- container -->
     <!-- container -->
-    <div class="main-container container-fluid">
+    <div class="main-container container">
         <!-- breadcrumb -->
         <div class="breadcrumb-header justify-content-between">
             <div class="left-content">

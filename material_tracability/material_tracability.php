@@ -78,10 +78,8 @@ $logo = $rowccus['logo'];
     <title>
         <?php echo $sitename; ?> | Material Tracability</title>
 
-
-    <!-- INTERNAL Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
-
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
 
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
@@ -125,8 +123,6 @@ $logo = $rowccus['logo'];
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <!-- anychart documentation -->
-    <!-- INTERNAL Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
@@ -353,9 +349,9 @@ $logo = $rowccus['logo'];
     include("../admin_menu.php");
 }
 ?>
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!-- container -->
-    <div class="main-container container-fluid">
+    <div class="main-container container">
     <?php
     $st = $_REQUEST['station'];
     //$st_dashboard = base64_decode(urldecode($st));
