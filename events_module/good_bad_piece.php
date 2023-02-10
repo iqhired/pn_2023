@@ -262,8 +262,9 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
 
         }
         .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 240px;
+            padding-right: 240px;
+            margin-top: 4% !important;
         }
         .main-footer {
             margin-left: -127px;
