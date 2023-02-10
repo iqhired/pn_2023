@@ -597,112 +597,115 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         <div class="row ">
             <div class="col-12 col-sm-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            <button type="button" class="btn btn-danger btn-sm br-5" onclick="submitForm('delete_form_option.php')">
-                                <i>
-                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                </i>
-                            </button></h4>
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="table-responsive">
-                            <table class="table  table-bordered text-nowrap mb-0" id="example2">
-                                <thead>
-                                <tr>
-                                    <th><label class="ckbox"><input type="checkbox" id="checkAll" ><span></span></label></th>
-                                    <th class="text-center">S.No</th>
-                                    <th>Action</th>
-                                    <th>Good Pieces</th>
-                                    <th>Defect Name</th>
-                                    <th>Bad Pieces</th>
-                                    <th>Re-Work</th>
-                                    <th>Status</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                $station_event_id = $_GET['station_event_id'];
-                                $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' order by gbpd.bad_pieces_id DESC");
-                                $qur = mysqli_query($db, $query);
-                                while ($rowc = mysqli_fetch_array($qur)) {
-                                    $bad_pieces_id = $rowc['bad_pieces_id'];
-                                    $good_pieces = $rowc['good_pieces'];
-                                    $bad_pieces = $rowc['bad_pieces'];
-                                    $rework = $rowc['rework'];
-                                    $style = "";
-
-                                    ?>
+                    <form action="delete_good_bad_piece.php" method="post" class="form-horizontal">
+                        <input type="hidden" name="station_event_id" value="<?php echo $_GET['station_event_id']; ?>">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <button type="submit" class="btn btn-danger btn-sm br-5">
+                                    <i>
+                                        <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                                    </i>
+                                </button></h4>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="table-responsive">
+                                <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                    <thead>
                                     <tr>
-                                        <td class="text-center"><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["bad_pieces_id"]; ?>"><span></span></label></td>
-                                        <td><?php echo ++$counter; ?></td>
-                                        <td class="">
-											<?php   if($rowc['good_pieces'] != ""){ ?>
-                                                <a  href="<?php echo $siteURL; ?>events_module/edit_good_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                                    data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                                                    data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
-                                                    <i>
-                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                    </i>
-                                                </a>
-											<?php } elseif($rowc['bad_pieces'] != ""){?>
-                                                <a href="<?php echo $siteURL; ?>events_module/edit_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                                   data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                                                   data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
-                                                    <i>
-                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                    </i>
-                                                </a>
-												<?php if($rowc['bad_pieces'] != "")  { ?>
-                                                    <a href="<?php echo $siteURL; ?>events_module/view_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                                       data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
-                                                        <i class="fa fa-eye" style="padding: 4px;font-size: 14px;margin-left: -3px;"></i>
-                                                    </a> <?php }else{ echo $line; } ?>
-											<?php } else{ ?>
-                                                <a href="<?php echo $siteURL; ?>events_module/rework_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
-                                                   data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
-                                                   data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
-                                                    <i>
-                                                        <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                    </i>
-                                                </a>
-											<?php } ?>
-                                        </td>
-                                        <td><?php if($rowc['good_pieces'] != ""){echo $rowc['good_pieces']; }else{ echo $line; } ?></td>
-                                        <td><?php $un = $rowc['defect_name']; if($un != ""){ echo $un; }else{ echo $line; } ?></td>
-                                        <td><?php if($rowc['bad_pieces'] != ""){echo $rowc['bad_pieces'];}else{ echo $line; } ?></td>
-                                        <td><?php if($rowc['rework'] != ""){echo $rowc['rework']; }else{ echo $line; } ?></td>
-                                        <?php
-                                        $qur04 = mysqli_query($db, "SELECT * FROM good_bad_pieces_details where station_event_id= '$station_event_id' ORDER BY `bad_pieces_id` DESC LIMIT 1");
-                                        $rowc04 = mysqli_fetch_array($qur04);
-                                        $bad_trace_id = $rowc04["bad_pieces_id"];
-
-                                        $query1 = sprintf("SELECT bad_piece_id,good_image_name FROM  good_piece_images where bad_piece_id = '$bad_trace_id'");
-                                        $qur1 = mysqli_query($db, $query1);
-                                        $rowc1 = mysqli_fetch_array($qur1);
-                                        $item_id = $rowc1['bad_piece_id'];
-                                        $image_name = $rowc1['good_image_name'];
-
-                                        ?>
-                                        <?php
-                                        if($rowc['good_pieces'] != ""){ ?>
-                                            <td><span class="badge badge-success">Good Pieces</span></td>
-                                        <?php }
-                                        if($rowc['bad_pieces'] != ""){ ?>
-                                            <td><span class="badge badge-danger">Bad Pieces</span></td>
-                                        <?php }
-                                        if($rowc['rework'] != ""){ ?>
-                                            <td><span class="badge badge-primary">Rework Pieces</span></td>
-                                        <?php } ?>
-
+                                        <th><label class="ckbox"><input type="checkbox" id="checkAll" ><span></span></label></th>
+                                        <th class="text-center">S.No</th>
+                                        <th>Action</th>
+                                        <th>Good Pieces</th>
+                                        <th>Defect Name</th>
+                                        <th>Bad Pieces</th>
+                                        <th>Re-Work</th>
+                                        <th>Status</th>
 
                                     </tr>
-                                <?php } ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $station_event_id = $_GET['station_event_id'];
+                                    $query = sprintf("SELECT gbpd.bad_pieces_id as bad_pieces_id , gbpd.good_pieces as good_pieces, gbpd.defect_name as defect_name, gbpd.bad_pieces as bad_pieces ,gbpd.rework as rework FROM good_bad_pieces_details as gbpd where gbpd.station_event_id  = '$station_event_id' order by gbpd.bad_pieces_id DESC");
+                                    $qur = mysqli_query($db, $query);
+                                    while ($rowc = mysqli_fetch_array($qur)) {
+                                        $bad_pieces_id = $rowc['bad_pieces_id'];
+                                        $good_pieces = $rowc['good_pieces'];
+                                        $bad_pieces = $rowc['bad_pieces'];
+                                        $rework = $rowc['rework'];
+                                        $style = "";
+
+                                        ?>
+                                        <tr>
+                                            <td class="text-center"><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["bad_pieces_id"]; ?>"><span></span></label></td>
+                                            <td><?php echo ++$counter; ?></td>
+                                            <td class="">
+                                                <?php   if($rowc['good_pieces'] != ""){ ?>
+                                                    <a  href="<?php echo $siteURL; ?>events_module/edit_good_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
+                                                        data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
+                                                        data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
+                                                        <i>
+                                                            <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                        </i>
+                                                    </a>
+                                                <?php } elseif($rowc['bad_pieces'] != ""){?>
+                                                    <a href="<?php echo $siteURL; ?>events_module/edit_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
+                                                       data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
+                                                       data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
+                                                        <i>
+                                                            <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                        </i>
+                                                    </a>
+                                                    <?php if($rowc['bad_pieces'] != "")  { ?>
+                                                        <a href="<?php echo $siteURL; ?>events_module/view_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
+                                                           data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
+                                                            <i class="fa fa-eye" style="padding: 4px;font-size: 14px;margin-left: -3px;"></i>
+                                                        </a> <?php }else{ echo $line; } ?>
+                                                <?php } else{ ?>
+                                                    <a href="<?php echo $siteURL; ?>events_module/rework_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
+                                                       data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
+                                                       data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
+                                                        <i>
+                                                            <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                        </i>
+                                                    </a>
+                                                <?php } ?>
+                                            </td>
+                                            <td><?php if($rowc['good_pieces'] != ""){echo $rowc['good_pieces']; }else{ echo $line; } ?></td>
+                                            <td><?php $un = $rowc['defect_name']; if($un != ""){ echo $un; }else{ echo $line; } ?></td>
+                                            <td><?php if($rowc['bad_pieces'] != ""){echo $rowc['bad_pieces'];}else{ echo $line; } ?></td>
+                                            <td><?php if($rowc['rework'] != ""){echo $rowc['rework']; }else{ echo $line; } ?></td>
+                                            <?php
+                                            $qur04 = mysqli_query($db, "SELECT * FROM good_bad_pieces_details where station_event_id= '$station_event_id' ORDER BY `bad_pieces_id` DESC LIMIT 1");
+                                            $rowc04 = mysqli_fetch_array($qur04);
+                                            $bad_trace_id = $rowc04["bad_pieces_id"];
+
+                                            $query1 = sprintf("SELECT bad_piece_id,good_image_name FROM  good_piece_images where bad_piece_id = '$bad_trace_id'");
+                                            $qur1 = mysqli_query($db, $query1);
+                                            $rowc1 = mysqli_fetch_array($qur1);
+                                            $item_id = $rowc1['bad_piece_id'];
+                                            $image_name = $rowc1['good_image_name'];
+
+                                            ?>
+                                            <?php
+                                            if($rowc['good_pieces'] != ""){ ?>
+                                                <td><span class="badge badge-success">Good Pieces</span></td>
+                                            <?php }
+                                            if($rowc['bad_pieces'] != ""){ ?>
+                                                <td><span class="badge badge-danger">Bad Pieces</span></td>
+                                            <?php }
+                                            if($rowc['rework'] != ""){ ?>
+                                                <td><span class="badge badge-primary">Rework Pieces</span></td>
+                                            <?php } ?>
+
+
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
