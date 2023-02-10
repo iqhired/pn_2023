@@ -74,7 +74,9 @@ if (count($_POST) > 0) {
 
 
     <!-- /global stylesheets -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- JQUERY JS -->
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
