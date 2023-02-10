@@ -30,10 +30,6 @@ if(!empty($result1)) {
 	}
 }
 ?>
-<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/styling/uniform.min.js"></script>
-<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/styling/switchery.min.js"></script>
-<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/components_dropdowns.js"></script>
-<link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
 <style>
     .header {
         overflow: hidden;

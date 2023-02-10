@@ -56,7 +56,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
 
 
     <!-- /global stylesheets -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -102,7 +102,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
     <!--Bootstrap-datepicker js-->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
-<!--    <script src="--><?php //echo $siteURL; ?><!--assets/js/form_js/select2.min.js"></script>-->
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <!-- Internal form-elements js -->
@@ -309,9 +309,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
 }
 ?>
 <!-- main-content -->
-   <div class="main-content app-content">
+   <div class="main-content horizontal-content">
     <!-- container -->
-        <div class="main-container container-fluid">
+        <div class="main-container container">
         <!-- breadcrumb -->
         <div class="breadcrumb-header justify-content-between">
             <div class="left-content">
@@ -450,7 +450,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                                         <label class="form-label mg-b-0">Part Family</label>
                                     </div>
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                        <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Family">
+                                        <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
                                             <option value="" selected disabled> Select Part Number </option>
                                             <?php
                                             $st_dashboard = $_GET['station'];
@@ -738,22 +738,14 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                     <div class="card  box-shadow-0">
                         <div class="card-body pt-0">
                             <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" name="add_more" id="add_more"><i class="fa fa-plus"></i> ADD MORE FORM ITEMS</button>
+                            <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="form_submit_btn" class="btn btn-primary submit_btn">Create</button>
+
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <input type="hidden" name="click_id" id="click_id" >
-
-            </div>
-            <div class="row row-sm">
-                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-                    <div class="card  box-shadow-0">
-                        <div class="card-body pt-0">
-                            <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="form_submit_btn" class="btn btn-primary submit_btn">Create</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </form>
     </div>

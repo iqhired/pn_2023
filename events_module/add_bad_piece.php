@@ -262,7 +262,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
     </style>
 </head>
-<body class="ltr main-body app horizontal"   onload="openScanner()">
+<body class="ltr main-body app horizontal">
 
 <!-- Main navbar -->
 <?php if (!empty($station) || !empty($station_event_id)){
@@ -318,10 +318,11 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             <div class="col-lg-12 col-md-12">
                 
                 <div class="card">
+                    <div class="card-header">
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Add Bad Piece</span>
+                    </div>
                     <div class="card-body">
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Add Bad Piece</span>
-                        </div>
+
 
 
                          <div class="pd-30 pd-sm-20">
@@ -368,13 +369,15 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Image:</label>
+                                    <label class="form-label mg-b-0">Snapshot:</label>
                                 </div>
                                 <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <?php if(($idddd == 0)){?>
                                     <div id="my_camera"></div>
                                         <br/>
-                                        <input type=button class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot()">
+<!--                                        <input type=button class="btn btn-primary btn-camera" value="Take Snapshot" onClick="take_snapshot()" >-->
+                                        <button type="button" class="btn btn-primary btn-camera" onClick="take_snapshot()"><i class="fa fa-camera"></i></button>
+<!--                                        <input type=button class="btn btn-primary btn-camera" value="Take Snapshot" onClick="take_snapshot()" >-->
                                         <input type="hidden" name="image" id="image" class="image-tag" accept="image/*,capture=camera"/>
                                         <?php } ?>
                                         <?php if(($idddd != 0)){?>
@@ -466,8 +469,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     <label class="form-label mg-b-0">Defect Zone:</label>
                                 </div>
                                 <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                    <select name="defect_zone" id="defect_zone" class="form-control form-select select2"
-                                            data-style="bg-slate">
+                                    <select name="defect_zone" id="defect_zone" class="form-control form-select select2" data-style="bg-slate">
                                         <option value="" selected disabled>- Select Defect Zone -</option>
                                         <option value="<?php echo defect_block[0];?>">A1</option>
                                         <option value="<?php echo defect_block[1];?>">A2</option>
@@ -506,46 +508,49 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         width: 290,
         height: 190,
         image_format: 'jpeg',
+        force_flash: false,
         jpeg_quality: 90
     });
     var camera = document.getElementById("my_camera");
-    Webcam.attach( camera );
+    Webcam.attach(camera);
 </script>
 <script>
     function take_snapshot() {
-        Webcam.snap( function(data_uri) {
-            // var data = "&btype="+document.getElementsByName("bad_type")[0].checked;
-            var formData =  $(".image-tag").val(data_uri);
-            document.getElementById('rww').value = document.getElementsByName("bad_type")[1].checked;
-            document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
-            $.ajax({
-                url: "bad_piece_cam_backend.php",
-                type: "POST",
-                data:formData,
-                success: function (msg) {
-                    var url = window.location.href;
-                    var url = new URL(url);
-                    var search_params = url.searchParams;
-                    var isRtype = document.getElementById('rww').value;
-                    search_params.set('rwork', '0');
-                    if(isRtype == "true"){
-                        search_params.set('rwork', '1');
-                    }
-                    // change the search property of the main url
-                    url.search = search_params.toString();
+        if(Webcam.loaded == true){
+            Webcam.snap( function(data_uri) {
+                // var data = "&btype="+document.getElementsByName("bad_type")[0].checked;
+                var formData =  $(".image-tag").val(data_uri);
+                document.getElementById('rww').value = document.getElementsByName("bad_type")[1].checked;
+                document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+                $.ajax({
+                    url: "bad_piece_cam_backend.php",
+                    type: "POST",
+                    data:formData,
+                    success: function (msg) {
+                        var url = window.location.href;
+                        var url = new URL(url);
+                        var search_params = url.searchParams;
+                        var isRtype = document.getElementById('rww').value;
+                        search_params.set('rwork', '0');
+                        if(isRtype == "true"){
+                            search_params.set('rwork', '1');
+                        }
+                        // change the search property of the main url
+                        url.search = search_params.toString();
 
 // the new url string
-                    var new_url = url.toString();
-                    // if (url.indexOf('?') > -1){
-                    //     url += rw
-                    // }else{
-                    //     url += ('?'+rw)
-                    // }
-                    window.location.href = new_url;
-                },
+                        var new_url = url.toString();
+                        // if (url.indexOf('?') > -1){
+                        //     url += rw
+                        // }else{
+                        //     url += ('?'+rw)
+                        // }
+                        window.location.href = new_url;
+                    },
 
+                });
             });
-        });
+        }
     }
 </script>
 

@@ -63,7 +63,8 @@ if (count($_POST) > 0) {
     <title>
         <?php echo $sitename; ?> |10x Form List</title>
 
-
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
 
@@ -79,8 +80,6 @@ if (count($_POST) > 0) {
     <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
     <!--Bootstrap-datepicker css-->
     <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
-    <!-- Internal Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
@@ -110,8 +109,6 @@ if (count($_POST) > 0) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/js/form_css/demo.css" rel="stylesheet"/>
     <!-- anychart documentation -->
-    <!-- INTERNAL Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
@@ -284,9 +281,9 @@ if (count($_POST) > 0) {
     include("../admin_menu.php");
 }
 ?>
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!-- container -->
-    <div class="main-container container-fluid">
+    <div class="main-container container">
         <div class="breadcrumb-header justify-content-between">
             <div class="left-content">
                 <ol class="breadcrumb">
@@ -482,6 +479,6 @@ if (count($_POST) > 0) {
             $('#date_from').attr('max', maxDate);
         });
     </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
 </html>

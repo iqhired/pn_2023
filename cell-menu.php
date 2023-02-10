@@ -39,8 +39,9 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 <!-- SWITCHER CSS -->
 <link href="<?php echo $siteURL; ?>assets/css/form_css/switcher.css" rel="stylesheet"/>
 <link href="<?php echo $siteURL; ?>assets/css/form_css/font-awesome.css" rel="stylesheet"/>
-<link href="<?php echo $siteURL; ?>assets/css/menu.css" rel="stylesheet" type="text/css">
 <script src="<?php echo $siteURL; ?>assets/js/fontawesome.js"></script>
+<link href="<?php echo $siteURL; ?>assets/css/menu.css" rel="stylesheet" type="text/css">
+
 
 
 <style>

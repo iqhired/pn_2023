@@ -26,6 +26,8 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         <?php echo $sitename; ?> |Edit 10x</title>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <!-- Global stylesheets -->
 <!--    <link href="--><?php //echo $siteURL; ?><!--assets/css/bootstrap.css" rel="stylesheet" type="text/css">-->
     <link href="<?php echo $siteURL; ?>assets/css/style_main.css" rel="stylesheet" type="text/css">
@@ -76,8 +78,6 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <!-- anychart documentation -->
-    <!-- INTERNAL Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
@@ -470,7 +470,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     <div class="row">
                                         <div class="col-lg-12 col-sm-12">
                                             <div class="card">
-                                                <div class="card-body pt-0">
+<!--                                                <div class="card-body pt-0">-->
                                                     <div class="card-header">
                                                         <span class="main-content-title mg-b-0 mg-b-lg-1">Edit 10x</span>
                                                     </div>
@@ -586,18 +586,12 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                                             </div>
                                                         </div>
                                                     </div>
+                                                <div class="card-body pt-0">
+                                                    <button type="submit" id="form_submit_btn" class="btn btn-primary submit_btn">Update</button>
                                                 </div>
+<!--                                                </div>-->
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-lg-12 col-sm-12">
-                                           <div class="card">
-                                               <div class="card-body pt-0">
-                                                    <button type="submit" id="form_submit_btn" class="btn btn-primary submit_btn">Update</button>
-                                               </div>
-                                           </div>
-                                       </div>
                                     </div>
         </form>
     <?php } ?>

@@ -81,6 +81,8 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         <?php echo $sitename; ?> | View 10x Form</title>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
     <!-- STYLES CSS -->
@@ -122,7 +124,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_css/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <!-- anychart documentation -->
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
@@ -281,8 +283,8 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     include("../admin_menu.php");
 }
 ?>
-<div class="main-content app-content">
-    <div class="main-container container-fluid">
+<div class="main-content horizontal-content">
+    <div class="main-container container">
         <div class="breadcrumb-header justify-content-between">
             <div class="left-content">
                 <ol class="breadcrumb">
