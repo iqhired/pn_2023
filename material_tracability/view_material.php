@@ -79,7 +79,8 @@ $logo = $rowccus['logo'];
 
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
 
     <!-- /global stylesheets -->
     <!-- Core JS files -->
@@ -111,10 +112,8 @@ $logo = $rowccus['logo'];
     <!-- Theme JS files -->
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/media/fancybox.min.js"></script>
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_select2.js"></script>
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/gallery.js"></script>
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
@@ -124,8 +123,6 @@ $logo = $rowccus['logo'];
     <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
     <!--Bootstrap-datepicker css-->
     <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
-    <!-- Internal Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
@@ -372,9 +369,10 @@ if (!empty($station) || !empty($station_event_id)){
 
 <body class="ltr main-body app horizontal">
 <!-- main-content -->
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!-- container -->
     <!-- breadcrumb -->
+    <div class="main-container container">
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
@@ -401,32 +399,30 @@ if (!empty($station) || !empty($station_event_id)){
           class="form-horizontal" method="post" autocomplete="off">
         <div class="row row-sm">
             <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                <?php
+                $id = $_GET['id'];
+                $querymain = sprintf("SELECT * FROM `material_tracability` where material_id = '$id' ");
+                $qurmain = mysqli_query($db, $querymain);
+
+                while ($rowcmain = mysqli_fetch_array($qurmain)) {
+                $formname = $rowcmain['line_no'];
+
+                ?>
+                <?php
+
+                $line_no = "SELECT line_id,line_name from cam_line where line_id = '$formname'";
+                $rowline = mysqli_query($db,$line_no);
+                $sqlline = mysqli_fetch_assoc($rowline);
+                $line_number = $sqlline['line_name'];
+                ?>
                 <div class="card-header">
-                    <span class="main-content-title mg-b-0 mg-b-lg-1">View Material Traceability</span>
+                    <span class="main-content-title mg-b-0 mg-b-lg-1">View Material Traceability - <?php echo $line_number; ?></span>
                 </div>
                 <div class="card  box-shadow-0">
                     <div class="card-body pt-0">
                         <div class="pd-30 pd-sm-20">
-                            <?php
-                            $id = $_GET['id'];
-                            $querymain = sprintf("SELECT * FROM `material_tracability` where material_id = '$id' ");
-                            $qurmain = mysqli_query($db, $querymain);
 
-                            while ($rowcmain = mysqli_fetch_array($qurmain)) {
-                            $formname = $rowcmain['line_no'];
 
-                            ?>
-                            <?php
-
-                            $line_no = "SELECT line_id,line_name from cam_line where line_id = '$formname'";
-                            $rowline = mysqli_query($db,$line_no);
-                            $sqlline = mysqli_fetch_assoc($rowline);
-                            $line_number = $sqlline['line_name'];
-                            ?>
-                            <div class="card-header">
-                                <span class="main-content-title mg-b-0 mg-b-lg-1"><center><?php echo $line_number; ?></center></span>
-                            </div>
-                            <br/>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <input type="hidden" name="name" id="name"
                                        value="<?php echo $rowcmain['station_event_id']; ?>">
@@ -573,7 +569,7 @@ if (!empty($station) || !empty($station_event_id)){
                                 <div class="col-md-10 mg-t-5 mg-md-t-0">
                                     <?php $create_date = $rowcmain['created_at'];?>
                                     <input type="text" name="createdby" class="form-control" id="createdby"
-                                           value="<?php echo $create_date; ?>" disabled>
+                                           value="<?php echo dateReadFormat($create_date); ?>" disabled>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -614,6 +610,7 @@ if (!empty($station) || !empty($station_event_id)){
             </div>
         </div>
     </form>
+    </div>
 </div>
 <script>
     $(".compare_text").keyup(function () {
