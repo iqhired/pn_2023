@@ -375,7 +375,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                         $i =0 ;
                                         while ($rowcimage = mysqli_fetch_array($qurimage)) {
                                             $image = $rowcimage['good_image_name'];
-                                            $mime_type = "image/gif";
+                                          /*  $mime_type = "image/gif";*/
                                             $file_content = file_get_contents("$image");
                                             $d_tag = "delete_image_" . $i;
                                             $r_tag = "remove_image_" . $i;
@@ -384,8 +384,9 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                             <div class="col-lg-3 col-sm-6">
                                                 <div class="thumbnail">
                                                     <div class="thumb">
-                                                        <?php echo '<img src="' . $image . '" style="height:50px;width:150px;border: 1px solid #555;" alt=""/>'; ?>
-
+                                                        <?php /*echo '<img src="' . $image . '" style="height:50px;width:150px;border: 1px solid #555;" alt=""/>'; */?>
+                                                        <img src="../assets/images/bad_piece_image/<?php echo $time_stamp; ?>/<?php echo $image; ?>"
+                                                             alt="">
                                                         <input type="hidden"  id="<?php echo $d_tag; ?>" name="<?php echo $d_tag; ?>" class="<?php echo $d_tag; ?> >" value="<?php echo $rowcimage['good_image_id']; ?>">
                                                         <span class="remove remove_image" id="<?php echo $r_tag; ?>">Remove Image </span>
                                                     </div>
