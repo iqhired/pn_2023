@@ -112,7 +112,8 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
     <title>
         <?php echo $sitename; ?> | Good Bad Piece</title>
 
-
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
 
@@ -262,9 +263,9 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
 
         }
         .main-content .container, .main-content .container-fluid {
-            padding-left: 240px;
-            padding-right: 240px;
-            margin-top: 4% !important;
+            padding-left: 20px;
+            padding-right: 238px;
+
         }
         .main-footer {
             margin-left: -127px;
@@ -349,7 +350,11 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
             width: 196px;
             font-weight: 600!important;
         }
-
+        .main-header {
+            margin-bottom: 2% !important;
+            /*padding-left: 8% !important;*/
+            /*padding-right: 7%;*/
+        }
     </style>
 
 </head>
@@ -366,10 +371,10 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
 
 
 <!-- main-content -->
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
 
     <!-- container -->
-    <div class="main-container container-fluid">
+    <div class="main-container container">
 
 
         <!-- breadcrumb -->
