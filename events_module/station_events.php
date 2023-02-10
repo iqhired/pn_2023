@@ -76,11 +76,11 @@ if(isset($_POST['submit_btn'])) {
         $event_row = mysqli_fetch_array($sta_res);
         $is_present = $event_row['event_type_id'];
 
-        if ($is_present == '7') {
+        /*if ($is_present == '7') {
             $message_stauts_class = 'alert-success';
             $import_status_message = 'Event cycle was already Ended.';
-        } else {
-            if ($edit_event_id == $fr_event_type_id) {
+        } else {*/
+          /*  if ($edit_event_id == $fr_event_type_id) {
                 $sql = "update sg_station_event set event_status = '0' ,event_type_id='$edit_event_id', modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
                 $result1 = mysqli_query($db, $sql);
                 if ($result1) {
@@ -95,7 +95,7 @@ if(isset($_POST['submit_btn'])) {
                 $result0 = mysqli_query($db, $sql);
 
 
-            } else {
+            } else {*/
                 /* $sql = "update sg_station_event set event_type_id='$edit_event_id', reason='$reason' ,modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
                  $result1 = mysqli_query($db, $sql);
                  if ($result1) {
@@ -110,8 +110,8 @@ if(isset($_POST['submit_btn'])) {
                  $result0 = mysqli_query($db, $sql);
  */
 
-            }
-        }
+            /*}*/
+     /*   }*/
     } else {
         if (($part_number != "") && ($station_id != "") && ($part_family_id != "") && ($event_type_id != "")) {
 
@@ -129,6 +129,9 @@ if(isset($_POST['submit_btn'])) {
                 $result0 = mysqli_query($db, $sql0);
                 $station_event_id = ($db->insert_id);
                 if ($result0) {
+                    $sql0 = "insert into form_frequency_data(`station_event_id`,`line_up_time`,`up_time`,`event_type_id`) values ('$station_event_id','$chicagotime','$ttime','$event_type_id')";
+                    $result0 = mysqli_query($db, $sql0);
+
                     $qur1 = "select (count(station_event_id)) as seq_num from sg_station_event_log WHERE station_event_id='$station_event_id'";
                     $res = mysqli_query($db, $qur1);
                     $firstrow = mysqli_fetch_array($res);
@@ -185,25 +188,41 @@ if(isset($_POST['update_btn'])){
     $part_number = $_POST['part_number'];
     $event_type_id = $_POST['event_type_id'];
     $station_event_id = $_GET['station_event_id'];
-    $sql = "update sg_station_event set event_type_id='$event_type_id', reason='$reason' ,modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
-    $result1 = mysqli_query($db, $sql);
-    if ($result1) {
-        $message_stauts_class = 'alert-success';
-        $import_status_message = 'Event status Updated successfully.';
-    } else {
-        $message_stauts_class = 'alert-danger';
-        $import_status_message = 'Error: Please Insert valid data';
-    }
-    $sql = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`reason`,`event_seq` , `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',1,'$chicagotime','$user_id')";
-    $result0 = mysqli_query($db, $sql);
-    if($event_type_id == 7){
-		$uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=&part_number=&station_event_id=";
-		header("Location:".$uuu);
-    }else{
-		$uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=".$part_family_id."&part_number=".$part_number."&station_event_id=".$station_event_id;
-		header("Location:".$uuu);
-    }
+      if($event_type_id == 7){
+                $sql = "update sg_station_event set event_status = '0' ,event_type_id='$event_type_id', modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
+                $result1 = mysqli_query($db, $sql);
+                if ($result1) {
+                    $message_stauts_class = 'alert-success';
+                    $import_status_message = 'Event Cycle Completed for the Station.';
+                } else {
+                    $message_stauts_class = 'alert-danger';
+                    $import_status_message = 'Error: Please Insert valid data';
+                }
 
+                $sql = "INSERT INTO `sg_station_event_log`(`station_event_id`  ,`reason`,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',0,'$chicagotime','$user_id')";
+                $result0 = mysqli_query($db, $sql);
+
+        } else {
+        $sql11 = "update sg_station_event set event_type_id='$event_type_id', reason='$reason' ,modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
+        $result11 = mysqli_query($db, $sql11);
+        if ($result11) {
+            $message_stauts_class = 'alert-success';
+            $import_status_message = 'Event Station Updated Successfully.';
+        } else {
+            $message_stauts_class = 'alert-danger';
+            $import_status_message = 'Error: Please Insert valid data';
+        }
+
+        $sql111 = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`reason`,`event_seq` , `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',1,'$chicagotime','$user_id')";
+        $result0 = mysqli_query($db, $sql111);
+    }
+    /*if($event_type_id == 7){
+        $uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=&part_number=&station_event_id=";
+        header("Location:".$uuu);
+    }else{
+        $uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=".$part_family_id."&part_number=".$part_number."&station_event_id=".$station_event_id;
+        header("Location:".$uuu);
+    }*/
 }
 
 ?>
@@ -707,7 +726,7 @@ if(isset($_POST['update_btn'])){
                                                 if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                     $part_number = $_REQUEST['part_number'];
                                                 }
-                                                $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                $sql1 = "SELECT * FROM `pm_part_number` where station in('2','3','4','5','6','7','8') and part_number like 'E0%' and part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
                                                 $result1 = $mysqli->query($sql1);
                                                 //                                            $entry = 'selected';
                                                 while ($row1 = $result1->fetch_assoc()) {
