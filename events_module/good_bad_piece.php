@@ -355,6 +355,12 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
             /*padding-left: 8% !important;*/
             /*padding-right: 7%;*/
         }
+        .card.text-white {
+            height: 80%;
+        }
+        .card .card{
+            height: 48vh;
+        }
     </style>
 
 </head>

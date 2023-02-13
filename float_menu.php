@@ -84,20 +84,45 @@ $station = $_GET['station'];
             margin: auto;
             padding: 0px 30px;
         }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .col-lg-9.col-md-9 {
+                width: 70%;
+            }
+            .col-lg-3.col-md-3 {
+                width: 30%;
+            }
+        }
+        @media (min-width: 481px) and (max-width: 768px) {
+            .col-lg-9.col-md-9 {
+                width: 70%;
+            }
+            .col-lg-3.col-md-3 {
+                width: 30%;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .col-lg-9.col-md-9 {
+                width: 70%;
+            }
+            .col-lg-3.col-md-3 {
+                width: 30%;
+            }
+        }
+        .row {
+            padding: 10px;
+        }
     </style>
 </head>
+
+<body class="ltr main-body app horizontal">
 <?php
 $cust_cam_page_header = "Cell Status Dashboard";
 include("header.php");
 ?>
-<body class="ltr main-body app horizontal">
 <!-- main-content -->
-<div class="main-content horizontal-content">
-
-
+    <div class="main-content app-content">
     <!-- container -->
     <div class="main-container container">
-
 
         <!-- breadcrumb -->
         <div class="breadcrumb-header justify-content-between">
@@ -147,18 +172,18 @@ while ($rowc = mysqli_fetch_array($qur)) {
 
     } ?>
         <div class="row">
-      <div style="float: left;margin-left: 5%;margin-bottom: 2%;" class="col-lg-6 col-md-6">
-          <h2><?php echo $line_name;?> - Station Menu</h2>
-        </div>
-        <div style="text-align: end;" class="col-lg-5 col-md-5">
-<!--            <a href="--><?php //echo $siteURL; ?><!--line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>-->
-<!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>-->
-            <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white">Main Home</a>
-<!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white">Cell Dashboard</a>-->
+               <div class="col-lg-9 col-md-9">
+                  <h2><?php echo $line_name;?> - Station Menu</h2>
+                </div>
+                <div class="col-lg-3 col-md-3">
+        <!--            <a href="--><?php //echo $siteURL; ?><!--line_status_grp_dashboard.php" class="btn bg-success text-white"><i class="fa-solid fa-house"></i></a>-->
+        <!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white"><i class="fa-solid fa-table-cells-large"></i></a>-->
+                    <a href="<?php echo $siteURL; ?>line_status_grp_dashboard.php" class="btn bg-success text-white">Main Home</a>
+        <!--            <a href="--><?php //echo $siteURL; ?><!--cell_overview_dashboard.php?cell_id=--><?php //echo $cellID; ?><!--&c_name=--><?php //echo $c_name; ?><!--" class="btn bg-success text-white">Cell Dashboard</a>-->
 
+                </div>
         </div>
-        </div>
-        <div class="row ">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card custom-card">
                     <div class="card-body pb-0">
@@ -225,9 +250,8 @@ while ($rowc = mysqli_fetch_array($qur)) {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+
 <!-- Footer opened -->
 <?php include('footer1.php') ?>
 
@@ -243,5 +267,6 @@ while ($rowc = mysqli_fetch_array($qur)) {
         });
     });
 </script>
+    </div>
 </body>
 </html>

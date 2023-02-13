@@ -393,7 +393,8 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                                     <div class="col-md-4">
                                         <label class="form-label mg-b-0">Station</label>
                                     </div>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <?php if (!empty($station)){ ?>
+                                    <div class="col-md-8 mg-t-5 mg-md-t-0" style="pointer-events: none;">
                                         <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                             <option value="" selected disabled> Select Station </option>
                                             <?php
@@ -431,7 +432,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                                                 while ($row1 = $result1->fetch_assoc()) {
                                                     if($st_dashboard == $row1['line_id'])
                                                     {
-                                                        $entry = 'selected disabled';
+                                                        $entry = 'selected';
                                                     }
                                                     else
                                                     {
@@ -444,6 +445,60 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                                             ?>
                                         </select>
                                     </div>
+                                        <?php } else { ?>
+                                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                            <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
+                                                <option value="" selected disabled> Select Station </option>
+                                                <?php
+                                                $st_dashboard = $_GET['station'];
+                                                if($is_tab_login){
+                                                    $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$tab_line' and is_deleted != 1 ORDER BY `line_name` ASC";
+                                                    $result1 = $mysqli->query($sql1);
+
+                                                    while ($row1 = $result1->fetch_assoc()) {
+                                                        $entry = 'selected';
+                                                        echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                                    }
+                                                }else if($is_cell_login){
+                                                    $c_stations = implode("', '", $c_login_stations_arr);
+                                                    $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id IN ('$c_stations') and is_deleted != 1 ORDER BY `line_name` ASC";
+                                                    $result1 = $mysqli->query($sql1);
+                                                    //													                $                        $entry = 'selected';
+                                                    $i = 0;
+                                                    while ($row1 = $result1->fetch_assoc()) {
+                                                        //														$entry = 'selected';
+                                                        if($i == 0 ){
+                                                            $entry = 'selected';
+                                                            echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+
+                                                        }else{
+                                                            echo "<option value='" . $row1['line_id'] . "'  >" . $row1['line_name'] . "</option>";
+
+                                                        }
+                                                        $i++;
+                                                    }
+                                                }else{
+                                                    $sql1 = "SELECT * FROM `cam_line`  where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC";
+                                                    $result1 = $mysqli->query($sql1);
+                                                    //                                            $entry = 'selected';
+                                                    while ($row1 = $result1->fetch_assoc()) {
+                                                        if($st_dashboard == $row1['line_id'])
+                                                        {
+                                                            $entry = 'selected';
+                                                        }
+                                                        else
+                                                        {
+                                                            $entry = '';
+                                                        }
+                                                        echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                                    }
+                                                }
+
+                                                ?>
+                                            </select>
+                                        </div>
+                                 <?php   } ?>
+
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
                                     <div class="col-md-4">
