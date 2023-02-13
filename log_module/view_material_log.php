@@ -387,7 +387,7 @@ include("../admin_menu.php");
                                 <div class="col-md-10 mg-t-5 mg-md-t-0">
                                     <?php $create_date = $rowcmain['created_at'];?>
                                     <input type="text" name="createdby" class="form-control" id="createdby"
-                                           value="<?php echo $create_date; ?>" disabled>
+                                           value="<?php echo dateReadFormat($create_date); ?>" disabled>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">

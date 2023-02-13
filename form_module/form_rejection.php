@@ -50,9 +50,9 @@ if (count($_POST) > 0) {
     $_SESSION['date_to_1'] = $_POST['date_to'];
     $_SESSION['timezone_1'] = $_POST['timezone'];
 }else{
-    $curdate = date('Y-m-d');
+    $curdate = date(mdY_FORMAT);
     $dateto = $curdate;
-    $yesdate = date('Y-m-d',strtotime("-1 days"));
+    $yesdate = date(mdY_FORMAT,strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 
@@ -64,7 +64,7 @@ if (count($_POST) > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Submit Form</title>
+        <?php echo $sitename; ?> |View Form Rejection</title>
     <!-- Global stylesheets -->
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
@@ -509,20 +509,28 @@ include("../admin_menu.php");
 
 
                                     if ($station != "" && $datefrom != "" && $dateto != "") {
-                                        $result = "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC";
+                                        $date_from = convertMDYToYMD($datefrom);
+                                        $date_to = convertMDYToYMD($dateto);
+                                        $result = "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC";
                                         $qur = mysqli_query($db,$result);
                                     } else if ($station != "" && $user != "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE  station = '$station' ");
                                     } else if ($station != "" && $user == "" && $datefrom != "" && $dateto != "") {
-                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC ");
+                                        $date_from = convertMDYToYMD($datefrom);
+                                        $date_to = convertMDYToYMD($dateto);
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC ");
                                     } else if ($station != "" && $user == "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE station = '$station'");
                                     } else if ($station == "" && $user != "" && $datefrom != "" && $dateto != "") {
-                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC");
+                                        $date_from = convertMDYToYMD($datefrom);
+                                        $date_to = convertMDYToYMD($dateto);
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' and station = '$station' " . $q_str . "ORDER BY form_user_data_id DESC");
                                     } else if ($station == "" && $user != "" && $datefrom == "" && $dateto == "") {
                                         $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE  station = '$station'");
                                     } else if ($station == "" && $user == "" && $datefrom != "" && $dateto != "") {
-                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$dateto' ");
+                                        $date_from = convertMDYToYMD($datefrom);
+                                        $date_to = convertMDYToYMD($dateto);
+                                        $qur = mysqli_query($db, "SELECT `form_user_data_id`,`tracker_id`,`formname`,`partfamily`,`partnumber`,`form_type`,`form_create_id`,`created_at`,`updated_at`,`r_flag` FROM `form_rejection_data` WHERE DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ");
                                     }
 
 
@@ -645,6 +653,8 @@ include("../admin_menu.php");
         });
     </script>
     <script>
+        $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+        $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
         $(function () {
             $('input:radio').change(function () {
                 var abc = $(this).val()

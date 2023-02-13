@@ -375,7 +375,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Created Date :</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <input type="text" class="form-control" name="c_date" id="c_date" value="<?php echo $created_date .' '. $created_time; ?>"
+                                    <input type="text" class="form-control" name="c_date" id="c_date" value="<?php echo dateReadFormat($created_date .' '. $created_time); ?>"
                                            disabled>
                                 </div>
                             </div>
