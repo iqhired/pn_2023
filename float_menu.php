@@ -66,6 +66,9 @@ $station = $_GET['station'];
         a.btn.bg-success.text-white.view_gpbp  {
 
         }
+        .btn{
+            background-color: #005a92 !important;
+        }
 
         .dropdown .arrow {
             width: 2rem;
