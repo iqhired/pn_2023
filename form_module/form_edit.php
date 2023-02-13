@@ -411,7 +411,7 @@ include("../admin_menu.php");
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Station</label>
                                 </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <div class="col-md-8 mg-t-5 mg-md-t-0" style="pointer-events: none;">
                                     <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled> Select Station </option>
                                         <?php
