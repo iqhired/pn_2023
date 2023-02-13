@@ -107,16 +107,18 @@ if ($button == "button1") {
     <link href="../assets/css/components.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/colors.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/style_main.css" rel="stylesheet" type="text/css">
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-ui.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-exports.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-pareto.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-circular-gauge.min.js"></script>
-    <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
     <!-- /global stylesheets -->
     <link href="../assets/css/extras/animate.min.css" rel="stylesheet" type="text/css">
+    <!-- Anycharts starts-->
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-base.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-data-adapter.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-ui.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-exports.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-pareto.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-circular-gauge.min.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/css/anychart/anychart-ui.min.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/anychart/anychart-font.min.css" rel="stylesheet">
+    <!-- Anycharts ends-->
     <!-- Core JS files -->
     <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
