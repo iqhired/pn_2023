@@ -46,7 +46,9 @@ $station = $_GET['station'];
         a.btn.bg-success.text-white.view_gpbp {
             height: 60px;
             width: 196px;
-            font-weight: 400!important;
+            font-weight: 500!important;
+            /*background-color: #1F5D96 !important; !* Green *!*/
+            background: linear-gradient(60deg, rgb(55, 114, 180), rgb(43, 90, 140)) !important; /* Green */
         }
         .example{
             text-align: center !important;
@@ -61,7 +63,9 @@ $station = $_GET['station'];
             margin-top: 30px !important;
         }
 
+        a.btn.bg-success.text-white.view_gpbp  {
 
+        }
 
         .dropdown .arrow {
             width: 2rem;
