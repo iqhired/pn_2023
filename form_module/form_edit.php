@@ -633,7 +633,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Notes</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <textarea id="notes" name="form_create_notes" class="form-control" placeholder="Enter Notes..." rows="3"   value="<?php echo $rowcmain['form_create_notes']; ?>"></textarea>
+                                    <textarea type="text" value="<?php echo $rowcmain['form_create_notes']; ?>" id="notes" name="form_create_notes" class="form-control" rows="3"  ><?php echo $rowcmain['form_create_notes']; ?></textarea>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -677,7 +677,7 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Approved By</label>
                                 </div>
                                 <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="approval_by[]" id="approval_by" multiple="multiple" data-placeholder="Approvalcccc List ...">
+                                    <select class="form-control select2" name="approval_by[]" id="approval_by" multiple="multiple" data-placeholder="Approved by List ...">
                                         <?php
                                         $arrteam = explode(',', $rowcmain["approval_by"]);
                                         $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
