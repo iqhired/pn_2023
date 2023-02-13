@@ -32,7 +32,7 @@ if(!empty($result1)) {
 ?>
 <style>
     .header {
-        overflow: hidden;
+        /*overflow: hidden;*/
         background-color: #060818;
         padding: 8px 25px;
     }

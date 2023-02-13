@@ -72,8 +72,8 @@ if (count($_POST) > 0) {
 
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -235,9 +235,9 @@ include("../admin_menu.php");
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="">
                         <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">VIEW FORM</span>
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">View Form Rejection</span>
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">

@@ -206,7 +206,7 @@ include("../admin_menu.php");
     <div class="row-body">
         <div class="col-lg-12 col-md-12">
             <div class="card">
-                <div class="card-body">
+                <div class="">
                     <div class="card-header">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">EDIT FORM</span>
                     </div>

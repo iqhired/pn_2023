@@ -603,7 +603,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         <div class="row ">
             <div class="col-12 col-sm-12">
                 <div class="card">
-                    <form action="delete_good_bad_piece.php" method="post" class="form-horizontal">
+                    <form action="delete_good_bad_piece.php" method="post" class="">
                         <input type="hidden" name="station_event_id" value="<?php echo $_GET['station_event_id']; ?>">
                         <div class="card-header">
                             <h4 class="card-title">
