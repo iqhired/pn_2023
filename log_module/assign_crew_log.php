@@ -52,16 +52,11 @@ if(empty($datefrom)){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?php echo $sitename; ?> | Assign Crew Log</title>
+    <title><?php echo $sitename; ?> | Assign Crew Log</title>
     <!-- Global stylesheets -->
-
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-
-
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
@@ -76,7 +71,6 @@ if(empty($datefrom)){
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
@@ -338,13 +332,7 @@ include("../admin_menu.php");
                         if (!empty($import_status_message)) {
                             echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
                         }
-                        ?>
-                        <?php
-                        if (!empty($_SESSION['import_status_message'])) {
-                            echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                            $_SESSION['message_stauts_class'] = '';
-                            $_SESSION['import_status_message'] = '';
-                        }
+                        displaySFMessage();
                         ?>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
@@ -464,18 +452,28 @@ if(count($_POST) > 0)
                                         $as = $rowc["assign_time"];
                                         $diff = abs(strtotime($date_to) - strtotime($as));
                                         $t = round(($diff/3600),2);
-                                        if ($unas == $as) {
+                                       /* if ($unas == $as) {
                                             $unasign = "Still Assigned";
                                         } else {
                                             $unasign = $unas;
+                                        }*/
+                                        if($unas > $date_to)
+                                        {
+                                            $unasign = dateReadFormat($date_to);
+                                        } else if($unas == $as)
+                                        {
+                                            $unasign = "Still Assigned";
+                                        } else
+                                        {
+                                            $unasign = dateReadFormat($unas);
                                         }
                                         ?>
-                                        <?php if($unas > $date_to){ ?>
-                                            <td><?php echo dateReadFormat($date_to); ?></td>
-                                        <?php }else{ ?>
-                                            <td><?php echo dateReadFormat($unasign); ?></td>
-                                        <?php } ?>
-                                       <!-- <td><?php /*echo dateReadFormat($unasign); */?></td>-->
+                                       <!-- <?php /*if($unas > $date_to){ */?>
+                                            <td><?php /*echo dateReadFormat($date_to); */?></td>
+                                        <?php /*}else{ */?>
+                                            <td><?php /*echo dateReadFormat($unasign); */?></td>
+                                        --><?php /*} */?>
+                                     <td><?php echo $unasign; ?></td>
                                         <?php
                                         $zero_time = '00:00:00';
                                         $database_time = $rowc["time"];
