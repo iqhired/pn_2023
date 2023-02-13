@@ -13,7 +13,8 @@ checkSession();
         <?php echo $sitename; ?> |Defect List</title>
     <!-- Global stylesheets -->
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <script src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -63,7 +64,7 @@ checkSession();
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -274,7 +275,7 @@ include("../admin_menu.php");
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Defect List</span>
                         </div>
@@ -361,7 +362,7 @@ include("../admin_menu.php");
                     </div>
                     <div class="card-body pt-0">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                 <thead>
                                 <tr>
                                     <th><input type="checkbox" id="checkAll" ></th>
