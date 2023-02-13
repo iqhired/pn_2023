@@ -249,21 +249,16 @@ include("../admin_menu.php");
         <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-body">
-                <div class="card-header">
-                    <div class="main-content-label mg-b-2" style="color: #d6d8db;">
-                        View Line Asset
-                    </div>
-                </div><br/>
                 <?php
                 $qurtemp = mysqli_query($db, "SELECT * FROM cam_line where line_id = '$line_id' ");
                 $rowctemp = mysqli_fetch_array($qurtemp);
                 $line_name = $rowctemp["line_name"];
                 ?>
-                <div class="card-header" style="background: aliceblue;">
-                    <div class="main-content-label mg-b-2">
-                       <center style="color: #d6d8db;"><?php echo $line_name; ?> - <?php echo $asset_name; ?></center>
+                <div class="card-header">
+                    <div class="main-content-label mg-b-2" style="color: #d6d8db;">
+                        <?php echo $line_name; ?> - <?php echo $asset_name; ?>
                     </div>
-                </div>
+                </div><br/>
                 <div class="pd-30 pd-sm-20">
                     <div class="row row-xs align-items-center mg-b-20">
                         <input type="hidden" name="form_user_data_id" id="form_user_data_id"
@@ -314,7 +309,7 @@ include("../admin_menu.php");
                         </div>
                         <div class="col-md-8 mg-t-5 mg-md-t-0">
                             <input type="text" name="createdby" class="form-control" id="createdby"
-                                   value="<?php echo $created_date; ?>" disabled>
+                                   value="<?php echo dateReadFormat($created_date); ?>" disabled>
                         </div>
                     </div>
                     <div class="row row-xs align-items-center mg-b-20">
