@@ -504,7 +504,7 @@ $logo = $rowccus['logo'];
                         </div>
                         <div class="col-md-8 mg-t-5 mg-md-t-0">
                             <div class="SumoSelect" tabindex="0" role="button" aria-expanded="true">
-                                <select name="material_type" id="material_type" class="form-control form-select select2" tabindex="-1">
+                                <select name="material_type" id="material_type" class="form-control form-select select2" tabindex="-1" data-placeholder="Select Material Type">
                                     <option value="" selected disabled>Select material Type</option>
 									<?php
 									$sql1 = "SELECT material_id, material_type,serial_num_required FROM `material_config`";
@@ -719,6 +719,6 @@ $logo = $rowccus['logo'];
 </script>
 
 
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
 </html>

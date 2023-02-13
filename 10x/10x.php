@@ -116,7 +116,8 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/webcam.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>-->
     <style>
         .navbar {
 
@@ -304,9 +305,9 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
 
 ?>
 <!-- main-content -->
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!-- container -->
-    <div class="main-container container-fluid">
+    <div class="main-container container">
         <!-- breadcrumb -->
         <div class="breadcrumb-header justify-content-between">
             <div class="left-content">
@@ -359,8 +360,8 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         ?>
         <form action="10x_backend.php" id="10x_setting" enctype="multipart/form-data"
               class="form-horizontal" method="post">
-            <div class="row row-sm">
-                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
                     <div class="card-header">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">Submit 10x</span>
                     </div>
@@ -500,23 +501,17 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     </div>
                                 </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               <div class="row row-sm">
-                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
-                    <div class="card  box-shadow-0">
-                        <div class="card-body pt-0">
                             <button type="submit" id="form_submit_btn" class="btn btn-primary submit_btn">Submit</button>
-                        </div>
+                            </div>
+
+                    </div>
+
                     </div>
                 </div>
-            </div>
         </form>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>-->
 <script language="JavaScript">
     Webcam.set({
         width: 290,
@@ -640,6 +635,6 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         location.reload(true);
     });
 </script>
-<?php include('../footer.php') ?>
+<?php include('../footer1.php') ?>
 </body>
 </html>

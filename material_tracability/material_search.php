@@ -65,7 +65,7 @@ if (count($_POST) > 0) {
     <title>
         <?php echo $sitename; ?> | Material Tracability</title>
 
-
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <!-- INTERNAL Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
 
@@ -127,9 +127,9 @@ if (count($_POST) > 0) {
 
 ?>
 <!-- main-content -->
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!-- container -->
-    <div class="main-container container-fluid">
+    <div class="main-container container">
 
     <!-- breadcrumb -->
             <div class="breadcrumb-header justify-content-between">
@@ -158,7 +158,7 @@ if (count($_POST) > 0) {
                             $result = "SELECT * FROM `material_tracability` where station_event_id = '$station_event_id' ORDER BY `material_id` DESC";
                             $qur = mysqli_query($db,$result); ?>
                             <div class="table-responsive">
-                                <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                     <thead>
                                     <tr>
                                         <th>Sl. No</th>
