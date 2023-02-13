@@ -36,10 +36,12 @@ $station = $_GET['station'];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="<?php echo $siteURL; ?>assets/css/gfont.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/menu.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
     <script src="<?php echo $siteURL; ?>assets/js/fawesomekit.js" crossorigin="anonymous"></script>
+
     <style>
         a.btn.bg-success.text-white.view_gpbp {
             height: 60px;
@@ -58,95 +60,21 @@ $station = $_GET['station'];
         .main-content.horizontal-content {
             margin-top: 30px !important;
         }
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-            .col-md-4 {
-                width: 30%;
-            }
-            .col-md-8.mg-t-5.mg-md-t-0 {
-                width: 70%;
-            }
-
-            .contextMenu {
-                left: 0!important;
-            }
-            .d-sm-none {
-                z-index: 1!important;
-            }
-            .breadcrumb-header {
-                margin-left: 38px;
-            }
-            button.remove.btn.btn-sm.btn-danger-light {
-                margin-top: 14px!important;
-                margin-bottom: 10px!important;
-                margin-left: 24px!important;
-            }
-        }
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-            .col-md-4 {
-                width: 30%;
-            }
-            .col-md-8.mg-t-5.mg-md-t-0 {
-                width: 70%;
-            }
-
-            .contextMenu {
-                left: 0!important;
-            }
-            .d-sm-none {
-                z-index: 1!important;
-            }
-            .breadcrumb-header {
-                margin-left: 38px;
-            }
-            button.remove.btn.btn-sm.btn-danger-light {
-                margin-top: 14px!important;
-                margin-bottom: 10px!important;
-                margin-left: 24px!important;
-            }
 
 
-        }
-        @media (min-width: 482px) and (max-width: 767px) {
-            .col-md-4 {
-                width: 30%;
-            }
-            .col-md-8.mg-t-5.mg-md-t-0 {
-                width: 70%;
-            }
 
-            .contextMenu {
-                left: 0!important;
-
-            }
-            .d-sm-none {
-                z-index: 1!important;
-            }
-            .breadcrumb-header {
-                margin-left: 38px;
-            }
-            button.remove.btn.btn-sm.btn-danger-light {
-                margin-top: 14px!important;
-                margin-bottom: 10px!important;
-                margin-left: 24px!important;
-            }
-
+        .dropdown .arrow {
+            width: 2rem;
+            margin-left: 0px!important;
+            margin-top: 0!important;
+            fill: currentColor;
         }
     </style>
 </head>
+<?php
+$cust_cam_page_header = "Cell Status Dashboard";
+include("header.php");
+?>
 <body class="ltr main-body app horizontal">
 <!-- main-content -->
 <div class="main-content horizontal-content">
