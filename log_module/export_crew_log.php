@@ -108,8 +108,12 @@ while ($row = mysqli_fetch_row($exportData)) {
                 $un = $value;
                 $zero_time = '00:00:00';
                 $database_time = $un;
+                $diffrence = abs(strtotime($d1) - strtotime($date));
+                $t_time = round(($diffrence/3600),2);
                 if ($zero_time == $database_time) {
                     $database_time = "Still Assigned";
+                }else{
+                    $database_time = $t_time;
                 }
                 if($d1 > $date_to){
                     $value =  $t;

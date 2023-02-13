@@ -450,6 +450,8 @@ if(count($_POST) > 0)
                                         <?php
                                         $unas = $rowc["unassign_time"];
                                         $as = $rowc["assign_time"];
+                                        $diffrence = abs(strtotime($unas) - strtotime($as));
+                                        $t_time = round(($diffrence/3600),2);
                                         $diff = abs(strtotime($date_to) - strtotime($as));
                                         $t = round(($diff/3600),2);
                                        /* if ($unas == $as) {
@@ -479,6 +481,8 @@ if(count($_POST) > 0)
                                         $database_time = $rowc["time"];
                                         if ($zero_time == $database_time) {
                                             $database_time = "Still Assigned";
+                                        }else{
+                                            $database_time = $t_time;
                                         }
                                         ?>
                                         <!--<td><?php /*echo $database_time; */?></td>-->
