@@ -726,7 +726,7 @@ if(isset($_POST['update_btn'])){
                                                 if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                     $part_number = $_REQUEST['part_number'];
                                                 }
-                                                $sql1 = "SELECT * FROM `pm_part_number` where station in('2','3','4','5','6','7','8') and part_number like 'E0%' and part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                $sql1 = "SELECT * FROM `pm_part_number` where station in('2','3','4','5','6','7','8') and part_number not like 'E0%' and part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
                                                 $result1 = $mysqli->query($sql1);
                                                 //                                            $entry = 'selected';
                                                 while ($row1 = $result1->fetch_assoc()) {
