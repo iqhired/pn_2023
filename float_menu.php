@@ -76,6 +76,13 @@ $station = $_GET['station'];
             margin-top: 0!important;
             fill: currentColor;
         }
+        .text-wrap{
+            margin: 30px;
+        }
+        .input-group{
+            width: 80%;
+            margin: auto;
+        }
     </style>
 </head>
 <?php
