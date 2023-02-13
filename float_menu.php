@@ -88,7 +88,7 @@ include("header.php");
 
 
     <!-- container -->
-    <div class="main-container container-fluid">
+    <div class="main-container container">
 
 
         <!-- breadcrumb -->
