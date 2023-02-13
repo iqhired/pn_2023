@@ -260,7 +260,7 @@ include("../admin_menu.php");
                         </div>
                         <div class="card-body pt-0">
                             <div class="table-responsive">
-                                <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                     <thead>
                                     <tr>
                                         <th><input type="checkbox" id="checkAll"></th>

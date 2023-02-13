@@ -3,30 +3,8 @@ include("../config.php");
 $sessionid = $_SESSION["id"];
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    header('location: ../logout.php');
-}
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    header($redirect_logout_path);
-//	header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
+checkSession();
 
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin") {
-    header('location: ../dashboard.php');
-}
 if (count($_POST) > 0) {
     $name = $_POST['group_name'];
     if ($name != "") {
@@ -62,7 +40,8 @@ if (count($_POST) > 0) {
         <?php echo $sitename; ?> |Group</title>
     <!-- Global stylesheets -->
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -112,7 +91,7 @@ if (count($_POST) > 0) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -272,21 +251,16 @@ include("../admin_menu.php");
               if (!empty($import_status_message)) {
                   echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
               }
+              displaySFMessage();
            ?>
-           <?php
-              if (!empty($_SESSION['import_status_message'])) {
-              echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-              $_SESSION['message_stauts_class'] = '';
-              $_SESSION['import_status_message'] = '';
-              }
-           ?>
+
         </div>
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Defect Group(s)</span>
                         </div>
@@ -350,7 +324,8 @@ include("../admin_menu.php");
                         </div>
                         <div class="card-body pt-0">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table datatable-basic table-bordered">
+
                                     <thead>
                                     <tr>
                                         <th><input type="checkbox" id="checkAll" ></th>
@@ -404,7 +379,6 @@ include("../admin_menu.php");
                                             }
                                             ?>
                                             <td><?php echo $array_defList; ?></td>
-
                                         </tr>
                                     <?php } ?>
                                     </tbody>

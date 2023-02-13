@@ -136,7 +136,8 @@ if (isset($_FILES['good_file']) && isset($_FILES['bad_file'])) {
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -186,7 +187,7 @@ if (isset($_FILES['good_file']) && isset($_FILES['bad_file'])) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -326,21 +327,16 @@ include("../admin_menu.php");
     if (!empty($import_status_message)) {
         echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
     }
+    displaySFMessage();
     ?>
-    <?php
-    if (!empty($_SESSION['import_status_message'])) {
-        echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-        $_SESSION['message_stauts_class'] = '';
-        $_SESSION['import_status_message'] = '';
-    }
-    ?>
+
         </div>
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Station Configuration Management</span><br>
                         </div>
@@ -412,7 +408,7 @@ include("../admin_menu.php");
                 </div>
                 <div class="card-body pt-0">
                     <div class="table-responsive">
-                        <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                        <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                             <thead>
                             <tr>
                                 <th><input type="checkbox" id="checkAll" ></th>

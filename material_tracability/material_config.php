@@ -105,7 +105,8 @@ if (count($_POST) > 0) {
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -155,7 +156,7 @@ if (count($_POST) > 0) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -301,17 +302,11 @@ include("../admin_menu.php");
                 if (!empty($import_status_message)) {
                     echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div> ';
                 }
-                ?>
-                <?php
-                if (!empty($_SESSION['import_status_message'])) {
-                    echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                    $_SESSION['message_stauts_class'] = '';
-                    $_SESSION['import_status_message'] = '';
-                }
+                displaySFMessage();
                 ?>
 
                 <div class="card">
-                    <div class="card-body">
+                    <div class="">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability</span>
                         </div>
@@ -388,9 +383,9 @@ include("../admin_menu.php");
                             </div>
                         </div>
 
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">SAVE</button>
+                        <div class="card-body pt-0">
+
+                        <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">SAVE</button>
                         </div>
                     </div>
                 </div>
@@ -414,7 +409,7 @@ include("../admin_menu.php");
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                    <table class="table datatable-basic table-bordered">
                                         <thead>
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
