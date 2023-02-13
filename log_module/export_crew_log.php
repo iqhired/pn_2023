@@ -1,5 +1,4 @@
-<?php
-ini_set('display_errors', 'off');
+<?php ini_set('display_errors', 'off');
 include '../config.php';
 $taskboard = $_SESSION['taskboard'];
 $user = $_SESSION['usr'];
@@ -35,21 +34,21 @@ if ($station != null) {
 }
 
 if($datefrom != "" && $dateto != ""){
-    $date_from = convertMDYToYMD($datefrom);
-    $date_to = convertMDYToYMD($dateto);
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(assign_time,'%Y-%m-%d') <= '$date_to' ";
+    $date_from = convertMDYToYMDwithTime($datefrom);
+    $date_to = convertMDYToYMDwithTime($dateto);
+    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(assign_time,'%Y-%m-%d %H:%i') <= '$date_to' ";
 }else if($datefrom != "" && $dateto == ""){
-    $date_from = convertMDYToYMD($datefrom);
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') >= '$date_from' ";
+    $date_from = convertMDYToYMDwithTime($datefrom);
+    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d %H:%i') >= '$date_from' ";
 }else if($datefrom == "" && $dateto != ""){
-    $date_to = convertMDYToYMD($dateto);
-    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d') <= '$date_to' ";
+    $date_to = convertMDYToYMDwithTime($dateto);
+    $q = $q . " AND DATE_FORMAT(assign_time,'%Y-%m-%d %H:%i') <= '$date_to' ";
 }
 
 $q = $q . " ORDER BY assign_time  DESC";
 
 $exportData = mysqli_query($db, $q);
-$header = "User" . "\t" . "Station" . "\t" . "Position" . "\t" . "Assign Time" .  "\t" .  "Total Time" . "\t";
+$header = "User" . "\t" . "Station" . "\t" . "Position" . "\t" . "Assign Time" .  "\t" .  "Un-Assign Time" . "\t" .  "Total Time" . "\t";
 $result = '';
 //$fields = mysqli_num_fields($db, $exportData);
 //for ($i = 0; $i < $fields; $i++) {
@@ -84,14 +83,44 @@ while ($row = mysqli_fetch_row($exportData)) {
             $value = "\t";
         } else {
             $value = str_replace('"', '""', $value);
-//			if ($j == 1) {
-//				$un = $value;
-//				$qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
-//				while ($rowc04 = mysqli_fetch_array($qur04)) {
-//					$lnn = $rowc04["line_name"];
-//				}
-//				$value = $lnn;
-//			}
+            if ($j == 4) {
+				$un = $value;
+				$date = $un;
+			    $value = $date;
+			}
+            if ($j == 5) {
+				$un = $value;
+                $d1 = $un;
+                $diff = abs(strtotime($date_to) - strtotime($date));
+                $t = round(($diff/3600),2);
+                if ($un == $date) {
+                    $unasign = "Still Assigned";
+                } else {
+                    $unasign = $un;
+                }
+                 if($un > $date_to){
+                     $value =  $date_to;
+                 }else{
+                     $value = $unasign;
+                 }
+			}
+            if ($j == 6) {
+                $un = $value;
+                $zero_time = '00:00:00';
+                $database_time = $un;
+                $diffrence = abs(strtotime($d1) - strtotime($date));
+                $t_time = round(($diffrence/3600),2);
+                if ($zero_time == $database_time) {
+                    $database_time = "Still Assigned";
+                }else{
+                    $database_time = $t_time;
+                }
+                if($d1 > $date_to){
+                    $value =  $t;
+                }else{
+                    $value = $database_time;
+                }
+            }
             $value = '"' . $value . '"' . "\t";
         }
         $line .= $value;
