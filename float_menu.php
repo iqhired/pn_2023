@@ -80,8 +80,9 @@ $station = $_GET['station'];
             margin: 30px;
         }
         .input-group{
-            width: 80%;
+            width: 100%;
             margin: auto;
+            padding: 0px 30px;
         }
     </style>
 </head>
