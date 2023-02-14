@@ -332,8 +332,6 @@ include("../admin_menu.php");
                                             <th>Name</th>
                                             <th>Station</th>
                                             <th>Notes</th>
-
-
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -356,7 +354,7 @@ include("../admin_menu.php");
                                                             style=""
                                                             data-target="#edit_modal_theme_primary"><i class="fa fa-edit"></i>
                                                     </button>
-                                                    <!--                                    &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['position_id']; ?>">Delete </button>
+                                                    <!--   &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['position_id']; ?>">Delete </button>
                                                     -->
                                                 </td>
                                                 <td><?php echo $rowc["part_family_name"]; ?></td>
