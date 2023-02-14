@@ -733,18 +733,30 @@ if(isset($_POST['update_btn'])){
                                                 if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                     $part_number = $_REQUEST['part_number'];
                                                 }
-                                                //$sql1 = "SELECT * FROM `pm_part_number` where station in('2','3','4','5','6','7','8') and part_number not like 'E0%' and part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
-												$sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
-                                                $result1 = $mysqli->query($sql1);
-                                                //                                            $entry = 'selected';
-                                                while ($row1 = $result1->fetch_assoc()) {
-                                                    if ($part_number == $row1['pm_part_number_id']) {
-                                                        $entry = 'selected';
-                                                    } else {
-                                                        $entry = '';
+                                                if($c_name == 'Extrusion Lines'){
+                                                    $sql1 = "SELECT * FROM `pm_part_number` where part_number not like 'E0%' and part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                    $result1 = $mysqli->query($sql1);
+                                                    while ($row1 = $result1->fetch_assoc()) {
+                                                        if ($part_number == $row1['pm_part_number_id']) {
+                                                            $entry = 'selected';
+                                                        } else {
+                                                            $entry = '';
 
+                                                        }
+                                                        echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
                                                     }
-                                                    echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
+                                                }else{
+                                                    $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                    $result1 = $mysqli->query($sql1);
+                                                    while ($row1 = $result1->fetch_assoc()) {
+                                                        if ($part_number == $row1['pm_part_number_id']) {
+                                                            $entry = 'selected';
+                                                        } else {
+                                                            $entry = '';
+
+                                                        }
+                                                        echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
+                                                    }
                                                 }
                                                 ?>
                                             </select>

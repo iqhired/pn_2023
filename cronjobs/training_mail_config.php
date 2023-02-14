@@ -44,7 +44,8 @@ if (count($_POST) > 0) {
 
 
     <!-- /global stylesheets -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -296,14 +297,9 @@ include("../admin_menu.php");
         if (!empty($import_status_message)) {
             echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
         }
+        displaySFMessage();
         ?>
-        <?php
-        if (!empty($_SESSION['import_status_message'])) {
-            echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-            $_SESSION['message_stauts_class'] = '';
-            $_SESSION['import_status_message'] = '';
-        }
-        ?>
+
         <?php
         $query = sprintf("SELECT * FROM  sg_email_report_config where sg_mail_report_config_id = '4'");
         $qur = mysqli_query($db, $query);
