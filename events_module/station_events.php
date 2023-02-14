@@ -610,7 +610,11 @@ if(isset($_POST['update_btn'])){
                     ?>
                     <div class="card">
                         <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Station Events</span>
+							<?php if($e_type_id == 7){ ?>
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">Start Station Event</span>
+							<?php }else{?>
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">Update Station Event</span>
+							<?php }?>
                         </div>
                             <div class="card-body">
                                 <div class="pd-30 pd-sm-20">
@@ -818,6 +822,75 @@ if(isset($_POST['update_btn'])){
                 </div>
             </div>
         </form>
+		<?php if($e_type_id != 7){ ?>
+        <br/>
+        <br/>
+        <div class="row form-horizontal">
+            <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <span class="main-content-title mg-b-0 mg-b-lg-1">Current Running Event</span>
+            </div>
+            <div class="card-body">
+                <div class="pd-30 pd-sm-20">
+                    <!-- Main charts -->
+                    <!-- Basic datatable -->
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Station</th>
+                                <th>Part Family</th>
+                                <th>Part Number</th>
+                                <th>Event Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+							<?php
+							$query = sprintf("SELECT * FROM  sg_station_event  where event_status = 1 and line_id = '$station' order by modified_on DESC ;  ");
+							$qur = mysqli_query($db, $query);
+							while ($rowc = mysqli_fetch_array($qur)) {
+								$station_event_id = $rowc['station_event_id'];
+								$station_id = $rowc['line_id'];
+								$qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id  = '$station_id' ");
+								while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+									$station_name = $rowctemp["line_name"];
+								}
+								$part_family_id = $rowc['part_family_id'];
+								$qurtemp = mysqli_query($db, "SELECT * FROM  pm_part_family where pm_part_family_id  = '$part_family_id' ");
+								while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+									$part_family_name = $rowctemp["part_family_name"];
+								}
+								$part_number_id = $rowc['part_number_id'];
+								$qurtemp = mysqli_query($db, "SELECT * FROM  pm_part_number where pm_part_number_id  = '$part_number_id' ");
+								while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+									$part_number = $rowctemp["part_number"];
+								}
+								$event_type_id = $rowc['event_type_id'];
+								$qurtemp = mysqli_query($db, "SELECT * FROM  event_type where event_type_id  = '$event_type_id' ");
+								while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+									$event_type_name = $rowctemp["event_type_name"];
+									$event_cat_id = $rowctemp["event_cat_id"];
+								}
+								?>
+                                <tr>
+                                    <td><?php echo ++$counter; ?></td>
+                                    <td><?php echo $station_name; ?></td>
+                                    <td><?php echo $part_family_name; ?></td>
+                                    <td><?php echo $part_number; ?></td>
+                                    <td><?php echo $event_type_name; ?></td>
+                                </tr>
+							<?php } ?>
+                            </tbody>
+                        </table>
+
+
+                </div>
+            </div>
+        </div>
+            </div></div>
+		<?php }?>
     </div>
 </div>
 <script>
