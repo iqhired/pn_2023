@@ -297,7 +297,6 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     include("../admin_menu.php");
 }
 ?>
-
     <div class="main-content app-content">
         <div class="main-container container">
        <!---container--->
@@ -416,10 +415,8 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                                     $r_tag = "remove_image_" . $i;
                                                     ?>
 
-                                    <div class="container"></div>
-
-
-                                            <div class="col-lg-3 col-sm-6">
+                                            <div class="container"></div>
+                                               <div class="col-lg-3 col-sm-6">
                                                 <div class="thumbnail">
                                                     <div class="thumb">
                                                        <!-- --><?php /*echo '<img src="data:image/jpeg;base64,' . $image . '" style="height:50px;width:150px;border: 1px solid #555;" alt=""/>'; */?>
@@ -570,9 +567,6 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                     $(".remove").click(function(){
                         $(this).parent(".pip").remove();
                     });
-
-
-
                 });
                 fileReader.readAsDataURL(f);
             }
