@@ -33,7 +33,7 @@ while ($row1 = $result1->fetch_assoc()) {
 <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/components_dropdowns.js"></script>
 <style>
     .header {
-        overflow: hidden;
+        /*overflow: hidden;*/
         background-color: #060818;
         padding: 8px 25px;
     }
