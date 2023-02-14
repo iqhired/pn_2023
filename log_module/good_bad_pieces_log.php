@@ -381,20 +381,18 @@ fclose($fp);
     }
     ?>
 </head>
-
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Add / Create Form";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-<body class="ltr main-body app horizontal">
+
 <!-- main-content -->
-<div class="main-content horizontal-content">
+<div class="main-content app-content">
     <!-- container -->
     <div class="main-container container">
-    <div class="row-body">
-        <div class="col-lg-12 col-md-12">
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
@@ -403,143 +401,139 @@ include("../admin_menu.php");
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
+             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <form action="" id="good_bad_piece_form" class="form-horizontal" method="post">
-                        <div class="">
-                            <div class="card-header">
-                                <span class="main-content-title mg-b-0 mg-b-lg-1">GOOD BAD PIECE LOG</span>
+                            <div class="">
+                                <div class="card-header">
+                                    <span class="main-content-title mg-b-0 mg-b-lg-1">GOOD BAD PIECE LOG</span>
+                                </div>
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-1">
+                                            <label class="form-label mg-b-0">Station</label>
+                                        </div>
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                            <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
+                                                <option value="" selected> Select Station </option>
+                                                <!--<option value="0" selected>All</option>-->
+                                                <?php
+                                                $entry = '';
+                                                $a = 'All';
+                                                $b = '0';
+                                                echo "<option value='". $b ."'  $entry selected>" . $a . "</option>";
+                                                $st_dashboard = $_POST['station'];
+                                                $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_id` ASC";
+                                                $result1 = $mysqli->query($sql1);
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    if ($st_dashboard == $row1['line_id']) {
+                                                        $entry = 'selected';
+                                                    } else {
+                                                        $entry = '';
+
+                                                    }
+                                                    echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-1">
+                                            <label class="form-label mg-b-0">Part Family</label>
+                                        </div>
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                            <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
+                                                <option value="" selected disabled> Select Part Family </option>
+                                                <?php
+                                                $st_dashboard = $_POST['part_family'];
+                                                $station = $_POST['station'];
+                                                $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1 and station = '$station'";
+                                                $result1 = $mysqli->query($sql1);
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    if ($st_dashboard == $row1['pm_part_family_id']) {
+                                                        $entry = 'selected';
+                                                    } else {
+                                                        $entry = '';
+                                                    }
+                                                    echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-1">
+                                            <label class="form-label mg-b-0">Part Number</label>
+                                        </div>
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                            <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                                <option value="" selected disabled> Select Part Number </option>
+                                                <?php
+                                                $st_dashboard = $_POST['part_number'];
+                                                $part_family = $_POST['part_family'];
+                                                $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1 ";
+                                                $result1 = $mysqli->query($sql1);
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    if ($st_dashboard == $row1['pm_part_number_id']) {
+                                                        $entry = 'selected';
+                                                    } else {
+                                                        $entry = '';
+
+                                                    }
+                                                    echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1"></div>
+
+                                    </div>
+
+                                </div>
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-1">
+                                            <label class="form-label mg-b-0">Date From</label>
+                                        </div>
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                            <div class="input-group">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
+                                            </div><!-- input-group -->
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-1">
+                                            <label class="form-label mg-b-0">Date To</label>
+                                        </div>
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                            <div class="input-group">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
+                                            </div><!-- input-group -->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
-                                    <div class="col-md-1">
-                                        <label class="form-label mg-b-0">Station</label>
+                                    <div class="col-md-2 btn_bottom">
+                                        <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
                                     </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
-                                            <option value="" selected> Select Station </option>
-                                            <!--<option value="0" selected>All</option>-->
-                                            <?php
-                                            $entry = '';
-                                            $a = 'All';
-                                            $b = '0';
-                                            echo "<option value='". $b ."'  $entry selected>" . $a . "</option>";
-                                            $st_dashboard = $_POST['station'];
-                                            $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_id` ASC";
-                                            $result1 = $mysqli->query($sql1);
-                                            while ($row1 = $result1->fetch_assoc()) {
-                                                if ($st_dashboard == $row1['line_id']) {
-                                                    $entry = 'selected';
-                                                } else {
-                                                    $entry = '';
-
-                                                }
-                                                echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-1">
-                                        <label class="form-label mg-b-0">Part Family</label>
-                                    </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select name="part_family" id="part_family" class="form-control form-select select2" data-placeholder="Select Part Family">
-                                            <option value="" selected disabled> Select Part Family </option>
-                                            <?php
-                                            $st_dashboard = $_POST['part_family'];
-                                            $station = $_POST['station'];
-                                            $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1 and station = '$station'";
-                                            $result1 = $mysqli->query($sql1);
-                                            while ($row1 = $result1->fetch_assoc()) {
-                                                if ($st_dashboard == $row1['pm_part_family_id']) {
-                                                    $entry = 'selected';
-                                                } else {
-                                                    $entry = '';
-                                                }
-                                                echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
+                                    <div class="col-md-2 btn_bottom">
+                                        <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
                                     </div>
 
-                                </div>
-
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-1">
-                                        <label class="form-label mg-b-0">Part Number</label>
-                                    </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
-                                            <option value="" selected disabled> Select Part Number </option>
-                                            <?php
-                                            $st_dashboard = $_POST['part_number'];
-                                            $part_family = $_POST['part_family'];
-                                            $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1 ";
-                                            $result1 = $mysqli->query($sql1);
-                                            while ($row1 = $result1->fetch_assoc()) {
-                                                if ($st_dashboard == $row1['pm_part_number_id']) {
-                                                    $entry = 'selected';
-                                                } else {
-                                                    $entry = '';
-
-                                                }
-                                                echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-1"></div>
-
-                                </div>
-
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-1">
-                                        <label class="form-label mg-b-0">Date From</label>
-                                    </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <div class="input-group">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
-                                        </div><!-- input-group -->
-                                    </div>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-1">
-                                        <label class="form-label mg-b-0">Date To</label>
-                                    </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <div class="input-group">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
-                                        </div><!-- input-group -->
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-2" style="max-width: 10.66667%;">
-                                    <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
-                                </div>
-                                <div class="col-md-2" style="max-width: 10.66667%;">
-                                    <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
-                                </div>
 
                         </form>
-                                <div class="col-md-2">
+                                <div class="col-md-2 btn_bottom">
                                     <form action="export_good_bad_piece.php" method="post" name="export_excel">
                                         <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="export" name="export">Export Data</button>
                                     </form>
@@ -548,76 +542,72 @@ include("../admin_menu.php");
 
                     </div>
                     </div>
-               </div>
-    </div>
-
-   <div class="row">
-    <div class="col-lg-12 col-md-12">
-        <div class="card">
-            <div class="">
-                <div class="card-header">
-                    <span class="main-content-title mg-b-0 mg-b-lg-1">GRAPH</span>
-                </div>
-                <div class="pd-30 pd-sm-20">
-                    <div class="row row-xs">
-                        <div class="col-md-4 mg-t-10 mg-md-t-0">
-                            <div id="gf_container" style="height: 500px; width: 100%;"></div>
+             <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">GRAPH</span>
                         </div>
-                        <div class="col-md-8 mg-t-10 mg-md-t-0">
-                            <div id="gf_container1" style="height: 500px; width: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-      <?php if($pn != "" && $pf != ""){ ?>
-       <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="card">
-                <div class="">
-
-                    <div class="pd-30 pd-sm-20">
-                        <div class="row row-xs">
-
-                            <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                <div id="bsr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px; "></div>
-                            </div>
-                            <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                <div id="npr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
-                            </div>
-                            <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                <div id="eff_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-      <?php } ?>
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="card">
-                <div class="">
-                    <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">SHIFT WISE GOOD PIECES, BAD PIECES & REWORK</span>
-                    </div>
-                    <div class="pd-30 pd-sm-20">
-                        <div class="row row-xs">
-                            <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                <div id="container" style="height: 500px; width: 100%;"></div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div id="gf_container" style="height: 500px; width: 100%;"></div>
+                                </div>
+                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                    <div id="gf_container1" style="height: 500px; width: 100%;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <?php if($pn != "" && $pf != ""){ ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="">
+
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div id="bsr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px; "></div>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div id="npr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div id="eff_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="">
+                        <div class="card-header">
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">SHIFT WISE GOOD PIECES, BAD PIECES & REWORK</span>
+                        </div>
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                    <div id="container" style="height: 500px; width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </div>
 
 <script>

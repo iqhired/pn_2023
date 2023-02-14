@@ -154,39 +154,8 @@ if(empty($datefrom)){
         .mt-4 {
             margin-top: 0rem!important;
         }
-        /*.row-body {*/
-        /*    display: flex;*/
-        /*    flex-wrap: wrap;*/
-        /*    margin-left: -8.75rem;*/
-        /*    margin-right: 6.25rem;*/
-        /*}*/
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
 
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -210,14 +179,15 @@ if(empty($datefrom)){
 
     </style>
 </head>
+<body class="ltr main-body app horizontal">
 <?php
 $cust_cam_page_header = "Assign Crew log";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-<body class="ltr main-body app horizontal">
+
 <!-- main-content -->
-<div class="main-content horizontal-content">
+<div class="main-content app-content">
     <!-- container -->
     <div class="main-container container">
         <!-- container -->
@@ -230,17 +200,18 @@ include("../admin_menu.php");
                 </ol>
             </div>
         </div>
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
-                    <div class="">
-                        <div class="card-header">
+                    <form action="" id="user_form" class="form-horizontal" method="post">
+                      <div class="">
+                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Assign Crew Log</span>
                         </div>
-                        <form action="" id="user_form" class="form-horizontal" method="post">
+
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <label class="form-label mg-b-0">User : </label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -267,7 +238,8 @@ include("../admin_menu.php");
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1">
                                         <label class="form-label mg-b-0">Station : </label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -294,9 +266,10 @@ include("../admin_menu.php");
                                         </select>
                                     </div>
                                 </div>
-                                <br/>
+                            </div>
+                            <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <label class="form-label mg-b-0">Date From : </label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -308,7 +281,8 @@ include("../admin_menu.php");
                                             <!--<input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php /*echo $datefrom; */?>" placeholder="MM/DD/YYYY" type="text">-->
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1">
                                         <label class="form-label mg-b-0">Date To : </label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -329,15 +303,22 @@ include("../admin_menu.php");
                             ?>
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
-                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Search</button>&nbsp;&nbsp;
+                                    <div class="col-md-2 btn_bottom">
+                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Search</button>
+                                    </div>
+                                    <div class="col-md-2 btn_bottom">
                                     <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
+                                    </div>
 
-                        </form>
-                        <form action="export_crew_log.php" method="post" name="export_excel">
-                            <div class="col-md-1">
+
+                             </form>
+
+                                <div class="col-md-2 btn_bottom">
+                                <form action="export_crew_log.php" method="post" name="export_excel">
                                 <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
+                                </form>
                             </div>
-                        </form>
+
                     </div>
                 </div>
             </div>
@@ -346,7 +327,7 @@ include("../admin_menu.php");
         if(count($_POST) > 0)
         {
             ?>
-            <div class="row-body">
+            <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
