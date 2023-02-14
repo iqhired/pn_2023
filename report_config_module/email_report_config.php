@@ -41,7 +41,9 @@ if ($i != "super" && $i != "admin") {
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -90,7 +92,7 @@ if ($i != "super" && $i != "admin") {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <style>
         .navbar {
 
@@ -228,7 +230,7 @@ include("../admin_menu.php");
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="">
                          <div class="card-header">
                               <span class="main-content-title mg-b-0 mg-b-lg-1">Email Report Config</span>
                          </div>
@@ -277,6 +279,6 @@ include("../admin_menu.php");
         history.replaceState("", "", "<?php echo $scriptName; ?>report_config_module/email_report_config.php");
     }
 </script>
-<?php include ('../footer.php') ?>
+<?php include ('../footer1.php') ?>
 </body>
 </html>
