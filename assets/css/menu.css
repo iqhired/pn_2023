@@ -148,7 +148,8 @@ svg.arrow.dropbtn {
     background-color: #e4eaef !important;
 }
 .navbar{
-    background-color: #073857 !important;
+    /*background-color: #073857 !important;*/
+    background-color: #b0d8f2 !important;
     height: 40px !important;
     min-height: 40px !important;
     padding-top: 1rem;
