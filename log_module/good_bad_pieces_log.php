@@ -205,8 +205,9 @@ fclose($fp);
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/libs/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -265,7 +266,7 @@ fclose($fp);
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -313,41 +314,6 @@ fclose($fp);
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
 
         table.dataTable thead .sorting:after {
             content: ""!important;
@@ -356,15 +322,6 @@ fclose($fp);
         .card-title:before{
             width: 0;
 
-        }
-        .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 238px;
-        }
-        .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
-            display: block;
         }
 
         a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
@@ -431,9 +388,11 @@ $cust_cam_page_header = "Add / Create Form";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-<body class="ltr main-body app sidebar-mini">
+<body class="ltr main-body app horizontal">
 <!-- main-content -->
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
+    <!-- container -->
+    <div class="main-container container">
     <div class="row-body">
         <div class="col-lg-12 col-md-12">
             <div class="breadcrumb-header justify-content-between">
@@ -446,11 +405,11 @@ include("../admin_menu.php");
             </div>
         </div>
     </div>
-            <div class="row-body">
+    <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <form action="" id="good_bad_piece_form" class="form-horizontal" method="post">
-                        <div class="card-body">
+                        <div class="">
                             <div class="card-header">
                                 <span class="main-content-title mg-b-0 mg-b-lg-1">GOOD BAD PIECE LOG</span>
                             </div>
@@ -570,96 +529,95 @@ include("../admin_menu.php");
 
                             </div>
                         </div>
-
-
-
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2" style="max-width: 10.66667%;">
-                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
-                                    </div>
-                                    <div class="col-md-2">
-                                <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
-                                    </div>
-                            </form>
-                                <div class="col-md-3" style="margin-left: -78px;">
-                                <form action="export_good_bad_piece.php" method="post" name="export_excel">
-                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="export" name="export">Export Data</button>
-                                </form>
-                                     </div>
-                            </div>
-                           </div>
-                        </div>
-                </div>
-         </div>
-
-           <div class="row-body">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">GRAPH</span>
-                        </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <div id="gf_container" style="height: 500px; width: 100%;"></div>
+                                <div class="col-md-2" style="max-width: 10.66667%;">
+                                    <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                    <div id="gf_container1" style="height: 500px; width: 100%;"></div>
+                                <div class="col-md-2" style="max-width: 10.66667%;">
+                                    <button type="button" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" onclick='window.location.reload();'>Reset</button>
+                                </div>
+
+                        </form>
+                                <div class="col-md-2">
+                                    <form action="export_good_bad_piece.php" method="post" name="export_excel">
+                                        <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="export" name="export">Export Data</button>
+                                    </form>
                                 </div>
                             </div>
+
+                    </div>
+                    </div>
+               </div>
+    </div>
+
+   <div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="">
+                <div class="card-header">
+                    <span class="main-content-title mg-b-0 mg-b-lg-1">GRAPH</span>
+                </div>
+                <div class="pd-30 pd-sm-20">
+                    <div class="row row-xs">
+                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                            <div id="gf_container" style="height: 500px; width: 100%;"></div>
+                        </div>
+                        <div class="col-md-8 mg-t-10 mg-md-t-0">
+                            <div id="gf_container1" style="height: 500px; width: 100%;"></div>
                         </div>
                     </div>
                 </div>
             </div>
-         </div>
-          <?php if($pn != "" && $pf != ""){ ?>
-           <div class="row-body">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
+        </div>
+    </div>
+    </div>
+      <?php if($pn != "" && $pf != ""){ ?>
+       <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="">
 
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
+                    <div class="pd-30 pd-sm-20">
+                        <div class="row row-xs">
 
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <div id="bsr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px; "></div>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <div id="npr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <div id="eff_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
-                                </div>
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div id="bsr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px; "></div>
+                            </div>
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div id="npr_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
+                            </div>
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div id="eff_container" style="height: 450px;border:1px solid #efefef; margin-top: 20px;"></div>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <?php } ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="">
+                    <div class="card-header">
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">SHIFT WISE GOOD PIECES, BAD PIECES & REWORK</span>
+                    </div>
+                    <div class="pd-30 pd-sm-20">
+                        <div class="row row-xs">
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <div id="container" style="height: 500px; width: 100%;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-          <?php } ?>
-            <div class="row-body">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-header">
-                                <span class="main-content-title mg-b-0 mg-b-lg-1">SHIFT WISE GOOD PIECES, BAD PIECES & REWORK</span>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <div id="container" style="height: 500px; width: 100%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+    </div>
+</div>
+</div>
 </div>
 
 <script>
