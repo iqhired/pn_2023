@@ -209,19 +209,33 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 45%;
+                width: 80%;
             }
             .col-md-6 {
-                width: 45%;
+                width: 90%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 40%;
+                width: 70%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 10%;
+                width: 20%;
             }
             .col-lg-2\.5.mg-t-20.mg-lg-t-0 {
                 max-width: 80%!important;
+            }
+            .col-lg-3.mg-t-20.mg-lg-t-0 {
+                width: 32%;
+            }
+            .row.mg-t-15 {
+                width: 100%;
+            }
+            .col-md-3 {
+                padding: 10px;
+            }
+            .form_tab_td {
+                float: left !important;
+                width: 100%!important;
+                padding: 0px 0px !important;
             }
         }
 
@@ -246,16 +260,30 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 45%;
+                width: 80%;
             }
             .col-md-6 {
-                width: 45%;
+                width: 90%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 40%;
+                width: 70%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 10%;
+                width: 20%;
+            }
+            .col-lg-3.mg-t-20.mg-lg-t-0 {
+                width: 32%;
+            }
+            .row.mg-t-15 {
+                width: 100%;
+            }
+            .col-md-3 {
+                padding: 10px;
+            }
+            .form_tab_td {
+                float: left !important;
+                width: 100%!important;
+                padding: 0px 0px !important;
             }
         }
 
@@ -280,16 +308,30 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 45%;
+                width: 80%;
             }
             .col-md-6 {
-                width: 45%;
+                width:90%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 40%;
+                width: 70%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 10%;
+                width: 20%;
+            }
+            .col-lg-3.mg-t-20.mg-lg-t-0 {
+                width: 32%;
+            }
+            .row.mg-t-15 {
+                width: 100%;
+            }
+            .col-md-3 {
+                padding: 10px;
+            }
+            .form_tab_td {
+                float: left !important;
+                width: 100%!important;
+                padding: 0px 0px !important;
             }
 
         }
@@ -315,16 +357,30 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 margin-left: 38px;
             }
             .col-md-5.mg-t-5.mg-md-t-0 {
-                width: 45%;
+                width: 80%;
             }
             .col-md-6 {
-                width: 45%;
+                width: 90%;
             }
             .col-md-3.mg-t-5.mg-md-t-0 {
-                width: 40%;
+                width: 70%;
             }
             .col-md-2.mg-t-5.mg-md-t-0 {
-                width: 10%;
+                width: 20%;
+            }
+            .col-lg-3.mg-t-20.mg-lg-t-0 {
+                width: 32%;
+            }
+            .row.mg-t-15 {
+                width: 100%;
+            }
+            .col-md-3 {
+                padding: 10px;
+            }
+            .form_tab_td {
+                float: left !important;
+                width: 100%!important;
+                padding: 0px 0px !important;
             }
 
         }
@@ -338,6 +394,11 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
         }
         .col-md-0\.5 {
             padding-top: 10px;
+        }
+        .form_tab_td{
+            float: left;
+            width: 100% ;
+            padding: 0px 30px;
         }
 
 
@@ -744,7 +805,7 @@ include("../admin_menu.php");
                                             <input type="hidden" name="form_item_array[]"
                                                    value="<?php echo $rowc['form_item_id']; ?>"/>
                                             <div class="row mg-t-15">
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-3 mg-t-20 mg-lg-t-0">
                                                     <label class="rdiobox">
                                                         <input type="radio" id="yes"
                                                                name="<?php echo $rowc['form_item_id']; ?>"
@@ -941,9 +1002,9 @@ include("../admin_menu.php");
                                                     </div>
 
                                                     <div class="col-md-3">
-                                                            <span class="form_tab_td" id="approve_msg" style="float: left !important;width: 40% !important;padding: 0px 30px !important;">
+                                                            <span class="form_tab_td" id="approve_msg">
                                                             <input type="password" name="pin[]" id="pin_<?php echo $j ?>"
-                                                                   class="form-control" style=" margin-bottom: 5px;width: auto !important;"
+                                                                   class="form-control"
                                                                    placeholder="Enter Pin..."  autocomplete="off" >
                                                             <span style="font-size: x-small;color: darkred; display: none;width: 100px;" id="pin_error_<?php echo $j; ?>">Invalid Pin.</span>
                                                         </span>

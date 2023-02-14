@@ -209,9 +209,9 @@ if(isset($_POST['update_btn'])){
 				}
                 $sql = "INSERT INTO `sg_station_event_log`(`station_event_id`  ,`reason`,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',0,'$chicagotime','$user_id')";
                 $result0 = mysqli_query($db, $sql);
-		        $part_family_id = '';
-		        $station_event_id = '';
-		        $part_number = '';
+//		        $part_family_id = '';
+//		        $station_event_id = '';
+//		        $part_number = '';
                   $uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=&part_number=&station_event_id=";
                   header("Location:".$uuu);
                   exit;
@@ -733,7 +733,8 @@ if(isset($_POST['update_btn'])){
                                                 if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                     $part_number = $_REQUEST['part_number'];
                                                 }
-                                                $sql1 = "SELECT * FROM `pm_part_number` where station in('2','3','4','5','6','7','8') and part_number not like 'E0%' and part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+                                                //$sql1 = "SELECT * FROM `pm_part_number` where station in('2','3','4','5','6','7','8') and part_number not like 'E0%' and part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
+												$sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1  ORDER BY `part_name` ASC";
                                                 $result1 = $mysqli->query($sql1);
                                                 //                                            $entry = 'selected';
                                                 while ($row1 = $result1->fetch_assoc()) {
