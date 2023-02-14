@@ -428,6 +428,12 @@ include("../admin_menu.php");
         </div>
 
     </div>
+	<?php
+	if (!empty($import_status_message)) {
+		echo '<br/><div id = "success_msg_app" class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+	}
+	displaySFMessage();
+	?>
     <!-- /breadcrumb -->
     <form action="" id="form_settings" enctype="multipart/form-data"  class="form-horizontal" method="post" autocomplete="off">
         <div class="row row-sm">
@@ -937,7 +943,6 @@ include("../admin_menu.php");
                 </div>
             </div>
         </div>
-
         <div class="row row-sm" style="display: none" id="approve_sec">
             <?php
             if ($need_approval == "yes") {
@@ -1172,7 +1177,29 @@ include("../admin_menu.php");
     });
 
     $("#btnSubmit_1").click(function (e) {
-        if ($("#form_settings")[0].checkValidity()) {
+        var data = $("#form_settings").serialize();
+        var data_req = [];
+        var cnt = document.getElementById("rejected_dept_cnt").value;
+        for(var rid = 0; rid < cnt ; rid++){
+            var rr = document.getElementById("rej_reason_td_" + rid );
+            var rr_id = 'rej_reason_'+ rid;
+            var rr_e_id = 'rej_reason_error_'+ rid;
+            if(null != document.getElementById("rej_reason_" + rid )){
+                var rej_r = document.getElementById("rej_reason_" + rid ).value;
+                if(null == rej_r || '' == rej_r) {
+                    rr.innerHTML = "<textarea class= \"form-control\" placeholder=\"Enter Reason\" id= \"" + rr_id + "\" name = \"" + rr_id + "\" rows=\"1\" required></textarea><span style=\"font-size: x-small;color: darkred;\" id=\"" + rr_e_id + "\">Enter Reason.</span>";
+                    data_req[rid] = true;
+                }else if((null != rej_r || '' != rej_r) && (null != document.getElementById(rr_e_id))){
+                    document.getElementById(rr_e_id).innerHTML = '';
+                }else{
+                    if( null != document.getElementById("rr_e_id")){
+                        document.getElementById(rr_e_id).style.display = "none";
+                        document.getElementById(rr_e_id).innerHTML = '';
+                    }
+                }
+            }
+        }
+        if(data_req.length == 0){
             var data = $("#form_settings").serialize();
             var rr = document.getElementById("rej_reason_" + this.id.split("_")[1]);
             var rr_data = "";
@@ -1191,32 +1218,11 @@ include("../admin_menu.php");
                     $('#btnSubmit_1').attr('disabled', 'disabled');
                     var x = document.getElementById("sub_app");
                     x.style.display = "none";
-                    $('#success_msg').text('Form submitted Successfully').css('background-color', '#0080004f');
+                    $('#success_msg_app').text('Form submitted Successfully').css('background-color', '#0080004f');
                     $("form :input").css('pointer-events','none');
-                    window.scrollTo(0, 0);
+                    // window.location.reload();
                 }
             });
-        }else{
-            var data = $("#form_settings").serialize();
-            var cnt = document.getElementById("rejected_dept_cnt").value;
-            for(var rid = 0; rid < cnt ; rid++){
-                var rr = document.getElementById("rej_reason_td_" + rid );
-                var rr_id = 'rej_reason_'+ rid;
-                var rr_e_id = 'rej_reason_error_'+ rid;
-                if(null != document.getElementById("rej_reason_" + rid )){
-                    var rej_r = document.getElementById("rej_reason_" + rid ).value;
-                    if(null == rej_r || '' == rej_r) {
-                        rr.innerHTML = "<textarea class= \"form-control\" placeholder=\"Enter Reason\" id= \"" + rr_id + "\" name = \"" + rr_id + "\" rows=\"1\" required></textarea><span style=\"font-size: x-small;color: darkred;\" id=\"" + rr_e_id + "\">Enter Reason.</span>";
-                    }else if((null != rej_r || '' != rej_r) && (null != document.getElementById(rr_e_id))){
-                        document.getElementById(rr_e_id).innerHTML = '';
-                    }else{
-                        if( null != document.getElementById("rr_e_id")){
-                            document.getElementById(rr_e_id).style.display = "none";
-                            document.getElementById(rr_e_id).innerHTML = '';
-                        }
-                    }
-                }
-            }
         }
     });
 
