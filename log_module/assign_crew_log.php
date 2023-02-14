@@ -498,8 +498,8 @@ include("../admin_menu.php");
     </div>
 </div>
 <script>
-    $('#date_to').datetimepicker({format: 'mm-dd-yyyy H:i'});
-    $('#date_from').datetimepicker({format: 'mm-dd-yyyy H:i'});
+    $('#date_to').datetimepicker({format: 'mm-dd-yyyy HH:ii'});
+    $('#date_from').datetimepicker({format: 'mm-dd-yyyy HH:ii'});
     $(function () {
         $('input:radio').change(function () {
             var abc = $(this).val()
