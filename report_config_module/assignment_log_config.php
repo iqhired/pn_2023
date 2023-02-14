@@ -60,7 +60,9 @@ if (count($_POST) > 0) {
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -109,7 +111,7 @@ if (count($_POST) > 0) {
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
     <style>
         .navbar {
 
@@ -247,7 +249,7 @@ include("../admin_menu.php");
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="">
                         <?php if ($temp == "one") { ?>
                             <br/>					<div class="alert alert-success no-border">
                                 <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
@@ -264,14 +266,9 @@ include("../admin_menu.php");
                         if (!empty($import_status_message)) {
                             echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
                         }
+                        displaySFMessage();
                         ?>
-                        <?php
-                        if (!empty($_SESSION['import_status_message'])) {
-                            echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                            $_SESSION['message_stauts_class'] = '';
-                            $_SESSION['import_status_message'] = '';
-                        }
-                        ?>
+
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Assignment Log Config</span>
                         </div>

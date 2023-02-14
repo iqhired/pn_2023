@@ -258,7 +258,9 @@ if (count($_POST) > 0) {
 
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -462,7 +464,7 @@ if (count($_POST) > 0) {
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="">
                             <div class="card-header">
                                 <span class="main-content-title mg-b-0 mg-b-lg-1">PART NUMBER</span>
                             </div>
@@ -678,7 +680,7 @@ if (count($_POST) > 0) {
                         </div>
                         <div class="card-body pt-0">
                             <div class="table-responsive">
-                                <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                     <thead>
                                     <tr>
                                         <th>

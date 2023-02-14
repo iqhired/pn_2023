@@ -22,7 +22,8 @@ $datefrom = $yesdate;
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -72,7 +73,7 @@ $datefrom = $yesdate;
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -188,7 +189,7 @@ $datefrom = $yesdate;
 
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "Plantnavigator Documents";
+$cust_cam_page_header = "Upload Documents";
 include("../header.php");
 include("../admin_menu.php");
 ?>
@@ -246,9 +247,9 @@ include("../admin_menu.php");
                 ?>
 
                  <div class="card">
-                    <div class="card-body">
+                    <div class="">
                         <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">PLANT NAVIGATOR DOCUMENT </span>
+                            <span class="main-content-title mg-b-0 mg-b-lg-1">UPLOAD DOCUMENT </span>
                         </div>
                         <div class="card-body pt-0">
                             <div class="pd-30 pd-sm-20">

@@ -50,7 +50,8 @@ $idd = $_GET['users_id'];
     
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -100,7 +101,7 @@ $idd = $_GET['users_id'];
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -254,7 +255,7 @@ include("../admin_menu.php");
                             <div class="row">
                                 <div class="col-sm-12">
                                     
-                                    <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                    <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                         <thead>
                                         <tr>
                                             <th>Sl. No</th>
