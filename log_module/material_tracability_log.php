@@ -188,42 +188,6 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
             margin-top: 0rem !important;
         }
 
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333% !important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -261,16 +225,17 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     </style>
 </head>
 
-<!-- Main navbar -->
+<body class="ltr main-body app horizontal">
+<!-- main-content -->
+
 <?php
 include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
+    <div class="main-container container">
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -280,171 +245,171 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-        <div class="row-body">
+            <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <form action="" id="user_form" class="form-horizontal" method="post">
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability Log</span>
-                        </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Station : </label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="station" id="station" class="form-control form-select select2"
-                                            data-placeholder="Select Station">
-                                        <option value="" selected disabled>--- Select Station ---</option>
-										<?php
-
-
-										$st_dashboard = $_POST['station'];
-										$sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC ";
-										$result1 = $mysqli->query($sql1);
-										//                                            $entry = 'selected';
-										while ($row1 = $result1->fetch_assoc()) {
-											if ($st_dashboard == $row1['line_id']) {
-												$entry = 'selected';
-											} else {
-												$entry = '';
-
-											}
-											echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
-										}
-										?>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Part Family * : </label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="part_family" id="part_family" class="form-control form-select select2"
-                                            data-placeholder="Select Part Family">
-                                        <option value="" selected disabled>--- Select Part Family ---</option>
-										<?php
-										$st_dashboard = $_POST['part_family'];
-										$station = $_POST['station'];
-										$ss = (isset($station) ? ' and station = ' . $station : '');
-										$sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1" . $ss;
-										$result1 = $mysqli->query($sql1);
-										while ($row1 = $result1->fetch_assoc()) {
-											if ($st_dashboard == $row1['pm_part_family_id']) {
-												$entry = 'selected';
-											} else {
-												$entry = '';
-
-											}
-											echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
-										}
-										?>
-                                    </select>
-                                </div>
-
+                            <div class="card-header">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">Material Traceability Log</span>
                             </div>
-
-                        </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-1 mg-t-10 mg-md-t-0">
-                                    <label class="form-label mg-b-0">Part Number * : </label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="part_number" id="part_number" class="form-control form-select select2"
-                                            data-placeholder="Select Part Number">
-                                        <option value="" selected disabled>--- Select Part Number ---</option>
-										<?php
-										$st_dashboard = $_POST['part_number'];
-										$part_family = $_POST['part_family'];
-										$sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1 ";
-										$result1 = $mysqli->query($sql1);
-										while ($row1 = $result1->fetch_assoc()) {
-											if ($st_dashboard == $row1['pm_part_number_id']) {
-												$entry = 'selected';
-											} else {
-												$entry = '';
-
-											}
-											echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . "</option>";
-										}
-										?>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 mg-t-10 mg-md-t-0">
-                                    <label class="form-label mg-b-0">Material Type * : </label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="material_type" id="material_type"
-                                            class="form-control form-select select2"
-                                            data-placeholder="Select Material Type">
-                                        <option value="" selected disabled>--- Select Material Type ---</option>
-										<?php
-
-										$p_number = $_POST['part_number'];
-										$sql1 = "SELECT Distinct (material_type) FROM material_tracability where part_no = '$p_number' ";
-										$result1 = mysqli_query($db, $sql1);
-										while ($row1 = mysqli_fetch_assoc($result1)) {
-//                                        $material_id = $row1['material_id'];
-											$material = $row1['material_type'];
-											$sql2 = "SELECT  (material_type) FROM `material_config` where is_deleted != 1 and material_id = " . $material;
-											$result2 = mysqli_query($db, $sql2);
-											$row2 = mysqli_fetch_assoc($result2);
-
-											echo "<option value='" . $row2['material_id'] . "'>" . $row2['material_type'] . "</option>";
-
-
-										}
-
-										?>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Date From : </label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <div class="input-group">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input class="form-control fc-datepicker" name="date_from" id="date_from"
-                                               value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Station  </label>
                                     </div>
-                                </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="station" id="station" class="form-control form-select select2"
+                                                data-placeholder="Select Station">
+                                            <option value="" selected disabled>--- Select Station ---</option>
+                                            <?php
 
-                                <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Date To : </label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <div class="input-group">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input class="form-control fc-datepicker" name="date_to" id="date_to"
-                                               value="<?php echo $dateto; ?>" placeholder="MM/DD/YYYY" type="text">
+
+                                            $st_dashboard = $_POST['station'];
+                                            $sql1 = "SELECT * FROM `cam_line` where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC ";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($st_dashboard == $row1['line_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+
+                                                }
+                                                echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Part Family  </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="part_family" id="part_family" class="form-control form-select select2"
+                                                data-placeholder="Select Part Family">
+                                            <option value="" selected disabled>--- Select Part Family ---</option>
+                                            <?php
+                                            $st_dashboard = $_POST['part_family'];
+                                            $station = $_POST['station'];
+                                            $ss = (isset($station) ? ' and station = ' . $station : '');
+                                            $sql1 = "SELECT * FROM `pm_part_family` where is_deleted != 1" . $ss;
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($st_dashboard == $row1['pm_part_family_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+
+                                                }
+                                                echo "<option value='" . $row1['pm_part_family_id'] . "' $entry >" . $row1['part_family_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
 
                             </div>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1 mg-t-10 mg-md-t-0">
+                                        <label class="form-label mg-b-0">Part Number </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="part_number" id="part_number" class="form-control form-select select2"
+                                                data-placeholder="Select Part Number">
+                                            <option value="" selected disabled>--- Select Part Number ---</option>
+                                            <?php
+                                            $st_dashboard = $_POST['part_number'];
+                                            $part_family = $_POST['part_family'];
+                                            $sql1 = "SELECT * FROM `pm_part_number` where part_family = '$part_family' and is_deleted != 1 ";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($st_dashboard == $row1['pm_part_number_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
 
-                        </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-1">
-                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="button" class="btn btn-primary mg-t-5"
-                                            onclick="window.location.reload();">Reset
-                                    </button>
+                                                }
+                                                echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1 mg-t-10 mg-md-t-0">
+                                        <label class="form-label mg-b-0">Material Type  </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="material_type" id="material_type"
+                                                class="form-control form-select select2"
+                                                data-placeholder="Select Material Type">
+                                            <option value="" selected disabled>--- Select Material Type ---</option>
+                                            <?php
+
+                                            $p_number = $_POST['part_number'];
+                                            $sql1 = "SELECT Distinct (material_type) FROM material_tracability where part_no = '$p_number' ";
+                                            $result1 = mysqli_query($db, $sql1);
+                                            while ($row1 = mysqli_fetch_assoc($result1)) {
+    //                                        $material_id = $row1['material_id'];
+                                                $material = $row1['material_type'];
+                                                $sql2 = "SELECT  (material_type) FROM `material_config` where is_deleted != 1 and material_id = " . $material;
+                                                $result2 = mysqli_query($db, $sql2);
+                                                $row2 = mysqli_fetch_assoc($result2);
+
+                                                echo "<option value='" . $row2['material_id'] . "'>" . $row2['material_type'] . "</option>";
+
+
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
 
-                    </form>
+                            </div>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Date From </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control fc-datepicker" name="date_from" id="date_from"
+                                                   value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Date To </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control fc-datepicker" name="date_to" id="date_to"
+                                                   value="<?php echo $dateto; ?>" placeholder="MM/DD/YYYY" type="text">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1">
+                                        <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-primary mg-t-5"
+                                                onclick="window.location.reload();">Reset
+                                        </button>
+                                    </div>
+                        </form>
                         <form action="export_material.php" method="post" name="export_excel">
                             <div class="col-md-1">
                                 <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export"
@@ -457,7 +422,7 @@ include("../admin_menu.php");
             </div>
                 </div>
             </div>
-        </div>
+ </div>
 
 
 

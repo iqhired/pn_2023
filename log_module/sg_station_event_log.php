@@ -194,40 +194,6 @@ if(empty($datefrom)){
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -256,6 +222,14 @@ if(empty($datefrom)){
             padding: 0.5em 0.5em!important;
             width: 100px;
             height: 23px;
+        }
+        .rdiobox {
+            margin-top: 10px;
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+            .col-md-3.mg-t-10.mg-md-t-0 {
+                width: 50%;
+            }
         }
 
     </style>
@@ -308,217 +282,219 @@ if(empty($datefrom)){
 
 </head>
 
+
+
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Station event log";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-
-<body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
-                <li class="breadcrumb-item active" aria-current="page"> Station event log</li>
-            </ol>
-        </div>
-    </div>
-    <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Station Event Log</span>
-                        </div>
-                        <div class="pd-20 pd-sm-10">
-                            <div class="row row-xs">
-                                <div class="col-md-2" style="max-width: 9.66667%!important;">
-                                    <label class="form-label mg-b-0">Event Type : </label>
-                                </div>
-                                <?php
-                                if ($button_event == "button3") {
-                                    $checked = "checked";
-                                } else {
-                                    $checked = "";
-                                }
-                                ?>
-                                <div class="row mg-t-15" style="margin-top: 8px!important;">
-                                    <div class="col-lg-1">
-                                        <label class="rdiobox"><input type="radio" name="button_event" id="button3" value="button3"
-                                                                      class="form-control"
-                                                                      style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="event_type" id="event_type" class="form-control form-select select2" data-placeholder="Select Event Type">
-                                        <option value="" selected>--- Select Event Type ---</option>
-                                        <?php
-                                        $ev_ty_post = $_POST['event_type'];
-                                        $sql1 = "SELECT * FROM `event_type` where is_deleted != 1 ";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            $lin = $row1['event_type_id'];
-
-                                            if ($lin == $ev_ty_post) {
-                                                $entry = 'selected';
-                                            } else {
-                                                $entry = '';
-                                            }
-                                            echo "<option value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                &nbsp; &nbsp; &nbsp;
-                                <div class="col-md-2" style="max-width: 12.66667%!important;">
-                                    <label class="form-label mg-b-0">Event Category : </label>
-                                </div>
-                                <?php
-                                if ($button_event == "button4") {
-                                    $checked = "checked";
-                                } else {
-                                    $checked = "";
-                                }
-                                ?>
-                                <div class="row mg-t-15" style="margin-top: 8px!important;">
-                                    <div class="col-lg-1">
-                                        <label class="rdiobox">  <input type="radio" name="button_event" id="button4" value="button4"
-                                                                        class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="event_category" id="event_category" class="form-control form-select select2" data-placeholder="Select Event Category">
-                                        <option value="" selected disabled>--- Select Event Catagory ---</option>
-                                        <?php
-                                        $ev_cat_post = $_POST['event_category'];
-                                        $sql1 = "SELECT * FROM `events_category` where is_deleted != 1 ";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            $lin = $row1['events_cat_id'];
-
-                                            if ($lin == $ev_cat_post) {
-                                                $entry = 'selected';
-                                            } else {
-                                                $entry = '';
-                                            }
-                                            echo "<option value='" . $row1['events_cat_id'] . "' $entry >" . $row1['events_cat_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pd-20 pd-sm-10">
-                            <div class="row row-xs">
-                                <div class="col-md-2" style="max-width: 9.66667%;">
-                                    <label class="form-label mg-b-0">Station : </label>
-                                </div>
-                                <div class="col-md-5 mg-t-10 mg-md-t-0" style="max-width: 35.66667%;">
-                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
-                                        <option value="" selected disabled>--- Select Station ---</option>
-                                        <?php
-                                        $sql1 = "SELECT * FROM `cam_line` where  enabled = 1 and is_deleted != 1 ORDER BY `cam_line`.`line_id` ASC;";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            $lin = $row1['line_id'];
-
-                                            if ($lin == $station) {
-                                                $entry = 'selected';
-                                            } else {
-                                                $entry = '';
-                                            }
-                                            echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="pd-20 pd-sm-10">
-                            <div class="row row-xs">
-                                <?php
-                                if ($button != "button2") {
-                                    $checked = "checked";
-                                } else {
-                                    $checked == "";
-                                }
-                                ?>
-                                <div class="col-md-2" style="max-width: 9.66667%;">
-                                    <label class="form-label mg-b-0">Date From : </label>
-                                </div>
-                                <div class="col-md-5 mg-t-10 mg-md-t-0" style="max-width: 35.66667%;">
-                                    <div class="input-group">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
-                                    </div><!-- input-group -->
-                                </div>
-                                &nbsp; &nbsp; &nbsp;
-                                <div class="col-md-2" style="max-width: 13.66667%;">
-                                    <label class="form-label mg-b-0">Date To : </label>
-                                </div>
-                                <div class="col-md-5 mg-t-10 mg-md-t-0" style="max-width: 35.66667%;">
-                                    <div class="input-group">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
-                                    </div><!-- input-group -->
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <?php
-                        if (!empty($import_status_message)) {
-                            echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                        }
-                        ?>
-                        <?php
-                        if (!empty($_SESSION['import_status_message'])) {
-                            echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                            $_SESSION['message_stauts_class'] = '';
-                            $_SESSION['import_status_message'] = '';
-                        }
-                        ?>
-                        <div class="pd-20 pd-sm-10">
-                            <div class="row row-xs">
-                                <div class="col-md-1">
-                                    <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
-                                </div>
-    </form>
-                        <form action="export_se_log_new.php" method="post" name="export_excel">
-                            <div class="col-md-1">
-                                <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
-                            </div>
-                        </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- container -->
+        <div class="main-container container">
+        <!-- breadcrumb -->
+               <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> Station event log</li>
+                </ol>
             </div>
         </div>
+               <form action="" id="user_form" class="form-horizontal" method="post">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">Station Event Log</span>
+                            </div>
+                            <div class="pd-20 pd-sm-10">
+                                <div class="row row-xs">
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Event Type  </label>
+                                    </div>
+                                    <?php
+                                    if ($button_event == "button3") {
+                                        $checked = "checked";
+                                    } else {
+                                        $checked = "";
+                                    }
+                                    ?>
+
+                                        <div class="col-md-0.5">
+                                            <label class="rdiobox"><input type="radio" name="button_event" id="button3" value="button3"
+                                                                          class="form-control"
+                                                                          style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                        </div>
+
+                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                        <select name="event_type" id="event_type" class="form-control form-select select2" data-placeholder="Select Event Type">
+                                            <option value="" selected>--- Select Event Type ---</option>
+                                            <?php
+                                            $ev_ty_post = $_POST['event_type'];
+                                            $sql1 = "SELECT * FROM `event_type` where is_deleted != 1 ";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                $lin = $row1['event_type_id'];
+
+                                                if ($lin == $ev_ty_post) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Event Category  </label>
+                                    </div>
+                                    <?php
+                                    if ($button_event == "button4") {
+                                        $checked = "checked";
+                                    } else {
+                                        $checked = "";
+                                    }
+                                    ?>
+                                    <div class="col-md-0.5">
+                                            <label class="rdiobox">  <input type="radio" name="button_event" id="button4" value="button4"
+                                                                            class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                        </div>
+
+                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                        <select name="event_category" id="event_category" class="form-control form-select select2" data-placeholder="Select Event Category">
+                                            <option value="" selected disabled>--- Select Event Catagory ---</option>
+                                            <?php
+                                            $ev_cat_post = $_POST['event_category'];
+                                            $sql1 = "SELECT * FROM `events_category` where is_deleted != 1 ";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                $lin = $row1['events_cat_id'];
+
+                                                if ($lin == $ev_cat_post) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option value='" . $row1['events_cat_id'] . "' $entry >" . $row1['events_cat_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pd-20 pd-sm-10">
+                                <div class="row row-xs">
+                                    <div class="col-md-1" >
+                                        <label class="form-label mg-b-0">Station  </label>
+                                    </div>
+                                    <div class="col-md-0.5"></div>
+                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                        <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
+                                            <option value="" selected disabled>--- Select Station ---</option>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `cam_line` where  enabled = 1 and is_deleted != 1 ORDER BY `cam_line`.`line_id` ASC;";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                $lin = $row1['line_id'];
+
+                                                if ($lin == $station) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="pd-20 pd-sm-10">
+                                <div class="row row-xs">
+                                    <?php
+                                    if ($button != "button2") {
+                                        $checked = "checked";
+                                    } else {
+                                        $checked == "";
+                                    }
+                                    ?>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Date From  </label>
+                                    </div>
+                                    <div class="col-md-0.5"></div>
+                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
+                                        </div><!-- input-group -->
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-0.5"></div>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Date To  </label>
+                                    </div>
+                                    <div class="col-md-0.5"></div>
+                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
+                                        </div><!-- input-group -->
+                                    </div>
+
+                                </div>
+                            </div>
+                            <?php
+                            if (!empty($import_status_message)) {
+                                echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                            }
+                            ?>
+                            <?php
+                            if (!empty($_SESSION['import_status_message'])) {
+                                echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
+                                $_SESSION['message_stauts_class'] = '';
+                                $_SESSION['import_status_message'] = '';
+                            }
+                            ?>
+                            <div class="pd-20 pd-sm-10">
+                                <div class="row row-xs">
+                                    <div class="col-md-1">
+                                        <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
+                                    </div>
+                            </form>
+              <form action="export_se_log_new.php" method="post" name="export_excel">
+                                <div class="col-md-1">
+                                    <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
+                                </div>
+                            </form>
+        </div>
+
+
 
     <!-- row  -->
     <?php
     if(count($_POST) > 0)
     {
         ?>
-        <div class="row-body">
+        <div class="row">
 
             <div class="col-12 col-sm-12">
                 <div class="card">
@@ -636,6 +612,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
         <?php
     }
     ?>
+</div>
 <script>
     $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
     $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });

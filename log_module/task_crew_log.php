@@ -180,41 +180,6 @@ if(empty($datefrom)){
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
 
         table.dataTable thead .sorting:after {
             content: ""!important;
@@ -271,6 +236,9 @@ if(empty($datefrom)){
 
 </head>
 
+
+<body class="ltr main-body app horizontal">
+<!-- main-content -->
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Task Crew Log";
@@ -278,10 +246,9 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
+    <div class="main-container container">
     <!-- breadcrumb -->
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
@@ -292,7 +259,7 @@ include("../admin_menu.php");
                 </div>
             </div>
 
-    <form action="" id="user_form" class="form-horizontal" method="post">
+              <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
@@ -303,9 +270,9 @@ include("../admin_menu.php");
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Taskboard:</label>
+                                    <label class="form-label mg-b-0">Taskboard</label>
                                 </div>
-                                <div class="col-md-5 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="taskboard" id="taskboard" class="form-control form-select select2" data-placeholder="Select Taskboard">
                                         <option value="" selected disabled>--- Select Taskboard ---</option>
                                         <?php
@@ -326,10 +293,11 @@ include("../admin_menu.php");
                                         ?>
                                     </select>
                                 </div>
+                                <div class="col-md-1"></div>
                                 <div class="col-md-1">
-                                    <label class="form-label mg-b-0">User : </label>
+                                    <label class="form-label mg-b-0">User  </label>
                                 </div>
-                                <div class="col-md-5 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="user" id="user" class="form-control form-select select2" data-placeholder="Select User">
                                         <option value="" selected >--- Select User ---</option>
                                         <?php
@@ -352,7 +320,6 @@ include("../admin_menu.php");
                                         ?>
                                     </select>
                                 </div>
-
                             </div>
 
                         </div>
@@ -360,9 +327,9 @@ include("../admin_menu.php");
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Date From : </label>
+                                    <label class="form-label mg-b-0">Date From  </label>
                                 </div>
-                                <div class="col-md-5 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
@@ -370,11 +337,11 @@ include("../admin_menu.php");
                                         <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
                                     </div><!-- input-group -->
                                 </div>
-
+                                <div class="col-md-1"></div>
                                 <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Date To : </label>
+                                    <label class="form-label mg-b-0">Date To  </label>
                                 </div>
-                                <div class="col-md-5 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fa fa-calendar"></i>
@@ -382,7 +349,6 @@ include("../admin_menu.php");
                                         <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
                                     </div><!-- input-group -->
                                 </div>
-
                             </div>
 
                         </div>
@@ -407,26 +373,17 @@ include("../admin_menu.php");
                                     <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
                                 </div>
     </form>
-                     <form action="export_task_log.php" method="post" name="export_excel">
-                        <div class="col-md-1">
-                              <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
-                        </div>
-                     </form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-
-<!-- row  -->
+                 <form action="export_task_log.php" method="post" name="export_excel">
+                   <div class="col-md-1">
+                      <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
+                   </div>
+              </form>
+       <!-- row  -->
 <?php
 if(count($_POST) > 0)
 {
     ?>
-    <div class="row-body">
+    <div class="row">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-body pt-0">
@@ -560,10 +517,10 @@ if(count($_POST) > 0)
     <?php
 }
 ?>
-
+    </div>
+</div>
 <!-- /dashboard content -->
 <script>
-
     $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
     $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
 

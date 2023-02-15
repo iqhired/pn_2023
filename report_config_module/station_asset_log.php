@@ -166,41 +166,6 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
 
         table.dataTable thead .sorting:after {
             content: ""!important;
@@ -233,6 +198,9 @@ while ($rowctemp = mysqli_fetch_array($qurtemp)) {
     </style>
 </head>
 
+
+<body class="ltr main-body app horizontal">
+<!-- main-content -->
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Station Assets Log";
@@ -240,10 +208,10 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
+    <!-- container -->
+    <div class="main-container container">
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -254,7 +222,7 @@ include("../admin_menu.php");
         </div>
     </div>
     <form action="" id="asset_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -343,62 +311,64 @@ include("../admin_menu.php");
     </form>
 
 <!-- row  -->
-<?php
-if(count($_POST) > 0)
-{
-    ?>
-    <div class="row-body">
-        <div class="col-lg-12 col-md-12">
-            <div class="card">
-                <div class="card-body pt-0">
-                    <div class="table-responsive">
-                        <table class="table  table-bordered text-nowrap mb-0" id="example2">
-                            <thead>
-                            <tr>
-                                <th>sl.no</th>
-                                <th>Action</th>
-                                <th>Station</th>
-                                <th>Asset name</th>
-                                <th>Time</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $date_from = convertMDYToYMD($datefrom);
-                            $date_to = convertMDYToYMD($dateto);
-                            $q = ("SELECT xx.asset_name,xx.created_date,xx.submit_id  FROM  submit_assets as xx inner join cam_line as cl on xx.line_id = cl.line_id where DATE_FORMAT(xx.created_date,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(xx.created_date,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station'");
-                            $qur = mysqli_query($db, $q);
-                            while ($rowc = mysqli_fetch_array($qur)) {
-                                ?>
-                                <tr>
+        <?php
+        if(count($_POST) > 0)
+        {
+            ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-body pt-0">
+                            <div class="table-responsive">
+                                <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                    <thead>
+                                    <tr>
+                                        <th>sl.no</th>
+                                        <th>Action</th>
+                                        <th>Station</th>
+                                        <th>Asset name</th>
+                                        <th>Time</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
                                     <?php
-                                    $un = $rowc['line_no'];
-                                    $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$station' ");
-                                    while ($rowc04 = mysqli_fetch_array($qur04)) {
-                                        $lnn = $rowc04["line_name"];
-                                    }
-                                    ?>
-                                    <td><?php echo ++$counter; ?></td>
-                                    <td>
+                                    $date_from = convertMDYToYMD($datefrom);
+                                    $date_to = convertMDYToYMD($dateto);
+                                    $q = ("SELECT xx.asset_name,xx.created_date,xx.submit_id  FROM  submit_assets as xx inner join cam_line as cl on xx.line_id = cl.line_id where DATE_FORMAT(xx.created_date,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(xx.created_date,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station'");
+                                    $qur = mysqli_query($db, $q);
+                                    while ($rowc = mysqli_fetch_array($qur)) {
+                                        ?>
+                                        <tr>
+                                            <?php
+                                            $un = $rowc['line_no'];
+                                            $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$station' ");
+                                            while ($rowc04 = mysqli_fetch_array($qur04)) {
+                                                $lnn = $rowc04["line_name"];
+                                            }
+                                            ?>
+                                            <td><?php echo ++$counter; ?></td>
+                                            <td>
 
-                                        <a href="<?php echo $siteURL; ?>report_config_module/view_assets_config.php?id=<?php echo $rowc['submit_id'];?>" class="btn btn-primary legitRipple" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    </td>
-                                    <td><?php echo $lnn; ?></td>
-                                    <td><?php echo $rowc['asset_name']; ?></td>
-                                    <td><?php echo  dateReadFormat($rowc['created_date']); ?></td>
+                                                <a href="<?php echo $siteURL; ?>report_config_module/view_assets_config.php?id=<?php echo $rowc['submit_id'];?>" class="btn btn-primary legitRipple" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            </td>
+                                            <td><?php echo $lnn; ?></td>
+                                            <td><?php echo $rowc['asset_name']; ?></td>
+                                            <td><?php echo  dateReadFormat($rowc['created_date']); ?></td>
 
-                                </tr>
-                            <?php } ?>
-                            </tbody>
-                        </table>
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <?php
+        }
+        ?>
     </div>
-    <?php
-}
-?>
+</div>
     <script>
         $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
         $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });

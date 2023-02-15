@@ -381,7 +381,7 @@ fclose($fp);
     }
     ?>
 </head>
-<body class="ltr main-body app horizontal">
+    <body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Add / Create Form";
@@ -392,7 +392,7 @@ include("../admin_menu.php");
 <!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
-    <div class="main-container container">
+
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
