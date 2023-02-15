@@ -534,7 +534,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Forms Need to Submitted within 2 hours: ' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Form Needs to be Submitted within 2 hours : ' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
@@ -546,7 +546,7 @@ include("../hp_header.php");
                                         var workingminutes = Math.floor((workingdistance % (1000 * 60 * 60)) / (1000 * 60));
                                         var workingseconds = Math.floor((workingdistance % (1000 * 60)) / 1000);
 
-                                        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Expired: ' + workingdays + "d " + workinghours + "h "
+                                        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = '2 hours over still not submitted the form : ' + workingdays + "d " + workinghours + "h "
                                             + workingminutes + "m " + workingseconds + "s ";
                                         document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'red';
                                     }
@@ -946,7 +946,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Forms Need to Submitted within 2 hours: ' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Form Needs to be Submitted within 2 hours : ' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
@@ -958,7 +958,7 @@ include("../hp_header.php");
                                         var workingminutes = Math.floor((workingdistance % (1000 * 60 * 60)) / (1000 * 60));
                                         var workingseconds = Math.floor((workingdistance % (1000 * 60)) / 1000);
 
-                                        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Expired: ' + workingdays + "d " + workinghours + "h "
+                                        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = '2 hours over still not submitted the form: ' + workingdays + "d " + workinghours + "h "
                                             + workingminutes + "m " + workingseconds + "s ";
                                         document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'red';
                                     }
@@ -1278,7 +1278,6 @@ include("../hp_header.php");
                             <div class="col-lg-3">
                             <div class="panel bg-blue-400">
                                 <div class="panel-body">
-
                                     <h3 class="no-margin dashboard_line_heading">Parameter Sheet</h3>
                                     <hr/>
                                     <input type="hidden" id="id<?php echo $countervariable; ?>" value="<?php echo $date; ?>">
@@ -1354,7 +1353,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Forms Need to Submitted within 2 hours:' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Form Needs to be Submitted within 2 hours : ' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
@@ -1366,7 +1365,7 @@ include("../hp_header.php");
                                         var workingminutes = Math.floor((workingdistance % (1000 * 60 * 60)) / (1000 * 60));
                                         var workingseconds = Math.floor((workingdistance % (1000 * 60)) / 1000);
 
-                                        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Expired: ' + workingdays + "d " + workinghours + "h "
+                                        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = '2 hours over still not submitted the form : ' + workingdays + "d " + workinghours + "h "
                                             + workingminutes + "m " + workingseconds + "s ";
                                         document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'red';
                                     }
