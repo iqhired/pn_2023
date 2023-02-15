@@ -1,5 +1,6 @@
 <?php include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
+$ttime = date("H:i");
 $temp = "";
 checkSession();
 $is_tab_login = $_SESSION['is_tab_user'];
@@ -129,7 +130,7 @@ if(isset($_POST['submit_btn'])) {
                 $result0 = mysqli_query($db, $sql0);
                 $station_event_id = ($db->insert_id);
                 if ($result0) {
-                    $sql0 = "insert into form_frequency_data(`station_event_id`,`line_up_time`,`up_time`,`event_type_id`) values ('$station_event_id','$chicagotime','$ttime','$event_type_id')";
+                    $sql0 = "insert into form_frequency_data(`station_event_id`,`line_up_time`,`up_time`,`event_type_id`) values ('$station_event_id','$chicagotime','02:00','$event_type_id')";
                     $result0 = mysqli_query($db, $sql0);
 
                     $qur1 = "select (count(station_event_id)) as seq_num from sg_station_event_log WHERE station_event_id='$station_event_id'";
