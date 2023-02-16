@@ -119,6 +119,11 @@ if (count($_POST) > 0) {
             font-size: 1rem!important;
         }
 
+         .mt-4 {
+            margin-top: 0rem!important;
+        }
+
+
         .content_img {
             width: 113px;
             float: left;
@@ -319,7 +324,7 @@ include("../admin_menu.php");
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl. No</th>
-                                             <th>Action</th>
+                                            <th>Action</th>
                                             <th>Job Title</th>
                                            
                                         </tr>
@@ -361,10 +366,10 @@ include("../admin_menu.php");
                     <div class="col-lg-12 col-md-12">
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label class="form-label mg-b-0">Job Title:*</label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-6 mg-t-10 mg-md-t-0">
                                     <input type="text" name="edit_name" id="edit_name" class="form-control" required>
                                     <input type="hidden" name="edit_id" id="edit_id">
                                 </div>
@@ -418,6 +423,7 @@ include("../admin_menu.php");
         history.replaceState("", "", "<?php echo $scriptName; ?>config_module/job_title.php");
     }
 </script>
+
 <script>
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);

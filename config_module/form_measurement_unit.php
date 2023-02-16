@@ -154,40 +154,8 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
 
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -197,15 +165,6 @@ if (count($_POST) > 0) {
         .card-title:before{
             width: 0;
 
-        }
-        .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 238px;
-        }
-        .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
-            display: block;
         }
 
         a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
@@ -220,6 +179,7 @@ if (count($_POST) > 0) {
 
     </style>
 </head>
+<body class="ltr main-body app horizontal">
 
 
 <!-- Main navbar -->
@@ -230,9 +190,10 @@ include("../admin_menu.php");
 ?>
 
 <!-----body-------->
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
+        <div class="main-container container">
+
     <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
@@ -246,7 +207,7 @@ include("../admin_menu.php");
 
 
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <?php
                 if (!empty($import_status_message)) {
@@ -308,7 +269,7 @@ include("../admin_menu.php");
 
 
 <form action="delete_form_measurement_unit.php" method="post" class="form-horizontal">
-    <div class="row-body">
+    <div class="row">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
@@ -377,8 +338,8 @@ include("../admin_menu.php");
                   <div class="card-body" style="width:100%;">
                      <div class="col-lg-12 col-md-12">
                     <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Name:*</label>
                                 </div>
                                 <div class="col-md-7 mg-t-10 mg-md-t-0">
@@ -392,7 +353,7 @@ include("../admin_menu.php");
 
                     <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Description:*</label>
                                 </div>
                                 <div class="col-md-7 mg-t-10 mg-md-t-0">
@@ -405,7 +366,7 @@ include("../admin_menu.php");
 
                      <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Unit of Measurement:*</label>
                                 </div>
                                 <div class="col-md-7 mg-t-10 mg-md-t-0">
@@ -484,6 +445,7 @@ include("../admin_menu.php");
 
 
 <!-----main content----->
+</div>
 </div>
 </div>
 
