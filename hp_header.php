@@ -137,6 +137,8 @@ while ($row1 = $result1->fetch_assoc()) {
     .logo_img{
         height: auto;
         width: 150px;
+        margin-top: -31px;
+    }
     }
     img.dropbtn_img {
         height: auto;
@@ -149,7 +151,9 @@ while ($row1 = $result1->fetch_assoc()) {
         /* font-size: 1em; */
         /* margin-top: 30px !important; */
     }
-
+    .header{
+        height: 123px;
+    }
 
     /*.dropdown a:hover {background-color: #ddd;}*/
 
