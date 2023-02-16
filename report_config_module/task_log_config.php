@@ -456,7 +456,7 @@ include("../admin_menu.php");
 </div>
 <script>
     window.onload = function() {
-        history.replaceState("", "", "<?php echo $scriptName; ?>report_config_module/task_log_config_new.php");
+        history.replaceState("", "", "<?php echo $scriptName; ?>report_config_module/task_log_config.php");
     }
 </script>
         <script>
