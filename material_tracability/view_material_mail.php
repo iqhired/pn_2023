@@ -2,38 +2,8 @@
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-	if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-		header($redirect_tab_logout_path);
-	}else{
-		header($redirect_logout_path);
-	}
-}
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-	//Unset the session variables
-	session_unset();
-	//Destroy the session
-	session_destroy();
-	if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-		header($redirect_tab_logout_path);
-	}else{
-		header($redirect_logout_path);
-	}
-
-//	header('location: ../logout.php');
-	exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-	header('location: ../dashboard.php');
-}
+//check the user or not
+checkSession();
 
 $s_event_id = $_GET['station_event_id'];
 $station_event_id = base64_decode(urldecode($s_event_id));
@@ -71,37 +41,82 @@ $logo = $rowccus['logo'];
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>
-		<?php echo $sitename; ?> | View Form</title>
-	<!-- Global stylesheets -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-		  type="text/css">
-	<link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo $siteURL; ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo $siteURL; ?>assets/css/colors.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo $siteURL; ?>assets/css/style_main.css" rel="stylesheet" type="text/css">
-	<!-- /global stylesheets -->
-	<!-- Core JS files -->
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.6.0.min.js"> </script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/pace.min.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/blockui.min.js"></script>
-	<!-- /core JS files -->
-	<!-- Theme JS files -->
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/media/fancybox.min.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/datatables_basic.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_select2.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/gallery.js"></script>
-	<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <?php echo $sitename; ?> |View Material Traceability</title>
+    <!-- Global stylesheets -->
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteURL; ?>assets/css/colors.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteURL; ?>assets/css/style_main.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.6.0.min.js"> </script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/media/fancybox.min.js"></script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_select2.js"></script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/gallery.js"></script>
+    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
+    <!--Bootstrap-datepicker css-->
+    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+    <!-- STYLES CSS -->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+    <!---Internal Fancy uploader css-->
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+    <!--Internal  Datepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
+    <!-- Internal Select2.min js -->
+    <!--Internal  jquery.maskedinput js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
+    <!-- Ionicons js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
+    <!--Internal  pickerjs js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+    <!--internal color picker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+    <!-- Internal form-elements js -->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=WindSong&display=swap');
 
@@ -150,6 +165,12 @@ $logo = $rowccus['logo'];
 			font-size: 15px;
 		}
 		@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            .col-md-10.mg-t-5.mg-md-t-0{
+                max-width: 352px!important;
+            }
+            .col-md-2{
+                max-width: 150px!important;
+            }
 			.col-lg-2{
 				width: 35%!important;
 			}
@@ -214,219 +235,477 @@ $logo = $rowccus['logo'];
 
 
 		}
+        .navbar {
 
+            padding-top: 0px!important;
+        }
+        .dropdown .arrow {
+
+            margin-top: -25px!important;
+            width: 1.5rem!important;
+        }
+        #ic .arrow {
+            margin-top: -22px!important;
+            width: 1.5rem!important;
+        }
+        .fs-6 {
+            font-size: 1rem!important;
+        }
+
+        .content_img {
+            width: 113px;
+            float: left;
+            margin-right: 5px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        /* Delete */
+        .content_img span {
+            border: 2px solid red;
+            display: inline-block;
+            width: 99%;
+            text-align: center;
+            color: red;
+        }
+        .remove_btn{
+            float: right;
+        }
+        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .collapse.in {
+            display: block!important;
+        }
+        .breadcrumb-header {
+            margin-left: 0;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .col-md-10.mg-t-5.mg-md-t-0{
+                max-width: 352px!important;
+            }
+            .col-md-2{
+                max-width: 150px!important;
+            }
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+        }
+        @media (min-width: 614px) and (max-width: 874px) {
+            .col-md-10.mg-t-5.mg-md-t-0 {
+                max-width: 352px !important;
+            }
+
+            .col-md-2 {
+                max-width: 150px !important;
+            }
+        }
+        @media (min-width: 481px) and (max-width: 768px) {
+            .col-md-10.mg-t-5.mg-md-t-0{
+                max-width: 352px!important;
+            }
+            .col-md-2{
+                max-width: 150px!important;
+            }
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .col-md-10.mg-t-5.mg-md-t-0{
+                max-width: 352px!important;
+            }
+            .col-md-2{
+                max-width: 150px!important;
+            }
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+
+
+        }
+
+
+        table.dataTable thead .sorting:after {
+            content: ""!important;
+            top: 49%;
+        }
+        .card-title:before{
+            width: 0;
+
+        }
+        .main-content .container, .main-content .container-fluid {
+            padding-left: 20px;
+            padding-right: 238px;
+        }
+        .main-footer {
+            margin-left: -127px;
+            margin-right: 112px;
+            display: block;
+        }
+
+        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
+            height: 32px;
+            width: 32px;
+        }
+        .badge {
+            padding: 0.5em 0.5em!important;
+            width: 100px;
+            height: 23px;
+        }
+        @media (min-width: 482px) and (max-width: 767px) {
+            .col-md-4 {
+                width: 30%;
+            }
+            .col-md-8.mg-t-5.mg-md-t-0 {
+                width: 70%;
+            }
+
+            .contextMenu {
+                left: 0!important;
+
+            }
+            .d-sm-none {
+                z-index: 1!important;
+            }
+            .breadcrumb-header {
+                margin-left: 38px;
+            }
+            button.remove.btn.btn-sm.btn-danger-light {
+                margin-top: 14px!important;
+                margin-bottom: 10px!important;
+                margin-left: 24px!important;
+            }
+
+        }
+        button.remove.btn.btn-sm.btn-danger-light {
+            margin-top: -36px;
+            margin-bottom: 10px;
+            margin-left: 156px;
+        }
+        .col-lg-3.mg-t-20.mg-lg-t-0.extra_input {
+            margin-left: -23px;
+            margin-top: 10px;
+        }
+        .header{
+            height: 113px;
+        }
 
 	</style>
 </head>
-<body>
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "View Material Form";
+$cust_cam_page_header = "View Material Traceability Form";
 include("../hp_header.php");
-
 ?>
-<!-- /main navbar -->
-<!-- Page container -->
-<div class="page-container">
+<div class="main-content horizontal-content">
+    <!-- container -->
+    <!-- breadcrumb -->
+    <div class="main-container container">
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a>Material Traceability</li>
+                    <li class="breadcrumb-item active" aria-current="page">View Material</li>
+                </ol>
 
-	<!-- Content area -->
-	<div class="content">
-		<?php
-		$id = $_GET['id'];
-		$querymain = sprintf("SELECT * FROM `material_tracability` where material_id = '$id' ");
-		$qurmain = mysqli_query($db, $querymain);
+            </div>
 
-		while ($rowcmain = mysqli_fetch_array($qurmain)) {
-		$formname = $rowcmain['line_no'];
+        </div>
+        <?php
+        if (!empty($import_status_message)) {
+            echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+        }
+        displaySFMessage();
+        ?>
+        <form action="" id="form_settings" enctype="multipart/form-data"
+              class="form-horizontal" method="post" autocomplete="off">
+            <div class="row row-sm">
+                <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+                    <?php
+                    $id = $_GET['id'];
+                    $querymain = sprintf("SELECT * FROM `material_tracability` where material_id = '$id' ");
+                    $qurmain = mysqli_query($db, $querymain);
+                    while ($rowcmain = mysqli_fetch_array($qurmain)) {
+                    $formname = $rowcmain['line_no'];
+                    ?>
+                    <?php
+                    $line_no = "SELECT line_id,line_name from cam_line where line_id = '$formname'";
+                    $rowline = mysqli_query($db,$line_no);
+                    $sqlline = mysqli_fetch_assoc($rowline);
+                    $line_number = $sqlline['line_name'];
+                    ?>
+                    <div class="card-header" style="background:#1F5D96;">
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">View Material Traceability - <?php echo $line_number; ?></span>
+                    </div>
+                    <div class="card  box-shadow-0">
+                        <div class="card-body pt-0">
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <input type="hidden" name="name" id="name"
+                                           value="<?php echo $rowcmain['station_event_id']; ?>">
+                                    <input type="hidden" name="formcreateid" id="formcreateid"
+                                           value="<?php echo $rowcmain['customer_account_id']; ?>">
+                                    <input type="hidden" name="form_user_data_id" id="form_user_data_id"
+                                           value="<?php echo $id; ?>">
 
-		?>
-	<?php
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Notes :</label>
+                                    </div>
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                        <?php
+                                        $notes = $rowcmain["notes"];
+                                        ?>
+                                        <input type="text" name="notes" class="form-control pn_none" id="notes"
+                                               value="<?php echo $notes; ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Part Family : </label>
+                                    </div>
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
 
-	$line_no = "SELECT line_id,line_name from cam_line where line_id = '$formname'";
-	$rowline = mysqli_query($db,$line_no);
-	$sqlline = mysqli_fetch_assoc($rowline);
-	$line_number = $sqlline['line_name'];
-	?>
+                                        <?php
+                                        $part_family_id = $rowcmain['part_family_id'];
+                                        $part_family = "SELECT * from pm_part_family where pm_part_family_id = '$part_family_id'";
+                                        $rowpart = mysqli_query($db,$part_family);
+                                        $sqlpart = mysqli_fetch_assoc($rowpart);
+                                        $part_family = $sqlpart['part_family_name'];
+                                        ?>
+                                        <input type="text" name="part_family" class="form-control" id="part_family"
+                                               value="<?php echo $part_family ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Part Number : </label>
+                                    </div>
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                        <?php
+                                        $part_no = $rowcmain['part_no'];
+                                        $part_num = "SELECT * from pm_part_number where pm_part_number_id = '$part_no'";
+                                        $rowpartno = mysqli_query($db,$part_num);
+                                        $sqlpartno = mysqli_fetch_assoc($rowpartno);
+                                        $part_num_pm = $sqlpartno['part_number'];
+                                        ?>
+                                        <input type="text" name="part_number" class="form-control" id="part_number"
+                                               value="<?php echo $part_num_pm; ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Part Name : </label>
+                                    </div>
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                        <input type="text" name="part_name" class="form-control" id="part_name"
+                                               value="<?php echo $rowcmain['part_name']; ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Material Type : </label>
+                                    </div>
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                        <?php
+                                        $t_id = $rowcmain['material_type'];
+                                        $m_type = "SELECT material_type FROM `material_config` where `material_id` = '$t_id'";
+                                        $sql = mysqli_query($db,$m_type);
+                                        $sql1 = mysqli_fetch_array($sql);
+                                        $material_type = $sql1['material_type'];
+                                        ?>
+                                        <input type="text" name="material_type" class="form-control" id="material_type"
+                                               value="<?php echo $material_type ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Serial Number : </label>
+                                    </div>
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                        <input type="text" name="serial_number" class="form-control" id="serial_number"
+                                               value="<?php echo $rowcmain['serial_number']; ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Material Status : </label>
+                                    </div>
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                        <input type="text" name="material_status" class="form-control" id="material_status"
+                                               value="<?php echo ($rowcmain['material_status'] == 0)?'fail':'pass'; ?>" disabled>
+                                    </div>
+                                </div>
+                                <?php
+                                $m_status = "SELECT material_status FROM `material_tracability` where `material_id` = '$id'";
+                                $sql_status = mysqli_query($db,$m_status);
+                                $sql1_sta = mysqli_fetch_array($sql_status);
+                                $material_status = $sql1_sta['material_status'];
+                                if($material_status == 0){ ?>
+                                    <div class="row row-xs align-items-center mg-b-20" style="display: none;">
+                                        <div class="col-md-2">
+                                            <label class="form-label mg-b-0">Reason : </label>
+                                        </div>
+                                        <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                            <input type="text" name="reason" class="form-control" id="material_status"
+                                                   value="<?php echo $rowcmain['fail_reason']; ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row row-xs align-items-center mg-b-20" style="display: none;">
+                                        <div class="col-md-2">
+                                            <label class="form-label mg-b-0">Quantity : </label>
+                                        </div>
+                                        <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                            <input type="text" name="quantity" class="form-control" id="quantity"
+                                                   value="<?php echo $rowcmain['quantity']; ?>" disabled>
+                                        </div>
+                                    </div>
+                                <?php } elseif($material_status == 1){ ?>
+                                    <div class="row row-xs align-items-center mg-b-20" style="display: none;">
+                                        <div class="col-md-2">
+                                            <label class="form-label mg-b-0">Reason : </label>
+                                        </div>
+                                        <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                            <input type="text" name="reason" class="form-control" id="material_status"
+                                                   value="<?php echo $rowcmain['fail_reason']; ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row row-xs align-items-center mg-b-20" style="display: none;">
+                                        <div class="col-md-2">
+                                            <label class="form-label mg-b-0">Quantity : </label>
+                                        </div>
+                                        <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                            <input type="text" name="quantity" class="form-control" id="quantity"
+                                                   value="<?php echo $rowcmain['quantity']; ?>" disabled>
+                                        </div>
+                                    </div>
+                                <?php  } ?>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Submitted Time : </label>
+                                    </div>
+                                    <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                        <?php $create_date = $rowcmain['created_at'];?>
+                                        <input type="text" name="createdby" class="form-control" id="createdby"
+                                               value="<?php echo dateReadFormat($create_date); ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="row row-xs align-items-center mg-b-20">
+                                    <?php
+                                    $query1 = sprintf("SELECT material_id FROM  material_tracability where material_id = '$id'");
+                                    $qur1 = mysqli_query($db, $query1);
+                                    $rowc1 = mysqli_fetch_array($qur1);
+                                    $item_id = $rowc1['material_id'];
 
-		<div class="panel panel-flat">
-			<!--  <h5 style="text-align: left;margin-right: 120px;"> <b>Submitted on : </b>--><?php //echo date('d-M-Y h:m'); ?><!--</h5>-->
-			<div class="panel-heading">
+                                    $query2 = sprintf("SELECT * FROM  material_images where material_id = '$item_id'");
 
-				<h5 class="panel-title form_panel_title"><?php echo $line_number; ?>  </h5>
-				<div class="row ">
-					<div class="col-md-12">
-						<form action="" id="form_settings" enctype="multipart/form-data"
-							  class="form-horizontal" method="post" autocomplete="off">
-							<input type="hidden" name="name" id="name"
-								   value="<?php echo $rowcmain['station_event_id']; ?>">
-							<input type="hidden" name="formcreateid" id="formcreateid"
-								   value="<?php echo $rowcmain['customer_account_id']; ?>">
-							<input type="hidden" name="form_user_data_id" id="form_user_data_id"
-								   value="<?php echo $id; ?>">
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Notes : </label>
-								<div class="col-md-6">
+                                    $qurimage = mysqli_query($db, $query2);
+                                    while ($rowcimage = mysqli_fetch_array($qurimage)) {
+                                        ?>
 
-									<?php
-									$notes = $rowcmain["notes"];
-									?>
-
-									<input type="text" name="notes" class="form-control pn_none" id="notes"
-										   value="<?php echo $notes; ?>">
-								</div>
-							</div>
-
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Part Family : </label>
-								<div class="col-md-6">
-
-									<?php
-									$part_family_id = $rowcmain['part_family_id'];
-									$part_family = "SELECT * from pm_part_family where pm_part_family_id = '$part_family_id'";
-									$rowpart = mysqli_query($db,$part_family);
-									$sqlpart = mysqli_fetch_assoc($rowpart);
-									$part_family = $sqlpart['part_family_name'];
-									?>
-									<input type="text" name="part_family" class="form-control" id="part_family"
-										   value="<?php echo $part_family ?>" disabled>
-
-								</div>
-							</div>
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Part Number : </label>
-								<div class="col-md-6">
-									<?php
-									$part_no = $rowcmain['part_no'];
-									$part_num = "SELECT * from pm_part_number where pm_part_number_id = '$part_no'";
-									$rowpartno = mysqli_query($db,$part_num);
-									$sqlpartno = mysqli_fetch_assoc($rowpartno);
-									$part_num_pm = $sqlpartno['part_number'];
-									?>
-									<input type="text" name="part_number" class="form-control" id="part_number"
-										   value="<?php echo $part_num_pm; ?>" disabled>
-								</div>
-							</div>
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Part Name : </label>
-								<div class="col-md-6">
-
-									<input type="text" name="part_name" class="form-control" id="part_name"
-										   value="<?php echo $rowcmain['part_name']; ?>" disabled>
-								</div>
-							</div>
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Material Type : </label>
-								<div class="col-md-6">
-									<?php
-									$t_id = $rowcmain['material_type'];
-									$m_type = "SELECT material_type FROM `material_config` where `material_id` = '$t_id'";
-									$sql = mysqli_query($db,$m_type);
-									$sql1 = mysqli_fetch_array($sql);
-									$material_type = $sql1['material_type'];
-									?>
-
-									<input type="text" name="material_type" class="form-control" id="material_type"
-										   value="<?php echo $material_type ?>" disabled>
-								</div>
-							</div>
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Serial Number : </label>
-								<div class="col-md-6">
-
-									<input type="text" name="serial_number" class="form-control" id="serial_number"
-										   value="<?php echo $rowcmain['serial_number']; ?>" disabled>
-								</div>
-							</div>
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Material Status : </label>
-								<div class="col-md-6">
-
-									<input type="text" name="material_status" class="form-control" id="material_status"
-										   value="<?php echo ($rowcmain['material_status'] == 0)?'fail':'pass'; ?>" disabled>
-								</div>
-							</div>
-							<div class="form_row row">
-								<label class="col-lg-2 control-label"> Reason : </label>
-								<div class="col-md-6">
-
-									<input type="text" name="reason" class="form-control" id="material_status"
-										   value="<?php echo $rowcmain['fail_reason']; ?>" disabled>
-								</div>
-							</div>
-<!--							<div class="form_row row">-->
-<!--								<label class="col-lg-2 control-label">Reason Description : </label>-->
-<!--								<div class="col-md-6">-->
-<!---->
-<!--									<input type="text" name="reason_desc" class="form-control" id="reason_desc"-->
-<!--										   value="--><?php //echo $rowcmain['reason_desc']; ?><!--" disabled>-->
-<!--								</div>-->
-<!--							</div>-->
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Quantity : </label>
-								<div class="col-md-6">
-
-									<input type="text" name="quantity" class="form-control" id="quantity"
-										   value="<?php echo $rowcmain['quantity']; ?>" disabled>
-								</div>
-							</div>
-
-							<div class="form_row row">
-								<label class="col-lg-2 control-label">Submitted Time : </label>
-								<div class="col-md-6">
-									<?php $create_date = $rowcmain['created_at'];?>
-									<input type="text" name="createdby" class="form-control" id="createdby"
-										   value="<?php echo $create_date; ?>" disabled>
-								</div>
-							</div>
-							<div class="form_row row">
-
-								<?php
-								$query1 = sprintf("SELECT material_id FROM  material_tracability where material_id = '$id'");
-								$qur1 = mysqli_query($db, $query1);
-								$rowc1 = mysqli_fetch_array($qur1);
-								$item_id = $rowc1['material_id'];
-
-								$query2 = sprintf("SELECT * FROM  material_images where material_id = '$item_id'");
-
-								$qurimage = mysqli_query($db, $query2);
-								while ($rowcimage = mysqli_fetch_array($qurimage)) {
-									?>
-
-									<div class="col-lg-3 col-sm-6">
-										<div class="thumbnail">
-											<div class="thumb">
-												<img src="../material_images/<?php echo $rowcimage['image_name']; ?>"
-													 alt="">
-												<div class="caption-overflow">
+                                        <div class="col-lg-3 col-sm-6">
+                                            <div class="thumbnail">
+                                                <div class="thumb">
+                                                    <img src="../assets/images/mt/<?php echo $rowcimage['image_name']; ?>"
+                                                         alt="">
+                                                    <div class="caption-overflow">
 														<span>
-															<a href="../material_images/<?php echo $rowcimage['image_name']; ?>"
-															   data-popup="lightbox" rel="gallery"
-															   class="btn border-white text-white btn-flat btn-icon btn-rounded"><i
-																	class="icon-plus3"></i></a>
+														<center>	<a href="../assets/images/mt/<?php echo $rowcimage['image_name']; ?>"
+                                                                       data-popup="lightbox" rel="gallery"
+                                                                       class="btn border-white text-white btn-flat btn-icon btn-rounded"><i
+                                                                        class="icon-plus3"></i></a></center>
 														</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								<?php } ?>
-							</div>
-							<br/>
-
-
-
-						</form>
-					</div>
-				</div>
-				<?php } ?>
-			</div>
-		</div>
-
-
-
-
-		<!-- /page container -->
-		<script>
-
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+        <script>
             $(".compare_text").keyup(function () {
                 var text_id = $(this).attr("id");
                 var lower_compare = parseInt($(".lower_compare[data-id='" + text_id + "']").val());
@@ -483,11 +762,7 @@ include("../hp_header.php");
 
                 // e.preventDefault();
             });
-
-		</script>
-		<?php include('../footer.php') ?>
-		<script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/core/app.js"></script>
-
+        </script>
 </body>
-
+<?php include('../footer1.php') ?>
 </html>

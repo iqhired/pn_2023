@@ -53,10 +53,10 @@ if (!empty($dateto)) {
 }
 $date_from = convertMDYToYMD($datefrom);
 $date_to = convertMDYToYMD($dateto);
-$sql = ("SELECT cl.line_name ,pf.part_family_name,pn.part_number,pn.part_name ,mc.material_type,mt.created_at FROM material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id inner join material_config as mc on mt.material_type=mc.material_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station' and mt.material_status = '1'");
+$sql = ("SELECT cl.line_name ,pf.part_family_name,pn.part_number,pn.part_name ,mc.material_type,cast(mt.created_at AS date) as created_d,cast(mt.created_at AS Time) as created_time FROM material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id inner join material_config as mc on mt.material_type=mc.material_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station' and mt.material_status = '1' order by mt.created_at asc");
 $gp_result = mysqli_query($db,$sql);
 
-$header = "Sr. No" . "\t" . "Station" . "\t" .  "Part Family" ."\t" . "Part Number" ."\t" . "Part Name" ."\t". "Material Type" . "\t" . "Time";
+$header = "Sl. No" . "\t" . "Station" . "\t" .  "Part Family" ."\t" . "Part Number" ."\t" . "Part Name" ."\t". "Material Type" . "\t" . "Date" . "\t" . "Time";
 $result = '';
 $i=1;
 while ($row = mysqli_fetch_row($gp_result)) {
@@ -67,6 +67,12 @@ while ($row = mysqli_fetch_row($gp_result)) {
             $value = "-"."\t";
         } else {
             $value = str_replace('"', '""', $value);
+            if ($j == 6) {
+                $un = $value;
+                $cr_date = $un;
+                $c = onlydateReadFormat($cr_date);
+                $value = $c;
+            }
             $value = '"' . $value . '"' . "\t";
         }
         $line .= $value;
@@ -81,10 +87,10 @@ if ($result == "") {
 }
 $date_from = convertMDYToYMD($datefrom);
 $date_to = convertMDYToYMD($dateto);
-$sql_pass = ("SELECT cl.line_name ,pf.part_family_name,pn.part_number,pn.part_name ,mc.material_type,mt.fail_reason,mt.created_at FROM material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id inner join material_config as mc on mt.material_type=mc.material_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station' and mt.material_status = '0'");
+$sql_pass = ("SELECT cl.line_name ,pf.part_family_name,pn.part_number,pn.part_name ,mc.material_type,mt.fail_reason,cast(mt.created_at AS date) as created_d,cast(mt.created_at AS Time) as created_time FROM material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id inner join material_config as mc on mt.material_type=mc.material_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station' and mt.material_status = '0'");
 $pass_result = mysqli_query($db,$sql_pass);
 
-$header_pass = "Sr. No" . "\t" . "Station" . "\t" .  "Part Family" ."\t" . "Part Number" ."\t" . "Part Name" ."\t". "Material Type" . "\t" . "Fail Reason". "\t" . "Time";
+$header_pass = "Sl. No" . "\t" . "Station" . "\t" .  "Part Family" ."\t" . "Part Number" ."\t" . "Part Name" ."\t". "Material Type" . "\t" . "Fail Reason". "\t" . "Date" . "\t" . "Time";
 $result_pass = '';
 $i=1;
 while ($row_pass = mysqli_fetch_row($pass_result)) {
@@ -95,6 +101,12 @@ while ($row_pass = mysqli_fetch_row($pass_result)) {
             $value_pass = "-"."\t";
         } else {
             $value_pass = str_replace('"', '""', $value_pass);
+            if ($j == 6) {
+                $un = $value_pass;
+                $cr_date = $un;
+                $c = onlydateReadFormat($cr_date);
+                $value_pass = $c;
+            }
             $value_pass = '"' . $value_pass . '"' . "\t";
         }
         $line_pass .= $value_pass;

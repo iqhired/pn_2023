@@ -295,12 +295,9 @@ include("../hp_header.php");
                                 <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                                     <div class="card box-shadow-0">
                                         <div class="card-header" style="background-color: #14846f;">
-                                            <span class="main-content-title mg-b-0 mg-b-lg-1">Form View</span>
+                                            <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $formname; ?></span>
                                         </div>
                                         <div class="card-body pt-0">
-                                            <div class="card-header" style="background-color: #14846f;">
-                                                <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $formname; ?></span>
-                                            </div>
                                             <div class="pd-30 pd-sm-20">
                                                 <div class="row row-xs align-items-center mg-b-20">
                                                     <div class="col-md-4">
