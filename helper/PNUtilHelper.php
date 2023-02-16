@@ -27,6 +27,15 @@ function datemdY($datetime) {
 	return date("m-d-Y" , strtotime($datetime));
 }
 
+/**
+ * This methos return the SQL date in readable format
+ * @param $datetime
+ * @return false|string
+ */
+function datemdYHis($datetime) {
+	return date("m-d-Y H:i:s" , strtotime($datetime));
+}
+
 function convertMDYToYMD($date){
 	$parts = explode('-',$date);
 	$date = $parts[2] . '-' . $parts[0] . '-' . $parts[1];
