@@ -260,9 +260,9 @@ include("../admin_menu.php");
             </div>
 
               <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
+                <div class="row">
+                 <div class="col-lg-12 col-md-12">
+                  <div class="card">
                     <div class="card-body">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Task Crew Log</span>
@@ -372,12 +372,22 @@ include("../admin_menu.php");
                                 <div class="col-md-1">
                                     <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
                                 </div>
-    </form>
-                 <form action="export_task_log.php" method="post" name="export_excel">
-                   <div class="col-md-1">
-                      <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
-                   </div>
-              </form>
+                         </form>
+                                <form action="export_task_log.php" method="post" name="export_excel">
+                                    <div class="col-md-1">
+                                        <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+
+
+                </div>
+
+
        <!-- row  -->
 <?php
 if(count($_POST) > 0)

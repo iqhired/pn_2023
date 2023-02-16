@@ -226,40 +226,7 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -290,276 +257,267 @@ if (count($_POST) > 0) {
             height: 23px;
         }
 
+
     </style>
 </head>
 
+
+
+<!-----body-------->
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Cell Dashboard Configuration";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-
-<!-----body-------->
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
-<div class="main-content app-content">
-    <!---container--->
-    <!---breadcrumb--->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Cell Dashboard Configuration</li>
-            </ol>
+ <div class="main-content app-content">
+        <!---container--->
+        <div class="main-container container">
+        <!---breadcrumb--->
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cell Dashboard Configuration</li>
+                </ol>
+            </div>
         </div>
-    </div>
 
-    <form action="" id="cell_grp_form" class="form-horizontal" method="post">
-        <div class="row-body">
-            <div class="col-lg-12 col-md-12">
-                 <?php if ($temp == "one") { ?>
-                    <div class="alert alert-success no-border">
-                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
-                                    class="sr-only">Close</span></button>
-                        <span class="text-semibold">Form Type</span> Created Successfully.
-                    </div>
-                <?php } ?>
-                <?php if ($temp == "two") { ?>
-                    <div class="alert alert-success no-border">
-                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
-                                    class="sr-only">Close</span></button>
-                        <span class="text-semibold">Form Type</span> Updated Successfully.
-                    </div>
-                <?php } ?>
-                <?php
-                if (!empty($import_status_message)) {
-                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                }
-                displaySFMessage();
-                ?>
-
-                <div class="card">
-                    <div class="">
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Cell Dashboard Configuration</span>
+        <form action="" id="cell_grp_form" class="form-horizontal" method="post">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                     <?php if ($temp == "one") { ?>
+                        <div class="alert alert-success no-border">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                                        class="sr-only">Close</span></button>
+                            <span class="text-semibold">Form Type</span> Created Successfully.
                         </div>
+                    <?php } ?>
+                    <?php if ($temp == "two") { ?>
+                        <div class="alert alert-success no-border">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                                        class="sr-only">Close</span></button>
+                            <span class="text-semibold">Form Type</span> Updated Successfully.
+                        </div>
+                    <?php } ?>
+                    <?php
+                    if (!empty($import_status_message)) {
+                        echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                    }
+                    displaySFMessage();
+                    ?>
 
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Cell Group Name:</label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <input type="text" name="c_grp_name" id="c_grp_name" class="form-control" placeholder="Enter Cell Group Name" required>
-                                    <div id="error6" class="red">
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-1"></div>
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Customer/Account:</label>
-                                </div>
-
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                    <select name="account" id="account" class="form-control form-select select2">
-
-                                        <option value="" selected disabled>--- Select Customer / Account  ---</option>
-                                        <?php
-                                        $sql1 = "SELECT * FROM `cus_account` where c_status = 1 and is_deleted != 1 ORDER BY `c_name` ASC";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            echo "<option value='" . $row1['c_id'] . "'  >" . $row1['c_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                    <div id="error6" class="red">
-                                    </div>
-                                </div>
+                    <div class="card">
+                        <div class="">
+                            <div class="card-header">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">Cell Dashboard Configuration</span>
                             </div>
-                        </div>
 
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Upload Cell Image:</label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <input type="file" name="image" id="image"
-                                           class="form-control">
-                                    <div id="1" style="color:red;">* File size must be less than 2 MB.
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Cell Group Name</label>
                                     </div>
-                                    <div id="error6" class="red">
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-1"></div>
-                                <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Enabled:</label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <div class="row mg-t-15">
-                                        <div class="col-lg-3">
-                                            <label class="rdiobox">
-                                                <input id="yes" name="enabled" value="1" type="radio" checked> <span>Yes</span></label>
-                                        </div>
-                                        <div class="col-lg-5 mg-t-20 mg-lg-t-0">
-                                            <label class="rdiobox">
-                                                <input  id="no" name="enabled" value="0" type="radio"> <span>No</span></label>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <input type="text" name="c_grp_name" id="c_grp_name" class="form-control" placeholder="Enter Cell Group Name" required>
+                                        <div id="error6" class="red">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Customer/Account</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="account" id="account" class="form-control form-select select2">
 
-
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Select Stations:</label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="stations[]" id="stations" class="form-control form-select select2" data-placeholder="Add Stations.." multiple="multiple">
-
-                                        <?php
-                                        //$assigned_stations = implode("', '", $line_array);
-                                        $sql1 = "SELECT `line_id`, `line_name` FROM `cam_line` where enabled = 1 order by line_name ASC";
-                                        //                                              $sql1 = "SELECT `line_id`, `line_name` FROM `cam_line` where enabled = 1 order by line_name ASC";
-                                        $result1 = $mysqli->query($sql1);
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            echo "<option id='" . $row1['line_id'] . "'  value='" . $row1['line_id'] . "'>" . $row1['line_name'] . "</option>";
-                                        }
-                                        ?>
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body pt-0">
-                            <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">ADD</button>
-                        </div>
-                    </div>
-                </div>
-    </form>
-</div>
-</div>
-
-
-<form action="" id="update-form" method="post" class="form-horizontal">
-    <div class="row-body">
-        <div class="col-12 col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <button type="submit" class="btn btn-danger  submit_btn"  onclick="submitForm('delete_dash.php')" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
-                </div>
-
-                <div class="card-body pt-0 ">
-                    <div class="table-responsive">
-                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table datatable-basic table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
-                                            <th>Sl.No</th>
-                                            <th>Action</th>
-                                            <th>Cell Group Name</th>
-                                            <th>Account</th>
-                                            <th>Stations</th>
-                                            <th>Cell Status</th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php
-                                        $query = sprintf("SELECT * FROM cell_grp where is_deleted!='1';  ");
-                                        $qur = mysqli_query($db, $query);
-
-                                        while ($rowc = mysqli_fetch_array($qur)) {
-                                            $c_id = $rowc["c_id"];
-                                            $cust_id = $rowc["account_id"];
+                                            <option value="" selected disabled>--- Select Customer / Account  ---</option>
+                                            <?php
+                                            $sql1 = "SELECT * FROM `cus_account` where c_status = 1 and is_deleted != 1 ORDER BY `c_name` ASC";
+                                            $result1 = $mysqli->query($sql1);
+                                            //                                            $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                echo "<option value='" . $row1['c_id'] . "'  >" . $row1['c_name'] . "</option>";
+                                            }
                                             ?>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
-                                                           value="<?php echo $c_id; ?>"><span></span></label></td>
-                                                <td><?php echo ++$counter; ?>
-                                                </td>
-                                                <td>
-                                                    <a href="edit_dashboard_config.php?id=<?php echo $c_id; ?>" class="btn btn-primary" data-id="<?php echo $cust_id; ?>"  style="background-color:legitRipple;"><i class="fa fa-edit"></i></a>
-                                                    <!--<button type="button" id="edit" class="btn btn-info btn-xs"
-                                                data-id="<?php /*echo $rowc['c_id']; */?>"
-                                                data-cell_name="<?php /*echo $rowc['c_name']; */?>"
-                                                data-cell_enabled="<?php /*echo $rowc['enabled']; */?>"
-                                                data-cell_account_id="<?php /*echo $cust_id; */?>"
-                                                data-cell_stations="<?php /*echo $stations; */?>"
-                                                data-cell_logo="<?php /*echo $rowc['cell_logo']; */?>"
-                                                data-assigned_line="<?php /*echo implode(",", $line_array); */?>"
-                                                data-toggle="modal" style="background-color:#1e73be;"
-                                                data-target="#edit_modal_theme_primary">Edit
-                                        </button>-->
-                                                </td>
-                                                <td><?php echo $rowc["c_name"]; ?>
-                                                </td>
-                                                <td><?php
-                                                    $query34 = sprintf("SELECT * FROM  cus_account where c_id = '$cust_id'");
-                                                    $qur34 = mysqli_query($db, $query34);
-                                                    $rowc34 = mysqli_fetch_array($qur34);
-                                                    echo $rowc34["c_name"]; ?>
-                                                </td>
-                                                <?php
-                                                $enabled = $rowc['enabled'];
-                                                $c_status = "Active";
-                                                if($enabled == 0){
-                                                    $c_status = "Inactive";
-                                                }
-                                                ?>
-                                                <td>
-                                                    <?php
-                                                    $stations = $rowc['stations'];
-                                                    $arr_stations = explode(',', $stations);
-
-                                                    // glue them together with ', '
-                                                    $stationStr = implode("', '", $arr_stations);
-                                                    $sql = "SELECT line_name FROM `cam_line` WHERE line_id IN ('$stationStr')";
-                                                    $result1 = mysqli_query($db, $sql);
-                                                    $line = '';
-                                                    $i = 0;
-                                                    while ($row =  $result1->fetch_assoc()) {
-                                                        if($i == 0){
-                                                            $line = $row['line_name'];
-                                                        }else{
-                                                            $line .= " , " . $row['line_name'];
-                                                        }
-                                                        $i++;
-                                                    }
-                                                    echo $line;
-                                                    ?>
-                                                </td>
-                                                <td><?php echo $c_status; ?>
-                                                </td>
-
-                                            </tr>
-                                        <?php } ?>
-                                        </tbody>
-                                    </table>
+                                        </select>
+                                        <div id="error6" class="red">
+                                        </div>
+                                    </div>
                                 </div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+                            </div>
 
-<!---container--->
-</div>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Upload Cell Image</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <input type="file" name="image" id="image"
+                                               class="form-control">
+                                        <div id="1" style="color:red;">* File size must be less than 2 MB.
+                                        </div>
+                                        <div id="error6" class="red">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Enabled</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div class="row mg-t-15">
+                                            <div class="col-lg-3">
+                                                <label class="rdiobox">
+                                                    <input id="yes" name="enabled" value="1" type="radio" checked> <span>Yes</span></label>
+                                            </div>
+                                            <div class="col-lg-5 mg-t-20 mg-lg-t-0">
+                                                <label class="rdiobox">
+                                                    <input  id="no" name="enabled" value="0" type="radio"> <span>No</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Select Stations</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="stations[]" id="stations" class="form-control form-select select2" data-placeholder="Add Stations.." multiple="multiple">
+
+                                            <?php
+                                            //$assigned_stations = implode("', '", $line_array);
+                                            $sql1 = "SELECT `line_id`, `line_name` FROM `cam_line` where enabled = 1 order by line_name ASC";
+                                            //                                              $sql1 = "SELECT `line_id`, `line_name` FROM `cam_line` where enabled = 1 order by line_name ASC";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                echo "<option id='" . $row1['line_id'] . "'  value='" . $row1['line_id'] . "'>" . $row1['line_name'] . "</option>";
+                                            }
+                                            ?>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body pt-0">
+                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">ADD</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+         <form action="" id="update-form" method="post" class="form-horizontal">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <button type="submit" class="btn btn-danger  submit_btn"  onclick="submitForm('delete_dash.php')" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                            </div>
+                            <div class="card-body pt-0 ">
+                                <div class="table-responsive">
+                                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                        <table class="table datatable-basic table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                                        <th>Sl.No</th>
+                                                        <th>Action</th>
+                                                        <th>Cell Group Name</th>
+                                                        <th>Account</th>
+                                                        <th>Stations</th>
+                                                        <th>Cell Status</th>
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php
+                                                    $query = sprintf("SELECT * FROM cell_grp where is_deleted!='1';  ");
+                                                    $qur = mysqli_query($db, $query);
+
+                                                    while ($rowc = mysqli_fetch_array($qur)) {
+                                                        $c_id = $rowc["c_id"];
+                                                        $cust_id = $rowc["account_id"];
+                                                        ?>
+                                                        <tr>
+                                                            <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                                       value="<?php echo $c_id; ?>"><span></span></label></td>
+                                                            <td><?php echo ++$counter; ?>
+                                                            </td>
+                                                            <td>
+                                                                <a href="edit_dashboard_config.php?id=<?php echo $c_id; ?>" class="btn btn-primary" data-id="<?php echo $cust_id; ?>"  style="background-color:legitRipple;"><i class="fa fa-edit"></i></a>
+                                                                <!--<button type="button" id="edit" class="btn btn-info btn-xs"
+                                                            data-id="<?php /*echo $rowc['c_id']; */?>"
+                                                            data-cell_name="<?php /*echo $rowc['c_name']; */?>"
+                                                            data-cell_enabled="<?php /*echo $rowc['enabled']; */?>"
+                                                            data-cell_account_id="<?php /*echo $cust_id; */?>"
+                                                            data-cell_stations="<?php /*echo $stations; */?>"
+                                                            data-cell_logo="<?php /*echo $rowc['cell_logo']; */?>"
+                                                            data-assigned_line="<?php /*echo implode(",", $line_array); */?>"
+                                                            data-toggle="modal" style="background-color:#1e73be;"
+                                                            data-target="#edit_modal_theme_primary">Edit
+                                                    </button>-->
+                                                            </td>
+                                                            <td><?php echo $rowc["c_name"]; ?>
+                                                            </td>
+                                                            <td><?php
+                                                                $query34 = sprintf("SELECT * FROM  cus_account where c_id = '$cust_id'");
+                                                                $qur34 = mysqli_query($db, $query34);
+                                                                $rowc34 = mysqli_fetch_array($qur34);
+                                                                echo $rowc34["c_name"]; ?>
+                                                            </td>
+                                                            <?php
+                                                            $enabled = $rowc['enabled'];
+                                                            $c_status = "Active";
+                                                            if($enabled == 0){
+                                                                $c_status = "Inactive";
+                                                            }
+                                                            ?>
+                                                            <td>
+                                                                <?php
+                                                                $stations = $rowc['stations'];
+                                                                $arr_stations = explode(',', $stations);
+
+                                                                // glue them together with ', '
+                                                                $stationStr = implode("', '", $arr_stations);
+                                                                $sql = "SELECT line_name FROM `cam_line` WHERE line_id IN ('$stationStr')";
+                                                                $result1 = mysqli_query($db, $sql);
+                                                                $line = '';
+                                                                $i = 0;
+                                                                while ($row =  $result1->fetch_assoc()) {
+                                                                    if($i == 0){
+                                                                        $line = $row['line_name'];
+                                                                    }else{
+                                                                        $line .= " , " . $row['line_name'];
+                                                                    }
+                                                                    $i++;
+                                                                }
+                                                                echo $line;
+                                                                ?>
+                                                            </td>
+                                                            <td><?php echo $c_status; ?>
+                                                            </td>
+
+                                                        </tr>
+                                                    <?php } ?>
+                                                    </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         </form>
+
+        </div>
+ </div>
 <script>
     $(document).on('click', '#edit', function () {
         var element = $(this);

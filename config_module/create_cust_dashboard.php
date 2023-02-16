@@ -198,40 +198,6 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -265,6 +231,9 @@ if (count($_POST) > 0) {
     </style>
 </head>
 
+<!-----body-------->
+<body class="ltr main-body app horizontal">
+
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Dashboard Configuration";
@@ -272,13 +241,12 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<!-----body-------->
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
-<div class="main-content app-content">
+ <div class="main-content app-content">
     <!---container--->
-    <!---breadcrumb--->
-    <div class="breadcrumb-header justify-content-between">
+       <div class="main-container container">
+       <!---breadcrumb--->
+       <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
@@ -286,185 +254,177 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
+         <form action="" id="user_form" class="form-horizontal" method="post">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <?php
+                    if (!empty($import_status_message)) {
+                        echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                    }
+                    displaySFMessage();
+                    ?>
 
-
-    <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
-            <div class="col-lg-12 col-md-12">
-                <?php
-                if (!empty($import_status_message)) {
-                    echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                }
-                displaySFMessage();
-                ?>
-
-                <div class="card">
-                    <div class="">
-                        <div class="card-header">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Dashboard Configuration</span>
-                        </div>
-
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Dashboard Name :*</label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <input type="text" class="form-control" name="c_grp_name" id="c_grp_name" placeholder="Enter Cell Group Name" required>
-                                    <div id="error6" class="red">
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-md-1"></div>
-                                <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Enabled : </label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <div class="row mg-t-15">
-                                        <div class="col-lg-3">
-                                            <label class="rdiobox">
-                                                <input id="yes" name="enabled" value="1" type="radio" checked> <span>Yes</span></label>
-                                        </div>
-                                        <div class="col-lg-5 mg-t-20 mg-lg-t-0">
-                                            <label class="rdiobox">
-                                                <input  id="no" name="enabled" value="0" type="radio"> <span>No</span></label>
-                                        </div>
-                                    </div>
-                                </div>
-
+                    <div class="card">
+                        <div class="">
+                            <div class="card-header">
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">Dashboard Configuration</span>
                             </div>
-                        </div>
 
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Select Station : </label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="stations[]" id="stations" class="form-control form-select select2" data-placeholder="Add Stations.." multiple="multiple">
-
-                                        <?php
-                                        //$assigned_stations = implode("', '", $line_array);
-                                        $sql1 = "SELECT `line_id`, `line_name` FROM `cam_line` where enabled = 1 order by line_name ASC";
-                                        //                                              $sql1 = "SELECT `line_id`, `line_name` FROM `cam_line` where enabled = 1 order by line_name ASC";
-                                        $result1 = $mysqli->query($sql1);
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            echo "<option id='" . $row1['line_id'] . "'  value='" . $row1['line_id'] . "'>" . $row1['line_name'] . "</option>";
-                                        }
-                                        ?>
-
-                                    </select>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Dashboard Name</label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <input type="text" class="form-control" name="c_grp_name" id="c_grp_name" placeholder="Enter Cell Group Name" required>
+                                        <div id="error6" class="red">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Enabled  </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <div class="row mg-t-15">
+                                            <div class="col-lg-3">
+                                                <label class="rdiobox">
+                                                    <input id="yes" name="enabled" value="1" type="radio" checked> <span>Yes</span></label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label class="rdiobox">
+                                                    <input  id="no" name="enabled" value="0" type="radio"> <span>No</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body pt-0">
-                            <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">ADD</button>
+
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Select Station  </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="stations[]" id="stations" class="form-control form-select select2" data-placeholder="Add Stations.." multiple="multiple">
+
+                                            <?php
+                                            //$assigned_stations = implode("', '", $line_array);
+                                            $sql1 = "SELECT `line_id`, `line_name` FROM `cam_line` where enabled = 1 order by line_name ASC";
+                                            //                                              $sql1 = "SELECT `line_id`, `line_name` FROM `cam_line` where enabled = 1 order by line_name ASC";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                echo "<option id='" . $row1['line_id'] . "'  value='" . $row1['line_id'] . "'>" . $row1['line_name'] . "</option>";
+                                            }
+                                            ?>
+
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">ADD</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-    </form>
-</div>
-</div>
-
-
-
-<form action="" id="update-form" method="post" class="form-horizontal">
-    <div class="row-body">
-        <div class="col-12 col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <button type="submit" class="btn btn-danger  submit_btn"  onclick="submitForm('delete_dash.php')" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
-                </div>
-
-
-                <div class="card-body pt-0 example1-table">
-                    <div class="table-responsive">
-                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table datatable-basic table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
-                                            <th>Sl. No</th>
-                                            <th>Action</th>
-                                            <th>Dashboard Name</th>
-                                            <th>Stations</th>
-                                            <th>Dashboard </th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php
-                                        $query = sprintf("SELECT * FROM sg_cust_dashboard where is_deleted!='1'");
-                                        $qur = mysqli_query($db, $query);
-
-                                        while ($rowc = mysqli_fetch_array($qur)) {
-                                            $c_id = $rowc["sg_cust_group_id"];
-//                      $cust_id = $rowc["account_id"];
-                                            ?>
+            </div>
+          </form>
+         <form action="" id="update-form" method="post" class="form-horizontal">
+           <div class="row">
+                <div class="col-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <button type="submit" class="btn btn-danger  submit_btn"  onclick="submitForm('delete_dash.php')" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                    </div>
+                    <div class="card-body pt-0 example1-table">
+                        <div class="table-responsive">
+                            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table datatable-basic table-bordered">
+                                            <thead>
                                             <tr>
-                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $c_id; ?>"><span></span></label>
-                                                </td>
-
-                                                <td><?php echo ++$counter; ?>
-                                                </td>
-                                                <td>
-                                                    <a href="edit_create_cust_dashboard.php?id=<?php echo $c_id; ?>" class="btn btn-primary" data-id="<?php echo $rowc['defect_list_id']; ?>"  style="background-color:#1e73be;"><i class="fa fa-edit"></i> </a>
-
-                                                </td>
-                                                <td><?php echo $rowc["sg_cust_dash_name"]; ?>
-                                                </td>
-                                                <?php
-                                                $enabled = $rowc['enabled'];
-                                                $c_status = "Active";
-                                                if($enabled == 0){
-                                                    $c_status = "Inactive";
-                                                }
-                                                ?>
-                                                <td>
-                                                    <?php
-                                                    $stations = $rowc['stations'];
-                                                    $arr_stations = explode(',', $stations);
-
-                                                    // glue them together with ', '
-                                                    $stationStr = implode("', '", $arr_stations);
-                                                    $sql = "SELECT line_name FROM `cam_line` WHERE line_id IN ('$stationStr')";
-                                                    $result1 = mysqli_query($db, $sql);
-                                                    $line = '';
-                                                    $i = 0;
-                                                    while ($row =  $result1->fetch_assoc()) {
-                                                        if($i == 0){
-                                                            $line = $row['line_name'];
-                                                        }else{
-                                                            $line .= " , " . $row['line_name'];
-                                                        }
-                                                        $i++;
-                                                    }
-                                                    echo $line;
-                                                    ?>
-                                                </td>
-                                                <td><?php echo $c_status; ?>
-                                                </td>
+                                                <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                                <th>Sl. No</th>
+                                                <th>Action</th>
+                                                <th>Dashboard Name</th>
+                                                <th>Stations</th>
+                                                <th>Dashboard </th>
 
                                             </tr>
-                                        <?php } ?>
-                                        </tbody>
-                                    </table>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-----main content----->
-</div>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            $query = sprintf("SELECT * FROM sg_cust_dashboard where is_deleted!='1'");
+                                            $qur = mysqli_query($db, $query);
+
+                                            while ($rowc = mysqli_fetch_array($qur)) {
+                                                $c_id = $rowc["sg_cust_group_id"];
+    //                      $cust_id = $rowc["account_id"];
+                                                ?>
+                                                <tr>
+                                                    <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $c_id; ?>"><span></span></label>
+                                                    </td>
+
+                                                    <td><?php echo ++$counter; ?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="edit_create_cust_dashboard.php?id=<?php echo $c_id; ?>" class="btn btn-primary" data-id="<?php echo $rowc['defect_list_id']; ?>"  style="background-color:#1e73be;"><i class="fa fa-edit"></i> </a>
+
+                                                    </td>
+                                                    <td><?php echo $rowc["sg_cust_dash_name"]; ?>
+                                                    </td>
+                                                    <?php
+                                                    $enabled = $rowc['enabled'];
+                                                    $c_status = "Active";
+                                                    if($enabled == 0){
+                                                        $c_status = "Inactive";
+                                                    }
+                                                    ?>
+                                                    <td>
+                                                        <?php
+                                                        $stations = $rowc['stations'];
+                                                        $arr_stations = explode(',', $stations);
+
+                                                        // glue them together with ', '
+                                                        $stationStr = implode("', '", $arr_stations);
+                                                        $sql = "SELECT line_name FROM `cam_line` WHERE line_id IN ('$stationStr')";
+                                                        $result1 = mysqli_query($db, $sql);
+                                                        $line = '';
+                                                        $i = 0;
+                                                        while ($row =  $result1->fetch_assoc()) {
+                                                            if($i == 0){
+                                                                $line = $row['line_name'];
+                                                            }else{
+                                                                $line .= " , " . $row['line_name'];
+                                                            }
+                                                            $i++;
+                                                        }
+                                                        echo $line;
+                                                        ?>
+                                                    </td>
+                                                    <td><?php echo $c_status; ?>
+                                                    </td>
+
+                                                </tr>
+                                            <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+           </div>
+         </form>
+       </div>
+   </div>
+
 <script>
     window.onload = function () {
         history.replaceState("", "", "<?php echo $scriptName; ?>config_module/create_cust_dashboard.php");
