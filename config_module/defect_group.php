@@ -139,40 +139,6 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -187,11 +153,7 @@ if (count($_POST) > 0) {
             padding-left: 20px;
             padding-right: 238px;
         }
-        .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
-            display: block;
-        }
+
 
         a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
             height: 32px;
@@ -212,15 +174,11 @@ if (count($_POST) > 0) {
             margin-top: -22px!important;
             width: 1.5rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
     </style>
 </head>
 
+
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Defect Group(s)";
@@ -228,13 +186,10 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
+    <div class="main-container container">
     <!-- breadcrumb -->
-    <div class="row-body">
-        <div class="col-lg-12 col-md-12">
             <div class="breadcrumb-header justify-content-between">
                     <div class="left-content">
                        <ol class="breadcrumb">
@@ -243,21 +198,19 @@ include("../admin_menu.php");
                        </ol>
                     </div>
             </div>
-        </div>
-    </div>
-    <div class="row-body">
-        <div class="col-lg-12 col-md-12">
-           <?php
-              if (!empty($import_status_message)) {
-                  echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-              }
-              displaySFMessage();
-           ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                   <?php
+                      if (!empty($import_status_message)) {
+                          echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+                      }
+                      displaySFMessage();
+                   ?>
 
-        </div>
-    </div>
+                </div>
+            </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="">
@@ -266,16 +219,17 @@ include("../admin_menu.php");
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-1.5" style="max-width: 14.66667%;">
-                                    <label class="form-label mg-b-0"> Defect Group Name : </label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0"> Defect Group Name  </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" name="group_name" id="group_name" class="form-control" placeholder="Enter Defect Group Name" required>
                                 </div>
-                                <div class="col-md-2.5">
-                                    <label class="form-label mg-b-0">Defect Group Description : </label>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Defect Group Description  </label>
                                 </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0" style="max-width: 41.66667%;">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" name="disc" id="disc" class="form-control" placeholder="Enter Defect Group Description" required>
                                 </div>
                             </div>
@@ -283,10 +237,10 @@ include("../admin_menu.php");
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2" style="max-width: 9.66667%!important;">
-                                    <label class="form-label mg-b-0">Defects : </label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Defects  </label>
                                 </div>
-                                <div class="col-md-10 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select class="form-control form-select select2" name="defect_list[]" id="defect_list" multiple="multiple">
                                         <?php
                                         $sql1 = "SELECT * FROM `defect_list`";
@@ -308,13 +262,11 @@ include("../admin_menu.php");
         </div>
     </form>
     <form action="delete_defect_group_list.php" method="post" class="form-horizontal">
-            <div class="row-body">
+            <div class="row">
                 <div class="col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-
                             <h4 class="card-title">
-
                                 <button type="submit" class="btn btn-danger">
                                     <i>
                                         <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
@@ -325,7 +277,6 @@ include("../admin_menu.php");
                         <div class="card-body pt-0">
                             <div class="table-responsive">
                                 <table class="table datatable-basic table-bordered">
-
                                     <thead>
                                     <tr>
                                         <th><input type="checkbox" id="checkAll" ></th>
