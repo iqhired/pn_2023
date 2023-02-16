@@ -35,6 +35,8 @@ if ($taskboard != "" && $user != "" && $datefrom != "" && $dateto != "") {
 }else {
     $exportData = mysqli_query($db, "SELECT `taskboard`,`assign_to`,`equipment`,`property`,`building`,`duration`,cast(`assigned_time` AS date) as assigned_date,cast(`assigned_time` AS Time) as assigned_t,cast(`finished_time` AS date) as finished_date,cast(`finished_time` AS Time) as finished_t,SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF(`finished_time` ,`assigned_time`))) as total_time FROM `tm_task`");
 }
+$print_data .= "From Date : " . onlydateReadFormat($date_from) . "\n";
+$print_data .= "To Date : " . onlydateReadFormat($date_to) . "\n\n\n";
 /*}*//* else {
     $curdate = date("Y-m-d", strtotime($curdate));
     $curdate = date('Y-m-d');
@@ -162,5 +164,5 @@ header("Content-type: application/octet-stream");
 header("Content-Disposition: attachment; filename=Task Log.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
-print "$header\n$result";
+print "\n\n$print_data\n$header\n$result";
 ?>

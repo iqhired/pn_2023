@@ -42,15 +42,15 @@ if (!empty($part_family)) {
     $wc = $wc . " and sg_station_event.part_family_id = '$part_family'";
 }
 if (!empty($datefrom)) {
-    $print_data .= "From Date : " . $datefrom . "\n";
     $date_from = convertMDYToYMD($datefrom);
     $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' ";
 }
 if (!empty($dateto)) {
-    $print_data .= "To Date : " . $dateto . "\n\n\n";
     $date_to = convertMDYToYMD($dateto);
     $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
 }
+$print_data .= "From Date : " . onlydateReadFormat($date_from) . "\n";
+$print_data .= "To Date : " . onlydateReadFormat($date_to) . "\n\n\n";
 $date_from = convertMDYToYMD($datefrom);
 $date_to = convertMDYToYMD($dateto);
 $sql = ("SELECT cl.line_name ,pf.part_family_name,pn.part_number,pn.part_name ,mc.material_type,cast(mt.created_at AS date) as created_d,cast(mt.created_at AS Time) as created_time FROM material_tracability as mt inner join cam_line as cl on mt.line_no = cl.line_id inner join pm_part_family as pf on mt.part_family_id= pf.pm_part_family_id inner join pm_part_number as pn on mt.part_no=pn.pm_part_number_id inner join material_config as mc on mt.material_type=mc.material_id where DATE_FORMAT(mt.created_at,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(mt.created_at,'%Y-%m-%d') <= '$date_to' and cl.line_id='$station' and mt.material_status = '1' order by mt.created_at asc");

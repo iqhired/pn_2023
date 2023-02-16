@@ -77,15 +77,16 @@ if($station == '0'){
         $wc = $wc . " and sg_station_event.part_family_id = '$pf'";
     }
 }
+
     /* If Data Range is selected */
     if ($button == "button3") {
         if (!empty($datefrom)) {
-            $print_data .= "From Date : " . $datefrom . "\n";
+           // $df = date('Y-m-d',strtotime($datefrom));
             $date_from = convertMDYToYMD($datefrom);
             $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' ";
         }
         if (!empty($dateto)) {
-            $print_data .= "To Date : " . $dateto . "\n\n\n";
+          //  $dt = date('Y-m-d',strtotime($dateto));
             $date_to = convertMDYToYMD($dateto);
             $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
         }
@@ -115,7 +116,8 @@ if($station == '0'){
         $date_to = convertMDYToYMD($dateto);
         $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
     }
-
+$print_data .= "From Date : " . onlydateReadFormat($date_from) . "\n";
+$print_data .= "To Date : " . onlydateReadFormat($date_to) . "\n\n\n";
 
 
 $sql = "SELECT ( select cam_line.line_name from cam_line where cam_line.line_id = sg_station_event.line_id) as Station ,good_bad_pieces_details.good_pieces AS good_pieces  , ( select pm_part_family.part_family_name from pm_part_family where pm_part_family.pm_part_family_id = sg_station_event.part_family_id) as p_fam_name ,( select pm_part_number.part_number from pm_part_number where pm_part_number.pm_part_number_id = sg_station_event.part_number_id) as pm_p_num , ( select pm_part_number.part_name from pm_part_number where pm_part_number.pm_part_number_id = sg_station_event.part_number_id) as pm_part_name , good_bad_pieces_details.created_by ,cast(good_bad_pieces_details.created_at AS date) as crtd_date,cast(good_bad_pieces_details.created_at AS Time) as crtd_t  FROM `good_bad_pieces_details`  INNER JOIN sg_station_event ON good_bad_pieces_details.station_event_id = sg_station_event.station_event_id where 1 and good_pieces > 0 " . $wc ."ORDER BY sg_station_event.line_id,good_bad_pieces_details.created_at";
