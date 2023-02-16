@@ -230,40 +230,6 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -297,6 +263,8 @@ if (count($_POST) > 0) {
     </style>
 </head>
 
+<body class="ltr main-body app horizontal">
+
 
 <!-- Main navbar -->
 <?php
@@ -304,15 +272,11 @@ $cust_cam_page_header = "Account";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-
-<body class="ltr main-body app sidebar-mini">
-
-
 <!-----main content----->
 <div class="main-content app-content">
 
-
     <!---container--->
+    <div class="main-container container">
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -323,7 +287,7 @@ include("../admin_menu.php");
         </div>
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                  <?php if ($temp == "one") { ?>
                     <div class="alert alert-success no-border">
@@ -344,35 +308,26 @@ include("../admin_menu.php");
                 displaySFMessage();
 
                 ?>
-
-
-                <div class="card">
+                 <div class="card">
                     <div class="">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">ACCOUNT</span>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Account Name :</label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Account Name </label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" name="cust_name" id="cust_name" class="form-control" placeholder="Enter Customer Name"  required>
                                     <div id="error6" class="red">
                                     </div>
-
-
                                 </div>
-
-
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Account Type :</label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Account Type </label>
                                 </div>
-
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select class="form-control select2" name="account_type" id="account_type">
                                         <option value="" selected disabled>--- Select Account Type ---</option>
                                         <?php
@@ -389,48 +344,34 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
-
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Contact Number :</label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Contact Number </label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="number" name="contact_number" id="contact_number" class="form-control" placeholder="Enter Contact Number" required>
                                     <div id="error6" class="red">
                                     </div>
 
                                 </div>
-
-
-
-
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Website :</label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Website </label>
                                 </div>
-
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" name="website" id="website" class="form-control" placeholder="Enter Website" required>
                                     <div id="error6" class="red">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Upload Logo :</label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Upload Logo </label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4  mg-t-10 mg-md-t-0">
                                     <input type="file" name="image" id="image" class="form-control" required>
                                     <div id="1" style="color:red;">* File size must be less than 2 MB.
                                     </div>
@@ -438,22 +379,18 @@ include("../admin_menu.php");
                                     </div>
 
                                 </div>
-
-
-
-
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Enabled :</label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Enabled </label>
                                 </div>
 
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <div class="row mg-t-15">
                                         <div class="col-lg-3">
                                             <label class="rdiobox">
                                                 <input id="yes" name="enabled" value="1" type="radio" checked> <span>Yes</span></label>
                                         </div>
-                                        <div class="col-lg-5 mg-t-20 mg-lg-t-0">
+                                        <div class="col-lg-3">
                                             <label class="rdiobox">
                                                 <input  id="no" name="enabled" value="0" type="radio"> <span>No</span></label>
                                         </div>
@@ -461,14 +398,12 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Address :</label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Address </label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <textarea type="text" name="address" id="address" class="form-control"  placeholder="Enter Address..." required></textarea>
                                     <div id="error6" class="red">
                                     </div>
@@ -476,22 +411,17 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-body pt-0">
                             <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">ADD</button>
                         </div>
                         <!---------------->
                     </div>
                 </div>
-    </form>
-</div>
-</div>
-
-
-
-
-<form action="delete_accounts.php" method="post" class="form-horizontal">
-    <div class="row-body">
+            </div>
+        </div>
+     </form>
+    <form action="delete_accounts.php" method="post" class="form-horizontal">
+    <div class="row">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
@@ -501,9 +431,7 @@ include("../admin_menu.php");
                 <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table datatable-basic table-bordered">
+                             <table class="table datatable-basic table-bordered">
                                         <thead>
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
@@ -569,13 +497,15 @@ include("../admin_menu.php");
                                         <?php } ?>
                                         </tbody>
                                     </table>
-                                </div>
-</form>
-
-
-
-<!-- edit modal -->
-<div id="edit_modal_theme_primary" class="modal"  >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </form>
+      <!-- edit modal -->
+   <div id="edit_modal_theme_primary" class="modal"  >
     <div class="modal-dialog" style="width:100%">
         <div class="modal-content">
             <div class="card-header">
@@ -712,14 +642,9 @@ include("../admin_menu.php");
         </div>
     </div>
 </div> <!-- edit modal -->
+  </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
 <!-- Dashboard content -->
 <!-- /dashboard content -->
 <script>

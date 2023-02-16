@@ -163,35 +163,6 @@ if (isset($cellID)) {
             margin-top: 0rem!important;
         }
 
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
 
         table.dataTable thead .sorting:after {
             content: ""!important;
@@ -335,7 +306,7 @@ include("admin_menu.php");
             </div>
         </div>
 
-        <div class="row row-body">
+        <div class="row">
             <?php
             if ($is_cust_dash == 1 && isset($line_cust_dash)){
                 $line_cust_dash_arr = explode(',', $line_cust_dash);

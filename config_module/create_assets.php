@@ -222,40 +222,7 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -288,19 +255,21 @@ if (count($_POST) > 0) {
 
     </style>
 
-    <!-- Main navbar -->
-    <?php
-    $cust_cam_page_header = "Asset Config";
-    include("../header.php");
-    include("../admin_menu.php");
-    ?>
-
 
     <!-----body-------->
-<body class="ltr main-body app sidebar-mini">
+<body class="ltr main-body app horizontal">
+<!-- Main navbar -->
+<?php
+$cust_cam_page_header = "Asset Config";
+include("../header.php");
+include("../admin_menu.php");
+?>
+
+
 <!-----main content----->
 <div class="main-content app-content">
     <!---container--->
+    <div class="main-container container">
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -312,7 +281,7 @@ if (count($_POST) > 0) {
     </div>
 
      <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
 
 
@@ -387,272 +356,252 @@ if (!empty($import_status_message)) {
 
                                 </div> 
                             </div> 
-                        </form> 
-                    </div> 
-                </div>
-            </div>
 
+     </form>
 
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="card">
+                    <div class="card-body pt-0 example1-table">
+                        <div class="table-responsive">
+                            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table datatable-basic table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                               <th>Equipment</th>
+                                               <th>Action</th>
 
-
-                
-    <div class="row-body">
-        <div class="col-12 col-sm-6">
-            <div class="card">
-                <div class="card-body pt-0 example1-table">
-                    <div class="table-responsive">
-                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table datatable-basic table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
-                                           <th>Equipment</th>
-                                           <th>Action</th>
-                                          
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                $query = sprintf("SELECT * FROM  tm_equipment where is_deleted!='1'");
-                                $qur = mysqli_query($db, $query);
-                                while ($rowc = mysqli_fetch_array($qur)) {
-                                    ?> 
-                                                <tr>
-                                                    <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["tm_equipment_id"]; ?>" class="del_eq"><span></span></label></td>
-                                                    <td><?php echo $rowc["tm_equipment_name"]; ?></td>
-                                                    <td>
-                                                       <button type="button" class="btn btn-primary btn-xs" data-popup="" title="Edit" id="edit1" data-id1="<?php echo $rowc['tm_equipment_id']; ?>" data-name1="<?php echo $rowc['tm_equipment_name']; ?>" data-toggle="modal"  data-target="#edit_modal_theme_primary1"><i class="fa fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="equipment" data-id="<?php echo $rowc['tm_equipment_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
-    <!--                                    
-                                                <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['tm_equipment_id']; ?>">Delete </button>
-                                                        -->                                 
-                                                    </td>
-                                                </tr> 
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                    $query = sprintf("SELECT * FROM  tm_equipment where is_deleted!='1'");
+                                    $qur = mysqli_query($db, $query);
+                                    while ($rowc = mysqli_fetch_array($qur)) {
+                                        ?>
+                                                    <tr>
+                                                        <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["tm_equipment_id"]; ?>" class="del_eq"><span></span></label></td>
+                                                        <td><?php echo $rowc["tm_equipment_name"]; ?></td>
+                                                        <td>
+                                                           <button type="button" class="btn btn-primary btn-xs" data-popup="" title="Edit" id="edit1" data-id1="<?php echo $rowc['tm_equipment_id']; ?>" data-name1="<?php echo $rowc['tm_equipment_name']; ?>" data-toggle="modal"  data-target="#edit_modal_theme_primary1"><i class="fa fa-edit"></i></button>
+                                                                <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="equipment" data-id="<?php echo $rowc['tm_equipment_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
+        <!--
+                                                    <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['tm_equipment_id']; ?>">Delete </button>
+                                                            -->
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="card">
+
+                    <div class="card-body pt-0 example1-table">
+                        <div class="table-responsive">
+                            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                            <thead>
+                                            <tr>
+                                                <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                              <th>Property</th>
+                                                    <th>Action</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+    $query = sprintf("SELECT * FROM  tm_property where is_deleted!='1'");
+    $qur = mysqli_query($db, $query);
+    while ($rowc = mysqli_fetch_array($qur)) {
+        ?>
+                                                    <tr>
+                                                        <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["tm_property_id"]; ?>"><span></span></label></td>
+                                                        <td><?php echo $rowc["tm_property_name"]; ?></td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-primary btn-xs" data-popup="tooltip" title="Edit" id="edit3" data-id3="<?php echo $rowc['tm_property_id']; ?>" data-name3="<?php echo $rowc['tm_property_name']; ?>"  data-toggle="modal"  data-target="#edit_modal_theme_primary3"><i class="fa fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="property" data-id="<?php echo $rowc['tm_property_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
+                                                            <!--                                    &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['line_id']; ?>">Delete </button>
+                                                            -->
+                                                        </td>
+                                                    </tr>
+    <?php } ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="card">
+
+                    <div class="card-body pt-0 example1-table">
+                        <div class="table-responsive">
+                            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                            <thead>
+                                            <tr>
+                                                <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                               <th>Building</th>
+                                                    <th>Action</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+    $query = sprintf("SELECT * FROM  tm_building where is_deleted!='1'");
+    $qur = mysqli_query($db, $query);
+    while ($rowc = mysqli_fetch_array($qur)) {
+        ?>
+                                                    <tr>
+                                                        <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["tm_building_id"]; ?>"><span></span></label></td>
+                                                        <td><?php echo $rowc["tm_building_name"]; ?></td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-primary btn-xs"data-popup="tooltip" title="Edit" id="edit4" data-id4="<?php echo $rowc['tm_building_id']; ?>" data-name4="<?php echo $rowc['tm_building_name']; ?>" data-toggle="modal"  data-target="#edit_modal_theme_primary4"> <i class="fa fa-edit"></i></button>
+                                                                <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="building" data-id="<?php echo $rowc['tm_building_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
+                                                            <!--                                    &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['line_id']; ?>">Delete </button>
+                                                            -->
+                                                        </td>
+                                                    </tr>
+    <?php } ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /main charts -->
+        <!-- edit modal -->
+        <div id="edit_modal_theme_primary1" class="modal col-lg-12 col-md-12">
+            <div class="modal-dialog" style="width:100%">
+                <div class="modal-content">
+                    <div class="card-header">
+                        <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Update Equipment</span>
+                    </div>
+                    <form action="" id="user_form"  enctype="multipart/form-data" class="form-horizontal" method="post">
+                        <div class="card-body" style="">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-4">
+                                            <label class="col-lg-3 control-label">Equipment:*</label>
+                                        </div>
+                                        <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                            <input type="text" name="edit_equipment" id="edit_equipment" class="form-control" required>
+                                            <input type="hidden" name="edit_equipment_id" id="edit_equipment_id" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="edit_modal_theme_primary3" class="modal col-lg-12 col-md-12">
+            <div class="modal-dialog" style="width:100%">
+                <div class="modal-content">
+                    <div class="card-header">
+                        <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Update Property</span>
+                    </div>
+                    <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal" method="post">
+                        <div class="card-body" style="">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-4">
+                                            <label class="form-label mg-b-0">Property</label>
+                                        </div>
+
+                                        <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                            <input type="text" name="edit_property" id="edit_property" class="form-control" required>
+                                            <input type="hidden" name="edit_property_id" id="edit_property_id" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="edit_modal_theme_primary4" class="modal col-lg-12 col-md-12">
+            <div class="modal-dialog" style="width:100%">
+                <div class="modal-content">
+                    <div class="card-header">
+                        <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Update Building</span>
+                    </div>
+                    <form action="" id="user_form" class="form-horizontal" method="post">
+                        <div class="card-body" style="">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-4">
+                                            <label class="form-label mg-b-0">Building :</label>
+                                        </div>
+                                        <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                            <input type="text" name="edit_building" id="edit_building" class="form-control" required>
+                                            <input type="hidden" name="edit_building_id" id="edit_building_id" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
 
 
-        <div class="col-12 col-sm-6">
-            <div class="card">
-                
-                <div class="card-body pt-0 example1-table">
-                    <div class="table-responsive">
-                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table  table-bordered text-nowrap mb-0" id="example2">
-                                        <thead>
-                                        <tr>
-                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
-                                          <th>Property</th>
-                                                <th>Action</th>
-                                          
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-$query = sprintf("SELECT * FROM  tm_property where is_deleted!='1'");
-$qur = mysqli_query($db, $query);
-while ($rowc = mysqli_fetch_array($qur)) {
-    ?> 
-                                                <tr>
-                                                    <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["tm_property_id"]; ?>"><span></span></label></td>
-                                                    <td><?php echo $rowc["tm_property_name"]; ?></td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary btn-xs" data-popup="tooltip" title="Edit" id="edit3" data-id3="<?php echo $rowc['tm_property_id']; ?>" data-name3="<?php echo $rowc['tm_property_name']; ?>"  data-toggle="modal"  data-target="#edit_modal_theme_primary3"><i class="fa fa-edit"></i></button>
-                                                        <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="property" data-id="<?php echo $rowc['tm_property_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
-                                                        <!--                                    &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['line_id']; ?>">Delete </button>
-                                                        -->                                 
-                                                    </td>
-                                                </tr>
-<?php } ?>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="col-12 col-sm-6">
-            <div class="card">
-                
-                <div class="card-body pt-0 example1-table">
-                    <div class="table-responsive">
-                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table  table-bordered text-nowrap mb-0" id="example2">
-                                        <thead>
-                                        <tr>
-                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
-                                           <th>Building</th>
-                                                <th>Action</th>
-                                          
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-$query = sprintf("SELECT * FROM  tm_building where is_deleted!='1'");
-$qur = mysqli_query($db, $query);
-while ($rowc = mysqli_fetch_array($qur)) {
-    ?> 
-                                                <tr>
-                                                    <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["tm_building_id"]; ?>"><span></span></label></td>
-                                                    <td><?php echo $rowc["tm_building_name"]; ?></td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary btn-xs"data-popup="tooltip" title="Edit" id="edit4" data-id4="<?php echo $rowc['tm_building_id']; ?>" data-name4="<?php echo $rowc['tm_building_name']; ?>" data-toggle="modal"  data-target="#edit_modal_theme_primary4"> <i class="fa fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-danger btn-xs" id="delete" data-name="building" data-id="<?php echo $rowc['tm_building_id']; ?>"><i class="fa fa-trash-o" style="font-size:18px"></i></button>
-                                                        <!--                                    &nbsp; <button type="button" id="delete" class="btn btn-danger btn-xs" data-id="<?php echo $rowc['line_id']; ?>">Delete </button>
-                                                        -->                                 
-                                                    </td>
-                                                </tr>
-<?php } ?>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
+    </div>
 </div>
 
-
-
- <!-- /basic datatable -->
-                        <!-- /main charts -->
-                        <!-- edit modal -->
-                        <div id="edit_modal_theme_primary1" class="modal col-lg-12 col-md-12">
-                            <div class="modal-dialog" style="width:100%">
-                                <div class="modal-content">
-                                     <div class="card-header">
-                                        <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
-                <span class="main-content-title mg-b-0 mg-b-lg-1">Update Equipment</span>
-                                    </div>
-                                    <form action="" id="user_form"  enctype="multipart/form-data" class="form-horizontal" method="post">
-                                        <div class="card-body" style="">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                 <div class="col-md-4">
-                                                        <label class="col-lg-3 control-label">Equipment:*</label>
-                                                    </div>
-                                                      <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                                            <input type="text" name="edit_equipment" id="edit_equipment" class="form-control" required>
-                                                            <input type="hidden" name="edit_equipment_id" id="edit_equipment_id" >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    
-
-
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                        <div id="edit_modal_theme_primary3" class="modal col-lg-12 col-md-12">
-                            <div class="modal-dialog" style="width:100%">
-                                 <div class="modal-content">
-                                    <div class="card-header">
-                                        <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
-                <span class="main-content-title mg-b-0 mg-b-lg-1">Update Property</span>
-                                    </div>
-                                    <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal" method="post">
-                                        <div class="card-body" style="">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Property</label>
-                                </div>
-                                                        
-                                                         <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                                            <input type="text" name="edit_property" id="edit_property" class="form-control" required>
-                                                            <input type="hidden" name="edit_property_id" id="edit_property_id" >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="edit_modal_theme_primary4" class="modal col-lg-12 col-md-12">
-                            <div class="modal-dialog" style="width:100%">
-                                <div class="modal-content">
-                                    <div class="card-header">
-                                        <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
-                <span class="main-content-title mg-b-0 mg-b-lg-1">Update Building</span>
-                                    </div>
-                                    <form action="" id="user_form" class="form-horizontal" method="post">
-                                        <div class="card-body" style="">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="pd-30 pd-sm-20">
-                            <div class="row row-xs">
-                                                    <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Building :</label>
-                                </div>
-                                                      <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                                            <input type="text" name="edit_building" id="edit_building" class="form-control" required>
-                                                            <input type="hidden" name="edit_building_id" id="edit_building_id" >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- Dashboard content -->
-                        <!-- /dashboard content -->
-                        <script> $(document).on('click', '#delete', function () {
+   <script> $(document).on('click', '#delete', function () {
                                 var element = $(this);
                                 var del_id = element.attr("data-id");
                                 var del_name = element.attr("data-name");
@@ -669,7 +618,7 @@ while ($rowc = mysqli_fetch_array($qur)) {
                                 $(this).parents("tr").animate({backgroundColor: "#003"}, "slow").animate({opacity: "hide"}, "slow");
                                 
                             });</script>
-                        <script>
+   <script>
                             jQuery(document).ready(function ($) {
                                 $(document).on('click', '#edit1', function () {
                                     var element = $(this);
@@ -705,13 +654,12 @@ while ($rowc = mysqli_fetch_array($qur)) {
                                 });
                             });
                         </script>
-                        
-                        <script>
+   <script>
                             window.onload = function() {
                                 history.replaceState("", "", "<?php echo $scriptName; ?>config_module/create_assets.php");
                             }
                         </script> 
-                        <script>
+   <script>
                             $("#checkAll").click(function () {
                                 $('input:checkbox').not(this).prop('checked', this.checked);
                             });
