@@ -112,40 +112,6 @@ checkSession();
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -160,11 +126,7 @@ checkSession();
             padding-left: 20px;
             padding-right: 238px;
         }
-        .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
-            display: block;
-        }
+
 
         a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
             height: 32px;
@@ -219,6 +181,9 @@ checkSession();
     </style>
 </head>
 
+
+<body class="ltr main-body app horizontal">
+<!-- main-content -->
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Defect List";
@@ -226,13 +191,10 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
-<!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
+    <div class="main-container container">
     <!-- breadcrumb -->
-    <div class="row-body">
-        <div class="col-lg-12 col-md-12">
             <div class="breadcrumb-header justify-content-between">
                 <div class="left-content">
                     <ol class="breadcrumb">
@@ -241,9 +203,8 @@ include("../admin_menu.php");
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row-body">
+
+    <div class="row">
         <div class="col-lg-12 col-md-12">
             <?php if ($temp == "one") { ?>
                 <div class="alert alert-success no-border">
@@ -272,7 +233,7 @@ include("../admin_menu.php");
         </div>
     </div>
     <form action="" id="create_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="">
@@ -281,20 +242,20 @@ include("../admin_menu.php");
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0"> Defect Name : </label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0"> Defect Name </label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" name="name" id="name" class="form-control" placeholder="Enter Defect Name" required>
                                 </div>
                             </div>
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-4">
-                                    <label class="form-label mg-b-0">Defects : </label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Defects </label>
                                 </div>
-                                <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select class="form-control form-select select2" name="part_number[]" id="part_number" multiple="multiple" data-placeholder="Select Part(s)...">
 
                                         <?php
@@ -323,7 +284,7 @@ include("../admin_menu.php");
         </div>
     </form>
     <form action="" id="delete_form" method="post" class="form-horizontal">
-        <div class="row-body">
+        <div class="row">
             <div class="col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
@@ -475,6 +436,9 @@ include("../admin_menu.php");
             </div>
         </div>
     </form>
+    </div>
+    </div>
+
     <script>
         // $("#edit_part_number").select2({
         //     dropdownParent: $("#edit_modal_theme_primary")
@@ -560,10 +524,9 @@ include("../admin_menu.php");
             }
         });
     </script>
-</div>
+
 <!-- /content area -->
 
-</div>
 <!-- /page container -->
 <script>
     window.onload = function() {

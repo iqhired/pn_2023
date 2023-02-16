@@ -161,41 +161,6 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
 
         table.dataTable thead .sorting:after {
             content: ""!important;
@@ -224,22 +189,26 @@ if (count($_POST) > 0) {
             width: 100px;
             height: 23px;
         }
+        .mg-t-15 {
+            margin-top: 10px;
+        }
 
     </style>
 </head>
 
-<!-- Main navbar -->
+
+<!-----body-------->
+<body class="ltr main-body app horizontal">
+<!-----main content----->
 <?php
 $cust_cam_page_header = "Add / Edit Events Category";
 include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<!-----body-------->
-<body class="ltr main-body app sidebar-mini">
-<!-----main content----->
 <div class="main-content app-content">
     <!---container--->
+    <div class="main-container container">
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -251,7 +220,7 @@ include("../admin_menu.php");
     </div>
 
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
 
                 <?php
@@ -268,7 +237,7 @@ include("../admin_menu.php");
                         </div>
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Event Category</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -276,11 +245,11 @@ include("../admin_menu.php");
                                 </div>
 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Is NPR Required  :</label>
                                 </div>
 
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <div class="row mg-t-15">
                                         <label class="ckbox"><input type="checkbox" id="yes" name="npr" value="1"><span></span></label>
 
@@ -293,17 +262,14 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
+
     </form>
-</div>
-</div>
-</div>
-</div>
 
 
 <!-------delete-------->
 
-<form action="delete_event_category.php" method="post" class="form-horizontal">
-    <div class="row-body">
+  <form action="delete_event_category.php" method="post" class="form-horizontal">
+    <div class="row">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
@@ -372,12 +338,10 @@ include("../admin_menu.php");
                                         </tbody>
                                     </table>
                                 </div>
-</form>
+  </form>
 
-<!-- /basic datatable -->
-<!-- /main charts -->
-<!-- edit modal -->
-<div id="edit_modal_theme_primary" class="modal">
+    <!-- edit modal -->
+     <div id="edit_modal_theme_primary" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -424,13 +388,8 @@ include("../admin_menu.php");
         </div>
     </div>
 </div>
-<!-------->
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+   <!-------->
+   </div>
 </div>
 
 <script>
@@ -478,7 +437,7 @@ include("../admin_menu.php");
     }
 
 </script>
-</div>
+
 <!-- Dashboard content -->
 <!-- /dashboard content -->
 <script> $(document).on('click', '#delete', function () {
