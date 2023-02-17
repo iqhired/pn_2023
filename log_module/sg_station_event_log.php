@@ -96,7 +96,9 @@ if(empty($datefrom)){
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/libs/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -146,7 +148,7 @@ if(empty($datefrom)){
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -203,15 +205,6 @@ if(empty($datefrom)){
         .card-title:before{
             width: 0;
 
-        }
-        .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 238px;
-        }
-        .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
-            display: block;
         }
 
         a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
@@ -289,7 +282,7 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 <!-- main-content -->
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!-- container -->
     <!-- container -->
         <div class="main-container container">
@@ -519,7 +512,8 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 /* Default Query */
                                 $date_from = convertMDYToYMDwithTime($datefrom);
                                 $date_to = convertMDYToYMDwithTime($dateto);
-                                $q = $main_query . " and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to'ORDER BY slogup.created_on  ASC";
+                                $q = $main_query . " and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
+                                $q11 = $main_query . " and DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
 
                                 $line = $_POST['station'];
 
@@ -527,7 +521,8 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 if ($line != null) {
                                     $line = $_POST['station'];
                                     $cur_date = convertMDYToYMDwithTime($curdate);
-                                    $q = $main_query . "and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$cur_date' and slogup.line_id = '$line' ORDER BY slogup.created_on  ASC";
+                                    $q = $main_query . "and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$cur_date' and slogup.line_id = '$line' ";
+                                    $q11 = $main_query . "and DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$cur_date' and slogup.line_id = '$line' ";
                                 }
 
                                 /* Build the query to fetch the data*/
@@ -543,18 +538,22 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     $timezone = $_POST['timezone'];
                                     //event type
                                     $q = $main_query;
+                                    $q11 = $main_query;
 
                                     /* If Line is selected. */
                                     if ($line_id != null) {
                                         $q = $q . " and slogup.line_id = '$line_id' ";
+                                        $q11 = $q11 . " and slogup.line_id = '$line_id' ";
                                     }
                                     if ($datefrom != "" && $dateto != "") {
                                         $date_from = convertMDYToYMDwithTime($datefrom);
                                         $date_to = convertMDYToYMDwithTime($dateto);
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
+                                        $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
                                     } else if ($datefrom != "" && $dateto == "") {
                                         $date_from = convertMDYToYMDwithTime($datefrom);
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' ";
+                                        $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
                                     } else if ($datefrom == "" && $dateto != "") {
                                         $date_to = convertMDYToYMDwithTime($dateto);
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
@@ -562,15 +561,53 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
 
                                     if ($event_type != "") {
                                         $q = $q . " and slogup.event_type_id = '$event_type'";
+                                        $q11 = $q11 . " and slogup.event_type_id = '$event_type'";
                                     }
 
                                     if ($event_category != "") {
                                         $q = $q . " AND  slogup.event_cat_id ='$event_category'";
+                                        $q11 = $q11 . " AND  slogup.event_cat_id ='$event_category'";
                                     }
 
                                     $q = $q . " ORDER BY slogup.created_on  ASC";
+                                    $q11 = $q11 . " ORDER BY slogup.created_on  ASC";
 
                                 }
+								/* Execute the Query Built*/
+								$qur11 = mysqli_query($db, $q11);
+								while ($rowc = mysqli_fetch_array($qur11)) {
+									?>
+                                    <tr>
+										<?php
+										$un = $rowc['line_id'];
+										$qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
+										while ($rowc04 = mysqli_fetch_array($qur04)) {
+											$lnn = $rowc04["line_name"];
+										}
+										?>
+                                        <td><?php echo $lnn; ?></td>
+                                        <td><?php echo $rowc["e_type"]; ?></td>
+                                        <td><?php echo $rowc['p_num']; ?></td>
+                                        <td><?php echo $rowc['p_name']; ?></td>
+                                        <td><?php echo $rowc['pf_name']; ?></td>
+                                        <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
+										<?php
+										$diff = abs(strtotime($date_to) - strtotime($date_from));
+										$t = round(($diff/3600),2);
+										if($rowc['end_time'] > $date_to)
+										{
+											$end_time = dateReadFormat($date_to);
+											$t_time = $t;
+										}else{
+											$end_time = dateReadFormat($rowc['end_time']);
+											$dd = (strtotime($rowc['end_time']) - strtotime($date_from));
+											$t_time = round(($dd/3600),2);
+										}
+										?>
+                                        <td><?php echo $end_time; ?></td>
+                                        <td><?php echo $t_time; ?></td>
+                                    </tr>
+								<?php }
                                 /* Execute the Query Built*/
                                 $qur = mysqli_query($db, $q);
                                 while ($rowc = mysqli_fetch_array($qur)) {
