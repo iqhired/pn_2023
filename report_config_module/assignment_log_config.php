@@ -301,7 +301,6 @@ include("../admin_menu.php");
                                      </div>
                                  </div>
 
-
                                  <div class="row row-xs align-items-center mg-b-20">
                                      <div class="col-md-2">
                                          <label class="form-label mg-b-0">Subject : </label>

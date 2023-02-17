@@ -230,7 +230,6 @@ include("../admin_menu.php");
     </div>
 
 
-
     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row">
             <div class="col-lg-12 col-md-12">
