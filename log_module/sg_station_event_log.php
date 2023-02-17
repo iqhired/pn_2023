@@ -1,7 +1,7 @@
 <?php
 include("../config.php");
 $button_event = "button3";
-$curdate = date(mdY_FORMAT);
+$curdate = date('Y-m-d H:i');
 //$dateto = $curdate;
 //$datefrom = $curdate;
 $button = "";
@@ -69,12 +69,12 @@ if (count($_POST) > 0) {
     }
 }
 if(empty($dateto)){
-    $curdate = date(mdY_FORMAT);
+    $curdate = date(mdYHi_FORMAT);
     $dateto = $curdate;
 }
 
 if(empty($datefrom)){
-    $yesdate = date(mdY_FORMAT);
+    $yesdate = date(mdYHi_FORMAT);
     $datefrom = $curdate;
 }
 
@@ -281,9 +281,6 @@ if(empty($datefrom)){
     ?>
 
 </head>
-
-
-
 <body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
@@ -298,16 +295,16 @@ include("../admin_menu.php");
         <div class="main-container container">
         <!-- breadcrumb -->
                <div class="breadcrumb-header justify-content-between">
-            <div class="left-content">
+                   <div class="left-content">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
                     <li class="breadcrumb-item active" aria-current="page"> Station event log</li>
                 </ol>
             </div>
-        </div>
-               <form action="" id="user_form" class="form-horizontal" method="post">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
+               </div>
+                <form action="" id="user_form" class="form-horizontal" method="post">
+                  <div class="row">
+                  <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-header">
@@ -439,8 +436,8 @@ include("../admin_menu.php");
                                             <div class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
-                                        </div><!-- input-group -->
+                                            <input class="form-control" name="date_from" id="date_from" type="text" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY">
+                                        </div>
                                     </div>
                                     <div class="col-md-1"></div>
                                     <div class="col-md-0.5"></div>
@@ -453,8 +450,8 @@ include("../admin_menu.php");
                                             <div class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
-                                        </div><!-- input-group -->
+                                            <input class="form-control" name="date_to" id="date_to" value="<?php echo $dateto; ?>" type="text" placeholder="MM/DD/YYYY">
+                                        </div>
                                     </div>
 
                                 </div>
@@ -463,13 +460,7 @@ include("../admin_menu.php");
                             if (!empty($import_status_message)) {
                                 echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
                             }
-                            ?>
-                            <?php
-                            if (!empty($_SESSION['import_status_message'])) {
-                                echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-                                $_SESSION['message_stauts_class'] = '';
-                                $_SESSION['import_status_message'] = '';
-                            }
+                            displaySFMessage();
                             ?>
                             <div class="pd-20 pd-sm-10">
                                 <div class="row row-xs">
@@ -479,14 +470,18 @@ include("../admin_menu.php");
                                     <div class="col-md-1">
                                         <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
                                     </div>
-                            </form>
-              <form action="export_se_log_new.php" method="post" name="export_excel">
-                                <div class="col-md-1">
-                                    <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
+                                </form>
+                                  <form action="export_se_log_new.php" method="post" name="export_excel">
+                <div class="col-md-1">
+                    <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
+                </div>
+            </form>
                                 </div>
-                            </form>
-        </div>
-
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
 
 
     <!-- row  -->
@@ -495,13 +490,11 @@ include("../admin_menu.php");
     {
         ?>
         <div class="row">
-
             <div class="col-12 col-sm-12">
                 <div class="card">
-
                     <div class="card-body pt-0">
                         <div class="table-responsive">
-                            <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                            <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                 <thead>
                                 <tr>
                                     <th>Station</th>
@@ -512,11 +505,10 @@ include("../admin_menu.php");
                                     <th>Start Time</th>
                                     <th>End Time</th>
                                     <th>Total Time</th>
-                                </tr>
+                                <tr>
                                 </thead>
                                 <tbody>
                                 <?php
-
                                 $main_query = "select slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
 pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.total_time as total_time from sg_station_event_log_update as slogup 
@@ -525,17 +517,17 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 //where DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') >= '2022-11-03'
                                 //and DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') <= '2022-11-03' and slogup.line_id = '3' ORDER BY slogup.created_on ASC";
                                 /* Default Query */
-                                $date_from = convertMDYToYMD($datefrom);
-                                $date_to = convertMDYToYMD($dateto);
-                                $q = $main_query . " and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') <= '$date_to'ORDER BY slogup.created_on  ASC";
+                                $date_from = convertMDYToYMDwithTime($datefrom);
+                                $date_to = convertMDYToYMDwithTime($dateto);
+                                $q = $main_query . " and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to'ORDER BY slogup.created_on  ASC";
 
                                 $line = $_POST['station'];
 
                                 /* If Line is selected. */
                                 if ($line != null) {
                                     $line = $_POST['station'];
-                                    $cur_date = convertMDYToYMD($curdate);
-                                    $q = $main_query . "and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') <= '$cur_date' and slogup.line_id = '$line' ORDER BY slogup.created_on  ASC";
+                                    $cur_date = convertMDYToYMDwithTime($curdate);
+                                    $q = $main_query . "and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$cur_date' and slogup.line_id = '$line' ORDER BY slogup.created_on  ASC";
                                 }
 
                                 /* Build the query to fetch the data*/
@@ -557,15 +549,15 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         $q = $q . " and slogup.line_id = '$line_id' ";
                                     }
                                     if ($datefrom != "" && $dateto != "") {
-                                        $date_from = convertMDYToYMD($datefrom);
-                                        $date_to = convertMDYToYMD($dateto);
-                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d') <= '$date_to' ";
+                                        $date_from = convertMDYToYMDwithTime($datefrom);
+                                        $date_to = convertMDYToYMDwithTime($dateto);
+                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
                                     } else if ($datefrom != "" && $dateto == "") {
-                                        $date_from = convertMDYToYMD($datefrom);
-                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d') >= '$date_from' ";
+                                        $date_from = convertMDYToYMDwithTime($datefrom);
+                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' ";
                                     } else if ($datefrom == "" && $dateto != "") {
-                                        $date_to = convertMDYToYMD($dateto);
-                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d') <= '$date_to' ";
+                                        $date_to = convertMDYToYMDwithTime($dateto);
+                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
                                     }
 
                                     if ($event_type != "") {
@@ -597,8 +589,20 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         <td><?php echo $rowc['p_name']; ?></td>
                                         <td><?php echo $rowc['pf_name']; ?></td>
                                         <td><?php echo dateReadFormat($rowc['start_time']); ?></td>
-                                        <td><?php echo dateReadFormat($rowc['end_time']); ?></td>
-                                        <td><?php echo $rowc['total_time']; ?></td>
+                                        <?php
+                                        $diff = abs(strtotime($date_to) - strtotime($rowc['start_time']));
+                                        $t = round(($diff/3600),2);
+                                        if($rowc['end_time'] > $date_to)
+                                        {
+                                            $end_time = dateReadFormat($date_to);
+                                            $t_time = $t;
+                                        }else{
+                                            $end_time = dateReadFormat($rowc['end_time']);
+                                            $t_time = $rowc['total_time'];
+                                        }
+                                        ?>
+                                        <td><?php echo $end_time; ?></td>
+                                        <td><?php echo $t_time; ?></td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>
@@ -608,14 +612,14 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                 </div>
             </div>
         </div>
-
         <?php
     }
     ?>
 </div>
+</div>
 <script>
-    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
-    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_to').datetimepicker({format: 'mm-dd-yyyy hh:ii'});
+    $('#date_from').datetimepicker({format: 'mm-dd-yyyy hh:ii'});
     $(function () {
         $('input:radio').change(function () {
             var abc = $(this).val()
@@ -680,3 +684,4 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
 <?php include('../footer1.php') ?>
 
 </body>
+</html>
