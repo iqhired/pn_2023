@@ -434,10 +434,7 @@ include("../admin_menu.php");
 													<?php
 													$unas = $rowc["unassign_time"];
 													$as = $rowc["assign_time"];
-													$diffrence = abs(strtotime($unas) - strtotime($date_from));
-													$t_time = round(($diffrence/3600),2);
-													$diff = abs(strtotime($date_to) - strtotime($as));
-													$t = round(($diff/3600),2);
+
 													/* if ($unas == $as) {
 														 $unasign = "Still Assigned";
 													 } else {
@@ -454,6 +451,10 @@ include("../admin_menu.php");
                                                         {
                                                             $unasign = dateReadFormat($unas);
                                                         }
+                                                        $diffrence = abs(strtotime($unasign) - strtotime($date_from));
+                                                        $t_time = round(($diffrence/3600),2);
+                                                        $diff = abs(strtotime($date_to) - strtotime($as));
+                                                        $t = round(($diff/3600),2);
                                                         ?>
                                                         <td style="color: <?php echo $color; ?>"><?php echo $unasign; ?></td>
 													<?php
@@ -465,13 +466,7 @@ include("../admin_menu.php");
 														$database_time = $t_time;
 													}
 													?>
-													<?php if($unas > $date_to){ ?>
-                                                        <td><?php echo $t; ?></td>
-													<?php }else{ ?>
-                                                        <td><?php echo $database_time; ?></td>
-													<?php } ?>
-
-
+                                                    <td><?php echo $database_time; ?></td>
                                                 </tr>
 											<?php }
                                         }
