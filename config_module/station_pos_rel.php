@@ -167,13 +167,6 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-
 
 
         table.dataTable thead .sorting:after {
@@ -205,6 +198,8 @@ if (count($_POST) > 0) {
     </style>
 </head>
 
+
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Station Position Configuration";
@@ -212,13 +207,12 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
+    <div class="main-container container">
     <!-- breadcrumb -->
-    <div class="row-body">
-        <div class="col-12 col-sm-12">
+
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
@@ -227,9 +221,8 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-        </div>
-    </div>
-    <div class="row-body">
+
+    <div class="row">
         <div class="col-12 col-sm-12">
     <?php
     if (!empty($import_status_message)) {
@@ -241,7 +234,7 @@ include("../admin_menu.php");
         </div>
     </div>
     <form action="delete_station_pos_rel.php" method="post" class="form-horizontal">
-            <div class="row-body">
+            <div class="row">
                 <div class="col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
@@ -251,7 +244,7 @@ include("../admin_menu.php");
                                         <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
                                     </i>
                                 </button>
-                                <button style="margin-left: 967px!important;" type="button" data-toggle="modal" class="btn btn-primary"
+                                <button style="float: right;" type="button" data-toggle="modal" class="btn btn-primary"
                                         data-target="#modal_theme_primary1">Create Station
                                     Position Relation
                                 </button>
@@ -606,6 +599,7 @@ include("../admin_menu.php");
     </div>
 </div>
 </div>
+</div>
     <script> $(document).on('click', '#delete', function () {
             var element = $(this);
             var del_id = element.attr("data-id");
@@ -663,12 +657,6 @@ include("../admin_menu.php");
         });
     </script>
 
-</div>
-<!-- /content area -->
-
-</div>
-<!-- /page container -->
-
 <script>
     window.onload = function () {
         history.replaceState("", "", "<?php echo $scriptName; ?>config_module/station_pos_rel.php");
@@ -682,3 +670,4 @@ include("../admin_menu.php");
     <?php include('../footer1.php') ?>
 
 </body>
+</html>

@@ -187,32 +187,7 @@ if (count($_POST) > 0) {
             margin-left: -8.75rem;
             margin-right: 6.25rem;
         }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
 
             input[type="file"] {
                 display: block;
@@ -232,11 +207,7 @@ if (count($_POST) > 0) {
                 padding-left: 20px;
                 padding-right: 238px;
             }
-            .main-footer {
-                margin-left: -127px;
-                margin-right: 112px;
-                display: block;
-            }
+
 
             a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
                 height: 32px;
@@ -252,17 +223,19 @@ if (count($_POST) > 0) {
 </head>
 
 
+<!-----body-------->
+<body class="ltr main-body app horizontal">
+
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Station Assets Config";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-<!-----body-------->
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
     <!---container--->
+    <div class="main-container container">
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -272,12 +245,9 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-
-
-
     <form action="" id="asset_create" enctype="multipart/form-data" class="form-horizontal" method="post">
         <?php $id = $_GET['id']; ?>
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                  <?php
                 if (!empty($import_status_message)) {
@@ -300,21 +270,17 @@ include("../admin_menu.php");
                         <span class="text-semibold">Event Type</span> Updated Successfully.
                     </div>
                 <?php } ?>
-                
-
-                <div class="card">
+                 <div class="card">
                     <div class="">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Station Assets Config</span>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Station* :</label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Station</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
                                         <option value="" selected disabled> Select Station</option>
                                         <?php
@@ -341,42 +307,114 @@ include("../admin_menu.php");
 
 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Asset Name : </label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Asset Name </label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" class="form-control" name="asset_name" id="asset_name" placeholder="Enter Asset Name" required>
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
-                                    <label class="form-label mg-b-0">Image : </label>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Image</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input id="image-input" type="file" name="image[]" class="form-control" multiple>
                                     <div class="container"></div>
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div class="card-body pt-0">
                             <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create</button>
                         </div>
                     </div>
 
                 </div>
+            </div>
+        </div>
+     </form>
 
-    </form>
-</div>
+        <div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+           <div class="card-body pt-0 example1-table">
+                <div class="table-responsive">
+                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table  datatable-basic table-bordered text-nowrap mb-0" id="example2">
+                                    <thead>
+                                    <tr>
+                                        <th>Slno</th>
+                                        <th>Asset Name</th>
+                                        <th>Station</th>
+                                        <th>Created Date</th>
+                                        <!--<th>Image</th>-->
+                                        <th>QR Code</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $query4  = mysqli_query($db, "SELECT * FROM `station_assests` where is_deleted != 0");
+                                    while ($rowc08 = mysqli_fetch_array($query4)) {
+                                        $slno = $rowc08["slno"];
+                                        $asset_id = $rowc08["asset_id"];
+                                        $line_id = $rowc08["line_id"];
+                                        $asset_name = $rowc08["asset_name"];
+                                        $created_date = $rowc08["created_date"];
+                                        $qrcode = $rowc08["qrcode"];
+
+                                        $qur1 = mysqli_query($db, "SELECT line_name  FROM `cam_line` where line_id = '$line_id'");
+                                        $rowc1 = mysqli_fetch_array($qur1);
+                                        $line_name = $rowc1['line_name'];
+                                        ?>
+
+                                        <tr>
+                                            <td><?php echo ++$counter;; ?></td>
+                                            <td><?php echo $asset_name; ?></td>
+                                            <td><?php echo $line_name; ?></td>
+                                            <td><?php echo dateReadFormat($created_date); ?></td>
+                                            <!--<td>
+                            <?php
+                                            /*                            $query2 = sprintf("SELECT * FROM station_assets_images where station_asset_id = '$slno'");
+                                                                        $qurimage = mysqli_query($db, $query2);
+                                                                        $i =0 ;
+                                                                        while ($rowcimage = mysqli_fetch_array($qurimage)) {
+                                                                            $station_asset_image = $rowcimage['station_asset_image'];
+                                                                            $mime_type = "image/gif";
+                                                                            $file_content = file_get_contents("$station_asset_image");
+                                                                            */?>
+                                <?php /*echo '<img src="data:image/gif;base64,' . $station_asset_image . '" style="height:50px;width:50px;" />'; */?>
+                                <?php
+                                            /*                                $i++;}
+                                                                        */?>
+                        </td>-->
+                                            <td><?php echo '<img src="data:image/gif;base64,' . $qrcode . '" style="height:50px;width:50px;" />'; ?>
+                                                <a class="btn btn-primary btn-xs" style="background-color:#1e73be;" href= data:image/png;base64,<?php echo $qrcode ?> download><i class="fa fa-download"></i></a>
+                                            </td>
+                                            <td><a href="edit_assets_config.php?id=<?php echo $asset_id ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                                <a href="del_assets.php?id=<?php echo $asset_id ?>"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<!---container--->
+    </div>
+</div>
 
 <script>
     $("#image-input").on("change", function () {
@@ -447,98 +485,6 @@ include("../admin_menu.php");
         });
     });
 </script>
-
-
-
-
-<div class="row-body">
-    <div class="col-12 col-sm-12">
-        <div class="card">
-
-
-
-
-            <div class="card-body pt-0 example1-table">
-                <div class="table-responsive">
-                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table  datatable-basic table-bordered text-nowrap mb-0" id="example2">
-
-                                    <thead>
-                                    <tr>
-
-                                        <th>Slno</th>
-                                        <th>Asset Name</th>
-                                        <th>Station</th>
-                                        <th>Created Date</th>
-                                        <!--<th>Image</th>-->
-                                        <th>QR Code</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    $query4  = mysqli_query($db, "SELECT * FROM `station_assests` where is_deleted != 0");
-                                    while ($rowc08 = mysqli_fetch_array($query4)) {
-                                        $slno = $rowc08["slno"];
-                                        $asset_id = $rowc08["asset_id"];
-                                        $line_id = $rowc08["line_id"];
-                                        $asset_name = $rowc08["asset_name"];
-                                        $created_date = $rowc08["created_date"];
-                                        $qrcode = $rowc08["qrcode"];
-
-                                        $qur1 = mysqli_query($db, "SELECT line_name  FROM `cam_line` where line_id = '$line_id'");
-                                        $rowc1 = mysqli_fetch_array($qur1);
-                                        $line_name = $rowc1['line_name'];
-                                        ?>
-
-                                        <tr>
-                                            <td><?php echo ++$counter;; ?></td>
-                                            <td><?php echo $asset_name; ?></td>
-                                            <td><?php echo $line_name; ?></td>
-                                            <td><?php echo dateReadFormat($created_date); ?></td>
-                                            <!--<td>
-                            <?php
-                                            /*                            $query2 = sprintf("SELECT * FROM station_assets_images where station_asset_id = '$slno'");
-                                                                        $qurimage = mysqli_query($db, $query2);
-                                                                        $i =0 ;
-                                                                        while ($rowcimage = mysqli_fetch_array($qurimage)) {
-                                                                            $station_asset_image = $rowcimage['station_asset_image'];
-                                                                            $mime_type = "image/gif";
-                                                                            $file_content = file_get_contents("$station_asset_image");
-                                                                            */?>
-                                <?php /*echo '<img src="data:image/gif;base64,' . $station_asset_image . '" style="height:50px;width:50px;" />'; */?>
-                                <?php
-                                            /*                                $i++;}
-                                                                        */?>
-                        </td>-->
-                                            <td><?php echo '<img src="data:image/gif;base64,' . $qrcode . '" style="height:50px;width:50px;" />'; ?>
-                                                <a class="btn btn-primary btn-xs" style="background-color:#1e73be;" href= data:image/png;base64,<?php echo $qrcode ?> download><i class="fa fa-download"></i></a>
-                                            </td>
-                                            <td><a href="edit_assets_config.php?id=<?php echo $asset_id ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                                <a href="del_assets.php?id=<?php echo $asset_id ?>"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                    <?php }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</form>
-
-
-
-
-<!---container--->
-</div>
 <?php include ('../footer1.php') ?>
 
 </body>

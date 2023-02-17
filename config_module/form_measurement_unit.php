@@ -192,11 +192,10 @@ include("../admin_menu.php");
 <!-----body-------->
 <!-----main content----->
 <div class="main-content app-content">
-        <div class="main-container container">
-
+    <div class="main-container container">
     <!---container--->
     <!---breadcrumb--->
-    <div class="breadcrumb-header justify-content-between">
+     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
@@ -204,9 +203,7 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-
-
-    <form action="" id="user_form" class="form-horizontal" method="post">
+     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <?php
@@ -221,11 +218,9 @@ include("../admin_menu.php");
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Form Measurement Unit</span>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Name </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -233,7 +228,7 @@ include("../admin_menu.php");
                                 </div>
 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-1">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Description </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -241,10 +236,9 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Unit of Description</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -252,30 +246,22 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-body pt-0">
 
                         <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
     </form>
-    <br/>
-
-</div>
-
-</div>
-<br/>
-
-
-<form action="delete_form_measurement_unit.php" method="post" class="form-horizontal">
+     <form action="delete_form_measurement_unit.php" method="post" class="form-horizontal">
     <div class="row">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <button type="submit" class="btn btn-danger  submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
                 </div>
-
                 <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -317,27 +303,28 @@ include("../admin_menu.php");
                                         <?php } ?>
                                         </tbody>
                                     </table>
-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-</div>
-
-<!-- /basic datatable -->
-<!-- /main charts -->
-<!-- edit modal -->
-<div id="edit_modal_theme_primary" class="modal">
+     <!-- edit modal -->
+      <div id="edit_modal_theme_primary" class="modal">
     <div class="modal-dialog" style="width:100%">
          <div class="modal-content">
-       <div class="card-header">
+           <div class="card-header">
                 <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
                 <span class="main-content-title mg-b-0 mg-b-lg-1">Update Form Type</span>
             </div>
-
-
              <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal"
                   method="post">
-                  <div class="card-body" style="width:100%;">
+                  <div class="card-body">
                      <div class="col-lg-12 col-md-12">
-                    <div class="pd-30 pd-sm-20">
+                     <div class="pd-30 pd-sm-20">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Name:*</label>
@@ -348,10 +335,7 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
-
-
-                    <div class="pd-30 pd-sm-20">
+                     <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Description:*</label>
@@ -362,8 +346,6 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
-
                      <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-4">
@@ -375,33 +357,19 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
-
-                
-
-
-                </div>
-
-
-            </div><!----->
-
-
+                     </div>
+                </div><!----->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
-            <!-----></div>
+           </div>
         </div>
-    </div>
-    
+  </div>
+     </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
 <!-- Dashboard content -->
 <!-- /dashboard content -->
 <script> $(document).on('click', '#delete', function () {
@@ -430,24 +398,16 @@ include("../admin_menu.php");
         });
     });
 </script>
-
 <script>
     window.onload = function() {
         history.replaceState("", "", "<?php echo $scriptName; ?>config_module/form_measurement_unit.php");
     }
 </script>
-
 <script>
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 </script>
-
-
-<!-----main content----->
-</div>
-</div>
-</div>
 
 <!-- /page container -->
 <?php include('../footer1.php') ?>
