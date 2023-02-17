@@ -78,8 +78,6 @@ if (count($_POST) > 0) {
     <!-- Global stylesheets -->
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-
-
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
@@ -182,40 +180,6 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -250,6 +214,9 @@ if (count($_POST) > 0) {
 </head>
 
 
+
+<!-----body-------->
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Event Type";
@@ -257,12 +224,10 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
-
-<!-----body-------->
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
     <!---container--->
+    <div class="main-container container">
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -275,7 +240,7 @@ include("../admin_menu.php");
 
 
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <?php if ($temp == "one") { ?>
                     <div class="alert alert-success no-border">
@@ -297,8 +262,6 @@ include("../admin_menu.php");
                 }
                 displaySFMessage();
                 ?>
-
-
                 <div class="card">
                     <div class="">
                         <div class="card-header">
@@ -307,18 +270,18 @@ include("../admin_menu.php");
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Event Type</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Event Type" required>
                                 </div>
 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Select Event Category </label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="event_cat" id="event_cat" class="form-control form-select select2" data-bs-placeholder="">
                                         <option value="" selected disabled>--- Select Event Category ---</option>
                                         <?php
@@ -336,10 +299,10 @@ include("../admin_menu.php");
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Station</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select class="form-control select2" name="stations[]" id="stations[]" value="<?php echo $rowc["stations"]; ?>"  multiple="multiple">
                                         <?php
                                         $sql1 = "SELECT * FROM `cam_users` WHERE `assigned2` = '0'  and `users_id` != '1' order BY `firstname` ";
@@ -353,10 +316,10 @@ include("../admin_menu.php");
                                 </div>
 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Select Color Code</label>
                                 </div>
-                                <div class="col-md-1 mg-t-10 mg-md-t-0">
+                                <div class="col-md-1.5 mg-t-10 mg-md-t-0">
                                     <input type="color" class="form-control" name="color_code" id="color_code"  value="#ff0000" placeholder="Enter Description" required>
                                 </div>
                             </div>
@@ -368,90 +331,90 @@ include("../admin_menu.php");
                         </div>
                     </div>
                 </div>
-    </form>
-</div>
-</div>
+            </div>
+        </div>
+           </form>
 
-<form action="delete_event_type.php" method="post" class="form-horizontal">
-    <div class="row-body">
-        <div class="col-12 col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <button type="submit" class="btn btn-danger  submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+
+        <form action="delete_event_type.php" method="post" class="form-horizontal">
+            <div class="row">
+                <div class="col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <button type="submit" class="btn btn-danger  submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                        </div>
+
+
+                        <div class="card-body pt-0 example1-table">
+                            <div class="table-responsive">
+                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
+                                                <thead>
+                                                <tr>
+                                                    <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                                    <th>Sl. No</th>
+                                                    <th>Action</th>
+                                                    <th>Event Category</th>
+                                                    <th>Event Type</th>
+                                                    <th>Color Code</th>
+                                                    <th>Event Sequence </th>
+
+                                                </tr>
+                                                </thead>
+                                                    <tbody>
+                                                <?php
+                                                $query = sprintf("SELECT * FROM  event_type as et inner join events_category as ec on et.event_cat_id = ec.events_cat_id where et.is_deleted!='1' order by so ASC");
+                                                $qur = mysqli_query($db, $query);
+                                                $total_rows = $qur->num_rows;
+                                                while ($rowc = mysqli_fetch_array($qur)) {
+                                                    $so = $rowc['so'];
+                                                    ?>
+                                                    <tr>
+                                                        <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                                   value="<?php echo $rowc["event_type_id"] . '_' . $so ; ?>">
+
+                                                            <!--                                    <input type="hidden" hidden name="del_sq[]" id="del_sq[]" value="--><?php //echo $so; ?><!--">-->
+                                                        <span></span></label></td>
+                                                        <td><?php echo ++$counter; ?></td>
+                                                        <td>
+                                                            <!--                                        <button type="button" id="edit" class="btn btn-info btn-xs"-->
+                                                            <!--                                                data-id="--><?php //echo $rowc['event_type_id']; ?><!--"-->
+                                                            <!--                                                data-name="--><?php //echo $rowc['event_type_name']; ?><!--"-->
+                                                            <!--                                                data-event-cat="--><?php //echo $rowc['events_cat_id']; ?><!--"-->
+                                                            <!--                                                data-color_code="--><?php //echo $rowc['color_code']; ?><!--"-->
+                                                            <!--                                                data-so="--><?php //echo $rowc['so']; ?><!--"-->
+                                                            <!--                                                data-stations="--><?php //echo $rowc['stations']; ?><!--"-->
+                                                            <!--                                                data-count="--><?php //echo $total_rows; ?><!--" data-toggle="modal"-->
+                                                            <!--                                                style="background-color:#1e73be;"-->
+                                                            <!--                                                data-target="#edit_modal_theme_primary">Edit-->
+                                                            <!--                                        </button>-->
+                                                            <a href="event_type_page.php?id=<?php echo  $rowc['event_type_id']; ?>" class="btn btn-primary" data-id="<?php echo $rowc['event_type_name']; ?>"  style=""><i class="fa fa-edit"></i></a>
+
+
+                                                        </td>
+                                                        <td><?php echo $rowc["events_cat_name"]; ?></td>
+                                                        <td><?php echo $rowc["event_type_name"]; ?></td>
+                                                        <td><input type="color" id="color_code" name="color_code" value="<?php echo $rowc["color_code"]; ?>"  disabled></td>
+                                                        <td><?php echo $so; ?></td>
+                                                        <!--                                        <td>-->
+                                                        <?php //echo $rowc['updated_at']; ?><!--</td>-->
+
+                                                    </tr>
+                                                <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-
-                <div class="card-body pt-0 example1-table">
-                    <div class="table-responsive">
-                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
-                                        <thead>
-                                        <tr>
-                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
-                                            <th>Sl. No</th>
-                                            <th>Action</th>
-                                            <th>Event Category</th>
-                                            <th>Event Type</th>
-                                            <th>Color Code</th>
-                                            <th>Event Sequence </th>
-
-                                        </tr>
-                                        </thead>
-                                            <tbody>
-                                        <?php
-                                        $query = sprintf("SELECT * FROM  event_type as et inner join events_category as ec on et.event_cat_id = ec.events_cat_id where et.is_deleted!='1' order by so ASC");
-                                        $qur = mysqli_query($db, $query);
-                                        $total_rows = $qur->num_rows;
-                                        while ($rowc = mysqli_fetch_array($qur)) {
-                                            $so = $rowc['so'];
-                                            ?>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
-                                                           value="<?php echo $rowc["event_type_id"] . '_' . $so ; ?>">
-                                                    
-                                                    <!--                                    <input type="hidden" hidden name="del_sq[]" id="del_sq[]" value="--><?php //echo $so; ?><!--">-->
-                                                <span></span></label></td>
-                                                <td><?php echo ++$counter; ?></td>
-                                                <td>
-                                                    <!--                                        <button type="button" id="edit" class="btn btn-info btn-xs"-->
-                                                    <!--                                                data-id="--><?php //echo $rowc['event_type_id']; ?><!--"-->
-                                                    <!--                                                data-name="--><?php //echo $rowc['event_type_name']; ?><!--"-->
-                                                    <!--                                                data-event-cat="--><?php //echo $rowc['events_cat_id']; ?><!--"-->
-                                                    <!--                                                data-color_code="--><?php //echo $rowc['color_code']; ?><!--"-->
-                                                    <!--                                                data-so="--><?php //echo $rowc['so']; ?><!--"-->
-                                                    <!--                                                data-stations="--><?php //echo $rowc['stations']; ?><!--"-->
-                                                    <!--                                                data-count="--><?php //echo $total_rows; ?><!--" data-toggle="modal"-->
-                                                    <!--                                                style="background-color:#1e73be;"-->
-                                                    <!--                                                data-target="#edit_modal_theme_primary">Edit-->
-                                                    <!--                                        </button>-->
-                                                    <a href="event_type_page.php?id=<?php echo  $rowc['event_type_id']; ?>" class="btn btn-primary" data-id="<?php echo $rowc['event_type_name']; ?>"  style=""><i class="fa fa-edit"></i></a>
-
-
-                                                </td>
-                                                <td><?php echo $rowc["events_cat_name"]; ?></td>
-                                                <td><?php echo $rowc["event_type_name"]; ?></td>
-                                                <td><input type="color" id="color_code" name="color_code" value="<?php echo $rowc["color_code"]; ?>"  disabled></td>
-                                                <td><?php echo $so; ?></td>
-                                                <!--                                        <td>-->
-                                                <?php //echo $rowc['updated_at']; ?><!--</td>-->
-
-                                            </tr>
-                                        <?php } ?>
-                                        </tbody>
-                                    </table>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+            </div>
+        </form>
+    </div>
 </div>
 <script>
     window.onload = function () {
