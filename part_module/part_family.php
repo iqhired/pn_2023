@@ -156,13 +156,6 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-
 
 
         table.dataTable thead .sorting:after {
@@ -213,15 +206,18 @@ if (count($_POST) > 0) {
 
 
 <!-- Main navbar -->
+<body class="ltr main-body app horizontal">
+
 <?php
 $cust_cam_page_header = "Part Family";
 include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
+    <div class="main-container container">
+
     <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
@@ -234,7 +230,7 @@ include("../admin_menu.php");
     </div>
 
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="">
@@ -244,19 +240,19 @@ include("../admin_menu.php");
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Name</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Part Family" required>
                                 </div>
 
 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Station</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select class="form-control select2" name="station" id="station" >
                                         <option value="" selected disabled></option>
                                         <?php
@@ -277,19 +273,19 @@ include("../admin_menu.php");
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Image</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="file" name="image" id="image" class="form-control">
                                 </div>
 
 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Notes</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                      <textarea id="notes" name="notes" rows="4" placeholder="Enter Notes..."
                                                class="form-control"></textarea>
                                 </div>
@@ -304,13 +300,9 @@ include("../admin_menu.php");
 
                     </div>
                 </div>
+            </div>
+        </div>
     </form>
-</div>
-</div>
-
-
-
-
 <form action="delete_part_family.php" method="post" class="form-horizontal">
     <div class="row-body">
         <div class="col-12 col-sm-12">
@@ -321,8 +313,7 @@ include("../admin_menu.php");
                 <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
+
                                     <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                         <thead>
                                         <tr>
@@ -380,11 +371,7 @@ include("../admin_menu.php");
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </form>
-
-
 
 <!-- edit modal -->
 
@@ -524,14 +511,6 @@ include("../admin_menu.php");
         });
     });
 </script>
-
-
-
-
-
-
-</div>
-
 <script>
     window.onload = function () {
         history.replaceState("", "", "<?php echo $scriptName; ?>part_module/part_family.php");
@@ -580,5 +559,6 @@ include("../admin_menu.php");
 </script>
 <?php include('../footer1.php') ?>
 </body>
+</html>
 
 
