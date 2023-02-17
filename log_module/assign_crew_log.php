@@ -433,7 +433,7 @@ include("../admin_menu.php");
                                                     <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
 													<?php
 													$unas = $rowc["unassign_time"];
-													$as = datemdY($datefrom);
+													$as = $rowc["assign_time"];
 													$diffrence = abs(strtotime($unas) - strtotime($date_from));
 													$t_time = round(($diffrence/3600),2);
 													$diff = abs(strtotime($date_to) - strtotime($as));
@@ -443,18 +443,19 @@ include("../admin_menu.php");
 													 } else {
 														 $unasign = $unas;
 													 }*/
-													if($unas > $date_to)
-													{
-														$unasign = dateReadFormat($date_to);
-													} else if($unas == $date_from)
-													{
-														$unasign = "Still Assigned";
-													} else
-													{
-														$unasign = dateReadFormat($unas);
-													}
-													?>
-                                                    <td><?php echo $unasign; ?></td>
+                                                        if($unas > $date_to)
+                                                        {
+                                                            $color = '#0a53be;';
+                                                            $unasign = dateReadFormat($date_to);
+                                                        } else if($unas == $date_from)
+                                                        {
+                                                            $unasign = "Still Assigned";
+                                                        } else
+                                                        {
+                                                            $unasign = dateReadFormat($unas);
+                                                        }
+                                                        ?>
+                                                        <td style="color: <?php echo $color; ?>"><?php echo $unasign; ?></td>
 													<?php
 													$zero_time = '00:00:00';
 													$database_time = $rowc["time"];
