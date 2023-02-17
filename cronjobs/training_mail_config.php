@@ -316,10 +316,10 @@ include("../admin_menu.php");
                         <div class="card-body pt-0">
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <label class="form-label mg-b-0">To Teams : </label>
                                     </div>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select class="form-control form-select select2" data-placeholder="Add Teams..." value="<?php echo $rowc["teams"]; ?>" name="teams[]" id="teams" multiple="multiple"  >
                                             <?php
                                             $arrteam = explode(',', $rowc["teams"]);
@@ -342,10 +342,10 @@ include("../admin_menu.php");
                                     </div>
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <label class="form-label mg-b-0">To Users : </label>
                                     </div>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select class="form-control form-select select2" data-placeholder="Add Users ..." name="users[]" id="users"  multiple="multiple">
                                             <?php
                                             $arrteam1 = explode(',', $rowc["users"]);
@@ -364,26 +364,26 @@ include("../admin_menu.php");
                                     </div>
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <label class="form-label mg-b-0">Subject : </label>
                                     </div>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject" value="<?php echo $rowc["subject"]; ?>" required>
                                     </div>
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <label class="form-label mg-b-0">Message : </label>
                                     </div>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <textarea id="message" name="message" rows="4" placeholder="Enter Message..." class="form-control" ><?php echo $rowc["message"]; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <label class="form-label mg-b-0">Signature : </label>
                                     </div>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <input type="text" name="signature" id="signature" class="form-control" value="<?php echo $rowc["signature"]; ?>" placeholder="Enter Signature..." required>
                                     </div>
                                 </div>
