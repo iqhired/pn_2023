@@ -430,11 +430,11 @@ include("../admin_menu.php");
 													}
 													?>
                                                     <td><?php echo $pnn; ?></td>
-                                                    <td style="color: #0a53be"><?php echo dateReadFormat(datemdYHis($datefrom)); ?></td>
+                                                    <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
 													<?php
 													$unas = $rowc["unassign_time"];
 													$as = datemdY($datefrom);
-													$diffrence = abs(strtotime($unas) - strtotime($as));
+													$diffrence = abs(strtotime($unas) - strtotime($date_from));
 													$t_time = round(($diffrence/3600),2);
 													$diff = abs(strtotime($date_to) - strtotime($as));
 													$t = round(($diff/3600),2);
@@ -446,7 +446,7 @@ include("../admin_menu.php");
 													if($unas > $date_to)
 													{
 														$unasign = dateReadFormat($date_to);
-													} else if($unas == $as)
+													} else if($unas == $date_from)
 													{
 														$unasign = "Still Assigned";
 													} else
@@ -454,11 +454,6 @@ include("../admin_menu.php");
 														$unasign = dateReadFormat($unas);
 													}
 													?>
-                                                    <!-- <?php /*if($unas > $date_to){ */?>
-                                                    <td><?php /*echo dateReadFormat($date_to); */?></td>
-                                                <?php /*}else{ */?>
-                                                    <td><?php /*echo dateReadFormat($unasign); */?></td>
-                                                --><?php /*} */?>
                                                     <td><?php echo $unasign; ?></td>
 													<?php
 													$zero_time = '00:00:00';
@@ -469,7 +464,6 @@ include("../admin_menu.php");
 														$database_time = $t_time;
 													}
 													?>
-                                                    <!--<td><?php /*echo $database_time; */?></td>-->
 													<?php if($unas > $date_to){ ?>
                                                         <td><?php echo $t; ?></td>
 													<?php }else{ ?>
