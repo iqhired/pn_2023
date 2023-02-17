@@ -229,6 +229,7 @@ include("../admin_menu.php");
         </div>
     </div>
 
+
     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -308,8 +309,40 @@ include("../admin_menu.php");
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                    <div class="row">
+                        <h4 class="card-title">
+                            <button type="submit" class="btn btn-danger" onclick="submitForm('delete_part_number.php')">
+                                <i>
+                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                                </i>
+                            </button>
+                        </h4>
+                    <div class="col-md-3">
+                        <select class="form-control select2" name="choose" id="choose" data-placeholder="Select Action" required>
+                            <option value="" disabled selected>Select Action</option>
+                            <option value="1">Add to Station</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 group_div" style="display:none">
+                        <select class="form-control select2" name="accnt"  id="accnt"  required>
+                            <option value="" disabled selected>Select Account </option>
+                            <?php
+                            $sql1 = "SELECT * FROM  cus_account ORDER BY `c_name` ASC";
+                            $result1 = $mysqli->query($sql1);
+                            //                                            $entry = 'selected';
+                            while ($row1 = $result1->fetch_assoc()) {
+                                echo "<option value='" . $row1['c_id'] . "'  >" . $row1['c_name'] . "</option>";
+                            }
+                            ?>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-primary"  onclick="submitForm11('part_number_option_backend.php')"  style="background-color:#1e73be;">Go</button>
+                    </div>
                 </div>
+                </div>
+
                 <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -371,6 +404,7 @@ include("../admin_menu.php");
                     </div>
                 </div>
             </div>
+
 </form>
 
 <!-- edit modal -->

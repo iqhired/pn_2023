@@ -158,38 +158,7 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
 
             input[type="file"] {
                 display: block;
@@ -227,7 +196,7 @@ if (count($_POST) > 0) {
             }
     </style>
 </head>
-<body class="ltr main-body app sidebar-mini">
+<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Assignment Log Config";
@@ -235,6 +204,8 @@ include("../header_folder.php");
 include("../admin_menu.php");
 ?>
 <div class="main-content app-content">
+    <div class="main-container container">
+
     <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
@@ -246,7 +217,7 @@ include("../admin_menu.php");
         </div>
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="">
@@ -282,10 +253,10 @@ include("../admin_menu.php");
                             <form action="" id="user_form" enctype="multipart/form-data"  class="form-horizontal" method="post">
                              <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-4">
-                                        <label class="col-lg-4 control-label">To Teams : </label>
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">To Teams : </label>
                                     </div>
-                                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                       <select class="form-control form-select select2" data-placeholder="Add Teams..." value="<?php echo $rowc["teams"]; ?>" name="teams[]" id="teams" multiple="multiple">
                                           <?php
                                           $arrteam = explode(',', $rowc["teams"]);
@@ -308,10 +279,10 @@ include("../admin_menu.php");
                                     </div>
                                 </div>
                                  <div class="row row-xs align-items-center mg-b-20">
-                                     <div class="col-md-4">
-                                         <label class="col-lg-4 control-label">To Users : </label>
+                                     <div class="col-md-2">
+                                         <label class="form-label mg-b-0">To Users : </label>
                                      </div>
-                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                          <select class="form-control form-select select2" data-placeholder="Add Users ..." name="users[]" id="users"  multiple="multiple">
                                              <?php
                                              $arrteam1 = explode(',', $rowc["users"]);
@@ -329,34 +300,35 @@ include("../admin_menu.php");
                                          </select>
                                      </div>
                                  </div>
+
                                  <div class="row row-xs align-items-center mg-b-20">
-                                     <div class="col-md-4">
-                                         <label class="col-lg-4 control-label">Subject : </label>
+                                     <div class="col-md-2">
+                                         <label class="form-label mg-b-0">Subject : </label>
                                      </div>
-                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                          <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject" value="<?php echo $rowc["subject"]; ?>" required>
                                      </div>
                                  </div>
                                  <div class="row row-xs align-items-center mg-b-20">
-                                     <div class="col-md-4">
-                                         <label class="col-lg-4 control-label">Message : </label>
+                                     <div class="col-md-2">
+                                         <label class="form-label mg-b-0">Message : </label>
                                      </div>
-                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                          <textarea id="message" name="message" rows="4" placeholder="Enter Message..." class="form-control" ><?php echo $rowc["message"]; ?></textarea>
                                      </div>
                                  </div>
                                  <div class="row row-xs align-items-center mg-b-20">
-                                     <div class="col-md-4">
-                                         <label class="col-lg-4 control-label">Signature : </label>
+                                     <div class="col-md-2">
+                                         <label class="form-label mg-b-0">Signature</label>
                                      </div>
-                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                          <input type="text" name="signature" id="signature" class="form-control" value="<?php echo $rowc["signature"]; ?>" placeholder="Enter Signature..." required>
                                      </div>
                                  </div>
                              </div>
                                 <div class="pd-30 pd-sm-20">
                                     <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
@@ -370,6 +342,7 @@ include("../admin_menu.php");
             </div>
         </div>
     </form>
+</div>
 </div>
 <script>
     $("#checkAll").click(function () {
