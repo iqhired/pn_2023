@@ -950,8 +950,7 @@ include("../admin_menu.php");
                 <div id="sub_app">The form needs to be approved before submitting</div>
                 <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12" id="app_list">
                     <div class="card box-shadow-0">
-
-                        <div class="card-header">
+                            <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">APPROVAL LIST</span>
                         </div>
                         <form action="" id="approve_form" class="form-horizontal" method="post" autocomplete="off">
@@ -980,7 +979,7 @@ include("../admin_menu.php");
                                                         <input type="hidden" name="approval_dept"
                                                                id="approval_dept_<?php echo $j ?>"
                                                                value="<?php echo $arr; ?>">
-                                                        <?php echo $groupname; ?>
+                                                            <?php echo $groupname; ?>
                                                     </div>
                                                     <div class="col-md-3">
 
