@@ -534,7 +534,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Form Needs to be Submitted within 2 hours : ' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Form Needs to be Submitted within 2 hours: ' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
@@ -946,7 +946,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Form Needs to be Submitted within 2 hours : ' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Forms Need to Submitted within 2 hours: ' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
@@ -1353,7 +1353,7 @@ include("../hp_header.php");
                                     // console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
                                     //  console.log("------------------------");
                                     // Output the result in an element with id="demo"
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Form Needs to be Submitted within 2 hours : ' + hours + "h "
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = 'Forms Need to Submitted within 2 hours:' + hours + "h "
                                         + minutes + "m " + seconds + "s ";
                                     document.getElementById("demo<?php echo $countervariable; ?>").style.backgroundColor = 'green';
                                     // If the count down is over, write some text
