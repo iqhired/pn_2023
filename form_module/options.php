@@ -421,7 +421,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                     <div class="card">
                         <div class="card-body pt-0">
                             <div class="table-responsive">
-                                <table class="table  table-bordered text-nowrap mb-0" id="example2">
+                                <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                     <thead>
                                     <tr>
                                         <th class="text-center">Sl. No</th>
