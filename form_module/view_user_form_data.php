@@ -235,13 +235,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                      <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                        <div class="card box-shadow-0">
                           <div class="card-header">
-                                                <span class="main-content-title mg-b-0 mg-b-lg-1">Form View</span>
+                                                <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $rowcmain['form_name']; ?></span>
                                             </div>
                             <div class="card-body pt-0">
-                               <div class="card-header" style="background-color: white;">
-                                                    <span class="main-content-title mg-b-0 mg-b-lg-1" style="color: #000!important;">
-                                                        <?php echo $rowcmain['form_name']; ?></span>
-                                                </div>
                                  <div class="pd-30 pd-sm-20" >
                                     <input type="hidden" name="name" id="name" value="<?php echo $rowcmain['form_name']; ?>">
                                        <div class="row row-xs align-items-center mg-b-20">
@@ -435,9 +431,13 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                             </div>
                                                         </div>
                                                     </div>
-                                       <div class="card-header" style="background-color: #14846f;">
-                                          <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Form Information</center></span>
-                                       </div>
+                                     <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+                                         <div class="card box-shadow-0">
+                                           <div class="card-header">
+                                            <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Form Information</center></span>
+                                           </div>
+                                        </div>
+                                     </div>
                                 <?php
 
                                 $query = sprintf("SELECT * FROM  form_item where form_create_id = '$item_id'  order by form_item_seq+0 ASC ");
@@ -528,13 +528,15 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                         $checked = $itemVal;
                                         ?>
                                         <div class="row row-xs align-items-center mg-b-20">
-                                            <div class="col-md-7 form_col_item">
-                                                <?php if ($rowc['optional'] != '1') {
+                                            <div class="col-md-0.5">
+                                                 <?php if ($rowc['optional'] != '1') {
                                                     echo '<span class="red-star">★</span>';
-                                                }
+                                                } ?>
+                                            </div>
+                                            <div class="col-md-6 form_col_item">
+                                               <?php
                                                 echo htmlspecialchars($rowc['item_desc']); ?>
                                             </div>
-
 
                                             <div class="col-md-5 mg-t-5 mg-md-t-0">
                                                 <div class="row mg-t-15">
@@ -607,10 +609,13 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                         $checked = $itemVal;
                                         ?>
                                         <div class="row row-xs align-items-center mg-b-20">
-                                            <div class="col-md-7">
+                                            <div class="col-md-0.5">
                                                 <?php if ($rowc['optional'] != '1') {
                                                     echo '<span class="red-star">★</span>';
-                                                }
+                                                } ?>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <?php
                                                 echo htmlspecialchars($rowc['item_desc']); ?>
                                             </div>
 
@@ -619,7 +624,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                 <div class="row mg-t-15">
                                                     <input type="hidden"  name="form_item_array[]" value="<?php echo $rowc['form_item_id']; ?>">
                                                     <?php
-                                                    if (($checked == "yes") ) {
+                                                    if ($checked == "yes")  {
                                                         ?>
                                                     <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
                                                     <label class="rdiobox">
@@ -645,17 +650,16 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     </div>
                                                         <?php if (empty($rowc['list_name1'])){ ?>
                                                     <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
-                                                    <label class="rdiobox">
+                                                        <label class="rdiobox" style="display: none">
+                                                                <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
+                                                                       value="<?php echo $rowc['list_name1']; ?>"
+                                                                       class="pn_none" disabled >
+                                                                <span for="none"
+                                                                       class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
+                                                                       id="<?php echo $rowc['form_item_id']; ?>" >
 
-                                                            <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
-                                                                   value="<?php echo $rowc['list_name1']; ?>"
-                                                                   class="pn_none" disabled style="display: none">
-                                                            <span for="none"
-                                                                   class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
-                                                                   id="<?php echo $rowc['form_item_id']; ?>" >
-
-                                                            </span>
-                                                    </label>
+                                                                </span>
+                                                        </label>
                                                     </div>
                                                         <?php } else { ?>
                                                     <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
@@ -712,10 +716,10 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     </div>
                                                         <?php if (empty($rowc['list_name1'])){ ?>
                                                     <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
-                                                            <label class="rdiobox">
+                                                            <label class="rdiobox" style="display: none">
                                                             <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                    value="<?php echo $rowc['list_name1']; ?>"
-                                                                   class=" pn_none" disabled style="display: none">
+                                                                   class=" pn_none" disabled >
                                                             <span for="none"
                                                                    class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                    id="<?php echo $rowc['form_item_id']; ?>" <?php if($rowc['list_enabled'] ==1 ){ echo 'style="background-color: #ffadad;"';}else{echo 'style="background-color: #fff;"';}?>></span>
@@ -754,7 +758,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                                 <?php  $radiocount++; }
                                                         }
                                                         ?>
-                                                    <?php }  else if (($checked == "none") ){ ?>
+                                                    <?php }  else if ($checked == "none"){ ?>
                                                     <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
 
                                                          <label class="rdiobox">
@@ -782,10 +786,10 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     </div>
                                                         <?php if (empty($rowc['list_name1'])){ ?>
                                                     <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
-                                                                    <label class="rdiobox">
+                                                                    <label class="rdiobox"  style="display: none">
                                                             <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                    value="<?php echo $rowc['list_name1']; ?>"
-                                                                   class="pn_none" disabled style="display: none">
+                                                                   class="pn_none" disabled>
                                                             <span for="none"
                                                                    class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                    id="<?php echo $rowc['form_item_id']; ?>" ></span>
@@ -846,10 +850,10 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     </div>
                                                         <?php if (empty($rowc['list_name1'])){ ?>
                                                     <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
-                                                        <label class="rdiobox">
+                                                        <label class="rdiobox" style="display: none">
                                                             <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                    value="<?php echo $rowc['list_name1']; ?>"
-                                                                   class="pn_none" disabled style="display: none">
+                                                                   class="pn_none" disabled >
                                                             <span for="none"
                                                                    class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                    id="<?php echo $rowc['form_item_id']; ?>" ></span>
@@ -907,12 +911,15 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 
                                         ?>
                                         <div class="row row-xs align-items-center mg-b-20">
-                                            <div class="col-md-7">
-                                                <?php
+                                            <div class="col-md-0.5">
+                                                 <?php
                                                 if ($rowc['optional'] != '1') {
                                                     echo '<span class="red-star">★</span>';
-                                                }
-                                                echo htmlspecialchars($rowc['item_desc']); ?>
+                                                } ?>
+                                            </div>
+                                            <div class="col-md-6">
+
+                                            <?php    echo htmlspecialchars($rowc['item_desc']); ?>
                                             </div>
                                             <div class="col-md-5 mg-t-5 mg-md-t-0">
                                                 <div class="row mg-t-15">
