@@ -11,3 +11,7 @@ ALTER TABLE `form_frequency_data` ADD `line_up_time` VARCHAR(255) NULL DEFAULT N
 ALTER TABLE `form_frequency_data` ADD `up_time` VARCHAR(255) NULL DEFAULT NULL AFTER `line_up_time`;
 ALTER TABLE `good_bad_pieces` CHANGE `part_defect_zone` `part_defect_zone` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
 ALTER TABLE `good_bad_pieces_details` CHANGE `part_defect_zone` `part_defect_zone` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+ALTER TABLE `form_frequency_data` ADD `users` VARCHAR(255) NULL DEFAULT NULL AFTER `event_type_id`;
+ALTER TABLE `sg_station_event_log` ADD `line_id` INT(10) NOT NULL AFTER `station_event_id`;
+ALTER TABLE `sg_station_event_log` ADD `end_time` VARCHAR(255) NOT NULL AFTER `created_on`, ADD `tt` VARCHAR(255) NOT NULL AFTER `end_time`;
+ALTER TABLE `cam_line` ADD `shift_st` CHAR(2) NULL DEFAULT '7' AFTER `is_deleted`;

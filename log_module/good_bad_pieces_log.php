@@ -4,35 +4,17 @@ $curdate = date('Y-m-d');
 //$datefrom = $curdate;
 $button = "";
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    header('location: logout.php');
-}
+//check user
+checkSession();
 
-
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    header($redirect_logout_path);
-//	header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
 if (empty($dateto)) {
-    $curdate = date(mdY_FORMAT);
+    $curdate = date(mdYHi_FORMAT);
     $dateto = $curdate;
 }
 
 if (empty($datefrom)) {
-    $yesdate = date(mdY_FORMAT, strtotime("-1 days"));
+    $yesdate = date(mdYHi_FORMAT, strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 $button = "";
@@ -89,12 +71,12 @@ if (count($_POST) > 0) {
 }
 
 if (empty($dateto)) {
-    $curdate = date('Y-m-d');
+    $curdate = date(mdYHi_FORMAT);
     $dateto = $curdate;
 }
 
 if (empty($datefrom)) {
-    $yesdate = date('Y-m-d', strtotime("-1 days"));
+    $yesdate = date(mdYHi_FORMAT, strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 
@@ -113,43 +95,10 @@ if (isset($pn)) {
     $_SESSION['pn'] = $pn;
     $wc = $wc . " and sg_station_event.part_number_id = '$pn'";
 }
+$date_from =  convertMDYToYMDwithTime($datefrom);
+$date_to = convertMDYToYMDwithTime($dateto);
+$wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d %H:%i') <= '$date_to' ";
 
-/* If Data Range is selected */
-if ($button == "button1") {
-    if (isset($datefrom)) {
-		$date_from = date('Y-m-d', strtotime($datefrom));
-        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' ";
-    }
-    if (isset($dateto)) {
-		$date_to = date("Y-m-d", strtotime($dateto));
-        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
-    }
-} else if ($button == "button2") {
-    /* If Date Period is Selected */
-    $curdate = date('Y-m-d');
-    if ($timezone == "7") {
-        $countdate = date('Y-m-d', strtotime('-7 days'));
-    } else if ($timezone == "1") {
-        $countdate = date('Y-m-d', strtotime('-1 days'));
-    } else if ($timezone == "30") {
-        $countdate = date('Y-m-d', strtotime('-30 days'));
-    } else if ($timezone == "90") {
-        $countdate = date('Y-m-d', strtotime('-90 days'));
-    } else if ($timezone == "180") {
-        $countdate = date('Y-m-d', strtotime('-180 days'));
-    } else if ($timezone == "365") {
-        $countdate = date('Y-m-d', strtotime('-365 days'));
-    }
-    if (isset($countdate)) {
-		$countdate = date("Y-m-d", strtotime($countdate));
-		$curdate = date("Y-m-d", strtotime($curdate));
-        $wc = $wc . " AND DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$countdate' and DATE_FORMAT(created_at,'%Y-%m-%d') <= '$curdate' ";
-    }
-} else {
-	$date_from =  convertMDYToYMD($datefrom);
-	$date_to = convertMDYToYMD($dateto);
-    $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
-}
 
 $sql = "SELECT SUM(good_pieces) AS good_pieces,SUM(bad_pieces)AS bad_pieces,SUM(rework) AS rework FROM `good_bad_pieces`  INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id where 1 " . $wc;
 $response = array();
@@ -504,7 +453,7 @@ include("../admin_menu.php");
                                                 <div class="input-group-text">
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
+                                                <input class="form-control" name="date_from" id="date_from" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY" type="text">
                                             </div><!-- input-group -->
                                         </div>
                                         <div class="col-md-1"></div>
@@ -516,7 +465,7 @@ include("../admin_menu.php");
                                                 <div class="input-group-text">
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input class="form-control fc-datepicker" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
+                                                <input class="form-control" name="date_to" id="date_to" value="<?php echo $dateto; ?>"placeholder="MM/DD/YYYY" type="text">
                                             </div><!-- input-group -->
                                         </div>
                                     </div>
@@ -611,8 +560,8 @@ include("../admin_menu.php");
 </div>
 
 <script>
-    $('#date_from').datepicker({ dateFormat: 'mm-dd-yy' });
-    $('#date_to').datepicker({ dateFormat: 'mm-dd-yy' });
+    $('#date_to').datetimepicker({format: 'mm-dd-yyyy hh:ii'});
+    $('#date_from').datetimepicker({format: 'mm-dd-yyyy hh:ii'});
     $('#station').on('change', function (e) {
         $("#good_bad_piece_form").submit();
     });
