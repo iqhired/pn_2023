@@ -35,7 +35,7 @@ if (count($_POST) > 0) {
     $output = file_get_contents($dir_path.'/'.'f1');
     $output_bad = file_get_contents($dir_path.'/'.'f2');
 
-    $sql = "update cam_line set line_name='$_POST[edit_name]', priority_order='$_POST[edit_priority_order]' , enabled='$_POST[edit_enabled]'  where line_id='$id'";
+    $sql = "update cam_line set line_name='$_POST[edit_name]', priority_order='$_POST[edit_priority_order]' , enabled='$_POST[edit_enabled]' , shift_st='$_POST[edit_shift_st]'  where line_id='$id'";
 
     $result1 = mysqli_query($db, $sql);
     if ($result1) {
@@ -372,6 +372,8 @@ include("../admin_menu.php");
                                 $line_name = $row1['line_name'];
                                 $p_order = $row1['priority_order'];
                                 $enabled = $row1['enabled'];
+                                $shift_st=$_POST['shift_st'];
+
                                 $zpl_status = $row1['zpl_file_status'];
                                 $print_label = $row1['print_label'];
                                 $indivisual_label = $row1['indivisual_label'];
@@ -413,6 +415,27 @@ include("../admin_menu.php");
                                                       <option value ='0'$selected>No</option>";
                                         }
                                         ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Shift Start:</label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <select name="edit_shift_st" id="edit_shift_st" class="form-control form-select select2" data-bs-placeholder="Select Hours" value="<?php echo $edit_shift_st; ?>">
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
                                     </select>
                                 </div>
                             </div>

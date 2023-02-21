@@ -266,6 +266,8 @@ if (count($_POST) > 0) {
 
 
 <!-- Main navbar -->
+<body class="ltr main-body app sidebar-mini">
+
 <?php
 $cust_cam_page_header = "Add/Update User Role";
 include("../header.php");
@@ -273,9 +275,10 @@ include("../admin_menu.php");
 ?>
 
 
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
+    <div class="main-container container-fluid">
+
     <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
@@ -289,7 +292,7 @@ include("../admin_menu.php");
 
 
 
-    <div class="row-body">
+    <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="">
@@ -313,7 +316,7 @@ include("../admin_menu.php");
                                     <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                                     <input type="text" name="name" id="name" class="form-control" placeholder="Enter Role">
                                                      <input type="hidden" name="edit_id" id="edit_id" >
                                                        <input type="hidden" name="old_value" id="old_value" >
@@ -340,15 +343,8 @@ include("../admin_menu.php");
                                             <button type="submit" class="btn btn-primary create" style="background-color:#1e73be;">Create Role</button>
                                             <button type="submit" class="btn btn-primary update" style="background-color:#1e73be;display:none;" >Update Role</button>
                                         </div>
-
-                                    
-</div>
-
-
-
-
-
-                                    </div>
+                                  </div>
+                    </div>
 
 
                                      <br/>

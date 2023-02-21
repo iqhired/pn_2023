@@ -31,6 +31,7 @@ if (count($_POST) > 0) {
         $name = $_POST['name'];
         $priority_order = $_POST['priority_order'];
         $enabled = $_POST['enabled'];
+        $shift_st=$_POST['shift_st'];
         $gbpd = $_POST['gbpd'] ;
         if($gbpd == '1'){
             $g = '1';
@@ -49,7 +50,7 @@ if (count($_POST) > 0) {
         }else{
             $i = '0';
         }
-        $sql0 = "INSERT INTO `cam_line`(`line_name`,`priority_order` , `enabled` ,`gbd_id` ,`npr_id` ,`indivisual_label` , `created_at`) VALUES ('$name' , '$priority_order' , '$enabled','$g','$n','$i', '$chicagotime')";
+        $sql0 = "INSERT INTO `cam_line`(`line_name`,`priority_order` , `enabled` ,`gbd_id` ,`npr_id` ,`indivisual_label` , `created_at`,`shift_st`) VALUES ('$name' , '$priority_order' , '$enabled','$g','$n','$i', '$chicagotime','$shift_st')";
         $result0 = mysqli_query($db, $sql0);
         if ($result0) {
             $message_stauts_class = 'alert-success';
@@ -303,14 +304,17 @@ if (isset($_FILES['good_file']) && isset($_FILES['bad_file'])) {
 </head>
 
 <!-- Main navbar -->
+<body class="ltr main-body app horizontal">
+
 <?php
 $cust_cam_page_header = "Station Configuration Management";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-<body class="ltr main-body app sidebar-mini">
 <!-- main-content -->
 <div class="main-content app-content">
+    <div class="main-container container">
+
     <!-- container -->
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
@@ -321,7 +325,7 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-    <div class="row-body">
+    <div class="row">
         <div class="col-lg-12 col-md-12">
     <?php
     if (!empty($import_status_message)) {
@@ -333,7 +337,7 @@ include("../admin_menu.php");
         </div>
     </div>
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="">
@@ -342,16 +346,54 @@ include("../admin_menu.php");
                         </div>
                         <div class="pd-20 pd-sm-10">
                             <div class="row row-xs">
-                                <div class="col-md-4" >
+                                    <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Station </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" name="name" id="name" class="form-control" placeholder="Enter Station" required>
                                 </div>
-                                <div class="col-md-4" >
-                                    <input type="number" name="priority_order" id="priority_order" class="form-control" placeholder="Enter Priority Order" required>
+                                <div class="col-md-1"></div>
+
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Priority Order</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="enabled" id="enabled" class="form-control form-select select2">
+                                    <input type="number" name="priority_order" id="priority_order" class="form-control" placeholder="Enter Priority Order" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pd-30 pd-sm-20">
+                            <div class="row row-xs">
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Enable/Disable</label>
+                                </div>
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <select name="enabled" id="enabled" class="form-control form-select select2">
                                         <option value="0" >No</option>
                                         <option value="1" >Yes</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-1"></div>
+                                <div class="col-md-1.5">
+                                    <label class="form-label mg-b-0">Shift Start</label>
+                                </div>
+                                <div class="col-md-3 mg-t-5 mg-md-t-0">
+                                    <select name="shift_st" id="shift_st" class="form-control form-select select2" data-bs-placeholder="Select Hours">AM
+                                        <option value=""  selected>--Select Hours--</option>
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07" selected >07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
                                     </select>
                                 </div>
                             </div>
@@ -394,7 +436,7 @@ include("../admin_menu.php");
         </div>
     </form>
     <form action="delete_line.php" method="post" class="form-horizontal">
-    <div class="row-body">
+    <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -418,6 +460,7 @@ include("../admin_menu.php");
                                 <th>Station</th>
                                 <th>Priority Order</th>
                                 <th>Enabled</th>
+                                <th>Shift Start</th>
                                 <th>GBP Dashboard Required</th>
                                 <th>NPR Dashboard Required</th>
                                 <th>Print Required</th>
@@ -461,6 +504,9 @@ include("../admin_menu.php");
                                         echo $yn_result;
                                         ?></td>
                                     <!-- <td>--><?php //echo $rowc['created_at'];        ?><!--</td>-->
+                                    <td><?php echo $rowc["shift_st"]; ?>
+
+                                    </td>
                                     <td>
                                         <input type="checkbox" name="gbpd" id="gbpd" value="<?php echo $rowc["line_id"]; ?>" <?php echo ($rowc['gbd_id']==1 ? 'checked' : '');?>>
                                     </td>
@@ -628,4 +674,5 @@ include("../admin_menu.php");
 </script>
 <?php include('../footer1.php') ?>
 
+    </div>
 </body>
