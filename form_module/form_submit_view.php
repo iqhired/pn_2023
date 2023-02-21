@@ -263,7 +263,6 @@ $cust_cam_page_header = "Form Submit View Count";
 include("../header_folder.php");
 
 include("../admin_menu.php");
-include("../heading_banner.php");
 ?>
 
 <!-- /main navbar -->

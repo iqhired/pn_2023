@@ -68,15 +68,11 @@ if (count($_POST) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         <?php echo $sitename; ?> |Submit Form</title>
-    <!-- Global stylesheets -->
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-
-
     <!-- /global stylesheets -->
-    <!-- JQUERY JS -->
-    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
-    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
