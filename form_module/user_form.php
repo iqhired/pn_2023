@@ -536,7 +536,7 @@ include("../admin_menu.php");
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
                                         <input type="hidden" name="part_family" id="part_family" value="<?php echo $get_part_family; ?>">
                                         <select name="part_family1" id="part_family1"
-                                                class="sform-control form-select select2" <?php echo $disabled; ?>>
+                                                class="form-control form-select select2" <?php echo $disabled; ?>>
                                             <option value="" selected disabled>--- Select Part Family ---</option>
                                             <?php
                                             $sql1 = "SELECT * FROM `pm_part_family` ";

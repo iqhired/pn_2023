@@ -184,40 +184,6 @@ else {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -253,15 +219,18 @@ else {
 
 
 <!-- Main navbar -->
+<body class="ltr main-body app horizontal">
+
 <?php
 $cust_cam_page_header = "Custom Dashboard";
 include("../header.php");
 include("../admin_menu.php");
 ?>
 
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
+    <div class="main-container container-fluid">
+
     <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
@@ -272,7 +241,7 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-    <div class="row-body">
+    <div class="row">
 
         <div class="col-lg-12 col-md-12">
             <div class="card">
@@ -333,20 +302,11 @@ include("../admin_menu.php");
                             </div>
                         </div>
                     </div>
-
-
-
-
-
                 </div>
-
             </div>
-
-        </div>
-        <!-- /basic datatable -->
-
-        <!-- /page content -->
+        </div><!-- /basic datatable --><!-- /page content -->
     </div>
+</div>
 
 
     <!-- /page container -->

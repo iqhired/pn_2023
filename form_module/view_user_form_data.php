@@ -53,7 +53,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -170,8 +169,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 border-color: #ffffff;
             }
 
-
-
             label.col-lg-3.control-label.mobile {
                 width: 42%;
                 float: left;
@@ -183,6 +180,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
             }
             .col-md-8.mg-t-5.mg-md-t-0 {
                 width: 70%;
+            }
+            .col-md-5.mg-t-5.mg-md-t-0 {
+                width: 80%;
             }
 
 
@@ -488,30 +488,37 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                         <input type="hidden" data-id="<?php echo $rowc['form_item_id']; ?>"
                                                class="upper_compare" value="<?php echo $final_upper; ?>">
                                         <div class="row row-xs align-items-center mg-b-20">
-                                            <div class="col-md-7" >
-                                                <label class=" form_col_item"><?php  if ($rowc['optional'] != '1') {
+                                            <div class="col-md-0.5">
+                                                <label class=" form_col_item">
+                                                <?php  if ($rowc['optional'] != '1') {
                                                         echo '<span class="red-star">★</span>';
-                                                    }echo $rowc['item_desc']; ?> </label>
+                                                    } ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <label class=" form_col_item"><?php  if ($rowc['optional'] != '1') {
+                                                    echo $rowc['item_desc']; }?> </label>
                                                 <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
                                                     <?php echo "(" . $rowc['discription'] . ")" ?>
                                                 <?php } ?>
                                             </div>
 
                                             <?php if ($checked >= $final_lower && $checked <= $final_upper) { ?>
-                                                <div class="col-md-3">
+                                                <div class="col-md-5 mg-t-5 mg-md-t-0">
                                                     <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
                                                            id="<?php echo $rowc['form_item_id']; ?>"
                                                            class="form-control compare_text pn_none" required step="any"
                                                            value="<?php echo $itemVal; ?>"  disabled>
                                                 </div>
                                             <?php } else { ?>
-                                                <div class="col-md-3">
+                                                <div class="col-md-5 mg-t-5 mg-md-t-0">
                                                     <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
                                                            id="<?php echo $rowc['form_item_id']; ?>"
                                                            class="form-control compare_text pn_none" required step="any"
                                                            value="<?php echo $itemVal; ?>"  style="background-color: #ffadad" disabled>
                                                 </div>
                                             <?php } ?>
+                                            <div class="col-md-0.5">
                                             <?php
                                             $unit_of_measurement_id = $rowc['unit_of_measurement'];
                                             $sql1 = "SELECT unit_of_measurement FROM `form_measurement_unit` where form_measurement_unit_id = '$unit_of_measurement_id'";
@@ -519,6 +526,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                             $row1 = $result1->fetch_assoc();
                                             echo $row1['unit_of_measurement'];
                                             ?>
+                                            </div>
                                             <input type="hidden"  name="form_item_array[]" value="<?php echo $rowc['form_item_id']; ?>">
                                         </div>
                                         <?php
@@ -544,26 +552,28 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     <?php
                                                     if ($checked == "yes") {
                                                         ?>
-
+                                                    <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
+                                                        <label class="rdiobox">
                                                         <input type="radio" id="yes" name="<?php echo $rowc['form_item_id']; ?>"
                                                                value="<?php echo $rowc['binary_yes_alias']; ?>"
-                                                               class="form-check-input pn_none" checked disabled >
-                                                        <label for="yes"
+                                                               class="pn_none" checked disabled >
+                                                        <span for="yes"
                                                                class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['binary_yes_alias'];
-                                                            echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></label>
-                                                        <!--															<label for="yes" class="item_label" style="background-color: green;">--><?php //echo $rowc['binary_yes_alias'];
-                                                        ?><!--</label>-->
+                                                            echo (($yes_alias != null) || ($yes_alias != '')) ? $yes_alias : "Yes" ?></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-lg-2.5 mg-t-20 mg-lg-t-0">
+                                                        <label class="rdiobox">
                                                         <input type="radio" id="no" name="<?php echo $rowc['form_item_id']; ?>"
                                                                value="<?php echo $rowc['binary_no_alias']; ?>"
-                                                               class="form-check-input pn_none" disabled >
-                                                        <label for="no"
+                                                               class="pn_none" disabled >
+                                                        <span for="no"
                                                                class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                id="<?php echo $rowc['form_item_id']; ?>"><?php $no_alias = $rowc['binary_no_alias'];
-                                                            echo (($no_alias != null) || ($no_alias != '')) ? $no_alias : "No" ?></label>
-                                                        <!--															<label for="no" class="item_label"  style="background-color: green;">--><?php //echo $rowc['binary_no_alias'];
-                                                        ?><!--</label>-->
-
+                                                            echo (($no_alias != null) || ($no_alias != '')) ? $no_alias : "No" ?></span>
+                                                        </label>
+                                                    </div>
 
                                                         <?php
                                                     } else { ?>

@@ -218,6 +218,8 @@ $idd = $_GET['users_id'];
 
 
 <!-- Main navbar -->
+<body class="ltr main-body app horizontal">
+
 <?php
 $cust_cam_page_header = "Restore Users";
 include("../header.php");
@@ -225,9 +227,10 @@ include("../admin_menu.php");
 ?>
 
 <!-----body-------->
-<body class="ltr main-body app sidebar-mini">
 <!-----main content----->
 <div class="main-content app-content">
+    <div class="main-container container-fluid">
+
     <!---container--->
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
@@ -238,10 +241,8 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-
-
-     <form action="delete_users_list.php"  id="update-form" method="post" class="form-horizontal">
-    <div class="row-body">
+ <form action="delete_users_list.php"  id="update-form" method="post" class="form-horizontal">
+     <div class="row">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
@@ -413,6 +414,7 @@ include("../admin_menu.php");
             </div>
         </div>
     </div>
+ </div>
 </form>
 <script>
     $(".restore_btn").click(function () {
