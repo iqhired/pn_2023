@@ -1,32 +1,14 @@
 <?php include("../config.php");
-$curdate = date('Y-m-d');
+$curdate = date(mdYHi_FORMAT);
 //$dateto = $curdate;
 //$datefrom = $curdate;
 $button = "";
 $temp = "";
-if (!isset($_SESSION['user'])) {
-	header('location: logout.php');
-}
+//check user
+checkSession();
 
-
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-	//Unset the session variables
-	session_unset();
-	//Destroy the session
-	session_destroy();
-	header($redirect_logout_path);
-//	header('location: ../logout.php');
-	exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
 $button_event = "button3";
-$curdate = date('Y-m-d');
+$curdate = date(mdYHi_FORMAT);
 $dateto = $curdate;
 $datefrom = $curdate;
 $button = "button3";
@@ -79,43 +61,10 @@ if($station == '0'){
 }
 
     /* If Data Range is selected */
-    if ($button == "button3") {
-        if (!empty($datefrom)) {
-           // $df = date('Y-m-d',strtotime($datefrom));
-            $date_from = convertMDYToYMD($datefrom);
-            $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' ";
-        }
-        if (!empty($dateto)) {
-          //  $dt = date('Y-m-d',strtotime($dateto));
-            $date_to = convertMDYToYMD($dateto);
-            $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
-        }
-    } else if ($button == "button2") {
-        /* If Date Period is Selected */
-        $curdate = date('Y-m-d');
-        if ($timezone == "7") {
-            $countdate = date('Y-m-d', strtotime('-7 days'));
-        } else if ($timezone == "1") {
-            $countdate = date('Y-m-d', strtotime('-1 days'));
-        } else if ($timezone == "30") {
-            $countdate = date('Y-m-d', strtotime('-30 days'));
-        } else if ($timezone == "90") {
-            $countdate = date('Y-m-d', strtotime('-90 days'));
-        } else if ($timezone == "180") {
-            $countdate = date('Y-m-d', strtotime('-180 days'));
-        } else if ($timezone == "365") {
-            $countdate = date('Y-m-d', strtotime('-365 days'));
-        }
-        if (!empty($countdate)) {
-            $curdate = date("Y-m-d", strtotime($curdate));
-            $countdate = date("Y-m-d", strtotime($countdate));
-            $wc = $wc . " AND DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$countdate' and DATE_FORMAT(created_at,'%Y-%m-%d') <= '$curdate' ";
-        }
-    } else {
-        $date_from = convertMDYToYMD($datefrom);
-        $date_to = convertMDYToYMD($dateto);
-        $wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d') <= '$date_to' ";
-    }
+$date_from = convertMDYToYMDwithTime($datefrom);
+$date_to = convertMDYToYMDwithTime($dateto);
+$wc = $wc . " and DATE_FORMAT(`created_at`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`created_at`,'%Y-%m-%d %H:%i') <= '$date_to' ";
+
 $print_data .= "From Date : " . onlydateReadFormat($date_from) . "\n";
 $print_data .= "To Date : " . onlydateReadFormat($date_to) . "\n\n\n";
 
