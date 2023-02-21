@@ -57,7 +57,9 @@
 .col-md-4.mg-t-10.mg-md-t-0 {
     width: 60%;
 }
-
+.col-md-1 {
+    width: 20%;
+    }
     .col-12 {
     flex: 0 0 100%;
     max-width: 100%;
@@ -115,7 +117,9 @@
 .col-md-4.mg-t-10.mg-md-t-0 {
     width: 60%;
 }
-
+.col-md-1 {
+    width: 20%;
+    }
     .col-12 {
     flex: 0 0 100%;
     max-width: 100%;
@@ -174,7 +178,9 @@
 .col-md-4.mg-t-10.mg-md-t-0 {
     width: 60%;
 }
-
+.col-md-1 {
+    width: 20%;
+    }
     .col-12 {
     flex: 0 0 100%;
     max-width: 100%;
@@ -233,7 +239,9 @@
 .col-md-4.mg-t-10.mg-md-t-0 {
     width: 60%;
 }
-
+.col-md-1 {
+    width: 20%;
+    }
 
 .col-12 {
     flex: 0 0 100%;
