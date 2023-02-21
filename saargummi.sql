@@ -15,3 +15,8 @@ ALTER TABLE `form_frequency_data` ADD `users` VARCHAR(255) NULL DEFAULT NULL AFT
 ALTER TABLE `sg_station_event_log` ADD `line_id` INT(10) NOT NULL AFTER `station_event_id`;
 ALTER TABLE `sg_station_event_log` ADD `end_time` VARCHAR(255) NOT NULL AFTER `created_on`, ADD `tt` VARCHAR(255) NOT NULL AFTER `end_time`;
 ALTER TABLE `cam_line` ADD `shift_st` CHAR(2) NULL DEFAULT '7' AFTER `is_deleted`;
+
+ALTER TABLE `sg_station_event_log` ADD `line_id` INT(10) NULL AFTER `event_seq`;
+ALTER TABLE `sg_station_event_log` ADD `end_time` VARCHAR(255) NULL AFTER `is_incomplete`;
+ALTER TABLE `sg_station_event_log` ADD `tt` VARCHAR(255) NULL AFTER `end_time`;
+update sg_station_event_log as slog inner join sg_station_event as sg on slog.station_event_id = sg.station_event_id set slog.line_id=sg.line_id where slog.station_event_id = sg.station_event_id;
