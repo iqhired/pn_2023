@@ -311,9 +311,10 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
         <input type="hidden" name="line_name" value="<?php echo $p_line_name; ?>">
         <input type="hidden" name="ipe" value="<?php echo $individualenabled; ?>">
 
-        <input type="hidden" name="cell_id" value="<?php echo $cell_id; ?>">
+        <input type="hidden" name="cell_id" value="<?php echo $cellID; ?>">
         <input type="hidden" id="rww" value="0">
-        <input type="hidden" name="c_name" value="<?php echo $cell_name; ?>">
+        <input type="hidden" name="c_name" value="<?php echo $c_name; ?>">
+        <input type="hidden" name="c_station" value="<?php echo $station; ?>">
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 
@@ -579,7 +580,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                 }
             }
         });
-        history.replaceState("", "", "<?php echo $scriptName; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>");
+        history.replaceState("", "", "<?php echo $scriptName; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&station=<?php echo $station; ?>&cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>");
     });
 
     // Upload
