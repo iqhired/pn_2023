@@ -329,13 +329,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     if (!empty($import_status_message)) {
         echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
     }
-    ?>
-    <?php
-    if (!empty($_SESSION['import_status_message'])) {
-        echo '<br/><div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-        $_SESSION['message_stauts_class'] = '';
-        $_SESSION['import_status_message'] = '';
-    }
+	displaySFMessage();
     ?>
     <?php
     $id = $_GET['id'];
