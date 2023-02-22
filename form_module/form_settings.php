@@ -352,6 +352,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
                                         <label class="form-label mg-b-0">Form Name</label>
                                     </div>
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                        <input type="hidden" name="cell_id" value="<?php echo $cellID; ?>">
+                                        <input type="hidden" name="c_name" value="<?php echo $c_name; ?>">
+                                        <input type="hidden" name="station_id" value="<?php echo $station; ?>">
                                         <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
                                     </div>
                                 </div>

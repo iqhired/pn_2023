@@ -402,7 +402,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                     <label class="form-label mg-b-0">Previous Image:</label>
                                 </div>
                                   <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                    <div class="container"></div>
+
                                     <?php
                                     $time_stamp = $_SESSION['good_timestamp_id'];
                                     if(!empty($time_stamp)){

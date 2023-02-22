@@ -358,13 +358,7 @@ $logo = $rowccus['logo'];
 
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "View Material Traceability";
-if (!empty($station) || !empty($station_event_id)){
     include("../cell-menu.php");
-}else{
-    include("../header.php");
-    include("../admin_menu.php");
-}
 ?>
 
 <body class="ltr main-body app horizontal">
@@ -376,7 +370,7 @@ if (!empty($station) || !empty($station_event_id)){
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a></li>
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);"></a>Material Traceability</li>
                 <li class="breadcrumb-item active" aria-current="page">View Material Traceability</li>
             </ol>
 

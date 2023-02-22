@@ -29,6 +29,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     exit;
 }
 //Set the time of the user's last activity
+$cell_station = $_GET['station'];
 $_SESSION['LAST_ACTIVITY'] = $time;
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
@@ -407,11 +408,14 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 </head>
 
 <!-- Main navbar -->
-<?php
-$cust_cam_page_header = "Submit Form";
-include("../header.php");
-include("../admin_menu.php");
+<?php if (!empty($cell_station)){
+    include("../cell-menu.php");
+}else{
+    include("../header.php");
+    include("../admin_menu.php");
+}
 ?>
+
 
 <body class="ltr main-body app sidebar-mini">
 <!-- main-content -->

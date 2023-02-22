@@ -124,7 +124,6 @@ if (count($_POST) > 0) {
 <body class="ltr main-body app horizontal">
 <?php
     include("../cell-menu.php");
-
 ?>
 <!-- main-content -->
 <div class="main-content horizontal-content">

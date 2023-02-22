@@ -32,6 +32,7 @@ $station = $_GET['station'];
 
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
+$station = $_GET['station'];
 $sqlmain = "SELECT * FROM `sg_station_event` where `station_event_id` = '$station_event_id'";
 $resultmain = $mysqli->query($sqlmain);
 $rowcmain = $resultmain->fetch_assoc();
@@ -221,6 +222,9 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             .col-md-4{
                 max-width: 178px!important;
             }
+            .right-content {
+                margin-top: 3rem!important;
+            }
         }
         @media (min-width: 614px) and (max-width: 874px) {
             .col-md-6.mg-t-10.mg-md-t-0{
@@ -228,6 +232,9 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             }
             .col-md-4{
                 max-width: 178px!important;
+            }
+            .right-content {
+                margin-top: 3rem!important;
             }
         }
 
@@ -260,6 +267,9 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
             width: 100px;
             height: 23px;
         }
+        .right-content {
+            margin-right: 50px;
+        }
 
     </style>
 </head>
@@ -287,7 +297,12 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                 <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Good Bad Piece</a></li>
                 <li class="breadcrumb-item active" aria-current="page">View Bad Piece</li>
             </ol>
+
         </div>
+        <div class="right-content">
+            <a href="<?php echo site_URL;?>events_module/good_bad_piece.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn btn-menu text-white legitRipple">BACK<span class="legitRipple-ripple" style="left: 54.4286%; top: 32.9016%; transform: translate3d(-50%, -50%, 0px); width: 213.086%; opacity: 0;"></span></a>
+        </div>
+
     </div>
     <?php
         $station_event_id = $_GET['station_event_id'];
@@ -307,7 +322,6 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     <form action="create_good_bad_piece.php" id="asset_update"  enctype="multipart/form-data" class="form-horizontal" method="post">
         <input type="hidden" name="station_event_id" id="station_event_id" class="form-control"value="<?php echo $station_event_id; ?>" >
          <input type="hidden" name="bad_pieces_id" id="bad_pieces_id" class="form-control" value="<?php echo $bad_pieces_id; ?>" >
-        
 
         <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -419,11 +433,6 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                                 </div>
                             </div>
                         </div>
-
-                    
-
-
-
                     </div>
                 </div>
             </div>
@@ -443,7 +452,7 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
     </script>
     <script>
         window.onload = function() {
-            history.replaceState("", "", "<?php echo $scriptName; ?>events_module/view_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id; ?>");
+            history.replaceState("", "", "<?php echo $scriptName; ?>events_module/view_bad_piece.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station; ?>&station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id; ?>");
         }
     </script>
 

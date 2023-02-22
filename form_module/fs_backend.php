@@ -11,6 +11,10 @@ $drag_drop_res = (array) json_decode($array);
 
 if(count($_POST)>0) {
 
+    $station = $_POST['station_id'];
+    $cellID = $_POST['cell_id'];
+    $c_name = $_POST['c_name'];
+
     $name = $_POST['name'];
     $form_classification = $_POST['form_classification'];
     $form_type = $_POST['form_type'];
@@ -296,7 +300,7 @@ for($i = 1; $i <= $click_id; )
 
 }
 //header("Location:form_settings.php");
-$page = "form_edit.php?id=$form_create_id";
+$page = "form_edit.php?id=$form_create_id&station=$station&cell_id=$cellID&c_name=$c_name";
 header('Location: '.$page, true, 303);
 exit;
 

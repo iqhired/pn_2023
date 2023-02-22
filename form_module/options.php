@@ -28,7 +28,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
-$station = $_GET['station'];
+$cell_station = $_GET['station'];
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
 //Set the time of the user's last activity
@@ -194,7 +194,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 
 <body class="ltr main-body app horizontal">
 <!-- main-content -->
-<?php if (!empty($station)){
+<?php if (!empty($cell_station)){
     include("../cell-menu.php");
 }else{
     include("../header.php");
@@ -456,9 +456,15 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                             <td class="text-center"><?php echo ++$counter; ?></td>
                                             <td class="">
                                                 <?php $finalid = $rowc['form_create_id']; ?>
-                                                <a class="btn btn-success btn-sm br-5 me-2" href="user_form.php?id=<?php echo $rowc['form_create_id']; ?>&station=<?php echo $rowc['station']; ?>&form_type=<?php echo $rowc['form_type']; ?>&part_family=<?php echo $rowc['part_family']; ?>&part_number=<?php echo $rowc['part_number']; ?>&form_name=<?php echo $rowc['name']; ?>">
+                                                <?php if (!empty($cell_station)){ ?>
+                                                <a class="btn btn-success btn-sm br-5 me-2" href="user_form.php?id=<?php echo $rowc['form_create_id']; ?>&station=<?php echo $cell_station; ?>&form_type=<?php echo $rowc['form_type']; ?>&part_family=<?php echo $rowc['part_family']; ?>&part_number=<?php echo $rowc['part_number']; ?>&form_name=<?php echo $rowc['name']; ?>">
                                                     <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
                                                 </a>
+                                                <?php }else{ ?>
+                                                    <a class="btn btn-success btn-sm br-5 me-2" href="user_form.php?id=<?php echo $rowc['form_create_id']; ?>&form_type=<?php echo $rowc['form_type']; ?>&part_family=<?php echo $rowc['part_family']; ?>&part_number=<?php echo $rowc['part_number']; ?>&form_name=<?php echo $rowc['name']; ?>">
+                                                        <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
+                                                    </a>
+                                                <?php } ?>
 
                                             </td>
                                             <td><?php echo $rowc["name"]; ?></td>

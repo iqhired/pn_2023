@@ -28,9 +28,10 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
-$station = $_GET['station'];
+$cell_station = $_GET['station'];
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
+
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
 //Set the time of the user's last activity
@@ -211,7 +212,7 @@ if (count($_POST) > 0) {
 </head>
 
 <body class="ltr main-body app horizontal">
-<?php if (!empty($station)){
+<?php if (!empty($cell_station)){
     include("../cell-menu.php");
 }else{
     include("../header.php");
@@ -577,9 +578,15 @@ if (count($_POST) > 0) {
 
                                             <td class="">
                                                 <?php $finalid = $rowc['form_create_id']; ?>
-                                                <a class="btn btn-success btn-sm br-5 me-2" href="view_user_form_data.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
+                                                <?php if (!empty($cell_station)){ ?>
+                                                <a class="btn btn-success btn-sm br-5 me-2" href="view_user_form_data.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>&station=<?php echo $cell_station; ?>">
                                                     <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
                                                 </a>
+                                                <?php }else{ ?>
+                                                    <a class="btn btn-success btn-sm br-5 me-2" href="view_user_form_data.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
+                                                        <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
+                                                    </a>
+                                                <?php } ?>
 
                                             </td>
                                         <?php } else if($option == 1){
@@ -587,18 +594,28 @@ if (count($_POST) > 0) {
                                             if ($check_status != null){  ?>
                                                 <td class="">
                                                     <?php $finalid = $rowc['form_create_id']; ?>
+                                                <?php if (!empty($cell_station)){ ?>
+                                                    <a class="btn btn-success btn-sm br-5 me-2" href="submit_user_form.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>&station=<?php echo $cell_station; ?>">
+                                                        <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
+                                                    </a>
+                                                <?php }else{ ?>
                                                     <a class="btn btn-success btn-sm br-5 me-2" href="submit_user_form.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
                                                         <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
                                                     </a>
-
+                                                <?php } ?>
                                                 </td>
                                             <?php } else if($check_status == null) { ?>
                                                 <td class="">
                                                     <?php $finalid = $rowc['form_create_id']; ?>
-                                                    <a class="btn btn-success btn-sm br-5 me-2" href="view_submit.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>">
+                                                <?php if (!empty($cell_station)){ ?>
+                                                    <a class="btn btn-success btn-sm br-5 me-2" href="view_submit.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>&station=<?php echo $cell_station; ?>">
                                                         <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
                                                     </a>
-
+                                                <?php }else{ ?>
+                                                    <a class="btn btn-success btn-sm br-5 me-2" href="view_submit.php?id=<?php echo $rowc['form_user_data_id']; ?>&optional=<?php echo $option; ?>&station=<?php echo $cell_station; ?>">
+                                                        <i class="fa fa-file" style="padding: 1px;font-size: 16px;"></i>
+                                                    </a>
+                                                <?php } ?>
                                                 </td>
                                             <?php } } ?>
                                         <td><?php echo $rowc["form_name"]; ?></td>

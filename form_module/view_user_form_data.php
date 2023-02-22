@@ -29,6 +29,10 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
+$station = $_GET['station'];
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
+
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $i = $_SESSION["role_id"];
@@ -199,17 +203,19 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 <!-- Page container -->
 <body class="ltr main-body app horizontal">
 <!-- Main navbar -->
-    <?php
-    $cam_page_header = "View Form";
+<?php if (!empty($station)){
+    include("../cell-menu.php");
+}else{
     include("../header.php");
     if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
         include("../tab_menu.php");
     } else {
         include("../admin_menu.php");
     }
-    ?>
+}
+?>
 <!-----main content----->
-<div class="main-content app-content">
+<div class="main-content horizontal-content">
     <!---container--->
     <div class="main-container container">
     <div class="breadcrumb-header justify-content-between">
