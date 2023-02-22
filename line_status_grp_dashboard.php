@@ -244,7 +244,7 @@ include("admin_menu.php");
                                                        target="_BLANK"><i class="fa fa-eye"></i>View Station
                                                         Status</a></li>
                                                 <li>
-                                                    <a href="events_module/station_events.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                    <a href="events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>"
                                                        target="_BLANK"><i class="icon-sync"></i>Add / Update
                                                         Events</a></li>
                                                 <li>
@@ -372,7 +372,7 @@ include("admin_menu.php");
                                                    target="_BLANK"><i class="fa fa-eye"></i>View Station Status</a>
                                             </li>
                                             <li>
-                                                <a href="events_module/station_events.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                <a href="events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>"
                                                    target="_BLANK"><i class="icon-sync"></i>Add / Update
                                                     Events</a></li>
                                             <li>
@@ -638,7 +638,7 @@ include("admin_menu.php");
                                                            target="_BLANK"><i class="fa fa-eye"></i>View Station
                                                             Status</a></li>
                                                     <li>
-                                                        <a href="events_module/station_events.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                        <a href="events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>"
                                                            target="_BLANK"><i class="icon-sync"></i>Add / Update
                                                             Events</a></li>
                                                     <?php if(($_SESSION['role_id'] == 'admin') || ($_SESSION['role_id'] == 'super')){?>
@@ -653,7 +653,7 @@ include("admin_menu.php");
                                                     </li>
                                                     <?php if(($_SESSION['role_id'] == 'admin') || ($_SESSION['role_id'] == 'super')){?>
                                                         <li>
-                                                            <a href="assignment_module/assign_crew.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                            <a href="assignment_module/assign_crew.php?station=<?php echo $rowc["line_id"]; ?>"
                                                                target="_BLANK"><i class="icon-sync"></i>Assign/Unassign</a>
                                                         </li>
                                                     <?php } ?>
@@ -779,7 +779,7 @@ include("admin_menu.php");
                                                        target="_BLANK"><i class="fa fa-eye"></i>View Station Status</a>
                                                 </li>
                                                 <li>
-                                                    <a href="events_module/station_events.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                    <a href="events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>"
                                                        target="_BLANK"><i class="icon-sync"></i>Add / Update
                                                         Events</a></li>
                                                 <?php if(($_SESSION['role_id'] == 'admin') || ($_SESSION['role_id'] == 'super')){?>
@@ -793,7 +793,7 @@ include("admin_menu.php");
                                                        target="_BLANK"><i class="icon-pie5"></i> Submit Form</a>
                                                 </li>
                                                 <?php if(($_SESSION['role_id'] == 'admin') || ($_SESSION['role_id'] == 'super')){?>
-                                                    <li><a href="assignment_module/assign_crew.php?line=<?php echo $rowc["line_id"]; ?>"
+                                                    <li><a href="assignment_module/assign_crew.php?station=<?php echo $rowc["line_id"]; ?>"
                                                            target="_BLANK"><i class="icon-sync"></i>Assign/Unassign</a>
                                                     </li>
                                                 <?php }?>
