@@ -171,7 +171,8 @@ while ($row = mysqli_fetch_row($export)) {
             if ($j == 9) {
                 $un = $value;
                 $tt = $un;
-                if($end_time > $date_to)
+                $is_true = strtotime($end_time) > strtotime($date_to);
+                if($is_true)
                 {
                     $t_t = $t;
                 }else{
@@ -188,7 +189,6 @@ while ($row = mysqli_fetch_row($export)) {
     $result .= trim($line) . "\n";
 
 }
-
 $result = str_replace("\r", "", $result);
 
 if ($result == "") {
