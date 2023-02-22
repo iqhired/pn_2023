@@ -15,6 +15,9 @@ $station_event_id = $_POST['station_event_id'];
 $f_postfix = $_POST['time'];
 $label_quantity = 0;
 $g_timestamp = time();
+$c_station = $_POST['c_station'];
+$c_name= $_POST['c_name'];
+$cell_id = $_POST['cell_id'];
 $query1 = sprintf("SELECT line_id , part_number_id FROM sg_station_event where  station_event_id = '$station_event_id'");
 $qur1 = mysqli_query($db, $query1);
 while ($rowc = mysqli_fetch_array($qur1)) {
@@ -745,6 +748,6 @@ else
         }
     }
 }
-$page = "good_bad_piece.php?station_event_id=$station_event_id";
+$page = "good_bad_piece.php?station_event_id=$station_event_id&station=$c_station&cell_id=$cell_id&c_name=$c_name";
 header('Location: ' . $page, true, 303);
 ?>

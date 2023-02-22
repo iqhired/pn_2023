@@ -555,7 +555,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                     </span>
                         </div>
                         <div class="input-group mb-2">
-                            <a class="form-control btn ripple btn-success" style="background-color: #008000 !important;" href="<?php echo $siteURL; ?>events_module/add_good_piece.php?station=<?php echo $station;?>&station_event_id=<?php echo $station_event_id; ?>">IN-SPEC</a>
+                            <a class="form-control btn ripple btn-success" style="background-color: #008000 !important;" href="<?php echo $siteURL; ?>events_module/add_good_piece.php?station=<?php echo $station;?>&cell_id=<?php echo $cellID;?>&c_name=<?php echo $c_name;?>&station_event_id=<?php echo $station_event_id; ?>">IN-SPEC</a>
                         </div>
                         <div class="text-wrap">
                             <div class="example" style="margin: auto;clear: both;text-align: center;">
@@ -585,7 +585,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                     $result1 = $mysqli->query($sql1);
                                     while ($row1 = $result1->fetch_assoc()) {
                                         ?>
-                                        <a href="<?php echo $siteURL; ?>events_module/add_bad_piece.php?station=<?php echo $station;?>&station_event_id=<?php echo $station_event_id; ?>&defect_list_id=<?php echo $row1['defect_list_id']; ?>" class="btn bg-danger-gradient text-white view_gpbp"><?php echo $row1['defect_list_name']; ?></a>
+                                        <a href="<?php echo $siteURL; ?>events_module/add_bad_piece.php?station=<?php echo $station;?>&cell_id=<?php echo $cellID;?>&c_name=<?php echo $c_name;?>&station_event_id=<?php echo $station_event_id; ?>&defect_list_id=<?php echo $row1['defect_list_id']; ?>" class="btn bg-danger-gradient text-white view_gpbp"><?php echo $row1['defect_list_name']; ?></a>
                                         <?php
                                         if($i == 4)
                                         {
