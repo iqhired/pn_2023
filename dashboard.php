@@ -151,8 +151,8 @@ $message = date("Y-m-d H:i:s");
                                                             <i class="icon-cog3"></i> <span class="caret" style="color:white;"></span></a>
                                                         <ul class="dropdown-menu dropdown-menu-right">
                                                             <li><a href="view_assigned_crew.php?station=<?php echo $rowc["line_id"]; ?>" target="_BLANK"><i class="fa fa-eye"></i> View Assigned Crew</a></li>
-                                                            <li><a href="assignment_module/assign_crew.php?line=<?php echo $rowc["line_id"]; ?>" target="_BLANK"><i class="icon-sync"></i>Assign/Unassign</a></li>
-                                                            <li><a href="log_module/assign_crew_log.php?line=<?php echo $rowc["line_id"]; ?>" target="_BLANK"><i class="icon-pie5"></i> Assign Crew Log</a></li>
+                                                            <li><a href="assignment_module/assign_crew.php?station=<?php echo $rowc["line_id"]; ?>" target="_BLANK"><i class="icon-sync"></i>Assign/Unassign</a></li>
+                                                            <li><a href="log_module/assign_crew_log.php?station=<?php echo $rowc["line_id"]; ?>" target="_BLANK"><i class="icon-pie5"></i> Assign Crew Log</a></li>
 <!--                                                            <li><a href="form_module/form_settings.php?station=--><?php //echo $rowc["line_id"]; ?><!--" target="_BLANK"><i class="icon-pie5"></i> Create Form</a></li>-->
 <!--                                                            <li><a href="form_module/options.php?station=--><?php //echo $rowc["line_id"]; ?><!--" target="_BLANK"><i class="icon-pie5"></i> Submit Form</a></li>-->
                                                     <!--    <li><a href="#"><i class="icon-cross3"></i> Clear list</a></li> -->

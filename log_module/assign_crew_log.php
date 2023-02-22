@@ -26,10 +26,10 @@ if (count($_POST) > 0) {
     $timezone = $_POST['timezone'];
 }
 if (count($_GET) > 0) {
-    $station1 = $_GET['line'];
+    $station = $_GET['station'];
     $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$station1' ");
     while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-        $station = $rowctemp["line_name"];
+        $station_name = $rowctemp["line_name"];
     }
 }
 
