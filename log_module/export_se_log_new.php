@@ -189,7 +189,6 @@ while ($row = mysqli_fetch_row($export)) {
     $result .= trim($line) . "\n";
 
 }
-
 $result = str_replace("\r", "", $result);
 
 if ($result == "") {
