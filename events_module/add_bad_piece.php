@@ -1,5 +1,4 @@
-<?php
-include("../config.php");
+<?php include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 checkSession();
