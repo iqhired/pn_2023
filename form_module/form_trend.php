@@ -289,7 +289,7 @@ if (($is_tab_login || $is_cell_login)) {
             <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-header">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">SPC Analytics Item Information</span>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1"><?php if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} ?></span>
                     </div>
                     <div class="card-body pt-0">
                         <div class="pd-30 pd-sm-20">
@@ -304,7 +304,7 @@ if (($is_tab_login || $is_cell_login)) {
                                     <input type="hidden" value="<?php echo $date_to; ?>" name="date_to" id="date_to">
                                     <input type="hidden" value="<?php echo $date_from; ?>" name="date_from" id="date_from">
                                     <input type="hidden" value="<?php echo $form_create_id; ?>" name="form_create" id="form_create">
-                                    <h5 style="font-size: xx-large;background-color: #009688; color: #ffffff;padding : 5px; text-align: center;" class="text-semibold no-margin"><?php if($cus_name != ""){ echo $cus_name; }else{ echo "Customer Name";} ?> </h5>
+                                   
                                     <?php
                                     $qur2 = mysqli_query($db, "SELECT * FROM form_type where form_type_id = '$form_type'");
                                     $row2 = mysqli_fetch_array($qur2);
