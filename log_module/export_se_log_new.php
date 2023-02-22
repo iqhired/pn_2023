@@ -22,14 +22,14 @@ if(empty($datefrom)){
     $datefrom = $yesdate;
 }
 
-$q = "select slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
+$q = "select distinct slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
-pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.total_time as total_time from sg_station_event_log_update as slogup 
+pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt as total_time from sg_station_event_log as slogup 
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
 inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1";
-$q11 = "select slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
+$q11 = "select distinct slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
-pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.total_time as total_time from sg_station_event_log_update as slogup 
+pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt as total_time from sg_station_event_log as slogup 
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
 inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1";
 
@@ -67,7 +67,7 @@ if ($event_category != "") {
 }
 
 if (empty($line_id)){
-    $q = $q . " ORDER BY slogup.line_id,e_log.created_on";
+    $q = $q . " ORDER BY slogup.line_id,slogup.created_on";
     $q11 = $q11 . " ORDER BY slogup.line_id,slogup.created_on  ASC";
 }else{
     $q = $q . " ORDER BY slogup.created_on  ASC";
@@ -96,31 +96,31 @@ while ($row = mysqli_fetch_row($exp)) {
             if ($j == 7) {
                 $un = $value;
                 $created_on = $un;
-                $value = dateReadFormat($date_from);
+                $value = $date_from;
             }
             if ($j == 8) {
                 $un = $value;
                 $end_time = $un;
-                if($end_time > $date_to)
-                {
-                    $end_time = dateReadFormat($date_to);
-                }else{
-                    $end_time = dateReadFormat($end_time);
-                }
-                $value = $end_time;
-            }
-            if ($j == 9) {
-                $un = $value;
                 $diff = abs(strtotime($date_to) - strtotime($date_from));
                 $t = round(($diff/3600),2);
                 if($end_time > $date_to)
                 {
-                    $t_time = $t;
+                    $end_t = $date_to;
+                }else{
+                    $end_t = $end_time;
+                }
+                $value = $end_t;
+            }
+            if ($j == 9) {
+                $un = $value;
+                if($end_time > $date_to)
+                {
+                    $t_t = $t;
                 }else{
                     $dd = (strtotime($end_time) - strtotime($date_from));
-                    $t_time = round(($dd/3600),2);
+                    $t_t = round(($dd/3600),2);
                 }
-                $value = $t_time;
+                $value = $t_t;
             }
 			$value = '"' . $value . '"' . "\t";
 		}
@@ -152,31 +152,32 @@ while ($row = mysqli_fetch_row($export)) {
             }
             if ($j == 7) {
                 $un = $value;
-                $created_on = $un;
-                $value = dateReadFormat($created_on);
+                $start_time = $un;
+                $value = dateReadFormat($start_time);
             }
             if ($j == 8) {
                 $un = $value;
                 $end_time = $un;
-                if($end_time > $date_to)
-                {
-                    $end_time = dateReadFormat($date_to);
-                }else{
-                    $end_time = dateReadFormat($end_time);
-                }
-                $value = $end_time;
-            }
-            if ($j == 9) {
-                $un = $value;
-                $diff = abs(strtotime($date_to) - strtotime($created_on));
+                $diff = abs(strtotime($date_to) - strtotime($start_time));
                 $t = round(($diff/3600),2);
                 if($end_time > $date_to)
                 {
-                    $t_time = $t;
+                    $end_t = dateReadFormat($date_to);
                 }else{
-                    $t_time = $un;
+                    $end_t = dateReadFormat($end_time);
                 }
-                $value = $t_time;
+                $value = $end_t;
+            }
+            if ($j == 9) {
+                $un = $value;
+                $tt = $un;
+                if($end_time > $date_to)
+                {
+                    $t_t = $t;
+                }else{
+                    $t_t = $tt;
+                }
+                $value = $t_t;
             }
             $value = '"' . $value . '"' . "\t";
         }
