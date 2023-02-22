@@ -605,6 +605,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         $t = round(($diff/3600),2);
                                         if($rowc['end_time'] > $date_to)
                                         {
+                                            $color = '#0a53be';
                                             $end_time = dateReadFormat($date_to);
                                             $t_time = $t;
                                         }else{
@@ -612,7 +613,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                             $t_time = $rowc['total_time'];
                                         }
                                         ?>
-                                        <td><?php echo $end_time; ?></td>
+                                        <td style="color: <?php echo $color; ?>"><?php echo $end_time; ?></td>
                                         <td><?php echo $t_time; ?></td>
                                     </tr>
                                 <?php } ?>
