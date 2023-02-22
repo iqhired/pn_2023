@@ -497,7 +497,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
         $(document).on("click", ".reset", function () {
             var url = window.location.origin + "/form_module/options.php?station=";
             window.close();
-            window.open(url,"_blank");
+            window.open(url,"_self");
         });
 
 
