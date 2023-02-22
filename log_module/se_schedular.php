@@ -82,11 +82,25 @@ while ($row_st_202 = mysqli_fetch_array($result_st_202)) {
 			$total_time = $total_time;
 			$end_hrs = $start_time + $total_time;
 
-			$tt = sprintf('%02d:%02d', (int)$start_time, fmod($start_time, 1) * 60);
+//			$tt = sprintf('%02d:%02d', (int)$start_time, fmod($start_time, 1) * 60);
 			$tt = sprintf('%02d:%02d', (int)$end_hrs, fmod($end_hrs, 1) * 60);
-			$end_time2 = $s_arr_1[0] . ' ' . $tt;
-			$sql_result1 = "Update sg_station_event_log SET end_time = '$end_time2' , tt = '$total_time' where station_event_log_id = '$station_event_log_id' and event_seq = '$event_seq'";
-			$sql_result2 = mysqli_query($db, $sql_result1);
+			$tt1 = explode(":",$tt);
+			$tt2 = $total_time;
+			if((!empty($tt)) && ($tt1[0] < 24)){
+				$end_time2 = $s_arr_1[0] . ' ' . $tt;
+				$sql_result1 = "Update sg_station_event_log SET end_time = '$end_time2' , tt = '$total_time' where station_event_log_id = '$station_event_log_id' and event_seq = '$event_seq'";
+				$sql_result2 = mysqli_query($db, $sql_result1);
+			}else if((!empty($tt)) && ($tt1[0] > 24)){
+				$ex_days = ($tt1[0] / 24);
+				$days_d = (int)$ex_days;
+				$dd = date('Y-m-d', strtotime($s_arr_1[0]. ' + '.$days_d.' days'));
+				$time_tt = $tt1[0] - (24* $days_d);
+				$time_t = $time_tt . ':' .$tt1[1];
+				$end_time2 = $dd . ' ' . $time_t;
+				$sql_result1 = "Update sg_station_event_log SET end_time = '$end_time2' , tt = '$total_time' where station_event_log_id = '$station_event_log_id' and event_seq = '$event_seq'";
+				$sql_result2 = mysqli_query($db, $sql_result1);
+			}
+
 		}
 	}
 
