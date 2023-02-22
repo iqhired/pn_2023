@@ -12,12 +12,10 @@
 <script>
     function ss(url) {
         send(url);
-        // sendFile(url);
     }
     function ss1(url,cnt) {
         for(var i = 1; i <= cnt; i++) {
             send(url);
-            // sendFile(url);
         }
     }
 </script>
