@@ -331,11 +331,11 @@ $msg = explode(',', $msg); ?>
                             </div>
                         <?php }
                         if (in_array('38', $msg)) { ?>
-                            <div class="mt-3">
-                                <a href="<?php echo $siteURL; ?>form_module/options.php" class="text-muted mobile">
-                                    Submit Form
-                                </a>
-                            </div>
+<!--                            <div class="mt-3">-->
+<!--                                <a href="--><?php //echo $siteURL; ?><!--form_module/options.php" class="text-muted mobile">-->
+<!--                                    Submit Form-->
+<!--                                </a>-->
+<!--                            </div>-->
                         <?php }
                         if (in_array('44', $msg)) { ?>
                             <div class="mt-3">
@@ -345,7 +345,6 @@ $msg = explode(',', $msg); ?>
                             </div>
                         <?php }
                         if (in_array('78', $msg)) { ?>
-                            <div class="ms-3">
                                 <?php $query1 = sprintf("SELECT * FROM `cam_users` WHERE users_id = '$iid' and `pin_flag` = '1'");
                                 $qur1 = mysqli_query($db, $query1);
 
@@ -355,13 +354,10 @@ $msg = explode(',', $msg); ?>
                                         <div class="mt-3">
                                             <a target="_blank"
                                                href="<?php echo $siteURL; ?>config_module/sg_cust_dashboard.php"
-                                               class="text-muted mobile">
-                                                Form Rejection Loop
-                                            </a>
+                                               class="text-muted mobile">Form Rejection Loop</a>
                                         </div>
                                     <?php }
                                 } ?>
-                            </div>
                         <?php }
                         if (in_array('60', $msg)) { ?>
                             <div class="mt-3">
@@ -1277,7 +1273,7 @@ $msg = explode(',', $msg); ?>
                                     </li>
                                 <?php }
                                 if (in_array('38', $msg)) { ?>
-                                    <li><a href="<?php echo $siteURL; ?>form_module/options.php">Submit Form</a></li>
+<!--                                    <li><a href="--><?php //echo $siteURL; ?><!--form_module/options.php">Submit Form</a></li>-->
                                 <?php }
                                 if (in_array('44', $msg)) { ?>
                                     <li><a href="<?php echo $siteURL; ?>form_module/form_search.php">View Form</a></li>
