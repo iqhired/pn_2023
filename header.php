@@ -144,7 +144,6 @@ if(!empty($result1)) {
         border-radius: 4px;
     }
 
-
     /*.dropdown a:hover {background-color: #ddd;}*/
 
     .show {display: block;}

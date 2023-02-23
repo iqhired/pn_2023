@@ -192,8 +192,16 @@ if(isset($_POST['update_btn'])){
     }
     $part_family_id = $_POST['part_family'];
     $part_number = $_POST['part_number'];
-    $event_type_id = $_POST['event_type_id'];
+    $event_type = explode('_',$_POST['event_type_id']);
+	$event_type_id = $event_type[0];
+	$event_cat_id = $event_type[1];
     $station_event_id = $_GET['station_event_id'];
+	$reason = $_POST['edit_reason'];
+	$qur1 = "select (count(station_event_id)) as seq_num from sg_station_event_log WHERE station_event_id='$station_event_id'";
+	$res = mysqli_query($db, $qur1);
+	$firstrow = mysqli_fetch_array($res);
+	$curr_seq = $firstrow['seq_num'];
+	$next_seq = $curr_seq + 1;
       if($event_type_id == 7){
                 $sql = "update sg_station_event set event_status = '0' ,event_type_id='$event_type_id', modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
                 $result1 = mysqli_query($db, $sql);
@@ -208,7 +216,7 @@ if(isset($_POST['update_btn'])){
 					$_SESSION['message_stauts_class'] = $message_stauts_class;
 					$_SESSION['import_status_message'] = $import_status_message;
 				}
-                $sql = "INSERT INTO `sg_station_event_log`(`station_event_id`  ,`reason`,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',0,'$chicagotime','$user_id')";
+                $sql = "INSERT INTO `sg_station_event_log`(`station_event_id`  ,`reason`,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$event_type_id','$event_cat_id',0,'$chicagotime','$user_id')";
                 $result0 = mysqli_query($db, $sql);
 //		        $part_family_id = '';
 //		        $station_event_id = '';
@@ -227,7 +235,7 @@ if(isset($_POST['update_btn'])){
             $import_status_message = 'Error: Please Insert valid data';
         }
 
-        $sql111 = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`reason`,`event_seq` , `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$edit_event_id','$event_cat_id',1,'$chicagotime','$user_id')";
+        $sql111 = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`reason`,`event_seq` , `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$event_type_id','$event_cat_id',1,'$chicagotime','$user_id')";
         $result0 = mysqli_query($db, $sql111);
     }
 
@@ -273,6 +281,13 @@ if(isset($_POST['update_btn'])){
     <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
+    <style>
+        #reason_div{
+            color: darkred;
+            margin: 30px -15px;
+            /*box-shadow: 0 12px 20px -10px rgb(59 149 163 / 28%), 0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(59 149 163 / 20%);*/
+        }
+    </style>
 
 </head>
 
@@ -482,7 +497,7 @@ if(isset($_POST['update_btn'])){
                                                 $row_event = mysqli_fetch_assoc($res_station);
                                                 $event_type_id = $row_event['event_type_id'];
 
-                                                $sql1 = "SELECT event_type_id ,event_type_name, FIND_IN_SET('$station', stations) from `event_type` where FIND_IN_SET('$station', stations) IS NOT NULL and FIND_IN_SET('$station', stations) > 0 AND is_deleted != 1 ORDER BY so ASC";
+                                                $sql1 = "SELECT event_type_id ,event_cat_id,event_type_name, FIND_IN_SET('$station', stations) from `event_type` where FIND_IN_SET('$station', stations) IS NOT NULL and FIND_IN_SET('$station', stations) > 0 AND is_deleted != 1 ORDER BY so ASC";
                                                 $result1 = $mysqli->query($sql1);
                                                 if ($result1 != null) {
                                                     $count = $result1->num_rows;
@@ -492,7 +507,7 @@ if(isset($_POST['update_btn'])){
                                                         } else {
                                                             $entry = '';
                                                         }
-                                                        echo "<option value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
+                                                        echo "<option value='" . $row1['event_type_id'] ."_".$row1['event_cat_id']. "' $entry   >" . $row1['event_type_name'] . "</option>";
                                                         /* if ($count == 1) {
                                                              echo "<option disabled value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
                                                          } else {
@@ -504,6 +519,11 @@ if(isset($_POST['update_btn'])){
                                                 ?>
                                             </select>
                                         </div>
+                                        <div class="col-md-12 mg-t-10 mg-md-t-0 query" id="reason_div">
+                                        </div>
+
+
+                                        <input type="hidden" name="edit_id" id="edit_id">
                                     </div>
                                 </div>
 
@@ -541,6 +561,7 @@ if(isset($_POST['update_btn'])){
                                 <th>Part Family</th>
                                 <th>Part Number</th>
                                 <th>Event Type</th>
+                                <th>Reason</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -577,6 +598,7 @@ if(isset($_POST['update_btn'])){
                                     <td><?php echo $part_family_name; ?></td>
                                     <td><?php echo $part_number; ?></td>
                                     <td><?php echo $event_type_name; ?></td>
+                                    <td><?php echo $rowc['reason']; ?></td>
                                 </tr>
 							<?php } ?>
                             </tbody>
@@ -591,6 +613,24 @@ if(isset($_POST['update_btn'])){
     </div>
 </div>
 <script>
+    $('#event_type_id').on('change', function () {
+
+        var selected_val = this.value.split("_")[1];
+        if (selected_val == 3) {
+            document.getElementById("reason_div").innerHTML ="<label class=\"col-lg-4 control-label\">Enter Cell Down Reason * :</label>\n" +
+                "                                            <div class=\"col-lg-8\">\n" +
+                "                                                <textarea id=\"edit_reason\" name=\"edit_reason\" rows=\"2\" class=\"form-control\" required></textarea>\n" +
+                "                                            </div>";
+            // $('#reason_div').attr('required', true);
+            // $('#reason_div').prop('required',true);
+            // document.getElementById("reason_div").required = true;
+            // $("#reason_div").show();
+        } else {
+            document.getElementById("reason_div").innerHTML ="";
+            // document.getElementById("reason_div").required = false;
+            // $("#reason_div").hide();
+        }
+    });
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
