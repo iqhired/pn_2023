@@ -49,8 +49,8 @@ if(empty($dateto)){
 }
 
 if(empty($datefrom)){
-    $yesdate = date(mdYHi_FORMAT);
-    $datefrom = $curdate;
+    $yesdate = date(mdYHi_FORMAT, strtotime("-1 days"));
+    $datefrom = $yesdate;
 }
 
 
