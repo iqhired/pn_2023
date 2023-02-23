@@ -17,12 +17,12 @@ $station_menu='';
 if(!empty($is_cell_login) && $is_cell_login == 1){
 	$path = site_URL. "cell_line_dashboard.php";
 	$main_menu = $path;
-	$station_menu = site_URL . "tab_float_menu.php?station=".$station;
+	$station_menu = site_URL . "tab_float_menu.php?cell_id=" .$cellID."&c_name=".$c_name."&station=".$station;
 }else{
 	if(!empty($i) && ($is_tab_login != null)){
 		$path = site_URL . "line_tab_dashboard.php";
 		$main_menu = $path;
-		$station_menu = site_URL . "tab_float_menu.php?station=".$station;
+		$station_menu = site_URL . "tab_float_menu.php?cell_id=" .$cellID."&c_name=".$c_name."&station=".$station;
 	}else{
 		$path = site_URL . "line_status_grp_dashboard.php";
 		$main_menu = $path;
