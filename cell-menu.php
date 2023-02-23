@@ -66,9 +66,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
     .nav .nav-item .dropdown-menu{
         top: 60px;
     }
-    .main-header{
-        margin-bottom: 2% !important;
-    }
+
     .logo_img{
         height: 50px;
     }
