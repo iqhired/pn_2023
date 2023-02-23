@@ -216,10 +216,10 @@ if(isset($_POST['update_btn'])){
 					$_SESSION['message_stauts_class'] = $message_stauts_class;
 					$_SESSION['import_status_message'] = $import_status_message;
 				}
-                $sql = "INSERT INTO `sg_station_event_log`(`station_event_id`  ,`reason`,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$event_type_id','$event_cat_id',0,'$chicagotime','$user_id')";
+                $sql = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`line_id` ,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$station_id','$reason','$next_seq','$event_type_id','$event_cat_id',0,'$chicagotime','$user_id')";
                 $result0 = mysqli_query($db, $sql);
 //		        $part_family_id = '';
-//		        $station_event_id = '';
+//		        $station_event_id = '';,`reason`
 //		        $part_number = '';
                   $uuu = site_URL . "events_module/station_events.php?cell_id=".$cellID."&c_name=".$c_name."&station=".$station_id."&part_family=&part_number=&station_event_id=";
                   header("Location:".$uuu);
@@ -235,7 +235,7 @@ if(isset($_POST['update_btn'])){
             $import_status_message = 'Error: Please Insert valid data';
         }
 
-        $sql111 = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`reason`,`event_seq` , `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$reason','$next_seq','$event_type_id','$event_cat_id',1,'$chicagotime','$user_id')";
+        $sql111 = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`line_id` ,`reason`,`event_seq` , `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$station_id','$reason','$next_seq','$event_type_id','$event_cat_id',1,'$chicagotime','$user_id')";
         $result0 = mysqli_query($db, $sql111);
     }
 

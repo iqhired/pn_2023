@@ -514,21 +514,25 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     //event type
                                     $q = $main_query;
                                     $q11 = $main_query;
+                                    $q12 = $main_query;
 
                                     /* If Line is selected. */
                                     if ($line_id != null) {
                                         $q = $q . " and slogup.line_id = '$line_id' ";
                                         $q11 = $q11 . " and slogup.line_id = '$line_id' ";
+                                        $q12 = $q12 . " and slogup.line_id = '$line_id' ";
                                     }
                                     if ($datefrom != "" && $dateto != "") {
                                         $date_from = convertMDYToYMDwithTime($datefrom);
                                         $date_to = convertMDYToYMDwithTime($dateto);
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
                                         $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+                                        $q12 = $q12 . " AND (slogup.end_time is NULL) and IGNORE_id = 0  ";
                                     } else if ($datefrom != "" && $dateto == "") {
                                         $date_from = convertMDYToYMDwithTime($datefrom);
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' ";
                                         $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+                                        $q12 = $q12 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
                                     } else if ($datefrom == "" && $dateto != "") {
                                         $date_to = convertMDYToYMDwithTime($dateto);
                                         $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
@@ -537,53 +541,88 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     if ($event_type != "") {
                                         $q = $q . " and slogup.event_type_id = '$event_type'";
                                         $q11 = $q11 . " and slogup.event_type_id = '$event_type'";
+                                        $q12 = $q12 . " and slogup.event_type_id = '$event_type'";
                                     }
 
                                     if ($event_category != "") {
                                         $q = $q . " AND  slogup.event_cat_id ='$event_category'";
                                         $q11 = $q11 . " AND  slogup.event_cat_id ='$event_category'";
+                                        $q12 = $q12 . " AND  slogup.event_cat_id ='$event_category'";
                                     }
 
                                     $q = $q . " ORDER BY slogup.created_on  ASC";
                                     $q11 = $q11 . " ORDER BY slogup.created_on  ASC";
+                                    $q12 = $q12 . " ORDER BY slogup.created_on  DESC";
 
                                 }
 								/* Execute the Query Built*/
 								$qur11 = mysqli_query($db, $q11);
-								while ($rowc = mysqli_fetch_array($qur11)) {
-									?>
-                                    <tr>
-										<?php
-										$un = $rowc['line_id'];
-										$qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
-										while ($rowc04 = mysqli_fetch_array($qur04)) {
-											$lnn = $rowc04["line_name"];
-										}
+								$numrows = $qur11->num_rows;
+								if($numrows > 0){
+									while ($rowc = mysqli_fetch_array($qur11)) {
 										?>
-                                        <td><?php echo $lnn; ?></td>
-                                        <td><?php echo $rowc["e_type"]; ?></td>
-                                        <td><?php echo $rowc['p_num']; ?></td>
-                                        <td><?php echo $rowc['p_name']; ?></td>
-                                        <td><?php echo $rowc['pf_name']; ?></td>
-                                        <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
-										<?php
-										$diff = abs(strtotime($date_to) - strtotime($date_from));
-										$t = round(($diff/3600),2);
-										$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
-										if($is_true)
-										{
+                                        <tr>
+											<?php
+											$un = $rowc['line_id'];
+											$qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
+											while ($rowc04 = mysqli_fetch_array($qur04)) {
+												$lnn = $rowc04["line_name"];
+											}
+											?>
+                                            <td><?php echo $lnn; ?></td>
+                                            <td><?php echo $rowc["e_type"]; ?></td>
+                                            <td><?php echo $rowc['p_num']; ?></td>
+                                            <td><?php echo $rowc['p_name']; ?></td>
+                                            <td><?php echo $rowc['pf_name']; ?></td>
+                                            <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
+											<?php
+											$diff = abs(strtotime($date_to) - strtotime($date_from));
+											$t = round(($diff/3600),2);
+											$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+											if($is_true)
+											{
+												$end_time = dateReadFormat($date_to);
+												$t_time = $t;
+											}else{
+												$end_time = dateReadFormat($rowc['end_time']);
+												$dd = (strtotime($rowc['end_time']) - strtotime($date_from));
+												$t_time = round(($dd/3600),2);
+											}
+											?>
+                                            <td><?php echo $end_time; ?></td>
+                                            <td><?php echo $t_time; ?></td>
+                                        </tr>
+									<?php }
+                                }else{
+									$qur12 = mysqli_query($db, $q12);
+									while ($rowc = mysqli_fetch_array($qur12)) {
+										?>
+                                        <tr>
+											<?php
+											$un = $rowc['line_id'];
+											$qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
+											while ($rowc04 = mysqli_fetch_array($qur04)) {
+												$lnn = $rowc04["line_name"];
+											}
+											?>
+                                            <td><?php echo $lnn; ?></td>
+                                            <td><?php echo $rowc["e_type"]; ?></td>
+                                            <td><?php echo $rowc['p_num']; ?></td>
+                                            <td><?php echo $rowc['p_name']; ?></td>
+                                            <td><?php echo $rowc['pf_name']; ?></td>
+                                            <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
+											<?php
+											$diff = abs(strtotime($date_to) - strtotime($date_from));
+											$t = round(($diff/3600),2);
+											$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
 											$end_time = dateReadFormat($date_to);
 											$t_time = $t;
-										}else{
-											$end_time = dateReadFormat($rowc['end_time']);
-											$dd = (strtotime($rowc['end_time']) - strtotime($date_from));
-											$t_time = round(($dd/3600),2);
-										}
-										?>
-                                        <td><?php echo $end_time; ?></td>
-                                        <td><?php echo $t_time; ?></td>
-                                    </tr>
-								<?php }
+											?>
+                                            <td><?php echo $end_time; ?></td>
+                                            <td><?php echo $t_time; ?></td>
+                                        </tr>
+									<?php }
+                                }
                                 /* Execute the Query Built*/
                                 $qur = mysqli_query($db, $q);
                                 while ($rowc = mysqli_fetch_array($qur)) {
