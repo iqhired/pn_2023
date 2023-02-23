@@ -20,7 +20,8 @@ $temp = "";
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -70,7 +71,8 @@ $temp = "";
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/menu.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -148,40 +150,7 @@ $temp = "";
         button.remove {
             margin-left: 15px;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
 
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
         .red-star {
             color: red;
         }
@@ -294,7 +263,7 @@ include("../hp_header.php");
                             <div class="row row-sm">
                                 <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                                     <div class="card box-shadow-0">
-                                        <div class="card-header" style="background-color: #14846f;">
+                                        <div class="card-header">
                                             <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo $formname; ?></span>
                                         </div>
                                         <div class="card-body pt-0">
@@ -539,7 +508,7 @@ include("../hp_header.php");
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-header" style="background-color: #14846f;">
+                                                <div class="card-header">
                                                     <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Form Information</center></span>
                                                 </div><br/>
                             <?php
@@ -971,11 +940,11 @@ include("../hp_header.php");
                             $reject_status = $rowc05["reject_status"];
 
                             if (empty($approval_status) && empty($reject_status)){ ?>
-                                <div class="card-header" style="background-color: #14846f;">
+                                <div class="card-header">
                                     <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Auto Approved by System</center></span>
                                 </div><br/>
                             <?php }else{ ?>
-                                <div class="card-header" style="background-color: #14846f;">
+                                <div class="card-header">
                                     <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Approval List</center></span>
                                 </div><br/>
                                 <table class="table  table-bordered text-nowrap mb-0" id="example2">
@@ -1100,9 +1069,7 @@ include("../hp_header.php");
 
     <?php } ?>
 
-
 </div>
-
 <script>
 
     $(".compare_text").keyup(function () {
@@ -1123,11 +1090,9 @@ include("../hp_header.php");
                 $(this).css("background-color", "#ffadad !important");
             }
         }
-    }
-
     });
 </script>
-<?php include ('../footer.php') ?>
+<?php include ('../footer1.php') ?>
 </body>
 
 </html>
