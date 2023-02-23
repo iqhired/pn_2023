@@ -57,6 +57,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/libs/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -106,7 +109,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
         .navbar {
@@ -437,13 +440,15 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                             </div>
                                                         </div>
                                                     </div>
-                                     <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+                                       <div class="row row-xs align-items-center mg-b-20">
+                                            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                                          <div class="card box-shadow-0">
                                            <div class="card-header">
                                             <span class="main-content-title mg-b-0 mg-b-lg-1"><center>Form Information</center></span>
                                            </div>
                                         </div>
                                      </div>
+                                       </div>
                                 <?php
 
                                 $query = sprintf("SELECT * FROM  form_item where form_create_id = '$item_id'  order by form_item_seq+0 ASC ");
@@ -465,7 +470,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                         ?>
                                     <div class="row row-xs align-items-center mg-b-20">
                                             <span class="main-content-title mg-b-0 mg-b-lg-1"><?php echo htmlspecialchars($rowc['item_desc']); ?></span>
-                                        </div>
+                                    </div>
                                     <?php }
                                     if($item_val == "numeric")
                                     {
@@ -501,14 +506,13 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     } ?>
                                                 </label>
                                             </div>
-                                            <div class="col-md-6" >
+                                            <div class="col-md-10" >
                                                 <label class=" form_col_item"><?php  if ($rowc['optional'] != '1') {
                                                     echo $rowc['item_desc']; }?> </label>
                                                 <?php if (isset($rowc['discription']) && ($rowc['discription'] != '')) { ?>
                                                     <?php echo "(" . $rowc['discription'] . ")" ?>
                                                 <?php } ?>
                                             </div>
-
                                             <?php if ($checked >= $final_lower && $checked <= $final_upper) { ?>
                                                 <div class="col-md-5 mg-t-5 mg-md-t-0">
                                                     <input type="number" name="<?php echo $rowc['form_item_id']; ?>"
@@ -547,7 +551,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     echo '<span class="red-star">★</span>';
                                                 } ?>
                                             </div>
-                                            <div class="col-md-6 form_col_item">
+                                            <div class="col-md-11.5 form_col_item">
                                                <?php
                                                 echo htmlspecialchars($rowc['item_desc']); ?>
                                             </div>
@@ -630,7 +634,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     echo '<span class="red-star">★</span>';
                                                 } ?>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-11.5">
                                               <?php
                                                 echo htmlspecialchars($rowc['item_desc']); ?>
                                             </div>
@@ -933,7 +937,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                     echo '<span class="red-star">★</span>';
                                                 } ?>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-11.5">
 
                                             <?php    echo htmlspecialchars($rowc['item_desc']); ?>
                                             </div>
@@ -955,6 +959,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                 </div>
 
                                             </div>
+
                                         <?php
                                         $aray_item_cnt++;
 
@@ -1168,6 +1173,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 
     });
 </script>
-<?php include ('../footer.php') ?>
+<?php include ('../footer1.php') ?>
 </body>
 </html>

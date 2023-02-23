@@ -79,8 +79,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-    <!---Internal Fancy uploader css-->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+
     <!--Internal  Datepicker js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
     <!-- Internal Select2.min js -->
@@ -92,11 +91,8 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
     <!-- Ionicons js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
-    <!--Internal  pickerjs js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
-    <!--internal color picker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
+
+
     <!--Bootstrap-datepicker js-->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
     <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
@@ -229,7 +225,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                     <label class="form-label mg-b-0">Station</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
+                                    <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station" >
                                         <option value="" selected> Select Station </option>
                                         <?php
                                         if($_SESSION["role_id"] == "pn_user" &&  (!empty($is_tab_login) || $is_tab_login == 1) && (empty($is_cell_login) || $is_cell_login == 0)){
@@ -240,6 +236,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                             }
                                         }
                                         if($is_tab_login){
+                                            $tab_line = $_REQUEST['station'];
                                             $sql1 = "SELECT line_id, line_name FROM `cam_line`  where enabled = '1' and line_id = '$tab_line' and is_deleted != 1 ORDER BY `line_name` ASC";
                                             $result1 = $mysqli->query($sql1);
                                             //                                            $entry = 'selected';
@@ -393,7 +390,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                         ?>
                                     </select>
                                 </div>
-
                             </div>
 
                         </div>
