@@ -19,9 +19,6 @@ if (empty($datefrom)) {
 }
 $button = "";
 $temp = "";
-// if (!isset($_SESSION['user'])) {
-// 	header('location: logout.php');
-// }
 $_SESSION['station'] = "";
 $_SESSION['date_from'] = "";
 $_SESSION['date_to'] = "";
@@ -113,9 +110,6 @@ if (null != $result) {
 }
 
 $response['posts'] = $posts;
-//$fp = fopen('./results.json', 'w');
-//fwrite($fp, json_encode($response));
-//fclose($fp);
 if (null == $sta) {
     $sta = '';
 }
@@ -313,8 +307,8 @@ fclose($fp);
         ?>
         <script>
             $(function () {
-                $('#event_type').prop('disabled', true);
-                $('#event_category').prop('disabled', false);
+                $('#cell').prop('disabled', true);
+                $('#station').prop('disabled', false);
             });
         </script>
     <?php
@@ -322,8 +316,8 @@ fclose($fp);
     ?>
         <script>
             $(function () {
-                $('#event_type').prop('disabled', false);
-                $('#event_category').prop('disabled', true);
+                $('#cell').prop('disabled', false);
+                $('#station').prop('disabled', true);
             });
         </script>
         <?php
@@ -358,14 +352,61 @@ include("../admin_menu.php");
                                 <div class="card-header">
                                     <span class="main-content-title mg-b-0 mg-b-lg-1">GOOD BAD PIECE LOG</span>
                                 </div>
-                                <div class="pd-30 pd-sm-20">
+                                <div class="pd-20 pd-sm-10">
                                     <div class="row row-xs">
+                                        <div class="col-md-1">
+                                            <label class="form-label mg-b-0">Cell  </label>
+                                        </div>
+                                        <?php
+                                        if ($button_event == "button3") {
+                                            $checked = "checked";
+                                        } else {
+                                            $checked = "";
+                                        }
+                                        ?>
+                                        <div class="col-md-0.5">
+                                            <label class="rdiobox"><input type="radio" name="button_event" id="button3" value="button3"
+                                                                          class="form-control"
+                                                                          style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                        </div>
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0" style="max-width: 386px!important;">
+                                            <select name="cell" id="cell" class="form-control form-select select2" data-placeholder="Select Cell">
+                                                <option value="" selected>--- Select Cell ---</option>
+                                                <?php
+                                                $ev_ty_post = $_POST['cell'];
+                                                $sql1 = "SELECT * FROM `cell_grp` where enabled != '0' and is_deleted != 1 ORDER BY `c_id` ASC";
+                                                $result1 = $mysqli->query($sql1);
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    $lin = $row1['c_id'];
+                                                    if ($lin == $ev_ty_post) {
+                                                        $entry = 'selected';
+                                                    } else {
+                                                        $entry = '';
+                                                    }
+                                                    echo "<option value='" . $row1['c_id'] . "' $entry >" . $row1['c_name'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1"></div>
                                         <div class="col-md-1">
                                             <label class="form-label mg-b-0">Station</label>
                                         </div>
-                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                            <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
-                                                <option value="" selected> Select Station </option>
+                                        <?php
+                                        if ($button_event == "button4") {
+                                            $checked = "checked";
+                                        } else {
+                                            $checked = "";
+                                        }
+                                        ?>
+                                        <div class="col-md-0.5">
+                                            <label class="rdiobox">  <input type="radio" name="button_event" id="button4" value="button4"
+                                                                            class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                        </div>
+
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0" style="max-width: 392px!important;">
+                                            <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select station">
+                                                <option value="" selected disabled>--- Select station ---</option>
                                                 <!--<option value="0" selected>All</option>-->
                                                 <?php
                                                 $entry = '';
@@ -387,7 +428,10 @@ include("../admin_menu.php");
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
                                         <div class="col-md-1">
                                             <label class="form-label mg-b-0">Part Family</label>
                                         </div>
@@ -410,11 +454,7 @@ include("../admin_menu.php");
                                                 ?>
                                             </select>
                                         </div>
-                                    </div>
-
-                                </div>
-                                <div class="pd-30 pd-sm-20">
-                                    <div class="row row-xs">
+                                        <div class="col-md-1"></div>
                                         <div class="col-md-1">
                                             <label class="form-label mg-b-0">Part Number</label>
                                         </div>
@@ -1265,11 +1305,11 @@ include("../admin_menu.php");
                 $('#period').prop('disabled', false);
                 $('#timezone').prop('disabled', true);
             } else if (abc == "button3") {
-                $('#event_category').prop('disabled', true);
-                $('#event_type').prop('disabled', false);
+                $('#station').prop('disabled', true);
+                $('#cell').prop('disabled', false);
             } else if (abc == "button4") {
-                $('#event_type').prop('disabled', true);
-                $('#event_category').prop('disabled', false);
+                $('#cell').prop('disabled', true);
+                $('#station').prop('disabled', false);
             }
 
 

@@ -6,9 +6,7 @@ $dateto = $curdate;
 $datefrom = $curdate;
 $button = "";
 $temp = "";
-// if (!isset($_SESSION['user'])) {
-// 	header('location: logout.php');
-// }
+
 $_SESSION['station'] = "";
 $_SESSION['date_from'] = "";
 $_SESSION['date_to'] = "";
@@ -17,6 +15,7 @@ $_SESSION['timezone'] = "";
 $_SESSION['button_event'] = "";
 $_SESSION['event_type'] = "";
 $_SESSION['event_category'] = "";
+$_SESSION['cell'] = "";
 
 if (count($_POST) > 0) {
 	$_SESSION['station'] = $_POST['station'];
@@ -27,20 +26,24 @@ if (count($_POST) > 0) {
 	$_SESSION['button_event'] = $_POST['button_event'];
 	$_SESSION['event_type'] = $_POST['event_type'];
 	$_SESSION['event_category'] = $_POST['event_category'];
+    $_SESSION['cell'] = $_POST['cell'];
 	$button_event = $_POST['button_event'];
 	$event_type = $_POST['event_type'];
 	$event_category = $_POST['event_category'];
+    $cell = $_POST['cell'];
 	$station = $_POST['station'];
 	$dateto = $_POST['date_to'];
 	$datefrom = $_POST['date_from'];
 	$button = $_POST['button'];
 	$timezone = $_POST['timezone'];
 }
+
 if (count($_POST) > 0) {
 	$station1 = $_POST['station'];
 	$sta = $_POST['station'];
 	$pf = $_POST['part_family'];
 	$pn = $_POST['part_number'];
+    $cell = $_POST['cell'];
     if (empty($station1) || $station1 != "0") {
         $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where enabled = '1' and is_deleted != 1 ");
         while ($rowctemp = mysqli_fetch_array($qurtemp)) {
@@ -56,10 +59,27 @@ if (count($_POST) > 0) {
 	$datefrom = $curdate;
 	$dateto = $curdate;
 }
+$query0003 = sprintf("SELECT SUBSTRING(stations,1,length(stations)-1) as stns FROM cell_grp where c_id = '$cell'");
+$qur0003 = mysqli_query($db, $query0003);
+while ($rowc0003 = mysqli_fetch_array($qur0003)) {
+    $stt = $rowc0003["stns"];
+  /*  $stations = explode(',', $stt);
+    $cnt = count($stations);*/
+}
+
 $wc = '';
 
 if(!empty($station) && $station != '0'){
 	$wc = $wc . " and sg_station_event.line_id = '$station'";
+}else{
+    /*for ($i = 0; $i < $cnt;) {
+        $u = $stations[$i];
+        if (!empty($u)) {
+            $wc = $wc . " and sg_station_event.line_id = '$u'";
+        }
+        $i++;
+    }*/
+    $wc = $wc . " and sg_station_event.line_id in ($stt)";
 }
 if(!empty($pf)){
 	$wc = $wc . " and sg_station_event.part_family_id = '$pf'";
@@ -321,7 +341,7 @@ if($_POST['fa_op'] == 1){
     }else if(empty($sta)) {
         $date_from = convertMDYToYMDwithTime($datefrom);
         $date_to = convertMDYToYMDwithTime($dateto);
-        $sql11 = "SELECT SUM(good_pieces) as good_pieces,SUM(bad_pieces) as bad_pieces,SUM(rework) as rework FROM `good_bad_pieces_details` INNER JOIN sg_station_event ON good_bad_pieces_details.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces_details.created_at) >= 00 and hour(good_bad_pieces_details.created_at) < 08 and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') <= '$date_to'";
+        $sql11 = "SELECT SUM(good_pieces) as good_pieces,SUM(bad_pieces) as bad_pieces,SUM(rework) as rework FROM `good_bad_pieces_details` INNER JOIN sg_station_event ON good_bad_pieces_details.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces_details.created_at) >= 00 and hour(good_bad_pieces_details.created_at) < 08 and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') <= '$date_to' and sg_station_event.line_id in($stt)";
         $result11 = mysqli_query($db,$sql11);
         while ($row11=$result11->fetch_assoc()){
             $good_pieces = $row11['good_pieces'];
@@ -330,7 +350,7 @@ if($_POST['fa_op'] == 1){
         }
         $date_from = convertMDYToYMDwithTime($datefrom);
         $date_to = convertMDYToYMDwithTime($dateto);
-        $sql21 = "SELECT SUM(good_pieces) as good_pieces1,SUM(bad_pieces) as bad_pieces1,SUM(rework) as rework1 FROM `good_bad_pieces_details` INNER JOIN sg_station_event ON good_bad_pieces_details.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces_details.created_at) >= 08 and hour(good_bad_pieces_details.created_at) < 16 and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') <= '$date_to'";
+        $sql21 = "SELECT SUM(good_pieces) as good_pieces1,SUM(bad_pieces) as bad_pieces1,SUM(rework) as rework1 FROM `good_bad_pieces_details` INNER JOIN sg_station_event ON good_bad_pieces_details.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces_details.created_at) >= 08 and hour(good_bad_pieces_details.created_at) < 16 and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') <= '$date_to' and sg_station_event.line_id in($stt)";
         $result21 = mysqli_query($db,$sql21);
         while ($row21=$result21->fetch_assoc()){
             $good_pieces1 = $row21['good_pieces1'];
@@ -339,7 +359,7 @@ if($_POST['fa_op'] == 1){
         }
         $date_from = convertMDYToYMDwithTime($datefrom);
         $date_to = convertMDYToYMDwithTime($dateto);
-        $sql31 = "SELECT SUM(good_pieces) as good_pieces2,SUM(bad_pieces) as bad_pieces2,SUM(rework) as rework2 FROM `good_bad_pieces_details` INNER JOIN sg_station_event ON good_bad_pieces_details.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces_details.created_at) >= 16 and hour(good_bad_pieces_details.created_at) <= 23 and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') <= '$date_to'";
+        $sql31 = "SELECT SUM(good_pieces) as good_pieces2,SUM(bad_pieces) as bad_pieces2,SUM(rework) as rework2 FROM `good_bad_pieces_details` INNER JOIN sg_station_event ON good_bad_pieces_details.station_event_id = sg_station_event.station_event_id WHERE hour(good_bad_pieces_details.created_at) >= 16 and hour(good_bad_pieces_details.created_at) <= 23 and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(good_bad_pieces_details.`created_at`,'%Y-%m-%d %H:%i') <= '$date_to' and sg_station_event.line_id in($stt)";
         $response = array();
         $posts = array();
         $result31 = mysqli_query($db,$sql31);
