@@ -1,6 +1,7 @@
 <?php include("../config.php");
 $button_event = "button3";
 $curdate = date('Y-m-d H:i');
+$cd = date('d-M-Y H:i:s');
 //$dateto = $curdate;
 //$datefrom = $curdate;
 $button = "";
@@ -603,15 +604,25 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         <?php
                                         $diff = abs(strtotime($date_to) - strtotime($rowc['start_time']));
                                         $t = round(($diff/3600),2);
-										$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
-                                        if($is_true)
-                                        {
-											$color = '#0a53be';
-                                            $end_time = dateReadFormat($date_to);
-                                            $t_time = $t;
+                                        //if end time is empty  calculate time using current time
+                                        $diff = abs(strtotime($curdate) - strtotime($rowc['start_time']));
+                                        $ct = round(($diff/3600),2);
+                                        $et = $rowc['end_time'];
+                                        if(!empty($et)){
+                                            $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                            if($is_true)
+                                            {
+                                                $color = '#0a53be';
+                                                $end_time = dateReadFormat($date_to);
+                                                $t_time = $t;
+                                            }else{
+                                                $end_time = dateReadFormat($rowc['end_time']);
+                                                $t_time = $rowc['total_time'];
+                                            }
                                         }else{
-                                            $end_time = dateReadFormat($rowc['end_time']);
-                                            $t_time = $rowc['total_time'];
+                                              $color = '#0a53be';
+                                              $t_time = $ct;
+                                              $end_time = dateReadFormat($cd);
                                         }
                                         ?>
                                         <td style="color: <?php echo $color; ?>"><?php echo $end_time; ?></td>
