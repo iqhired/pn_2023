@@ -411,8 +411,5 @@ include("../admin_menu.php");
 
 <!-- /page container -->
 <?php include('../footer1.php') ?>
-<script type="text/javascript" src="../assets/js/core/app.js"></script>
-
-
 </body>
 </html>

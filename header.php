@@ -143,7 +143,9 @@ if(!empty($result1)) {
         width: 28px!important;
         border-radius: 4px;
     }
-
+    .main-content{
+        margin-top:90px !important;
+    }
 
     /*.dropdown a:hover {background-color: #ddd;}*/
 
