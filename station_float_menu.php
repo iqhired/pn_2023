@@ -39,93 +39,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
         .main-content.horizontal-content {
             margin-top: 30px !important;
         }
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
 
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-            .col-md-4 {
-                width: 30%;
-            }
-            .col-md-8.mg-t-5.mg-md-t-0 {
-                width: 70%;
-            }
-
-            .contextMenu {
-                left: 0!important;
-            }
-            .d-sm-none {
-                z-index: 1!important;
-            }
-            .breadcrumb-header {
-                margin-left: 38px;
-            }
-            button.remove.btn.btn-sm.btn-danger-light {
-                margin-top: 14px!important;
-                margin-bottom: 10px!important;
-                margin-left: 24px!important;
-            }
-        }
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-            .col-md-4 {
-                width: 30%;
-            }
-            .col-md-8.mg-t-5.mg-md-t-0 {
-                width: 70%;
-            }
-
-            .contextMenu {
-                left: 0!important;
-            }
-            .d-sm-none {
-                z-index: 1!important;
-            }
-            .breadcrumb-header {
-                margin-left: 38px;
-            }
-            button.remove.btn.btn-sm.btn-danger-light {
-                margin-top: 14px!important;
-                margin-bottom: 10px!important;
-                margin-left: 24px!important;
-            }
-
-
-        }
-        @media (min-width: 482px) and (max-width: 767px) {
-            .col-md-4 {
-                width: 30%;
-            }
-            .col-md-8.mg-t-5.mg-md-t-0 {
-                width: 70%;
-            }
-
-            .contextMenu {
-                left: 0!important;
-
-            }
-            .d-sm-none {
-                z-index: 1!important;
-            }
-            .breadcrumb-header {
-                margin-left: 38px;
-            }
-            button.remove.btn.btn-sm.btn-danger-light {
-                margin-top: 14px!important;
-                margin-bottom: 10px!important;
-                margin-left: 24px!important;
-            }
-
-        }
     </style>
 </head>
 <body class="ltr main-body app horizontal">
@@ -188,7 +102,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
                             <div class="example">
                                     <div class="btn-list">
                                         <?php if ($event_status != '0' && $event_status != '') { ?>
-                                            <a href="<?php echo $siteURL; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Good & Bad Piece</a>
+                                            <a href="<?php echo $siteURL; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Good & Bad Piece</a>
                                             <?php } ?>
                                         <a href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
 
@@ -200,7 +114,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
                                         <?php }  ?>
                                         <a href="<?php echo $siteURL; ?>form_module/options.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Submit Form</a>
                                         <a href="<?php echo $siteURL; ?>form_module/form_search.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Form</a>
-                                        <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php?line=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Assign / Unassign Crew</a>
+                                        <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Assign / Unassign Crew</a>
                                         <a href="<?php echo $siteURL; ?>view_assigned_crew.php?station=<?php echo  $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Assigned Crew</a>
                                     </div>
 

@@ -244,33 +244,17 @@ if(isset($_POST['update_btn'])){
          <?php echo $sitename; ?> | Station Events</title>
     <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
     <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
-    <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <!--Internal  Datetimepicker-slider css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
-    <!--Bootstrap-datepicker css-->
-    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
+
     <!-- Internal Select2 css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-    <!---Internal Fancy uploader css-->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
+
     <!--Internal  Datepicker js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
     <!-- Internal Select2.min js -->
@@ -282,300 +266,14 @@ if(isset($_POST['update_btn'])){
     <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
     <!-- Ionicons js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
-    <!--Internal  pickerjs js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
+
     <!--internal color picker js-->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
     <!--Bootstrap-datepicker js-->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
-    <style>
-        .navbar {
 
-            padding-top: 0px!important;
-        }
-        .dropdown .arrow {
-
-            margin-top: -25px!important;
-            width: 1.5rem!important;
-        }
-        #ic .arrow {
-            margin-top: -22px!important;
-            width: 1.5rem!important;
-        }
-        .fs-6 {
-            font-size: 1rem!important;
-        }
-
-        .content_img {
-            width: 113px;
-            float: left;
-            margin-right: 5px;
-            border: 1px solid gray;
-            border-radius: 3px;
-            padding: 5px;
-            margin-top: 10px;
-        }
-
-        /* Delete */
-        .content_img span {
-            border: 2px solid red;
-            display: inline-block;
-            width: 99%;
-            text-align: center;
-            color: red;
-        }
-        .remove_btn{
-            float: right;
-        }
-        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
-        .collapse.in {
-            display: block!important;
-        }
-        .mt-4 {
-            margin-top: 0rem!important;
-        }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-
-
-
-        table.dataTable thead .sorting:after {
-            content: ""!important;
-            top: 49%;
-        }
-        .card-title:before{
-            width: 0;
-
-        }
-
-        .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
-            display: block;
-        }
-
-        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
-            height: 32px;
-            width: 32px;
-        }
-        .badge {
-            padding: 0.5em 0.5em!important;
-            width: 100px;
-            height: 23px;
-        }
-        @media (min-width: 614px) and (max-width: 874px) {
-            .col-md-1 {
-                max-width: 180px!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-            }
-            .col-md-1.media {
-                max-width: 0px!important;
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query{
-                max-width: 300px!important;
-            }
-        }
-        @media (min-width: 768px) and (max-width: 1024px) {
-            .col-md-1 {
-                margin-top: -30px;
-                max-width: 16.33333%!important;
-            }
-            .col-md-1.media{
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-                margin-left: 215px;
-                margin-top: -30px;
-                margin-bottom: 66px;
-            }
-            .row {
-                display: grid;
-                margin-bottom: -63px;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 215px;
-                margin-top: -57px;
-            }
-            .col-md-1#ex {
-                margin-top: -56px;
-            }
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .col-md-1 {
-                max-width: 180px!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-            }
-            .col-md-1.media {
-                max-width: 0px!important;
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query{
-                max-width: 300px!important;
-            }
-            .col-md-1 {
-                margin-top: -30px;
-                max-width: 16.33333%!important;
-            }
-            .col-md-1.media{
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-                margin-left: 215px;
-                margin-top: -30px;
-                margin-bottom: 66px;
-            }
-            .row {
-                display: grid;
-                margin-bottom: -63px;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 215px;
-                margin-top: -57px;
-            }
-            .col-md-1#ex {
-                margin-top: -56px;
-            }
-
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .col-md-1 {
-                max-width: 180px!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-            }
-            .col-md-1.media {
-                max-width: 0px!important;
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query{
-                max-width: 300px!important;
-            }
-            .col-md-1 {
-                margin-top: -30px;
-                max-width: 16.33333%!important;
-            }
-            .col-md-1.media{
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-                margin-left: 215px;
-                margin-top: -30px;
-                margin-bottom: 66px;
-            }
-            .row {
-                display: grid;
-                margin-bottom: -63px;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 215px;
-                margin-top: -57px;
-            }
-            .col-md-1#ex {
-                margin-top: -56px;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .col-md-1 {
-                max-width: 180px!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-            }
-            .col-md-1.media {
-                max-width: 0px!important;
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query{
-                max-width: 300px!important;
-            }
-            .col-md-1 {
-                margin-top: -30px;
-                max-width: 16.33333%!important;
-            }
-            .col-md-1.media{
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-                margin-left: 215px;
-                margin-top: -30px;
-                margin-bottom: 66px;
-            }
-            .row {
-                display: grid;
-                margin-bottom: -63px;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 215px;
-                margin-top: -57px;
-            }
-            .col-md-1#ex {
-                margin-top: -56px;
-            }
-        }
-
-        @media (min-width: 482px) and (max-width: 767px) {
-            .col-md-1 {
-                max-width: 180px!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-            }
-            .col-md-1.media {
-                max-width: 0px!important;
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query{
-                max-width: 300px!important;
-            }
-            .col-md-1 {
-                margin-top: -30px;
-                max-width: 19.33333%!important;
-            }
-            .col-md-1.media{
-                display: none!important;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0{
-                max-width: 300px;
-                margin-left: 215px;
-                margin-top: -30px;
-                margin-bottom: 66px;
-            }
-            .row {
-                display: grid;
-                margin-bottom: -63px;
-            }
-            .col-md-4.mg-t-10.mg-md-t-0.query {
-                margin-left: 215px;
-                margin-top: -57px;
-            }
-            .col-md-1#ex {
-                margin-top: -56px;
-            }
-        }
-
-
-
-    </style>
 </head>
 
 <body class="ltr main-body app horizontal">
@@ -628,8 +326,8 @@ if(isset($_POST['update_btn'])){
                                                 <option value="" selected disabled>--- Select Station ---</option>
                                                 <?php
                                                 if($is_tab_login){
-                                                    $station_id=$tab_line;
-                                                    $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$tab_line' and is_deleted != 1 ORDER BY `line_name` ASC";
+                                                    $station_id = $event_line;
+                                                    $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$event_line' and is_deleted != 1 ORDER BY `line_name` ASC";
                                                     $result1 = $mysqli->query($sql1);
                                                     //                                            $entry = 'selected';
                                                     while ($row1 = $result1->fetch_assoc()) {
@@ -824,8 +522,6 @@ if(isset($_POST['update_btn'])){
             </div>
         </form>
 		<?php if($e_type_id != 7){ ?>
-        <br/>
-        <br/>
         <div class="row form-horizontal">
             <div class="col-lg-12 col-md-12">
         <div class="card">
