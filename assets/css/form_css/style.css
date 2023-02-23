@@ -269,9 +269,6 @@ html, body {
   height: 100%;
   margin: 0;
 }
-.main-content {
-  min-height: 100%;
-}
 .dataTables_filter span{
 display:none !important;
 }
