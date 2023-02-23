@@ -569,7 +569,8 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
 										<?php
 										$diff = abs(strtotime($date_to) - strtotime($date_from));
 										$t = round(($diff/3600),2);
-										if($rowc['end_time'] > $date_to)
+										$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+										if($is_true)
 										{
 											$end_time = dateReadFormat($date_to);
 											$t_time = $t;
