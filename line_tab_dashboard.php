@@ -32,67 +32,31 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> | Dashboard</title>
+        <?php echo $sitename; ?> |Line Dashboard</title>
     <!-- Global stylesheets -->
 
     <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
 
-
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- Theme JS files -->
-
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/ui/ripple.min.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
-
-
-    <!--Internal  Datetimepicker-slider css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
-    <!--Bootstrap-datepicker css-->
-    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
-    <!-- Internal Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
     <!-- STYLES CSS -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-    <!---Internal Fancy uploader css-->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
-    <!--Internal  Datepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
-    <!-- Internal Select2.min js -->
-    <!--Internal  jquery.maskedinput js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
-    <!-- Ionicons js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
-    <!--Internal  pickerjs js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
-    <!--internal color picker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
-    <!--Bootstrap-datepicker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
+
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
+    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
+        .main-content{
+            max-width: 95%;
+            padding: 0 !important;
+            margin: auto !important;
+        }
+        .main-container {
+            max-width: 85% !important;
+            padding: 0;
+            margin: auto !important;
+        }
         .navbar {
 
             padding-top: 0px!important;
@@ -138,40 +102,6 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
 
 
         table.dataTable thead .sorting:after {
@@ -182,13 +112,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
             width: 0;
 
         }
-        .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 238px;
-        }
         .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
             display: block;
         }
 
@@ -285,144 +209,150 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
             background-color: #fff !important;
             border-bottom: 1px solid #f0f0f8!important;
         }
+        .header{
+            background-color: #1c4e8018 !important;
+        }
+        .navbar{
+            background-color: #073857 !important;
+            height: 40px !important;
+        }
 
 
 
     </style>
 </head>
-
-
-<!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Cell Status Dashboard";
 include("tab_header.php");
 include("tab_menu.php"); ?>
-<body class="ltr main-body app sidebar-mini">
+<body class="pace-done">
 <!-- main-content -->
-<div class="main-content app-content">
-    <!-- container -->
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">PN</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Cell Status Dashboard</li>
-            </ol>
+<div class="main-content horizontal-content">
+    <div class="main-container container">
+        <!-- container -->
+        <!-- breadcrumb -->
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">PN</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cell Status Dashboard</li>
+                </ol>
+            </div>
         </div>
-    </div>
 
-    <div class="row row-body">
-        <?php
-        $query = sprintf("SELECT * FROM  cam_line where enabled = '1' and line_id = '$tab_line'");
-        $qur = mysqli_query($db, $query);
-        $countervariable = 0;
-        while ($rowc = mysqli_fetch_array($qur)) {
-            $event_status = '';
-            $line_status_text = '';
-            $buttonclass = '#000';
-            $p_num = '';
-            $p_name = '';
-            $pf_name = '';
-            $time = '';
-            $countervariable++;
-            $line = $rowc["line_id"];
-            //$qur01 = mysqli_query($db, "SELECT created_on as start_time , modified_on as updated_time FROM  sg_station_event where line_id = '$line' and event_status = 1 order BY created_on DESC LIMIT 1");
-            $qur01 = mysqli_query($db, "SELECT pn.part_number as p_num, pn.part_name as p_name , pf.part_family_name as pf_name, et.event_type_name as e_name ,et.color_code as color_code , sg_events.modified_on as updated_time ,sg_events.station_event_id as station_event_id , sg_events.event_status as event_status , sg_events.created_on as e_start_time FROM sg_station_event as sg_events inner join event_type as et on sg_events.event_type_id=et.event_type_id Inner Join pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id inner join pm_part_number as pn on sg_events.part_number_id=pn.pm_part_number_id where sg_events.line_id= '$line' ORDER by sg_events.created_on DESC LIMIT 1");
-            $rowc01 = mysqli_fetch_array($qur01);
-            if($rowc01 != null){
-                $time = $rowc01['updated_time'];
-                $station_event_id = $rowc01['station_event_id'];
-                $line_status_text = $rowc01['e_name'];
-                $event_status = $rowc01['event_status'];
-                $p_num = $rowc01["p_num"];;
-                $p_name = $rowc01["p_name"];;
-                $pf_name = $rowc01["pf_name"];;
-                $buttonclass = $rowc01["color_code"];
-            }
-            ?>
-            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $line; ?>')">
-                <div class="card custom-card">
-                    <div class="card-header d-flex custom-card-header border-bottom-0 ">
-                        <h5 class="card-title"><?php echo $rowc["line_name"]; ?></h5>
-                        <div class="card-options">
-                            <a href="javascript:void(0);" class="btn btn-sm"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <div class="row">
+            <?php
+            $query = sprintf("SELECT * FROM  cam_line where enabled = '1' and line_id = '$tab_line'");
+            $qur = mysqli_query($db, $query);
+            $countervariable = 0;
+            while ($rowc = mysqli_fetch_array($qur)) {
+                $event_status = '';
+                $line_status_text = '';
+                $buttonclass = '#000';
+                $p_num = '';
+                $p_name = '';
+                $pf_name = '';
+                $time = '';
+                $countervariable++;
+                $line = $rowc["line_id"];
+                //$qur01 = mysqli_query($db, "SELECT created_on as start_time , modified_on as updated_time FROM  sg_station_event where line_id = '$line' and event_status = 1 order BY created_on DESC LIMIT 1");
+                $qur01 = mysqli_query($db, "SELECT pn.part_number as p_num, pn.part_name as p_name , pf.part_family_name as pf_name, et.event_type_name as e_name ,et.color_code as color_code , sg_events.modified_on as updated_time ,sg_events.station_event_id as station_event_id , sg_events.event_status as event_status , sg_events.created_on as e_start_time FROM sg_station_event as sg_events inner join event_type as et on sg_events.event_type_id=et.event_type_id Inner Join pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id inner join pm_part_number as pn on sg_events.part_number_id=pn.pm_part_number_id where sg_events.line_id= '$line' ORDER by sg_events.created_on DESC LIMIT 1");
+                $rowc01 = mysqli_fetch_array($qur01);
+                if($rowc01 != null){
+                    $time = $rowc01['updated_time'];
+                    $station_event_id = $rowc01['station_event_id'];
+                    $line_status_text = $rowc01['e_name'];
+                    $event_status = $rowc01['event_status'];
+                    $p_num = $rowc01["p_num"];;
+                    $p_name = $rowc01["p_name"];;
+                    $pf_name = $rowc01["pf_name"];;
+                    $buttonclass = $rowc01["color_code"];
+                }
+                ?>
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="cellDB('<?php echo $line; ?>')">
+                    <div class="card custom-card">
+                        <div class="card-header d-flex custom-card-header border-bottom-0 ">
+                            <h5 class="card-title"><?php echo $rowc["line_name"]; ?></h5>
+                            <div class="card-options">
+                                <a href="javascript:void(0);" class="btn btn-sm"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="card-body">
-                        <table>
-                            <tr>
-                                <td style="width: 40%;">
-                                    <div class="tr-row">Part Family :</div></td>
+                        <div class="card-body">
+                            <table>
+                                <tr>
+                                    <td style="width: 40%;">
+                                        <div class="tr-row">Part Family :</div></td>
 
-                                <td style="width: 60%;">
+                                    <td style="width: 60%;">
                                 <span><?php echo $pf_name;
                                     $pf_name = ''; ?> </span>
-                                    <input type="hidden" id="id<?php echo $countervariable; ?>"
-                                           value="<?php echo $time; ?>">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 40%;">
-                                    <div class="tr-row">Part Number : </div>
-                                </td>
-                                <td style="width: 60%;"><span><?php echo $p_num;
-                                        $p_num = ''; ?></span></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 40%;">
-                                    <div class="tr-row">Part Name :</div>
-                                </td>
-                                <td style="width: 60%;"><span><?php echo $p_name;
-                                        $p_name = ''; ?></span></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <?php
-                    $variable123 = $time;
-                    if ($variable123 != "") {
-                        ?>
-                        <script>
+                                        <input type="hidden" id="id<?php echo $countervariable; ?>"
+                                               value="<?php echo $time; ?>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%;">
+                                        <div class="tr-row">Part Number : </div>
+                                    </td>
+                                    <td style="width: 60%;"><span><?php echo $p_num;
+                                            $p_num = ''; ?></span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%;">
+                                        <div class="tr-row">Part Name :</div>
+                                    </td>
+                                    <td style="width: 60%;"><span><?php echo $p_name;
+                                            $p_name = ''; ?></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <?php
+                        $variable123 = $time;
+                        if ($variable123 != "") {
+                            ?>
+                            <script>
 
-                            // Set the date we're counting down to
-                            var iddd<?php echo $countervariable; ?> = $("#id<?php echo $countervariable; ?>").val();
-                            console.log(iddd<?php echo $countervariable; ?>);
-                            var countDownDate<?php echo $countervariable; ?> = new Date(iddd<?php echo $countervariable; ?>).getTime();
-                            // Update the count down every 1 second
-                            var x = setInterval(function () {
-                                // Get today's date and time
-                                var now = getCurrentTime();
-                                //new Date().getTime();
-                                // Find the distance between now and the count down date
-                                var distance = now - countDownDate<?php echo $countervariable; ?>;
-                                // Time calculations for days, hours, minutes and seconds
-                                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                                //console.log(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ");
-                                //console.log("------------------------");
-                                // Output the result in an element with id="demo"
-                                document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = days + "d " + hours + "h "
-                                    + minutes + "m " + seconds + "s ";
-                                // If the count down is over, write some text
-                                if (distance < 0) {
-                                    clearInterval(x);
-                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = "EXPIRED";
-                                }
-                            }, 1000);
-                        </script>
-                    <?php } ?>
-                    <div class="card-footer" style="background-color:<?php echo $buttonclass; ?>;color: #fff;">
-                        <?php echo $line_status_text; ?> -
-                        <span id="demo<?php echo $countervariable; ?>">&nbsp;</span><span id="server-load"></span>
+                                // Set the date we're counting down to
+                                var iddd<?php echo $countervariable; ?> = $("#id<?php echo $countervariable; ?>").val();
+                                console.log(iddd<?php echo $countervariable; ?>);
+                                var countDownDate<?php echo $countervariable; ?> = new Date(iddd<?php echo $countervariable; ?>).getTime();
+                                // Update the count down every 1 second
+                                var x = setInterval(function () {
+                                    // Get today's date and time
+                                    var now = getCurrentTime();
+                                    //new Date().getTime();
+                                    // Find the distance between now and the count down date
+                                    var distance = now - countDownDate<?php echo $countervariable; ?>;
+                                    // Time calculations for days, hours, minutes and seconds
+                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                    //console.log(days + "d " + hours + "h "+ minutes + "m " + seconds + "s ");
+                                    //console.log("------------------------");
+                                    // Output the result in an element with id="demo"
+                                    document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = days + "d " + hours + "h "
+                                        + minutes + "m " + seconds + "s ";
+                                    // If the count down is over, write some text
+                                    if (distance < 0) {
+                                        clearInterval(x);
+                                        document.getElementById("demo<?php echo $countervariable; ?>").innerHTML = "EXPIRED";
+                                    }
+                                }, 1000);
+                            </script>
+                        <?php } ?>
+                        <div class="card-footer" style="background-color:<?php echo $buttonclass; ?>;color: #fff;">
+                            <?php echo $line_status_text; ?> -
+                            <span id="demo<?php echo $countervariable; ?>">&nbsp;</span><span id="server-load"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php
-        }
-        ?>
+                <?php
+            }
+            ?>
 
+        </div>
     </div>
 </div>
 <script>
@@ -448,5 +378,6 @@ if ($i == "") {
     }, 60000);
 </script>
 <?php include("footer1.php");?> <!-- /page container -->
+
 </body>
 </html>

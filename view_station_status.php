@@ -19,28 +19,14 @@ $assign_line = htmlspecialchars($_GET["station"]);
     <link href="assets/css/colors.css" rel="stylesheet" type="text/css">
     <link href="assets/css/style_main.css" rel="stylesheet" type="text/css">
     <link href="assets/css/menu.css" rel="stylesheet" type="text/css">
-<!--    <link href="--><?php //echo $siteURL; ?><!--assets/css/dashboard/dash_2.css" rel="stylesheet" type="text/css" />-->
 
-    <!-- /global stylesheets -->
     <!-- Core JS files -->
     <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- /core JS files -->
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="assets/js/core/app.js"></script>
-    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
-    <script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/ui/ripple.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="assets/js/time_display.js"></script>
+
     <script>
         $(document).ready(function () {
 

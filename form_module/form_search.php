@@ -253,7 +253,7 @@ if (count($_POST) > 0) {
                                         <?php
                                         $st_dashboard = $_GET['station'];
                                         if($is_tab_login){
-                                            $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$tab_line' and is_deleted != 1 ORDER BY `line_name` ASC";
+                                            $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$st_dashboard' and is_deleted != 1 ORDER BY `line_name` ASC";
                                             $result1 = $mysqli->query($sql1);
                                             //                                            $entry = 'selected';
                                             while ($row1 = $result1->fetch_assoc()) {

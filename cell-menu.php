@@ -9,6 +9,7 @@ $line_cust_dash = $_SESSION['line_cust_dash'];
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
 $station = $_GET['station'];
+$i = $_SESSION["role_id"];
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
 $path = '';
