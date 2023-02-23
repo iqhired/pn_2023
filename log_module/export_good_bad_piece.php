@@ -21,45 +21,51 @@ $datefrom = $_SESSION['date_from'];
 $dateto = $_SESSION['date_to'];
 $pf = $_SESSION['pf'];
 $pn = $_SESSION['pn'];
+$cell = $_SESSION['cell'];
+
+$query0003 = sprintf("SELECT SUBSTRING(stations,1,length(stations)-1) as stns FROM cell_grp where c_id = '$cell'");
+$qur0003 = mysqli_query($db, $query0003);
+while ($rowc0003 = mysqli_fetch_array($qur0003)) {
+    $stt = $rowc0003["stns"];
+}
 $wc = '';
 $print_data='';
+if(!empty($cell)){
+    $wc = $wc . " and sg_station_event.line_id in ($stt)";
+}else{
+    if($station == '0'){
+        $print_data .= "Station :  All Station \n";
+        $wc = $wc . " ";
 
-if($station == '0'){
-    $print_data .= "Station :  All Station \n";
-    $wc = $wc . " ";
-
-}else {
-
-    if (!empty($station)) {
-        $qurtemp = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$station' ");
-        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-            $line_name = $rowctemp["line_name"];
-            $print_data .= "Station : " . $line_name . "\n";
+    }else {
+        if (!empty($station)  && $station != '0') {
+            $qurtemp = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$station' ");
+            while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                $line_name = $rowctemp["line_name"];
+                $print_data .= "Station : " . $line_name . "\n";
+            }
+            $wc = $wc . " and sg_station_event.line_id = '$station'";
         }
-
-        $wc = $wc . " and sg_station_event.line_id = '$station'";
-    }
-
-    if (!empty($pn)) {
-        $qurtemp = mysqli_query($db, "SELECT part_number , part_name FROM `pm_part_number` where pm_part_number_id = '$pn' ");
-        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-            $part_number = $rowctemp["part_number"];
-            $part_name = $rowctemp["part_name"];
-            $print_data .= "Part Number  : " . $part_number . "\n";
-            $print_data .= "Part Description / Name  : " . $part_name . "\n";
+        if (!empty($pn)) {
+            $qurtemp = mysqli_query($db, "SELECT part_number , part_name FROM `pm_part_number` where pm_part_number_id = '$pn' ");
+            while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                $part_number = $rowctemp["part_number"];
+                $part_name = $rowctemp["part_name"];
+                $print_data .= "Part Number  : " . $part_number . "\n";
+                $print_data .= "Part Description / Name  : " . $part_name . "\n";
+            }
+            $wc = $wc . " and sg_station_event.part_number_id = '$pn'";
         }
-        $wc = $wc . " and sg_station_event.part_number_id = '$pn'";
-    }
-    if (!empty($pf)) {
-        $qurtemp = mysqli_query($db, "SELECT part_family_name FROM `pm_part_family` where pm_part_family_id = '$pf' ");
-        while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-            $part_family_name = $rowctemp["part_family_name"];
-            $print_data .= "Part Family  : " . $part_family_name . "\n";
+        if (!empty($pf)) {
+            $qurtemp = mysqli_query($db, "SELECT part_family_name FROM `pm_part_family` where pm_part_family_id = '$pf' ");
+            while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                $part_family_name = $rowctemp["part_family_name"];
+                $print_data .= "Part Family  : " . $part_family_name . "\n";
+            }
+            $wc = $wc . " and sg_station_event.part_family_id = '$pf'";
         }
-        $wc = $wc . " and sg_station_event.part_family_id = '$pf'";
     }
 }
-
     /* If Data Range is selected */
 $date_from = convertMDYToYMDwithTime($datefrom);
 $date_to = convertMDYToYMDwithTime($dateto);
