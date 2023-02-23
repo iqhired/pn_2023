@@ -399,7 +399,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                         </div>
                         <div class="card-body pt-0">
                             <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Submit</button>
-                            <button type="clear" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Reset</button>
+                            <button type="button" class="btn reset btn-primary pd-x-30 mg-r-5 mg-t-5" onclick="reset();">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -494,6 +494,13 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 </div>
     <!-- /content area -->
     <script>
+        $(document).on("click", ".reset", function () {
+            var url = window.location.origin + "/form_module/options.php?station="+ $("#station")[0].value;;
+            window.close();
+            window.open(url,"_self");
+        });
+
+
         $("#checkAll").click(function () {
             $('input:checkbox').not(this).prop('checked', this.checked);
         });

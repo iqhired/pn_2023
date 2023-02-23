@@ -287,7 +287,7 @@ inner join pm_part_number as pn on fc.part_number=pn.pm_part_number_id where for
         //echo $result0;
         if ($result0) {
             $_SESSION['message_stauts_class'] = 'alert-success';
-            $_SESSION['import_status_message'] = 'Form Saved Sucessfully.';
+            $_SESSION['import_status_message'] = 'Form Submitted Sucessfully.';
             $qur04 = mysqli_query($db, "SELECT * FROM  form_user_data where form_name= '$name' ORDER BY `form_user_data_id` DESC ");
             $rowc04 = mysqli_fetch_array($qur04);
             $form_user_data_id = $rowc04["form_user_data_id"];

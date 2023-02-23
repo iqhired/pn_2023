@@ -661,7 +661,7 @@ $sessiontraiong = $_SESSION['training'];
                                     <label class="form-label mg-b-0">Email</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                     <input type="email" name="email" id="email" class="form-control" required>
+                                     <input type="email" name="email" id="email" class="form-control" >
                               
                                 </div>
                             </div>
@@ -874,7 +874,7 @@ $sessiontraiong = $_SESSION['training'];
                                     <label class="form-label mg-b-0">Email</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
-                                     <input type="email" name="edit_email" id="edit_email" class="form-control" required>
+                                     <input type="email" name="edit_email" id="edit_email" class="form-control" >
                               
                                 </div>
                             </div>

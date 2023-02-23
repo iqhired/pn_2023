@@ -1,5 +1,4 @@
-<?php
-include("../config.php");
+<?php include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 checkSession();
@@ -573,7 +572,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                 var line_id = this.data.split('&')[2].split("=")[1];
                 var pe = this.data.split('&')[3].split("=")[1];
                 var ff2 = this.data.split('&')[4].split("=")[1];
-                var deftype = this.data.split('&')[9].split("=")[1];
+                var deftype = this.data.split('&')[10].split("=")[1];
                 var file2 = '../assets/label_files/' + line_id +'/b_'+ff2;
                 if((pe == '1') && (deftype != 'bad_piece')){
                     document.getElementById("resultFrame").contentWindow.ss(file2);

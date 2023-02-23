@@ -1169,7 +1169,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 data: data,
                 success: function (data) {
                     $('#btnSubmit_app').attr('disabled', 'disabled');
-                    $('#success_msg').text('Form submitted Successfully').css('background-color','#0080004f');
+                    $('#success_msg_app').text('Form submitted Successfully').css('background-color','#0080004f');
                     $("form :input").prop("disabled", true);
                     window.scrollTo(0, 0);
 
