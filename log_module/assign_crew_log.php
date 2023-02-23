@@ -1,5 +1,6 @@
 <?php include("../config.php");
 $curdate = date('Y-m-d H:i');
+$cd = date('d-M-Y H:i:s');
 //$dateto = $curdate;
 //$datefrom = $curdate;
 $button = "";
@@ -508,35 +509,28 @@ include("../admin_menu.php");
                                                 $as = $rowc["assign_time"];
                                                 $diffrence = abs(strtotime($unas) - strtotime($as));
                                                 $t_time = round(($diffrence/3600),2);
+                                                $df = abs(strtotime($curdate) - strtotime($as));
+                                                $ct = round(($df/3600),2);
                                                 $diff = abs(strtotime($date_to) - strtotime($as));
                                                 $t = round(($diff/3600),2);
-                                               /* if ($unas == $as) {
-                                                    $unasign = "Still Assigned";
-                                                } else {
-                                                    $unasign = $unas;
-                                                }*/
                                                 if($unas > $date_to)
                                                 {
                                                     $unasign = dateReadFormat($date_to);
                                                 } else if($unas == $as)
                                                 {
-                                                    $unasign = "Still Assigned";
+                                                    $color = '#0a53be;';
+                                                    $unasign = $cd;
                                                 } else
                                                 {
                                                     $unasign = dateReadFormat($unas);
                                                 }
                                                 ?>
-                                               <!-- <?php /*if($unas > $date_to){ */?>
-                                                    <td><?php /*echo dateReadFormat($date_to); */?></td>
-                                                <?php /*}else{ */?>
-                                                    <td><?php /*echo dateReadFormat($unasign); */?></td>
-                                                --><?php /*} */?>
-                                             <td><?php echo $unasign; ?></td>
+                                             <td style="color: <?php echo $color; ?>"><?php echo $unasign; ?></td>
                                                 <?php
                                                 $zero_time = '00:00:00';
                                                 $database_time = $rowc["time"];
                                                 if ($zero_time == $database_time) {
-                                                    $database_time = "Still Assigned";
+                                                    $database_time = $ct;
                                                 }else{
                                                     $database_time = $t_time;
                                                 }

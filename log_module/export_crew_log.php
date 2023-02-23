@@ -1,5 +1,7 @@
 <?php ini_set('display_errors', 'off');
 include '../config.php';
+$curdate = date('Y-m-d H:i');
+$cd = date('d-M-Y H:i:s');
 $taskboard = $_SESSION['taskboard'];
 $user = $_SESSION['usr'];
 $station = $_SESSION['station'];
@@ -146,6 +148,8 @@ if(!empty($station) || !empty($user)){
                     $as = $asin_time;
                     $diffrence = abs(strtotime($unas) - strtotime($as));
                     $t_time = round(($diffrence/3600),2);
+                    $df = abs(strtotime($curdate) - strtotime($as));
+                    $ct = round(($df/3600),2);
                     $diff = abs(strtotime($date_to) - strtotime($as));
                     $t = round(($diff/3600),2);
                     if($unas > $date_to)
@@ -153,7 +157,7 @@ if(!empty($station) || !empty($user)){
                         $unasign = dateReadFormat($date_to);
                     } else if($unas == $as)
                     {
-                        $unasign = "Still Assigned";
+                        $unasign = $cd;
                     } else
                     {
                         $unasign = dateReadFormat($unas);
@@ -165,7 +169,7 @@ if(!empty($station) || !empty($user)){
                     $zero_time = '00:00:00';
                     $database_time = $un;
                     if ($zero_time == $database_time) {
-                        $database_time = "Still Assigned";
+                        $database_time = $ct;
                     }else{
                         $database_time = $t_time;
                     }
@@ -189,6 +193,94 @@ if(!empty($station) || !empty($user)){
     $exportData = mysqli_query($db, $u);
     $header = "User" . "\t" . "Station" . "\t" . "Position" . "\t" . "Assign Time" . "\t" . "Un-Assign Time" . "\t" . "Total Time" . "\t";
     while ($row = mysqli_fetch_row($exportData)) {
+        $line = '';
+        $j = 1;
+
+        foreach ($row as $value) {
+            if ((!isset($value)) || ($value == "")) {
+                $value = "\t";
+            } else {
+                $value = str_replace('"', '""', $value);
+                if ($j == 1) {
+                    $un = $value;
+                    $qurtemp = mysqli_query($db, "SELECT users_id,user_name FROM  cam_users where users_id = '$un'");
+                    while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                        $user_name = $rowctemp["user_name"];
+                    }
+                    $value = $user_name;
+                }
+                if ($j == 2) {
+                    $un = $value;
+                    $qurtemp = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un'");
+                    while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                        $line_name = $rowctemp["line_name"];
+                    }
+                    $value = $line_name;
+                }
+                if ($j == 3) {
+                    $un = $value;
+                    $qurtemp = mysqli_query($db, "SELECT position_name FROM  cam_position where position_id = '$un'");
+                    while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                        $position_name = $rowctemp["position_name"];
+                    }
+                    $value = $position_name;
+                }
+                if ($j == 4) {
+                    $un = $value;
+                    $asin_time = $un;
+                    $value = $asin_time;
+                }
+                if ($j == 5) {
+                    $un = $value;
+                    $unsgn_time = $un;
+                    $unas = $unsgn_time;
+                    $as = $asin_time;
+                    $diffrence = abs(strtotime($unas) - strtotime($as));
+                    $t_time = round(($diffrence/3600),2);
+                    $df = abs(strtotime($curdate) - strtotime($as));
+                    $ct = round(($df/3600),2);
+                    $diff = abs(strtotime($date_to) - strtotime($as));
+                    $t = round(($diff/3600),2);
+                    if($unas > $date_to)
+                    {
+                        $unasign = dateReadFormat($date_to);
+                    } else if($unas == $as)
+                    {
+                        $unasign = $cd;
+                    } else
+                    {
+                        $unasign = dateReadFormat($unas);
+                    }
+                    $value = $unasign;
+                }
+                if ($j == 6) {
+                    $un = $value;
+                    $zero_time = '00:00:00';
+                    $database_time = $un;
+                    if ($zero_time == $database_time) {
+                        $database_time = $ct;
+                    }else{
+                        $database_time = $t_time;
+                    }
+                    if($unas > $date_to){
+                        $unt = $t;
+                    }else{
+                        $unt = $database_time;
+                    }
+                    $value = $unt;
+
+                }
+                $value = '"' . $value . '"' . "\t";
+            }
+            $line .= $value;
+            $j++;
+
+        }
+        $res .= trim($line) . "\n";
+    }
+    $exp = mysqli_query($db, $u1);
+    $header = "User" . "\t" . "Station" . "\t" . "Position" . "\t" . "Assign Time" . "\t" . "Un-Assign Time" . "\t" . "Total Time" . "\t";
+    while ($row = mysqli_fetch_row($exp)) {
         $line = '';
         $j = 1;
 
@@ -257,92 +349,6 @@ if(!empty($station) || !empty($user)){
                         $database_time = $t_time;
                     }
                     $value = $database_time;
-
-                }
-                $value = '"' . $value . '"' . "\t";
-            }
-            $line .= $value;
-            $j++;
-
-        }
-        $res .= trim($line) . "\n";
-    }
-    $exp = mysqli_query($db, $u1);
-    $header = "User" . "\t" . "Station" . "\t" . "Position" . "\t" . "Assign Time" . "\t" . "Un-Assign Time" . "\t" . "Total Time" . "\t";
-    while ($row = mysqli_fetch_row($exp)) {
-        $line = '';
-        $j = 1;
-
-        foreach ($row as $value) {
-            if ((!isset($value)) || ($value == "")) {
-                $value = "\t";
-            } else {
-                $value = str_replace('"', '""', $value);
-                if ($j == 1) {
-                    $un = $value;
-                    $qurtemp = mysqli_query($db, "SELECT users_id,user_name FROM  cam_users where users_id = '$un'");
-                    while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-                        $user_name = $rowctemp["user_name"];
-                    }
-                    $value = $user_name;
-                }
-                if ($j == 2) {
-                    $un = $value;
-                    $qurtemp = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un'");
-                    while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-                        $line_name = $rowctemp["line_name"];
-                    }
-                    $value = $line_name;
-                }
-                if ($j == 3) {
-                    $un = $value;
-                    $qurtemp = mysqli_query($db, "SELECT position_name FROM  cam_position where position_id = '$un'");
-                    while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-                        $position_name = $rowctemp["position_name"];
-                    }
-                    $value = $position_name;
-                }
-                if ($j == 4) {
-                    $un = $value;
-                    $asin_time = $un;
-                    $value = $asin_time;
-                }
-                if ($j == 5) {
-                    $un = $value;
-                    $unsgn_time = $un;
-                    $unas = $unsgn_time;
-                    $as = $asin_time;
-                    $diffrence = abs(strtotime($unas) - strtotime($as));
-                    $t_time = round(($diffrence/3600),2);
-                    $diff = abs(strtotime($date_to) - strtotime($as));
-                    $t = round(($diff/3600),2);
-                    if($unas > $date_to)
-                    {
-                        $unasign = dateReadFormat($date_to);
-                    } else if($unas == $as)
-                    {
-                        $unasign = "Still Assigned";
-                    } else
-                    {
-                        $unasign = dateReadFormat($unas);
-                    }
-                    $value = $unasign;
-                }
-                if ($j == 6) {
-                    $un = $value;
-                    $zero_time = '00:00:00';
-                    $database_time = $un;
-                    if ($zero_time == $database_time) {
-                        $database_time = "Still Assigned";
-                    }else{
-                        $database_time = $t_time;
-                    }
-                    if($unas > $date_to){
-                        $unt = $t;
-                    }else{
-                        $unt = $database_time;
-                    }
-                    $value = $unt;
 
                 }
                 $value = '"' . $value . '"' . "\t";
@@ -482,6 +488,8 @@ if(!empty($station) || !empty($user)){
                     $as = $asin_time;
                     $diffrence = abs(strtotime($unas) - strtotime($as));
                     $t_time = round(($diffrence/3600),2);
+                    $df = abs(strtotime($curdate) - strtotime($as));
+                    $ct = round(($df/3600),2);
                     $diff = abs(strtotime($date_to) - strtotime($as));
                     $t = round(($diff/3600),2);
                     if($unas > $date_to)
@@ -489,7 +497,7 @@ if(!empty($station) || !empty($user)){
                         $unasign = dateReadFormat($date_to);
                     } else if($unas == $as)
                     {
-                        $unasign = "Still Assigned";
+                        $unasign = $cd;
                     } else
                     {
                         $unasign = dateReadFormat($unas);
@@ -501,7 +509,7 @@ if(!empty($station) || !empty($user)){
                     $zero_time = '00:00:00';
                     $database_time = $un;
                     if ($zero_time == $database_time) {
-                        $database_time = "Still Assigned";
+                        $database_time = $ct;
                     }else{
                         $database_time = $t_time;
                     }
