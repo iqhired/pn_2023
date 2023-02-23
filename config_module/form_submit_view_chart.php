@@ -88,6 +88,7 @@
             font-size: 1rem!important;
         }
 
+
         .content_img {
             width: 113px;
             float: left;

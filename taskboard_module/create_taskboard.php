@@ -231,14 +231,9 @@ include("../admin_menu.php");
         }
         displaySFMessage();
         ?>
-
-
-
-
         <form action="" id="user_form" class="form-horizontal" method="post">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-
                     <div class="card">
                         <div class="">
                             <div class="card-header">
@@ -247,7 +242,7 @@ include("../admin_menu.php");
 
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
-                                    <div class="col-md-2">
+                                    <div class="col-md-1.5">
                                         <label class="form-label mg-b-0">Name </label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -255,7 +250,7 @@ include("../admin_menu.php");
                                     </div>
 
                                     <div class="col-md-1"></div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-1.5">
                                         <label class="form-label mg-b-0">Group Name</label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -272,7 +267,8 @@ include("../admin_menu.php");
                                                 echo "<option value='" . $row1['group_id'] . "'$entry>" . $station . "</option>";
                                             }
                                             ?>
-                                        </select>                                    </div>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
@@ -351,6 +347,16 @@ include("../admin_menu.php");
                                         </tbody>
                                     </table>
 </form>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+</div>
 
 
 </div>
@@ -416,14 +422,7 @@ include("../admin_menu.php");
 </div>
 </div>
 </div>
-</div>
-</div>
 
-
-
-</div>
-</div>
-</div>
 
 
 <script> $(document).on('click', '#delete', function () {
@@ -480,8 +479,7 @@ include("../admin_menu.php");
 </script>
 <!-----body-------->
 
-</div>
-</div>
+
 <?php include('../footer1.php') ?>
 
 </body>
