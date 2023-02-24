@@ -616,8 +616,8 @@ include("admin_menu.php");
 
                     if ($countervariable % 4 == 0) {
                         ?>
-                        <div class="row ">
-                        <div class="col-lg-3">
+                        <div class="row">
+                        <div class="col-lg-3" onclick="cellDBNew('<?php echo $station_event_id; ?>' , '<?php echo $line ?>')">
                             <div class="panel cell_bg">
                                 <div class="panel-body">
                                     <div class="heading-elements">
@@ -630,7 +630,7 @@ include("admin_menu.php");
                                                     <?php if($event_status != '0' && $event_status != ''){ ?>
                                                         <li>
                                                             <a href="events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>"
-                                                               target="_BLANK"><i class="fa fa-eye"></i>Good & Bad Piece
+                                                               target="_BLANK"><i class="fa fa-eye"></i>Good & Bad Piece1
                                                             </a></li>
 
                                                     <?php }  ?><li>
@@ -754,10 +754,12 @@ include("admin_menu.php");
                                 </div>
                             </div>
                             <!--                                    </div>-->
-                        </div></div><?php
+                        </div>
+                        </div>
+                        <?php
                     } else {
                         ?>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3" onclick="cellDBNew('<?php echo $station_event_id; ?>' , '<?php echo $line ?>')">
                         <div class="panel cell_bg">
                             <div class="panel-body">
                                 <div class="heading-elements">
@@ -770,7 +772,7 @@ include("admin_menu.php");
                                                 <?php if($event_status != '0' && $event_status != ''){ ?>
                                                     <li>
                                                         <a href="events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>"
-                                                           target="_BLANK"><i class="fa fa-eye"></i>Good & Bad Piece
+                                                           target="_BLANK"><i class="fa fa-eye"></i>Good & Bad Piece1
                                                         </a></li>
 
                                                 <?php }  ?>
@@ -893,7 +895,8 @@ include("admin_menu.php");
 
 
                         </div>
-                        </div><?php
+                        </div>
+                        <?php
                     }
                 }
             }
@@ -923,6 +926,12 @@ if ($i == "") {
     // setTimeout(function () {
     //    location.reload();
     // }, 60000);
+</script>
+<script>
+    function cellDBNew(station_event_id , station) {
+        window.open("<?php echo site_URL . "float_menu.php?station_event_id=" ; ?>" + station_event_id + "<?php echo "&station=" ; ?>" + station , "_self")
+    }
+
 </script>
 <?php include("footer.php");?> <!-- /page container -->
 </body>
