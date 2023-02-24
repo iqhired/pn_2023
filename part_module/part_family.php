@@ -249,7 +249,7 @@ include("../admin_menu.php");
                                 </div>
 
 
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Station</label>
                                 </div>
@@ -282,7 +282,7 @@ include("../admin_menu.php");
                                 </div>
 
 
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Notes</label>
                                 </div>

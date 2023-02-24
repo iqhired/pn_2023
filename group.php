@@ -280,20 +280,20 @@ if (count($_POST) > 0) {
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Group Name</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" class="form-control" name="group_name" id="group_name" placeholder="Enter Group Name" required>
                                 </div>
 
 
 
-                                <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-0.5"></div>
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Parent Group</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select class="form-control select2" name="parent_id" id="parent_id">
                                         <option value="" disabled selected> Select Parent Group </option>
                                         <?php
@@ -311,10 +311,10 @@ if (count($_POST) > 0) {
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Group Description</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" class="form-control" name="disc" id="disc" placeholder="Enter Group Description" required>
                                 </div>
                             </div>

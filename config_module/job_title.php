@@ -303,8 +303,8 @@ include("../admin_menu.php");
                                     -->
                                                 </td>
                                                 <td><?php echo $rowc["job_name"]; ?></td>
-                                                <!--                                         <td>--><?php //echo $rowc['created_at']; ?><!--</td>-->
-                                                <!--                                        <td>--><?php //echo $rowc['updated_at']; ?><!--</td>-->
+                                                <!-- <td>--><?php //echo $rowc['created_at']; ?><!--</td>-->
+                                                <!-- <td>--><?php //echo $rowc['updated_at']; ?><!--</td>-->
                                                 
                                             </tr>
                                         <?php } ?>

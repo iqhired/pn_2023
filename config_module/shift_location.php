@@ -152,6 +152,42 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
+        .row-body {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -8.75rem;
+            margin-right: 6.25rem;
+        }
+        @media (min-width: 320px) and (max-width: 480px) {
+            .row-body {
+
+                margin-left: 0rem;
+                margin-right: 0rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .row-body {
+
+                margin-left: -15rem;
+                margin-right: 0rem;
+            }
+            .col-md-1 {
+                flex: 0 0 8.33333%;
+                max-width: 10.33333%!important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .row-body {
+
+                margin-left:-15rem;
+                margin-right: 0rem;
+            }
+
+        }
+
+
         table.dataTable thead .sorting:after {
             content: ""!important;
             top: 49%;
@@ -182,9 +218,6 @@ if (count($_POST) > 0) {
 
     </style>
 </head>
-
-<!-----body-------->
-<body class="ltr main-body app horizontal">
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Shift Configuration Management";
@@ -192,9 +225,11 @@ include("../header.php");
 include("../admin_menu.php");
 ?>
 
+<!-----body-------->
+<body class="ltr main-body app sidebar-mini">
+<!-----main content----->
 <div class="main-content app-content">
     <!---container--->
-    <div class="main-container container">
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -206,7 +241,7 @@ include("../admin_menu.php");
     </div>
 
     <form action="" id="user_form" class="form-horizontal" method="post">
-        <div class="row">
+        <div class="row-body">
             <div class="col-lg-12 col-md-12">
                 <?php if ($temp == "one") { ?>
                     <div class="alert alert-success no-border">
@@ -226,40 +261,51 @@ include("../admin_menu.php");
                 }
                 displaySFMessage();
                 ?>
+
+
                 <div class="card">
                     <div class="">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Shift Configuration Management</span>
                         </div>
+
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-1.5">
+                                <div class="col-md-2">
                                     <label class="form-label mg-b-0">Shift Location </label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Shift Location" required>
                                 </div>
+                                <div class="col-md-1"></div>
                                 <div class="col-md-1">
                                     <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </form>
-    <form action="delete_shift_location.php" method="post" class="form-horizontal">
-    <div class="row">
+</div>
+</div>
+
+
+</div>
+</div>
+
+<form action="delete_shift_location.php" method="post" class="form-horizontal">
+    <div class="row-body">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
                 </div>
+
                 <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                         <thead>
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
@@ -291,17 +337,12 @@ include("../admin_menu.php");
                                         <?php } ?>
                                         </tbody>
                                     </table>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     </div>
-   </form>
+                                </div>
+</form>
 <!-- /basic datatable -->
+<!-- /main charts -->
 <!-- edit modal -->
-    <div id="edit_modal_theme_primary" class="modal">
+<div id="edit_modal_theme_primary" class="modal">
     <div class="modal-dialog" style="width:100%">
         <div class="modal-content">
             <div class="card-header">
@@ -312,7 +353,7 @@ include("../admin_menu.php");
                   method="post">
                   <div class="card-body" style="width:100%;">
                      <div class="col-lg-12 col-md-12">
-                        <div class="pd-30 pd-sm-20">
+ <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-3">
                                     <label class="form-label mg-b-0">Name:*</label>
@@ -334,7 +375,12 @@ include("../admin_menu.php");
         </div>
     </div>
 </div>
-  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <!-- Dashboard content -->
@@ -358,6 +404,11 @@ include("../admin_menu.php");
         });
     });
 </script>
+<!---container-->
+</div>
+</div>
+
+
 <script>
     window.onload = function() {
         history.replaceState("", "", "<?php echo $scriptName; ?>config_module/shift_location.php");
@@ -370,5 +421,14 @@ include("../admin_menu.php");
 </script>
 <?php include('../footer1.php') ?>
 <script type="text/javascript" src="../assets/js/core/app.js"></script>
+
+
+
+
+
+
+
+
 </body>
+
 </html>

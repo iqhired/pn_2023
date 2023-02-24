@@ -289,7 +289,7 @@ include("../admin_menu.php");
         <div class="left-content">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Material Tracability Config</li>
+                <li class="breadcrumb-item active" aria-current="page">Material Traceability Config</li>
             </ol>
         </div>
     </div>
@@ -313,10 +313,10 @@ include("../admin_menu.php");
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">To Teams :</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select class="form-control select2" name="teams[]" id="teams" multiple="multiple">
                                         <?php
                                         $sql1 = "SELECT DISTINCT(`group_id`) FROM `sg_user_group`";
@@ -335,12 +335,12 @@ include("../admin_menu.php");
 
 
 
-                                <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-0.5"></div>
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">To Users :</label>
                                 </div>
 
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select class="form-control select2" name="users[]" id="users" multiple="multiple">
                                         <?php
                                         $sql1 = "SELECT * FROM `cam_users` WHERE `users_id` != '1' order BY `firstname` ";
@@ -357,10 +357,10 @@ include("../admin_menu.php");
 
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Material Type</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <div id="inputFormRow">
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" name="material_type[]" id="material_type" placeholder="Enter Material Type" required>
@@ -373,8 +373,8 @@ include("../admin_menu.php");
                                 </div>
 
 
-                                <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-0.5"></div>
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Is Serial Number Required:*</label>
                                 </div>
                                 <div class="col-md-1 mg-t-10 mg-md-t-0">

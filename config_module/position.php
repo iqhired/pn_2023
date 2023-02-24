@@ -239,7 +239,7 @@ include("../admin_menu.php");
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Position" required>
                                 </div>
 
-                                <div class="col-md-1">
+                                <div class="card-body pt-0">
                                     <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create</button>
                                 </div>
                             </div>

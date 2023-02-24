@@ -306,7 +306,7 @@ include("../admin_menu.php");
                                 </div>
 
 
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Asset Name </label>
                                 </div>
@@ -336,7 +336,7 @@ include("../admin_menu.php");
         </div>
      </form>
 
-        <div class="row">
+<div class="row">
     <div class="col-12 col-sm-12">
         <div class="card">
            <div class="card-body pt-0 example1-table">
