@@ -14,6 +14,9 @@ ALTER TABLE `good_bad_pieces_details` CHANGE `part_defect_zone` `part_defect_zon
 ALTER TABLE `form_frequency_data` ADD `users` VARCHAR(255) NULL DEFAULT NULL AFTER `event_type_id`;
 ALTER TABLE `sg_station_event_log` ADD `line_id` INT(10) NOT NULL AFTER `station_event_id`;
 ALTER TABLE `sg_station_event_log` ADD `end_time` VARCHAR(255) NOT NULL AFTER `created_on`, ADD `tt` VARCHAR(255) NOT NULL AFTER `end_time`;
+ALTER TABLE `form_frequency_data` ADD `users` VARCHAR(255) NULL DEFAULT NULL AFTER `event_type_id`;
+ALTER TABLE `sg_station_event_log` ADD `line_id` INT(10) NOT NULL AFTER `station_event_id`;
+ALTER TABLE `sg_station_event_log` ADD `end_time` VARCHAR(255) NOT NULL AFTER `created_on`, ADD `tt` VARCHAR(255) NOT NULL AFTER `end_time`;
 ALTER TABLE `cam_line` ADD `shift_st` CHAR(2) NULL DEFAULT '7' AFTER `is_deleted`;
 
 ALTER TABLE `sg_station_event_log` ADD `line_id` INT(10) NULL AFTER `event_seq`;
@@ -21,7 +24,7 @@ ALTER TABLE `sg_station_event_log` ADD `end_time` VARCHAR(255) NULL AFTER `is_in
 ALTER TABLE `sg_station_event_log` ADD `tt` VARCHAR(255) NULL AFTER `end_time`;
 update sg_station_event_log as slog inner join sg_station_event as sg on slog.station_event_id = sg.station_event_id set slog.line_id=sg.line_id where slog.station_event_id = sg.station_event_id;
 
-ALTER TABLE `form_type` ADD `email_req` CHAR(1) NOT NULL DEFAULT '0' AFTER `form_rejection_loop`;
 ALTER TABLE `form_frequency_data` CHANGE `email_status` `email_status` CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0';
 ALTER TABLE `form_frequency_data` CHANGE `email_status` `lab_email` CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0';
 ALTER TABLE `form_frequency_data` ADD `op_mail` CHAR(1) NOT NULL DEFAULT '0' AFTER `lab_email`, ADD `psheet_mail` CHAR(1) NOT NULL DEFAULT '0' AFTER `op_mail`;
+ALTER TABLE `form_type` ADD `email_req` CHAR(1) NOT NULL DEFAULT '0' AFTER `form_rejection_loop`;
