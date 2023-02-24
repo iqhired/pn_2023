@@ -2,6 +2,11 @@
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 ?>
+<h3>Station Event Log Scheduler Link</h3>
+<a href="<?php echo $siteURL ?>log_module/se_schedular.php" target="_blank">
+    <h3><?php echo $siteURL ?>log_module/se_schedular.php</h3>
+</a>
+<br>
 <h3>Scheduler Link</h3>
 <a href="<?php echo $siteURL ?>log_module/se_log_schedular.php" target="_blank">
     <h3><?php echo $siteURL ?>log_module/se_log_schedular.php</h3>
