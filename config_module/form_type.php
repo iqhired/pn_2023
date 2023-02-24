@@ -2,40 +2,12 @@
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-if (!isset($_SESSION['user'])) {
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
-}
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
+//check user
+checkSession();
 
-//  header('location: ../logout.php');
-    exit;
-}
 $is_tab_login = $_SESSION['is_tab_user'];
 $is_cell_login = $_SESSION['is_cell_login'];
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-    header('location: ../dashboard.php');
-}
+
 if (count($_POST) > 0) {
     $name = $_POST['name'];
     $wol = $_POST['wol'];
@@ -141,7 +113,7 @@ if (count($_POST) > 0) {
     <!-- Internal form-elements js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
     <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
-
+</head>
     <style>
         .navbar {
 
@@ -188,41 +160,6 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
-        .row-body {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -8.75rem;
-            margin-right: 6.25rem;
-        }
-        @media (min-width: 320px) and (max-width: 480px) {
-            .row-body {
-
-                margin-left: 0rem;
-                margin-right: 0rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .row-body {
-
-                margin-left: -15rem;
-                margin-right: 0rem;
-            }
-            .col-md-1 {
-                flex: 0 0 8.33333%;
-                max-width: 10.33333%!important;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .row-body {
-
-                margin-left:-15rem;
-                margin-right: 0rem;
-            }
-
-        }
-
 
         table.dataTable thead .sorting:after {
             content: ""!important;
@@ -253,20 +190,19 @@ if (count($_POST) > 0) {
         }
 
     </style>
-
-<!-- Main navbar -->
+<!-----body-------->
 <body class="ltr main-body app horizontal">
-
+<!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Form Type";
 include("../header.php");
 include("../admin_menu.php");
 ?>
+
 <!-----main content----->
 <div class="main-content app-content">
     <!---container--->
     <div class="main-container container">
-
     <!---breadcrumb--->
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
@@ -276,7 +212,6 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-
     <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -307,23 +242,19 @@ include("../admin_menu.php");
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">FORM TYPE</span>
                         </div>
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Form Type</label>
                                 </div>
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Form Type" required>
                                 </div>
-
-
-
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2">
+                                <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Is Work Order/Lot Required:</label>
                                 </div>
-                                <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <div class="row mg-t-15">
                                         <div class="col-lg-3">
                                             <label class="rdiobox">
@@ -335,91 +266,83 @@ include("../admin_menu.php");
                                         </div>
                                     </div>
                                 </div>
-                                
-
-
-
                                 <div class="card-body pt-0">
                                     <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Create Form Type</button>
-
                                 </div>
                             </div>
                         </div>
-    </form>
-</div>
-</div>
-<!-----------Create form sucessfully------------>
-
-
-</div> 
-</div>
-
-
-<form action="delete_form_type.php" method="post" class="form-horizontal">
-    <div class="row">
-        <div class="col-12 col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                    </div>
                 </div>
-                <div class="card-body pt-0 example1-table">
-                    <div class="table-responsive">
-                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
+            </div>
+        </div>
+    </form>
+    <form action="delete_form_type.php" method="post" class="form-horizontal">
+            <div class="row">
+                <div class="col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+                        </div>
+                        <div class="card-body pt-0 example1-table">
+                            <div class="table-responsive">
+                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                                     <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
-                                        <thead>
-                                        <tr>
-                                            <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
-                                            <th>Sl. No</th>
-                                                <th>Action</th>
-                                            <th>Form Type</th>
-                                            <th>Is Work Order/Lot Required </th>
-                                            <th>Form Enabled/Disbaled</th>
-                                            <th>Form Rejection Loop</th>
-                                        
-                                        </tr>
-                                        </thead>
-                                        <tbody><?php
-                                        $query = sprintf("SELECT * FROM  form_type where is_deleted!='1'");
-                                        $qur = mysqli_query($db, $query);
-                                        while ($rowc = mysqli_fetch_array($qur)) {
-                                            ?>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_type_id"]; ?>"><span></span></label></td>
-                                                <td><?php echo ++$counter; ?></td>
-                                                <td>
-                                                    <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn"
-                                                            data-id="<?php echo $rowc['form_type_id']; ?>"
-                                                            data-name="<?php echo $rowc['form_type_name']; ?>"
-                                                            data-wol="<?php if($rowc["wol"] == 0){ echo 'no' ;}else{ echo 'yes' ;} ?>"
-                                                            data-toggle="modal"
-                                                            style="color:background-color:legitReppile"
-                                                            data-target="#edit_modal_theme_primary">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td><?php echo $rowc["form_type_name"]; ?></td>
-                                                <td><?php if($rowc["wol"] == 0){ echo 'No' ;}else{ echo 'Yes' ;}?></td>
-                                                <td><label class="ckbox">
-                                                    <input type="checkbox" name="form_reject" id="form_reject" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_type_reject']==1 ? 'checked' : '');?>>
-                                                <span></span></label></td>
-                                                <td><label class="ckbox">
-                                                    <input type="checkbox" name="rejection_loop" id="rejection_loop" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_rejection_loop']==1 ? 'checked' : '');?>>
-                                                <span></span></label></td>
-                                                
-                                            </tr>
-                                        <?php } ?>
-                                        </tbody>
-                                    </table>
+                                                <thead>
+                                                <tr>
+                                                    <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
+                                                    <th>Sl. No</th>
+                                                        <th>Action</th>
+                                                    <th>Form Type</th>
+                                                    <th>Is Work Order/Lot Required </th>
+                                                    <th>Form Enabled/Disbaled</th>
+                                                    <th>Form Rejection Loop</th>
+                                                    <th>Email Required</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody><?php
+                                                $query = sprintf("SELECT * FROM  form_type where is_deleted!='1'");
+                                                $qur = mysqli_query($db, $query);
+                                                while ($rowc = mysqli_fetch_array($qur)) {
+                                                    ?>
+                                                    <tr>
+                                                        <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["form_type_id"]; ?>"><span></span></label></td>
+                                                        <td><?php echo ++$counter; ?></td>
+                                                        <td>
+                                                            <button type="button" id="edit" class="btn btn-primary btn-xs submit_btn"
+                                                                    data-id="<?php echo $rowc['form_type_id']; ?>"
+                                                                    data-name="<?php echo $rowc['form_type_name']; ?>"
+                                                                    data-wol="<?php if($rowc["wol"] == 0){ echo 'no' ;}else{ echo 'yes' ;} ?>"
+                                                                    data-toggle="modal"
+                                                                    style="color:background-color:legitReppile"
+                                                                    data-target="#edit_modal_theme_primary">
+                                                                <i class="fa fa-edit"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td><?php echo $rowc["form_type_name"]; ?></td>
+                                                        <td><?php if($rowc["wol"] == 0){ echo 'No' ;}else{ echo 'Yes' ;}?></td>
+                                                        <td><label class="ckbox">
+                                                            <input type="checkbox" name="form_reject" id="form_reject" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_type_reject']==1 ? 'checked' : '');?>>
+                                                        <span></span></label></td>
+                                                        <td><label class="ckbox">
+                                                            <input type="checkbox" name="rejection_loop" id="rejection_loop" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['form_rejection_loop']==1 ? 'checked' : '');?>>
+                                                        <span></span></label></td>
+                                                        <td><label class="ckbox">
+                                                                <input type="checkbox" name="email_req" id="email_req" value="<?php echo $rowc["form_type_id"]; ?>" <?php echo ($rowc['email_req']==1 ? 'checked' : '');?>>
+                                                                <span></span></label></td>
 
+                                                    </tr>
+                                                <?php } ?>
+                                                </tbody>
+                                            </table>
                                 </div>
-                            </form>
-
-
-<!-- edit modal -->
-
-<div id="edit_modal_theme_primary" class="modal col-lg-12 col-md-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+    <!-- edit modal -->
+    <div id="edit_modal_theme_primary" class="modal col-lg-12 col-md-12">
     <div class="modal-dialog" style="width:100%">
         <div class="modal-content">
             <div class="card-header">
@@ -432,7 +355,7 @@ include("../admin_menu.php");
                     <div class="col-lg-12 col-md-12">
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
-                            <div class="col-md-4">
+                                <div class="col-md-4">
                                     <label class="form-label mg-b-0">Form Type:*</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-0">
@@ -447,41 +370,31 @@ include("../admin_menu.php");
                                     <label class="form-label mg-b-0">Work Order/Lot:*</label>
                                 </div>
                                 <div class="col-md-8 mg-t-10 mg-md-t-2">
-                                    <div class="row mg-t-15">
-                                        <div class="col-lg-4">
-                                    <label class="rdiobox">
-                                                <input id="edit_yes" name="edit_wol" value="yes" type="radio" checked> <span>Yes</span></label></div>
-                                                <div class="col-lg-3 mg-t-10mg-lg-t-0">
+                                        <div class="row mg-t-15">
+                                            <div class="col-lg-4">
                                                 <label class="rdiobox">
-                                                <input  id="edit_no" name="edit_wol" value="no" type="radio"> <span>No</span></label>
+                                                <input id="edit_yes" name="edit_wol" value="yes" type="radio" checked> <span>Yes</span></label>
                                             </div>
+                                                <div class="col-lg-3 mg-t-10mg-lg-t-0">
+                                                    <label class="rdiobox">
+                                                    <input  id="edit_no" name="edit_wol" value="no" type="radio"> <span>No</span></label>
+                                                </div>
                                         </div>
-                                    
                                 </div>
                             </div>
                         </div>
-                         
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">SAVE</button>
                 </div>
-                 </div>
             </form>
-        
-     
+        </div>
     </div>
 </div>
-                    <!------------>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
- </div>
-
+    </div>
+</div>
  <script> $(document).on('click', '#delete', function () {
         var element = $(this);
         var del_id = element.attr("data-id");
@@ -511,7 +424,6 @@ include("../admin_menu.php");
         });
     });
 </script>
-<!----container---->
 <script> $(document).on('click', '#delete', function () {
         var element = $(this);
         var del_id = element.attr("data-id");
@@ -541,11 +453,6 @@ include("../admin_menu.php");
         });
     });
 </script>
-
-</div>
-
-
-
 <script>
 
     $("input#form_reject").click(function () {
@@ -582,6 +489,23 @@ include("../admin_menu.php");
 
 </script>
 <script>
+    $("input#email_req").click(function () {
+        var isChecked = $(this)[0].checked;
+        var val = $(this).val();
+        var data_1 = "&email_req=" + val+ "&isChecked=" + isChecked;
+        $.ajax({
+            type: 'POST',
+            url: "email_req.php",
+            data: data_1,
+            success: function (response) {
+
+            }
+        });
+
+    });
+
+</script>
+<script>
     window.onload = function () {
         history.replaceState("", "", "<?php echo $scriptName; ?>config_module/form_type.php");
     }
@@ -592,7 +516,5 @@ include("../admin_menu.php");
     });
 </script>
 <?php include('../footer1.php') ?>
-
 </body>
-</head>
 </html>
