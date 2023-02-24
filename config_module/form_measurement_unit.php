@@ -46,7 +46,7 @@ if (count($_POST) > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Form Measurement</title>
+        <?php echo $sitename; ?> |Form Measurement Unit</title>
     <!-- Global stylesheets -->
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
@@ -180,29 +180,26 @@ if (count($_POST) > 0) {
     </style>
 </head>
 <body class="ltr main-body app horizontal">
-
-
 <!-- Main navbar -->
 <?php
 $cust_cam_page_header = "Measurement Unit";
 include("../header.php");
 include("../admin_menu.php");
 ?>
-
 <!-----body-------->
 <!-----main content----->
 <div class="main-content app-content">
     <div class="main-container container">
     <!---container--->
     <!---breadcrumb--->
-     <div class="breadcrumb-header justify-content-between">
+ <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Admin Config</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Form Mesurement Unit</li>
             </ol>
         </div>
-    </div>
+</div>
      <form action="" id="user_form" class="form-horizontal" method="post">
         <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -227,7 +224,7 @@ include("../admin_menu.php");
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required>
                                 </div>
 
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Description </label>
                                 </div>
@@ -366,7 +363,7 @@ include("../admin_menu.php");
             </form>
            </div>
         </div>
-  </div>
+       </div>
      </div>
 </div>
 

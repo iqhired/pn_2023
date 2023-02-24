@@ -277,7 +277,7 @@ include("../admin_menu.php");
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Event Type" required>
                                 </div>
 
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Select Event Category </label>
                                 </div>
@@ -315,7 +315,7 @@ include("../admin_menu.php");
                                     </select>
                                 </div>
 
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Select Color Code</label>
                                 </div>

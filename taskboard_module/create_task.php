@@ -271,6 +271,13 @@ if (count($_POST) > 0) {
         .mt-4 {
             margin-top: 0rem!important;
         }
+        .col-lg-2{
+            width:30%;
+        }
+
+        .col-lg-9{
+            width:100%;
+        }
 
 
 

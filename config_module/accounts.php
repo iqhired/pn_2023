@@ -323,7 +323,7 @@ include("../admin_menu.php");
                                     <div id="error6" class="red">
                                     </div>
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Account Type </label>
                                 </div>
@@ -355,7 +355,7 @@ include("../admin_menu.php");
                                     </div>
 
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Website </label>
                                 </div>
@@ -379,7 +379,7 @@ include("../admin_menu.php");
                                     </div>
 
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Enabled </label>
                                 </div>

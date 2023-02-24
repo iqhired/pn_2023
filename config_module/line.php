@@ -352,7 +352,7 @@ include("../admin_menu.php");
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" name="name" id="name" class="form-control" placeholder="Enter Station" required>
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
 
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Priority Order</label>
@@ -375,11 +375,11 @@ include("../admin_menu.php");
                                     </select>
                                 </div>
 
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Shift Start</label>
                                 </div>
-                                <div class="col-md-3 mg-t-5 mg-md-t-0">
+                                <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <select name="shift_st" id="shift_st" class="form-control form-select select2" data-bs-placeholder="Select Hours">AM
                                         <option value=""  selected>--Select Hours--</option>
                                         <option value="00">00</option>

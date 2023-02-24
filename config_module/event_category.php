@@ -244,7 +244,7 @@ include("../admin_menu.php");
                                     <input type="text" class="form-control" name="events_cat_name" id="events_cat_name" placeholder="Enter Event Category" required>
                                 </div>
 
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Is NPR Required  :</label>
                                 </div>
@@ -262,8 +262,15 @@ include("../admin_menu.php");
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+
 
     </form>
+    </div>
+</div>
+
 
 
 <!-------delete-------->
@@ -338,7 +345,16 @@ include("../admin_menu.php");
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </form>
+
+
 
     <!-- edit modal -->
      <div id="edit_modal_theme_primary" class="modal">

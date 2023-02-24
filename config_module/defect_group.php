@@ -225,7 +225,7 @@ include("../admin_menu.php");
                                 <div class="col-md-4 mg-t-10 mg-md-t-0">
                                     <input type="text" name="group_name" id="group_name" class="form-control" placeholder="Enter Defect Group Name" required>
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-0.5"></div>
                                 <div class="col-md-1.5">
                                     <label class="form-label mg-b-0">Defect Group Description  </label>
                                 </div>
@@ -340,6 +340,10 @@ include("../admin_menu.php");
                 </div>
             </div>
     </form>
+    </div>
+
+</div>
+
     <script> $(document).on('click', '#delete', function () {
             var element = $(this);
             var del_id = element.attr("data-id");
@@ -395,9 +399,7 @@ include("../admin_menu.php");
         });
     </script>
 
-</div>
 
-</div>
 <!-- /page container -->
 
 <script>
