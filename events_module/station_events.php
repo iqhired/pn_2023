@@ -21,6 +21,14 @@ $resc = mysqli_query($db, $sqlc);
 $rowc = mysqli_fetch_array($resc);
 $event_type_id = $rowc['event_type_id'];
 $e_type_id = $event_type_id;
+$part_family = $rowc['part_family_id'];
+$part_number = $rowc['part_number_id'];
+$event_type_id = $rowc['event_type_id'];
+$qurtemp = mysqli_query($db, "SELECT * FROM  event_type where event_type_id  = '$event_type_id' ");
+while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+	$event_type_name = $rowctemp["event_type_name"];
+	$event_cat_id = $rowctemp["event_cat_id"];
+}
 $user_id = $_SESSION["id"];
 $chicagotime = date("Y-m-d H:i:s");
 if (count($_POST) > 0) {
@@ -192,9 +200,11 @@ if(isset($_POST['update_btn'])){
     }
     $part_family_id = $_POST['part_family'];
     $part_number = $_POST['part_number'];
-    $event_type = explode('_',$_POST['event_type_id']);
-	$event_type_id = $event_type[0];
-	$event_cat_id = $event_type[1];
+    if(!empty($_POST['event_type_id'])){
+		$event_type = explode('_',$_POST['event_type_id']);
+		$event_type_id = $event_type[0];
+		$event_cat_id = $event_type[1];
+    }
     $station_event_id = $_GET['station_event_id'];
 	$reason = $_POST['edit_reason'];
 	$qur1 = "select (count(station_event_id)) as seq_num from sg_station_event_log WHERE station_event_id='$station_event_id'";
@@ -417,7 +427,7 @@ if(isset($_POST['update_btn'])){
                                                 if(empty($station)){
                                                     $station = $station_id;
                                                 }
-                                                $part_family = $_POST['part_family'];
+                                                $part_family = (empty($part_family))?$_POST['part_family']:$part_family;
                                                 if(empty($part_family) && !empty($_REQUEST['part_family'])){
                                                     $part_family = $_REQUEST['part_family'];
                                                 }
@@ -447,7 +457,7 @@ if(isset($_POST['update_btn'])){
                                             <select name="part_number" id="part_number" class="select form-control select2" data-placeholder="Select Part Number">
                                                 <option value="" selected disabled>--- Select Part Number ---</option>
                                                 <?php
-                                                $part_number = $_POST['part_number'];
+                                                $part_number = (empty($part_number))?$_POST['part_number']:$part_number;
                                                 if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                     $part_number = $_REQUEST['part_number'];
                                                 }
@@ -487,7 +497,7 @@ if(isset($_POST['update_btn'])){
                                             <select name="event_type_id" id="event_type_id" class="form-control form-select select2" data-placeholder="Select Event Type">
                                                 <option value="" selected disabled>--- Select Event Type ---</option>
                                                 <?php
-                                                $event_type_id = $_POST['event_type_id'];
+                                                $event_type_id = (empty($event_type_id))?$_POST['event_type_id']:$event_type_id;
                                                 if(empty($event_type_id) && !empty($_REQUEST['station_event_id'])){
                                                     $station_event_id = $_REQUEST['station_event_id'];
                                                 }
