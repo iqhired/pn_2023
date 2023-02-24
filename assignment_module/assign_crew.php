@@ -1,5 +1,4 @@
-<?php
-include("../config.php");
+<?php include("../config.php");
 $temp = "";
 $message_stauts_class = 'alert-danger';
 $import_status_message = 'Error: Assignment Position Relation does not exist';
@@ -82,11 +81,12 @@ if ($ps != "") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> | Station Events</title>
+        <?php echo $sitename; ?> | Crew Assignment</title>
     <!-- Global stylesheets -->
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- Theme JS files -->
@@ -285,16 +285,16 @@ if ($ps != "") {
                     </ol>
                 </div>
             </div>
-
     <form action="" method="post"  class="form-horizontal">
         <div class="row">
-           <?php if (!empty($_SESSION['import_status_message'])) {
-            echo '<div class="alert ' . $_SESSION['message_stauts_class'] . '">' . $_SESSION['import_status_message'] . '</div>';
-            $_SESSION['message_stauts_class'] = '';
-            $_SESSION['import_status_message'] = '';
-            }
-            ?>
+
             <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
+				<?php
+				if (!empty($import_status_message)) {
+					echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+				}
+				displaySFMessage();
+				?>
                 <div class="card">
                     <div class="card-header">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">Assign Unassign Crew Members</span>
