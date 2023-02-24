@@ -498,7 +498,7 @@ if(isset($_POST['update_btn'])){
                                                 <option value="" selected disabled>--- Select Event Type ---</option>
                                                 <?php
                                                 $event_type_id = (empty($event_type_id))?$_POST['event_type_id']:$event_type_id;
-                                                if(empty($event_type_id) && !empty($_REQUEST['station_event_id'])){
+                                                if(empty($station_event_id) && !empty($_REQUEST['station_event_id'])){
                                                     $station_event_id = $_REQUEST['station_event_id'];
                                                 }
 
