@@ -39,7 +39,11 @@ if(isset($_POST['submit_btn'])) {
     }
     $part_family_id = $_POST['part_family'];
     $part_number = $_POST['part_number'];
-    $event_type_id = $_POST['event_type_id'];
+	if(!empty($_POST['event_type_id'])){
+		$event_type = explode('_',$_POST['event_type_id']);
+		$event_type_id = $event_type[0];
+		$event_cat_id = $event_type[1];
+	}
     $e_event_id = $_POST['edit_event_type'];
     $edit_event_id = explode("_", $e_event_id)[0];
     $station_event_id = $_POST['station_event_id'];
