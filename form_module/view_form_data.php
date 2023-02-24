@@ -164,7 +164,9 @@ $temp = "";
         .pd-30 {
             padding: 2rem !important;
         }
-
+        .card-header {
+            background-color: #1F5D96 !important;
+        }
     </style>
 </head>
 <!-- Main navbar -->
