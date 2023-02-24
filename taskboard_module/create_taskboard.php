@@ -249,7 +249,7 @@ include("../admin_menu.php");
                                         <input type="text" class="form-control" name="name" id="name"  required>
                                     </div>
 
-                                    <div class="col-md-1"></div>
+                                    <div class="col-md-0.5"></div>
                                     <div class="col-md-1.5">
                                         <label class="form-label mg-b-0">Group Name</label>
                                     </div>
