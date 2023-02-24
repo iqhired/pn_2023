@@ -159,34 +159,35 @@ include("header.php");
                                 <?php if ($countervariable % 4 == 0) { ?>
                                     <div class="btn-list">
                                         <?php if ($event_status != '0' && $event_status != '') { ?>
+                                            <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Assign / Unassign Crew</a>
+                                            <a href="<?php echo $siteURL; ?>form_module/options.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Submit Form</a>
                                             <a href="<?php echo $siteURL; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Good & Bad Piece</a>
-                                            <?php } ?>
-                                        <a href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
+                                            <a href="<?php echo $siteURL; ?>view_assigned_crew.php?station=<?php echo  $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">View Assigned Crew</a>
 
-                                        <a href="<?php echo $siteURL; ?>events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Add/Update Events</a>
-
-
+										<?php } ?>
+                                        <a href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
+                                        <a href="<?php echo $siteURL; ?>events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Add/Update Events</a>
                                         <?php if($is_admin == 1){ ?>
-                                        <a href="<?php echo $siteURL; ?>form_module/form_settings.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Create Form</a>
+                                        <a href="<?php echo $siteURL; ?>form_module/form_settings.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Create Form</a>
                                         <?php }  ?>
-                                        <a href="<?php echo $siteURL; ?>form_module/options.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Submit Form</a>
-                                        <a href="<?php echo $siteURL; ?>form_module/form_search.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Form</a>
-                                        <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Assign / Unassign Crew</a>
-                                        <a href="<?php echo $siteURL; ?>view_assigned_crew.php?station=<?php echo  $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Assigned Crew</a>
-                                    </div>
+                                           <a href="<?php echo $siteURL; ?>form_module/form_search.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">View Form</a>
+                                                       </div>
                                 <?php }  else { ?>
-                                <div class="btn-list">
+                                    <div class="btn-list">
+										<?php if ($event_status != '0' && $event_status != '') { ?>
+                                            <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Assign / Unassign Crew</a>
+                                            <a href="<?php echo $siteURL; ?>form_module/options.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Submit Form</a>
+                                            <a href="<?php echo $siteURL; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Good & Bad Piece</a>
+                                            <a href="<?php echo $siteURL; ?>view_assigned_crew.php?station=<?php echo  $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">View Assigned Crew</a>
 
-                                    <a href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
-
-                                    <a href="<?php echo $siteURL; ?>events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Add/Update Events</a>
-
-
-                                    <a href="<?php echo $siteURL; ?>form_module/form_search.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Form</a>
-                                    <a href="<?php echo $siteURL; ?>document_module/view_document.php?station=<?php echo $line; ?>&part=<?php echo $p_no; ?>"class="btn  bg-success text-white view_gpbp">View Document</a>
-
-
-                                </div>
+										<?php } ?>
+                                        <a href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
+                                        <a href="<?php echo $siteURL; ?>events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Add/Update Events</a>
+										<?php if($is_admin == 1){ ?>
+                                            <a href="<?php echo $siteURL; ?>form_module/form_settings.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">Create Form</a>
+										<?php }  ?>
+                                        <a href="<?php echo $siteURL; ?>form_module/form_search.php?station=<?php echo $rowc["line_id"]; ?>&station_event_id=<?php echo $station_event_id; ?>" class="btn bg-success text-white view_gpbp">View Form</a>
+                                    </div>
                                 <?php } ?>
                             </div>
                         </div>
