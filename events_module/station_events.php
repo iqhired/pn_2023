@@ -39,7 +39,11 @@ if(isset($_POST['submit_btn'])) {
     }
     $part_family_id = $_POST['part_family'];
     $part_number = $_POST['part_number'];
-    $event_type_id = $_POST['event_type_id'];
+	if(!empty($_POST['event_type_id'])){
+		$event_type = explode('_',$_POST['event_type_id']);
+		$event_type_id = $event_type[0];
+		$event_cat_id = $event_type[1];
+	}
     $e_event_id = $_POST['edit_event_type'];
     $edit_event_id = explode("_", $e_event_id)[0];
     $station_event_id = $_POST['station_event_id'];
@@ -138,7 +142,7 @@ if(isset($_POST['submit_btn'])) {
                 $result0 = mysqli_query($db, $sql0);
                 $station_event_id = ($db->insert_id);
                 if ($result0) {
-                    $sql0 = "insert into form_frequency_data(`station_event_id`,`line_up_time`,`up_time`,`event_type_id`) values ('$station_event_id','$chicagotime','02:00','$event_type_id')";
+                    $sql0 = "insert into form_frequency_data(`station_event_id`,`enabled`,`line_up_time`,`up_time`,`event_type_id`) values ('$station_event_id','1','$chicagotime','02:00','$event_type_id')";
                     $result0 = mysqli_query($db, $sql0);
 
                     $qur1 = "select (count(station_event_id)) as seq_num from sg_station_event_log WHERE station_event_id='$station_event_id'";
