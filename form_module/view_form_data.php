@@ -171,16 +171,7 @@ $temp = "";
 <!-- Page container -->
 <body class="ltr main-body app horizontal">
 <!-- Main navbar -->
-<?php if (!empty($station)){
-    include("../cell-menu.php");
-}else{
-    include("../header.php");
-    if ($is_tab_login || ($_SESSION["role_id"] == "pn_user")) {
-        include("../tab_menu.php");
-    } else {
-        include("../admin_menu.php");
-    }
-}
+<?php include("../header_folder.php");
 ?>
 <div class="main-content horizontal-content">
     <div class="main-container container">
@@ -609,7 +600,7 @@ $temp = "";
                                                                                     <label class="rdiobox">
                                                                                     <input type="radio" id="yes" name="<?php echo $rowc['form_item_id']; ?>"
                                                                                            value="<?php echo $rowc['binary_yes_alias']; ?>"
-                                                                                           class="form-check-input pn_none" disabled >
+                                                                                           class="pn_none" disabled >
                                                                                     <span for="yes" class="item_label" style="background-color: #ffadad !important;"
                                                                                            style="background-color: #ffadad !important;"><?php echo $rowc['binary_yes_alias']; ?></span>
                                                                                     </label>
@@ -618,7 +609,7 @@ $temp = "";
                                                                                     <label class="rdiobox">
                                                                                     <input type="radio" id="no" name="<?php echo $rowc['form_item_id']; ?>"
                                                                                            value="<?php echo $rowc['binary_no_alias']; ?>"
-                                                                                           class="form-check-input pn_none" checked disabled >
+                                                                                           class="pn_none" checked disabled >
                                                                                     <span for="no" class="item_label" style="background-color: #ffadad !important;"
                                                                                            style="background-color: #ffadad !important;"><?php echo $rowc['binary_no_alias']; ?></span>
                                                                                     </label>
@@ -761,7 +752,7 @@ $temp = "";
                                                                                     <label class="rdiobox">
                                                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                                                value="<?php echo $rowc['list_name1']; ?>"
-                                                                                               class="form-check-input pn_none" disabled >
+                                                                                               class="pn_none" disabled >
                                                                                         <span for="none"
                                                                                                class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                                                id="<?php echo $rowc['form_item_id']; ?>" style="background-color: #ffadad;"><?php $yes_alias = $rowc['list_name1'];
@@ -778,7 +769,7 @@ $temp = "";
                                                                                     <label class="rdiobox">
                                                                                             <input type="radio" id="extra" name="<?php echo $rowc['form_item_id']; ?>"
                                                                                                    value="<?php echo $arr_list; ?>"
-                                                                                                   class="form-check-input pn_none" disabled>
+                                                                                                   class="pn_none" disabled>
                                                                                             <span for="none"
                                                                                                    class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                                                    id="<?php echo $rowc['form_item_id']; ?>" style="background-color: #ffadad;"><?php $extra_alias = $arr_list;
@@ -882,7 +873,7 @@ $temp = "";
                                                                                     <label class="rdiobox">
                                                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                                                value="<?php echo $rowc['list_name1']; ?>"
-                                                                                               class="form-check-input pn_none" disabled style="display: none">
+                                                                                               class="pn_none" disabled style="display: none">
                                                                                         <span for="none"
                                                                                                class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                                                id="<?php echo $rowc['form_item_id']; ?>" ></span>
@@ -893,7 +884,7 @@ $temp = "";
                                                                                     <label class="rdiobox">
                                                                                         <input type="radio" id="none" name="<?php echo $rowc['form_item_id']; ?>"
                                                                                                value="<?php echo $rowc['list_name1']; ?>"
-                                                                                               class="form-check-input pn_none" disabled >
+                                                                                               class="pn_none" disabled >
                                                                                         <span for="none"
                                                                                                class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                                                id="<?php echo $rowc['form_item_id']; ?>"><?php $yes_alias = $rowc['list_name1'];
@@ -910,7 +901,7 @@ $temp = "";
                                                                                     <label class="rdiobox">
                                                                                             <input type="radio" id="extra" name="<?php echo $rowc['form_item_id']; ?>"
                                                                                                    value="<?php echo $arr_list;?>"
-                                                                                                   class="form-check-input pn_none" <?php if($checked == "extra_$radiocount"){echo 'checked'; }?>  disabled >
+                                                                                                   class="pn_none" <?php if($checked == "extra_$radiocount"){echo 'checked'; }?>  disabled >
                                                                                             <span for="none"
                                                                                                    class="pn_none item_label <?php echo $rowc['form_item_id']; ?>"
                                                                                                    id="<?php echo $rowc['form_item_id']; ?>"><?php $extra_alias = $arr_list;
