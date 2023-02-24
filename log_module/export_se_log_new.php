@@ -1,4 +1,6 @@
 <?php include '../config.php';
+$curdate = date('Y-m-d H:i');
+$cd = date('d-M-Y H:i:s');
 $taskboard = $_SESSION['taskboard'];
 $user = $_SESSION['user'];
 $date = $_SESSION['assign_date'];
@@ -103,7 +105,8 @@ while ($row = mysqli_fetch_row($exp)) {
                 $end_time = $un;
                 $diff = abs(strtotime($date_to) - strtotime($date_from));
                 $t = round(($diff/3600),2);
-                if($end_time > $date_to)
+                $is_true = strtotime($end_time) > strtotime($date_to);
+                if($is_true)
                 {
                     $end_t = $date_to;
                 }else{
@@ -113,7 +116,8 @@ while ($row = mysqli_fetch_row($exp)) {
             }
             if ($j == 9) {
                 $un = $value;
-                if($end_time > $date_to)
+                $is_true = strtotime($end_time) > strtotime($date_to);
+                if($is_true)
                 {
                     $t_t = $t;
                 }else{
@@ -160,23 +164,34 @@ while ($row = mysqli_fetch_row($export)) {
                 $end_time = $un;
                 $diff = abs(strtotime($date_to) - strtotime($start_time));
                 $t = round(($diff/3600),2);
-                if($end_time > $date_to)
-                {
-                    $end_t = dateReadFormat($date_to);
+                $df = abs(strtotime($curdate) - strtotime($start_time));
+                $ct = round(($df/3600),2);
+                if(!empty($end_time)){
+                    $is_true = strtotime($end_time) > strtotime($date_to);
+                    if($is_true)
+                    {
+                        $end_t = dateReadFormat($date_to);
+                    }else{
+                        $end_t = dateReadFormat($end_time);
+                    }
                 }else{
-                    $end_t = dateReadFormat($end_time);
+                    $end_t = dateReadFormat($cd);
                 }
                 $value = $end_t;
             }
             if ($j == 9) {
                 $un = $value;
                 $tt = $un;
-                $is_true = strtotime($end_time) > strtotime($date_to);
-                if($is_true)
-                {
-                    $t_t = $t;
+                if(!empty($end_time)) {
+                    $is_true = strtotime($end_time) > strtotime($date_to);
+                    if($is_true)
+                    {
+                        $t_t = $t;
+                    }else{
+                        $t_t = $tt;
+                    }
                 }else{
-                    $t_t = $tt;
+                    $t_t = $ct;
                 }
                 $value = $t_t;
             }
