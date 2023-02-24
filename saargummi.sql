@@ -28,3 +28,4 @@ ALTER TABLE `form_frequency_data` CHANGE `email_status` `email_status` CHAR(1) C
 ALTER TABLE `form_frequency_data` CHANGE `email_status` `lab_email` CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0';
 ALTER TABLE `form_frequency_data` ADD `op_mail` CHAR(1) NOT NULL DEFAULT '0' AFTER `lab_email`, ADD `psheet_mail` CHAR(1) NOT NULL DEFAULT '0' AFTER `op_mail`;
 ALTER TABLE `form_type` ADD `email_req` CHAR(1) NOT NULL DEFAULT '0' AFTER `form_rejection_loop`;
+ALTER TABLE `form_frequency_data` ADD `enabled` CHAR(1) NOT NULL DEFAULT '0' AFTER `station_event_id`;
