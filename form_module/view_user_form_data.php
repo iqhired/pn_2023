@@ -191,6 +191,10 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                 width: 80%;
             }
 
+            .col-md-6 {
+                width:90%;
+            }
+
 
         }
 
