@@ -260,7 +260,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
                 </div>
             </div>
         </div>
-
+		<?php } ?>
     </div>
 </div>
 <!-- Footer opened -->
