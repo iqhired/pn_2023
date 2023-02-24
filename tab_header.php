@@ -35,7 +35,6 @@ if(!empty($result1)) {
 <script type="text/javascript" src="assets/js/pages/components_dropdowns.js"></script>
 <style>
     .header {
-        overflow: hidden;
         background-color: #060818;
         padding: 8px 25px;
     }

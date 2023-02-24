@@ -26,7 +26,9 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/libs/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/plugins/loaders/blockui.min.js"></script>
@@ -270,8 +272,6 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
             background-color: #fff !important;
             border-bottom: 1px solid #f0f0f8!important;
         }
-
-
 
     </style>
 </head>
