@@ -1,7 +1,7 @@
 <?php include("../config.php");
 $temp = "";
-$message_stauts_class = 'alert-danger';
-$import_status_message = 'Error: Assignment Position Relation does not exist';
+//$message_stauts_class = 'alert-danger';
+//$import_status_message = 'Error: Assignment Position Relation does not exist';
 $assign_line = $_GET['station'];
 
 $station = $_GET['station'];
@@ -290,9 +290,9 @@ if ($ps != "") {
 
             <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
 				<?php
-				if (!empty($import_status_message)) {
-					echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-				}
+//				if (!empty($import_status_message)) {
+//					echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+//				}
 				displaySFMessage();
 				?>
                 <div class="card">
@@ -389,8 +389,8 @@ if ($ps != "") {
                         $query = sprintf("SELECT * FROM  cam_station_pos_rel where line_id = '$assign_line' ; ");
                         $qur = mysqli_query($db, $query);
                         while ($rowc = mysqli_fetch_array($qur)) {
-                        $message_stauts_class = '';
-                        $import_status_message = '';
+//                        $message_stauts_class = '';
+//                        $import_status_message = '';
                         ?>
                         <div class="row row-xs align-items-center mg-b-20">
                             <?php
@@ -658,12 +658,6 @@ if ($ps != "") {
         </div>
     </div>
     </form>
-        <br/>
-        <?php
-        if (!empty($import_status_message)) {
-            echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-        }
-        ?>
     <?php } ?>
     </div>
 </div>
@@ -737,7 +731,7 @@ if ($ps != "") {
             success: function (data) {
                 // window.location.href = window.location.href + "?aa=Line 1";
                 $(':input[type="button"]').prop('disabled', false);
-                location.reload();
+                // location.reload();
             }
         });
     }
@@ -751,7 +745,7 @@ if ($ps != "") {
             success: function (data) {
                 // window.location.href = window.location.href + "?aa=Line 1";
                 $(':input[type="button"]').prop('disabled', false);
-                location.reload();
+                // location.reload();
             }
         });
     }

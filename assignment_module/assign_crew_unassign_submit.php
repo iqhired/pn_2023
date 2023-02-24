@@ -19,6 +19,9 @@ if (count($_POST) > 0) {
     $jm = $_POST['assign_line'];
     if ($jm != "") {
         $assign_line = $jm;
+    }else{
+        $jm = $_POST['assignline'];
+        $assign_line = $jm;
     }
     $delete_check = $_POST['delete_check'];
     $delete_user = $_POST['delete_user'];
@@ -35,6 +38,10 @@ if (count($_POST) > 0) {
                 $query0001 = sprintf("SELECT * FROM  cam_assign_crew WHERE `assign_crew_id`='$delete_check[$i]' ");
                 $qur0001 = mysqli_query($db, $query0001);
                 $rowc0001 = mysqli_fetch_array($qur0001);
+                if(empty($rowc0001)){
+                    $sql5 = "update cam_station_pos_rel set assigned ='0' where line_id='$assign_line'";
+                    $result5 = mysqli_query($db, $sql5);
+                }
                 $posname = $rowc0001["position_id"];
                 $linename = $rowc0001["line_id"];
                 $username = $rowc0001["user_id"];
@@ -105,6 +112,8 @@ if (count($_POST) > 0) {
                 if ($assign_crew_id01 == "" || $assign_crew_id01 == NULL) {
                     $sql6 = "update cam_log set flag ='0' , updated_at = '$chicagotime' where line_id='$linename' and flag = '1'";
                     $result6 = mysqli_query($db, $sql6);
+                    $sql5 = "update cam_station_pos_rel set assigned ='0' where line_id='$assign_line'";
+                    $result5 = mysqli_query($db, $sql5);
                 }
 //first assign log become 0 into log table over
                 mysqli_query($conn, "COMMIT");
