@@ -18,9 +18,9 @@ $qur1 = mysqli_query($db, "SELECT * FROM cam_line where line_id = '$line_id' and
 $row1 = mysqli_fetch_array($qur1);
 $line_name = $row1["line_name"];
 
-$exp = mysqli_query($s_db,"SELECT data_item_value,(item_normal + item_upper_tol) as upper_tol,(item_normal + item_lower_tol) as lower_tol,created_at as created_at/*,data_item_id*/ FROM `spc_schedular_data` WHERE `data_item_id` = '$form_item_id' and created_at >= '$datefrom' and created_at <= '$dateto'");
+$exp = mysqli_query($s_db,"SELECT data_item_value,(item_normal + item_upper_tol) as upper_tol,(item_normal + item_lower_tol) as lower_tol,created_at as created_at/*,data_item_id*/ FROM `spc_schedular_data` WHERE `data_item_id` = '$form_item_id' and created_at >= '$datefrom' and created_at <= '$dateto' order by created_at asc");
 $header = "Station" . "\t" . "Form type" . "\t" . "Part Family" . "\t" . "Part Number&Name" . "\t" . "Value" . "\t" . "Upper Tolerance" . "\t" . "Lower Tolerance" . "\t" . "Date" . "\t";
-$p = "SPC Analytics Data From : " .datemdY($date_from). ' To : ' .datemdY($date_to);
+$p = "SPC Analytics Data From : " .onlydateReadFormat($datefrom). ' To : ' .onlydateReadFormat($dateto);
 while ($row = mysqli_fetch_row($exp)) {
     $line = '';
     $j = 1;

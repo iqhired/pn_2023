@@ -12,7 +12,7 @@ $sql = "SELECT data_item_value as data_item_value , data_item_desc as data_item_
     $posts = array();
     $result = mysqli_query($s_db,$sql);
     $data =array();
-    while ($row = mysqli_fetch_array($result)){
+    while ($row = mysqli_fetch_assoc($result)){
 		$date = explode(' ', $row["created_at"])[0];
         $c_date = onlydateReadFormat($date);
         $item_normal = $row['item_normal'];
@@ -22,18 +22,30 @@ $sql = "SELECT data_item_value as data_item_value , data_item_desc as data_item_
     		if($row['data_item_value'] == 'yes'){
 				$val = $c_date . "~" . 1;
                 $upper_tol = $c_date . "~" . ($item_normal + $row['item_upper_tol']);
-                $lower_tol = $c_date . "~" . ($item_normal + $row['item_lower_tol']);
+                if($item_normal == '0'){
+                    $lower_tol = $c_date . "~" . $row['item_lower_tol'];
+                }else{
+                    $lower_tol = $c_date . "~" . ($item_normal + $row['item_lower_tol']);
+                }
 				$posts[] = array('item_value'=> $val,'upper_tol'=>$upper_tol,'lower_tol'=>$lower_tol);
 			}else if($row['data_item_value'] == 'no'){
 				$val = $c_date . "~" . 0;
                 $upper_tol = $c_date . "~" . ($item_normal + $row['item_upper_tol']);
-                $lower_tol = $c_date . "~" . ($item_normal + $row['item_lower_tol']);
+                if($item_normal == '0'){
+                    $lower_tol = $c_date . "~" . $row['item_lower_tol'];
+                }else{
+                    $lower_tol = $c_date . "~" . ($item_normal + $row['item_lower_tol']);
+                }
 				$posts[] = array('item_value'=> $val,'upper_tol'=>$upper_tol,'lower_tol'=>$lower_tol);
 			}
 		}else if($row['data_item_desc'] == 'numeric'){
 			$val = $c_date . "~" . $row['data_item_value'];
             $upper_tol = $c_date . "~" . ($item_normal + $row['item_upper_tol']);
-            $lower_tol = $c_date . "~" . ($item_normal + $row['item_lower_tol']);
+            if($item_normal == '0'){
+                $lower_tol = $c_date . "~" . $row['item_lower_tol'];
+            }else{
+                $lower_tol = $c_date . "~" . ($item_normal + $row['item_lower_tol']);
+            }
 			$posts[] = array('item_value'=> $val,'upper_tol'=>$upper_tol,'lower_tol'=>$lower_tol);
 		}
     }
