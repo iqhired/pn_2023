@@ -12,6 +12,9 @@ if (!isset($_SESSION['user'])) {
         header($redirect_logout_path);
     }
 }
+
+$tab_line = $_SESSION['tab_station'];
+$is_tab_login = $_SESSION['is_tab_user'];
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
 //Read the request time of the user
@@ -36,7 +39,7 @@ $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
-$i = $_SESSION["role_id"];
+$i = $_SESSION['role_id'];
 if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     header('location: ../dashboard.php');
 }
@@ -50,11 +53,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     <title>
         <?php echo $sitename; ?> |Add / Create Form</title>
     <!-- Global stylesheets -->
-
-
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-
-
     <!-- /global stylesheets -->
     <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
@@ -69,7 +68,6 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
@@ -301,12 +299,30 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
     </style>
 </head>
 <body class="ltr main-body app horizontal">
-<?php if (!empty($station)){
-    include("../cell-menu.php");
-}else{
-    include("../header.php");
-    include("../admin_menu.php");
-}
+<?php
+if(!empty($is_cell_login) && $is_cell_login == 1){
+    if (!empty($station)) {
+        include("../cell-menu.php");
+    } else {
+        include("../header.php");
+        include("../tab_menu.php");
+    }
+}else if(!empty($i) && ($is_tab_login != null)){
+        if (!empty($station)) {
+            include("../cell-menu.php");
+        } else {
+            include("../header.php");
+            include("../tab_menu.php");
+        }
+    }else {
+            if (!empty($station)) {
+                include("../cell-menu.php");
+            } else {
+                include("../header.php");
+                include("../admin_menu.php");
+            }
+
+    }
 ?>
 <!-- main-content -->
    <div class="main-content horizontal-content">

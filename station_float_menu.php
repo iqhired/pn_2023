@@ -2,13 +2,32 @@
 if (!isset($_SESSION['user'])) {
     header('location: logout.php');
 }
+
+//Set the session duration for 10800 seconds - 3 hours
+$duration = $auto_logout_duration;
+//Read the request time of the user
+$time = $_SERVER['REQUEST_TIME'];
+//Check the user's session exist or not
+if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
+    //Unset the session variables
+    session_unset();
+    //Destroy the session
+    session_destroy();
+    header($redirect_logout_path);
+    exit;
+}
+//Set the time of the user's last activity
+$_SESSION['LAST_ACTIVITY'] = $time;
+//$_SESSION['timestamp_id'] = '';
+//$_SESSION['f_type'] = '';
 $timestamp = date('H:i:s');
 $message = date("Y-m-d H:i:s");
-$cell_id = $_SESSION['cell_id'];
+$is_cust_dash = $_SESSION['is_cust_dash'];
+$line_cust_dash = $_SESSION['line_cust_dash'];
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 $station = $_GET['station'];
-$_SESSION['line_cust_dash'] =0;
-$role = $_SESSION['role_id'];
-$is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
+
 ?>
 <!Doctype html>
 <html lang="en">
@@ -25,7 +44,9 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
         a.btn.bg-success.text-white.view_gpbp {
             height: 60px;
             width: 196px;
-            font-weight: 400!important;
+            font-weight: 500!important;
+            /*background-color: #1F5D96 !important; !* Green *!*/
+            background: linear-gradient(60deg, rgb(55, 114, 180), rgb(43, 90, 140)) !important; /* Green */
         }
         .example{
             text-align: center !important;
@@ -40,9 +61,37 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
             margin-top: 30px !important;
         }
 
+        a.btn.bg-success.text-white.view_gpbp  {
+
+        }
+        .btn{
+            background-color: #005a92 !important;
+        }
+
+        .dropdown .arrow {
+            width: 2rem;
+            margin-left: 0px!important;
+            margin-top: 0!important;
+            fill: currentColor;
+        }
+        .text-wrap{
+            margin: 30px;
+        }
+        .input-group{
+            width: 100%;
+            margin: auto;
+            padding: 0px 30px;
+        }
+
+        .row {
+            padding: 10px;
+        }
     </style>
 </head>
 <body class="ltr main-body app horizontal">
+<?php
+include("header.php");
+?>
 <!-- main-content -->
 <div class="main-content horizontal-content">
     <!-- container -->
@@ -53,35 +102,42 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
             </div>
         </div>
         <?php
-        $query = sprintf("SELECT * FROM  cam_line where enabled = '1' and line_id = '$station'");
+        $query = "select * from cam_line where line_id = '$station'";
         $qur = mysqli_query($db, $query);
         $countervariable = 0;
+
         while ($rowc = mysqli_fetch_array($qur)) {
-        $event_status = '';
-        $line_status_text = '';
-        $buttonclass = '#000';
-        $p_num = '';
-        $p_name = '';
-        $pf_name = '';
-        $time = '';
-        $countervariable++;
-        $line = $rowc["line_id"];
-        $line_name = $rowc["line_name"];
-        $qur01 = mysqli_query($db, "SELECT pn.part_number as p_num, pn.part_name as p_name , pf.part_family_name as pf_name, et.event_type_name as e_name ,et.color_code as color_code , sg_events.modified_on as updated_time ,sg_events.station_event_id as station_event_id , sg_events.event_status as event_status , sg_events.created_on as e_start_time FROM sg_station_event as sg_events inner join event_type as et on sg_events.event_type_id=et.event_type_id Inner Join pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id inner join pm_part_number as pn on sg_events.part_number_id=pn.pm_part_number_id where sg_events.line_id= '$line' ORDER by sg_events.created_on DESC LIMIT 1");
-        $rowc01 = mysqli_fetch_array($qur01);
-        if($rowc01 != null){
-            $time = $rowc01['updated_time'];
-            $station_event_id = $rowc01['station_event_id'];
-            $line_status_text = $rowc01['e_name'];
-            $event_status = $rowc01['event_status'];
-            $p_num = $rowc01["p_num"];;
-            $p_name = $rowc01["p_name"];;
-            $pf_name = $rowc01["pf_name"];;
-            $buttonclass = $rowc01["color_code"];
-        }
-        ?>
+            $event_status = '';
+            $line_status_text = '';
+            $buttonclass = '#000';
+            $p_num = '';
+            $p_name = '';
+            $pf_name = '';
+            $time = '';
+            $countervariable++;
+            $line = $rowc["line_id"];
+            $line_name = $rowc["line_name"];
+
+            //$qur01 = mysqli_query($db, "SELECT created_on as start_time , modified_on as updated_time FROM  sg_station_event where line_id = '$line' and event_status = 1 order BY created_on DESC LIMIT 1");
+            $qur01 = mysqli_query($db, "SELECT pn.part_number as p_num, pn.part_name as p_name , pn.pm_part_number_id as p_no , pf.part_family_name as pf_name,pf.pm_part_family_id as pf_no, et.event_type_name as e_name ,et.color_code as color_code , sg_events.modified_on as updated_time ,sg_events.station_event_id as station_event_id , sg_events.event_status as event_status , sg_events.created_on as e_start_time,sg_events.event_type_id as event_type_id FROM sg_station_event as sg_events inner join event_type as et on sg_events.event_type_id=et.event_type_id Inner Join pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id inner join pm_part_number as pn on sg_events.part_number_id=pn.pm_part_number_id where sg_events.line_id= '$line' and sg_events.event_type_id != 7 ORDER by sg_events.created_on DESC LIMIT 1");
+            $rowc01 = mysqli_fetch_array($qur01);
+            if ($rowc01 != null) {
+                $event_type_id = $rowc01['event_type_id'];
+                $time = $rowc01['updated_time'];
+                $station_event_id = $rowc01['station_event_id'];
+                $line_status_text = $rowc01['e_name'];
+                $event_status = $rowc01['event_status'];
+                $p_num = $rowc01["p_num"];
+                $p_no = $rowc01["p_no"];
+                $p_name = $rowc01["p_name"];
+                $pf_name = $rowc01["pf_name"];
+                $pf_no = $rowc01["pf_no"];
+                $buttonclass = $rowc01["color_code"];
+            } else {
+
+            } ?>
         <div class="row">
-            <div style="float: left;margin-left: 5%;margin-bottom: 2%;" class="col-lg-6 col-md-6">
+            <div style="float: left;margin-left: 5%;" class="col-lg-6 col-md-6">
                 <h2><?php echo $line_name;?> - Station Menu</h2>
             </div>
             <div style="text-align: end;" class="col-lg-5 col-md-5">
@@ -100,6 +156,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
                         </div>
                         <div class="text-wrap">
                             <div class="example">
+                                <?php if ($countervariable % 4 == 0) { ?>
                                     <div class="btn-list">
                                         <?php if ($event_status != '0' && $event_status != '') { ?>
                                             <a href="<?php echo $siteURL; ?>events_module/good_bad_piece.php?station_event_id=<?php echo $station_event_id; ?>&station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Good & Bad Piece</a>
@@ -117,7 +174,20 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
                                         <a href="<?php echo $siteURL; ?>assignment_module/assign_crew.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Assign / Unassign Crew</a>
                                         <a href="<?php echo $siteURL; ?>view_assigned_crew.php?station=<?php echo  $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Assigned Crew</a>
                                     </div>
+                                <?php }  else { ?>
+                                <div class="btn-list">
 
+                                    <a href="<?php echo $siteURL; ?>view_station_status.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Station</a>
+
+                                    <a href="<?php echo $siteURL; ?>events_module/station_events.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">Add/Update Events</a>
+
+
+                                    <a href="<?php echo $siteURL; ?>form_module/form_search.php?station=<?php echo $rowc["line_id"]; ?>" class="btn bg-success text-white view_gpbp">View Form</a>
+                                    <a href="<?php echo $siteURL; ?>document_module/view_document.php?station=<?php echo $line; ?>&part=<?php echo $p_no; ?>"class="btn  bg-success text-white view_gpbp">View Document</a>
+
+
+                                </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -127,10 +197,7 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
       <?php } ?>
     </div>
 </div>
-<!-- Footer opened -->
-<?php include('footer1.php') ?>
 
-<!-- Footer closed -->
 <!-- JQUERY JS -->
 <script src="<?php echo $siteURL;?>assets/js/form_js/jquery-min.js"></script>
 <script>
@@ -142,5 +209,9 @@ $is_admin = (($role != null) && (isset($role)) && ($role == 'admin'))?1:0;
         });
     });
 </script>
+<!-- Footer opened -->
+<?php include('footer1.php') ?>
+
+<!-- Footer closed -->
 </body>
 </html>
