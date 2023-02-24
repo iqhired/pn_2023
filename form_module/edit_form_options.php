@@ -9,6 +9,9 @@ if (!isset($_SESSION['user'])) {
         header($redirect_logout_path);
     }
 }
+
+$tab_line = $_SESSION['tab_station'];
+$is_tab_login = $_SESSION['is_tab_user'];
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
 //Read the request time of the user
@@ -182,9 +185,29 @@ if ($i != "super" && $i != "admin") {
 
 <!-- Main navbar -->
 <?php
-$cust_cam_page_header = "Add / Create Form";
-include("../header.php");
-include("../admin_menu.php");
+if(!empty($is_cell_login) && $is_cell_login == 1){
+    if (!empty($station)) {
+        include("../cell-menu.php");
+    } else {
+        include("../header.php");
+        include("../tab_menu.php");
+    }
+}else if(!empty($i) && ($is_tab_login != null)){
+    if (!empty($station)) {
+        include("../cell-menu.php");
+    } else {
+        include("../header.php");
+        include("../tab_menu.php");
+    }
+}else {
+    if (!empty($station)) {
+        include("../cell-menu.php");
+    } else {
+        include("../header.php");
+        include("../admin_menu.php");
+    }
+
+}
 ?>
 
 <body class="ltr main-body app sidebar-mini">

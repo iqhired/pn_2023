@@ -9,6 +9,8 @@ if (!isset($_SESSION['user'])) {
         header($redirect_logout_path);
     }
 }
+$tab_line = $_SESSION['tab_station'];
+$is_tab_login = $_SESSION['is_tab_user'];
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
 //Read the request time of the user
@@ -212,13 +214,32 @@ if (count($_POST) > 0) {
 </head>
 
 <body class="ltr main-body app horizontal">
-<?php if (!empty($cell_station)){
-    include("../cell-menu.php");
-}else{
-    include("../header.php");
-    include("../admin_menu.php");
+<?php
+if(!empty($is_cell_login) && $is_cell_login == 1){
+    if (!empty($station)) {
+        include("../cell-menu.php");
+    } else {
+        include("../header.php");
+        include("../tab_menu.php");
+    }
+}else if(!empty($i) && ($is_tab_login != null)){
+    if (!empty($station)) {
+        include("../cell-menu.php");
+    } else {
+        include("../header.php");
+        include("../tab_menu.php");
+    }
+}else {
+    if (!empty($station)) {
+        include("../cell-menu.php");
+    } else {
+        include("../header.php");
+        include("../admin_menu.php");
+    }
+
 }
 ?>
+
 <!-- main-content -->
 <div class="main-content app-content">
     <!-- container -->
@@ -253,11 +274,20 @@ if (count($_POST) > 0) {
                                         <?php
                                         $st_dashboard = $_GET['station'];
                                         if($is_tab_login){
+                                        if (!empty($station)) {
                                             $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and line_id = '$st_dashboard' and is_deleted != 1 ORDER BY `line_name` ASC";
+
+                                           }else{
+                                            $sql1 = "SELECT line_id,line_name FROM `cam_line`  where enabled = '1' and is_deleted != 1 ORDER BY `line_name` ASC";
+
+                                         }
                                             $result1 = $mysqli->query($sql1);
-                                            //                                            $entry = 'selected';
                                             while ($row1 = $result1->fetch_assoc()) {
-                                                $entry = 'selected';
+                                                if (!empty($station)) {
+                                                    $entry = 'selected';
+                                                }else{
+                                                    $entry = '';
+                                                }
                                                 echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
                                             }
                                         }else if($is_cell_login){
