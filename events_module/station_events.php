@@ -21,9 +21,12 @@ $resc = mysqli_query($db, $sqlc);
 $rowc = mysqli_fetch_array($resc);
 $event_type_id = $rowc['event_type_id'];
 $e_type_id = $event_type_id;
-$part_family = $rowc['part_family_id'];
-$part_number = $rowc['part_number_id'];
-$event_type_id = $rowc['event_type_id'];
+if($event_type_id != 7){
+	$part_family = $rowc['part_family_id'];
+	$part_number = $rowc['part_number_id'];
+	$event_type_id = $rowc['event_type_id'];
+}
+
 $qurtemp = mysqli_query($db, "SELECT * FROM  event_type where event_type_id  = '$event_type_id' ");
 while ($rowctemp = mysqli_fetch_array($qurtemp)) {
 	$event_type_name = $rowctemp["event_type_name"];
@@ -431,7 +434,7 @@ if(isset($_POST['update_btn'])){
                                                 if(empty($station)){
                                                     $station = $station_id;
                                                 }
-                                                $part_family = ((empty($part_family) && ( $event_type_id != 7)))?$_POST['part_family']:$part_family;
+                                                $part_family = ((empty($part_family) && ( $event_type_id == 7)))?$_POST['part_family']:$part_family;
                                                 if(empty($part_family) && !empty($_REQUEST['part_family'])){
                                                     $part_family = $_REQUEST['part_family'];
                                                 }
@@ -461,7 +464,7 @@ if(isset($_POST['update_btn'])){
                                             <select name="part_number" id="part_number" class="select form-control select2" data-placeholder="Select Part Number">
                                                 <option value="" selected disabled>--- Select Part Number ---</option>
                                                 <?php
-                                                $part_number = ((empty($part_number)&& ( $event_type_id != 7)))?$_POST['part_number']:$part_number;
+                                                $part_number = ((empty($part_number)&& ( $event_type_id == 7)))?$_POST['part_number']:$part_number;
                                                 if(empty($part_number) && !empty($_REQUEST['part_number'])){
                                                     $part_number = $_REQUEST['part_number'];
                                                 }
