@@ -190,9 +190,6 @@ if (count($_POST) > 0) {
         }
 
     </style>
-
-
-
 <!-----body-------->
 <body class="ltr main-body app horizontal">
 <!-- Main navbar -->
