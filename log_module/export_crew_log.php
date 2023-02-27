@@ -12,12 +12,12 @@ $timezone = $_SESSION['timezone'];
 $print_data='';
 $date_from = convertMDYToYMDwithTime($datefrom);
 $date_to = convertMDYToYMDwithTime($dateto);
-$ss3 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to'";
-$ss2 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from'";
-$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `station_id` = '$station'";
-$qur = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `station_id` = '$station'";
-$u = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time` as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' AND `user_id` = '$user'";
-$u1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time` as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' AND `user_id` = '$user'";
+$ss3 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,COALESCE(total_time,abs(`unassign_time` - `assign_time`)) AS time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to'";
+$ss2 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,COALESCE(total_time,abs(`unassign_time` - '$date_from')) AS time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from'";
+$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,COALESCE(total_time,abs(`unassign_time` - '$date_from')) AS time  FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `station_id` = '$station'";
+$qur = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,COALESCE(total_time,abs(`unassign_time` - `assign_time`)) AS time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `station_id` = '$station'";
+$u = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,COALESCE(total_time,abs(`unassign_time` - '$date_from')) AS time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' AND `user_id` = '$user'";
+$u1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,COALESCE(total_time,abs(`unassign_time` - `assign_time`)) AS time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' AND `user_id` = '$user'";
 if(!empty($station) || !empty($user)){
     //if station not empty
         $exportData = mysqli_query($db, $ss1);
@@ -90,7 +90,11 @@ if(!empty($station) || !empty($user)){
                         }else{
                             $database_time = $t_time;
                         }
-                        $value = $database_time;
+                        if($value == ''){
+                            $value = $t_time;
+                        }else{
+                            $value = $database_time;
+                        }
 
                     }
                     $value = '"' . $value . '"' . "\t";
