@@ -484,7 +484,12 @@ include("../admin_menu.php");
             </ol>
         </div>
     </div>
-
+	<?php
+	if (!empty($import_status_message)) {
+		echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+	}
+	displaySFMessage();
+	?>
     <form action="" id="upload_csv" class="form-horizontal" method="post" id="import_form">
         <div class="row-body">
             <div class="col-lg-12 col-md-12">
