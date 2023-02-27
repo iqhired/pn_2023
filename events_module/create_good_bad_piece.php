@@ -466,6 +466,7 @@ else if($good_bad_piece_name != "")
 {
 
     $add_defect_name = $_POST['add_defect_name'];
+    $defect_zone = $_POST['defect_zone'];
 //        $cnt = count($defect_arr);
     $bad_type = $_POST['bad_type'];
     $good_bad_piece_name = $_POST['good_bad_piece_name'];
@@ -556,9 +557,9 @@ else if($good_bad_piece_name != "")
         }
         else
         {
-            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `defect_name`, `bad_pieces`, `rework`, `created_at`,`created_by`, `modified_at`) VALUES ('$station_event_id','$add_defect_name','$good_bad_piece_name','','$chicagotime','$user','$chicagotime')";
+            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `defect_name`, `bad_pieces`,`part_defect_zone`, `rework`, `created_at`,`created_by`, `modified_at`) VALUES ('$station_event_id','$add_defect_name','$good_bad_piece_name','$defect_zone','','$chicagotime','$user','$chicagotime')";
             $result11 = mysqli_query($db, $sql1);
-            $sqlquery = "INSERT INTO `good_bad_pieces`(`station_event_id`,`bad_pieces`,`created_at`,`modified_at`) VALUES ('$station_event_id','$good_bad_piece_name','$chicagotime','$chicagotime')";
+            $sqlquery = "INSERT INTO `good_bad_pieces`(`station_event_id`,`bad_pieces`,`part_defect_zone`,`created_at`,`modified_at`) VALUES ('$station_event_id','$good_bad_piece_name','$defect_zone','$chicagotime','$chicagotime')";
             if (!mysqli_query($db, $sqlquery)) {
                 $_SESSION['message_stauts_class'] = 'alert-danger';
                 $_SESSION['import_status_message'] = 'Error: Bad Pieces Couldnt Added';

@@ -354,25 +354,26 @@ include("../admin_menu.php");
                                                 echo "<option value='" . $row1['sg_taskboard_id'] . "' >" . $row1['taskboard_name'] . "</option>";
                                             }
                                             ?>
-                                        </select>                                    </div>
+                                        </select>
+                                    </div>
 
                                     <div class="col-md-1"></div>
                                     <div class="col-md-1">
                                         <label class="form-label mg-b-0">Assign To</label>
                                     </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+
                                         <input type="hidden" name="role_id" id="role_id" value="<?php echo $_SESSION["role_id"]; ?>">
                                         <?php
                                         $i = $_SESSION["role_id"];
                                         if ($i == "super" || $i == "admin") {
                                             ?>
-                                            <div class="col-lg-9">
+                                            <div class="col-md-4 mg-t-10 mg-md-t-0">
                                                 <select name="user_name" id="user_name" class="select form-control" data-style="bg-slate">
                                                     <option value="" selected >--- Select User ---</option>
                                                 </select>
                                             </div>
                                         <?php } else { ?>
-                                            <div class="col-lg-9">
+                                            <div class="col-md-4 mg-t-10 mg-md-t-0">
                                                 <select name="user_name1" id="user_name1" class="form-control select2" data-style="bg-slate">
                                                     <?php
                                                     $iddd = $_SESSION["id"];
@@ -387,7 +388,6 @@ include("../admin_menu.php");
                                         <?php } ?>
                                     </div>
                                 </div>
-                            </div>
 
 
                             <div class="pd-30 pd-sm-20">
@@ -513,9 +513,9 @@ include("../admin_menu.php");
 
                         </div>
                     </div>
+                </div>
+            </div>
         </form>
-    </div>
-</div>
 
 <?php
 $i = $_SESSION["role_id"];
@@ -612,12 +612,11 @@ if ($i == "super" || $i == "admin") {
                                             </tbody>
                                         </table>
     </form>
-    </div>
     <?php
 } else {
     ?>
-
-    <div class="col-sm-12">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
         <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
             <thead>
             <tr>
@@ -719,10 +718,9 @@ if ($i == "super" || $i == "admin") {
             </tbody>
         </table>
     </div>
+  </div>
 <?php }
 ?>
-
-
 
 <div id="edit_modal_theme_primary" class="modal">
     <div class="modal-dialog" style="width:100%">
@@ -921,14 +919,9 @@ if ($i == "super" || $i == "admin") {
 
         </div>
     </div>
-</div></div>
 </div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
+     </div>
+ </div>
 
 <script> $(document).on('click', '#delete', function () {
         var element = $(this);

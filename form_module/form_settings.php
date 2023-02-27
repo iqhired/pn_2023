@@ -146,7 +146,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" ) {
         .remove_btn{
             float: right;
         }
-        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
+        .contextMenu{ position:absolute;  width:min-content; left: 220px; background:#e5e5e5; z-index:999;}
         .collapse.in {
             display: block!important;
         }
