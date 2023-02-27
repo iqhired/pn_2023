@@ -37,7 +37,8 @@ if ($i != "super" && $i != "admin" && $i != "pn_user") {
 }
 $s_event_id = $_GET['station_event_id'];
 $station = $_GET['station'];
-
+$cellID = $_GET['cell_id'];
+$c_name = $_GET['c_name'];
 $station_event_id = $s_event_id;
 //$station_event_id = base64_decode(urldecode($s_event_id));
 $sqlmain = "SELECT * FROM `sg_station_event` where `station_event_id` = '$s_event_id'";
