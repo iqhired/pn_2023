@@ -26,12 +26,12 @@ if(empty($datefrom)){
 
 $q = "select distinct slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
-pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt as total_time from sg_station_event_log as slogup 
+pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.total_time as total_time from sg_station_event_log_update as slogup 
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
 inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1";
 $q11 = "select distinct slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
-pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt as total_time from sg_station_event_log as slogup 
+pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.total_time as total_time from sg_station_event_log_update as slogup 
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
 inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1";
 
@@ -54,17 +54,17 @@ if($datefrom != "" && $dateto != ""){
     $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
 }else if($datefrom == "" && $dateto != ""){
     $date_to = convertMDYToYMDwithTime($dateto);
-	$q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to'";
+    $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to'";
 }
 
 $print_data .=  "From Date : " . onlydateReadFormat($date_from) . '-' . "To Date : " . onlydateReadFormat($date_to). "\n";
 if ($event_type != "") {
-	$q = $q . " and slogup.event_type_id = '$event_type'";
+    $q = $q . " and slogup.event_type_id = '$event_type'";
     $q11 = $q11 . " and slogup.event_type_id = '$event_type'";
 }
 
 if ($event_category != "") {
-	$q = $q . " AND  slogup.event_cat_id ='$event_category'";
+    $q = $q . " AND  slogup.event_cat_id ='$event_category'";
     $q11 = $q11 . " AND  slogup.event_cat_id ='$event_category'";
 }
 
@@ -80,13 +80,13 @@ if (empty($line_id)){
 $exp = mysqli_query($db, $q11);
 $header = "Station" . "\t" ."Event Type" . "\t" . "Part Number" . "\t" . "Part Name" . "\t" . "Part Family" .  "\t"  . "Date" .  "\t". "Start Time" . "\t" ."End Time" . "\t" ."Total Time" . "\t" ;
 while ($row = mysqli_fetch_row($exp)) {
-	$line = '';
-	$j = 1;
-        foreach ($row as $value) {
-		if ((!isset($value)) || ($value == "")) {
-			$value = "\t";
-		} else {
-			$value = str_replace('"', '""', $value);
+    $line = '';
+    $j = 1;
+    foreach ($row as $value) {
+        if ((!isset($value)) || ($value == "")) {
+            $value = "\t";
+        } else {
+            $value = str_replace('"', '""', $value);
             if ($j == 1) {
                 $un = $value;
                 $qurtemp = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un'");
@@ -126,13 +126,13 @@ while ($row = mysqli_fetch_row($exp)) {
                 }
                 $value = $t_t;
             }
-			$value = '"' . $value . '"' . "\t";
-		}
-		$line .= $value;
-		$j++;
+            $value = '"' . $value . '"' . "\t";
+        }
+        $line .= $value;
+        $j++;
 
-	}
-	$result .= trim($line) . "\n";
+    }
+    $result .= trim($line) . "\n";
 
 }
 $export = mysqli_query($db, $q);
@@ -207,7 +207,7 @@ while ($row = mysqli_fetch_row($export)) {
 $result = str_replace("\r", "", $result);
 
 if ($result == "") {
-	$result = "\nNo Record(s) Found!\n";
+    $result = "\nNo Record(s) Found!\n";
 }
 header("Content-type: application/octet-stream");
 header("Content-Disposition: attachment; filename=Station Events Log.xls");
