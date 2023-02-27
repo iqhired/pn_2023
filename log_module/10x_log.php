@@ -372,7 +372,11 @@ include("../admin_menu.php");
                                     </div>
                                 </div>
                             </div>
-                         </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
 
 
 

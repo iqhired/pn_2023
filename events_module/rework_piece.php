@@ -279,11 +279,11 @@ $idd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
      <input type="hidden" name="station_event_id" id="station_event_id" class="form-control" value="<?php echo $station_event_id; ?>" >
         
 
-        <div class="row-body">
+        <div class="row">
             <div class="col-lg-12 col-md-12">
                 
                 <div class="card">
-                    <div class="card-body">
+                    <div class="">
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Update Rework Piece</span>
                         </div>

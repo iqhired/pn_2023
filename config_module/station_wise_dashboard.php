@@ -8,9 +8,6 @@ while ($cam1 = mysqli_fetch_array($result1)) {
     $station1 = $cam1['line_id'];
     $station2 = $cam1['line_name'];
 }
-
-
-
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -21,15 +18,26 @@ while ($cam1 = mysqli_fetch_array($result1)) {
         <title>
             <?php echo $sitename; ?> Station dashboard</title>
 
-
-        <!-- INTERNAL Select2 css -->
-        <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
+        <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
 
 
-        <!-- STYLES CSS -->
-        <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
-        <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
-        <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
+        <!-- /global stylesheets -->
+        <!-- Core JS files -->
+        <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
+        <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
+        <!-- Theme JS files -->
+        <script type="text/javascript" src="../assets/js/plugins/tables/datatables/datatables.min.js"></script>
+        <script type="text/javascript" src="../assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+        <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+        <script type="text/javascript" src="../assets/js/pages/datatables_basic.js"></script>
+        <script type="text/javascript" src="../assets/js/plugins/forms/selects/select2.min.js"></script>
+        <script type="text/javascript" src="../assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+        <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
+        <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
+        <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
 
         <!--Internal  Datetimepicker-slider css -->
         <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
@@ -66,25 +74,8 @@ while ($cam1 = mysqli_fetch_array($result1)) {
         <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
         <!-- Internal form-elements js -->
         <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-        <link href="<?php echo $siteURL; ?>assets/js/form_css/demo.css" rel="stylesheet"/>
-        <!-- anychart documentation -->
-        <!-- INTERNAL Select2 css -->
-        <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet" />
-        <!-- STYLES CSS -->
-        <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
-        <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
-        <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-        <!-- Anycharts starts-->
-        <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-base.min.js"></script>
-        <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-data-adapter.min.js"></script>
-        <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-ui.min.js"></script>
-        <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-exports.min.js"></script>
-        <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-pareto.min.js"></script>
-        <script src="<?php echo $siteURL; ?>assets/js/charts/anychart/anychart-circular-gauge.min.js"></script>
-        <link href="<?php echo $siteURL; ?>assets/css/anychart/anychart-ui.min.css" rel="stylesheet">
-        <link href="<?php echo $siteURL; ?>assets/css/anychart/anychart-font.min.css" rel="stylesheet">
+        <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
         <!-- Anycharts ends-->
-
         <style>
             .navbar {
 
@@ -131,41 +122,6 @@ while ($cam1 = mysqli_fetch_array($result1)) {
             .mt-4 {
                 margin-top: 0rem!important;
             }
-            .row-body {
-                display: flex;
-                flex-wrap: wrap;
-                margin-left: -8.75rem;
-                margin-right: 6.25rem;
-            }
-            @media (min-width: 320px) and (max-width: 480px) {
-                .row-body {
-
-                    margin-left: 0rem;
-                    margin-right: 0rem;
-                }
-            }
-
-            @media (min-width: 481px) and (max-width: 768px) {
-                .row-body {
-
-                    margin-left: -15rem;
-                    margin-right: 0rem;
-                }
-                .col-md-1 {
-                    flex: 0 0 8.33333%;
-                    max-width: 10.33333%!important;
-                }
-            }
-
-            @media (min-width: 769px) and (max-width: 1024px) {
-                .row-body {
-
-                    margin-left:-15rem;
-                    margin-right: 0rem;
-                }
-
-            }
-
 
             table.dataTable thead .sorting:after {
                 content: ""!important;
@@ -194,18 +150,7 @@ while ($cam1 = mysqli_fetch_array($result1)) {
                 width: 100px;
                 height: 23px;
             }
-            .card-footer{
-                margin-top: 1.2rem!important;
-                height: 60px!important;
-            }
-            .card-title {
-                margin-top: 1rem!important;
-                text-align: center!important;
-                font-size: larger!important;
-            }
-            .anychart-credits{
-                visibility: hidden!important;
-            }
+
         </style>
     </head>
 
