@@ -260,19 +260,19 @@ include("../admin_menu.php");
 <div class="main-content horizontal-content">
     <!-- container -->
     <!-- container -->
-        <div class="main-container container">
+    <div class="main-container container">
         <!-- breadcrumb -->
-               <div class="breadcrumb-header justify-content-between">
-                   <div class="left-content">
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
                     <li class="breadcrumb-item active" aria-current="page"> Station event log</li>
                 </ol>
             </div>
-               </div>
-                <form action="" id="user_form" class="form-horizontal" method="post">
-                  <div class="row">
-                  <div class="col-lg-12 col-md-12">
+        </div>
+        <form action="" id="user_form" class="form-horizontal" method="post">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-header">
@@ -291,11 +291,11 @@ include("../admin_menu.php");
                                     }
                                     ?>
 
-                                        <div class="col-md-0.5">
-                                            <label class="rdiobox"><input type="radio" name="button_event" id="button3" value="button3"
-                                                                          class="form-control"
-                                                                          style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
-                                        </div>
+                                    <div class="col-md-0.5">
+                                        <label class="rdiobox"><input type="radio" name="button_event" id="button3" value="button3"
+                                                                      class="form-control"
+                                                                      style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                    </div>
 
                                     <div class="col-md-3 mg-t-10 mg-md-t-0">
                                         <select name="event_type" id="event_type" class="form-control form-select select2" data-placeholder="Select Event Type">
@@ -330,9 +330,9 @@ include("../admin_menu.php");
                                     }
                                     ?>
                                     <div class="col-md-0.5">
-                                            <label class="rdiobox">  <input type="radio" name="button_event" id="button4" value="button4"
-                                                                            class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
-                                        </div>
+                                        <label class="rdiobox">  <input type="radio" name="button_event" id="button4" value="button4"
+                                                                        class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                    </div>
 
                                     <div class="col-md-3 mg-t-10 mg-md-t-0">
                                         <select name="event_category" id="event_category" class="form-control form-select select2" data-placeholder="Select Event Category">
@@ -432,200 +432,136 @@ include("../admin_menu.php");
                             ?>
                             <div class="pd-20 pd-sm-10">
                                 <div class="row row-xs">
-                                    <div class="col-md-1">
-                                        <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
-                                    </div>
+                                    <form action="log_schedular.php" method="post">
+                                        <div class="col-md-1">
+                                            <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Submit</button>
+                                        </div>
+                                    </form>
                                     <div class="col-md-1">
                                         <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
                                     </div>
-                                </form>
-                                  <form action="export_se_log_new.php" method="post" name="export_excel">
-                <div class="col-md-1">
-                    <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
-                </div>
-            </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  </div>
+        </form>
+        <form action="export_se_log_new2.php" method="post" name="export_excel">
+            <div class="col-md-1">
+                <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
-    <!-- row  -->
-    <?php
-    if(count($_POST) > 0)
-    {
-        ?>
-        <div class="row">
-            <div class="col-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body pt-0">
-                        <div class="table-responsive">
-                            <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
-                                <thead>
-                                <tr>
-                                    <th>Station</th>
-                                    <th>Event Type</th>
-                                    <th>Part Number</th>
-                                    <th>Part Name</th>
-                                    <th>Part Family</th>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <th>Total Time</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                $main_query = "select slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
+<!-- row  -->
+<?php
+if(count($_POST) > 0)
+{
+    ?>
+    <div class="row">
+        <div class="col-12 col-sm-12">
+            <div class="card">
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
+                            <thead>
+                            <tr>
+                                <th>Station</th>
+                                <th>Event Type</th>
+                                <th>Part Number</th>
+                                <th>Part Name</th>
+                                <th>Part Family</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Total Time</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $main_query = "select slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type, 
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
-pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt as total_time from sg_station_event_log as slogup 
+pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.total_time as total_time from sg_station_event_log_update as slogup 
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
 inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1 ";
-                                //where DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') >= '2022-11-03'
-                                //and DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') <= '2022-11-03' and slogup.line_id = '3' ORDER BY slogup.created_on ASC";
-                                /* Default Query */
-                                $date_from = convertMDYToYMDwithTime($datefrom);
-                                $date_to = convertMDYToYMDwithTime($dateto);
-                                $q = $main_query . " and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
-                                $q11 = $main_query . " and DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+                            //where DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') >= '2022-11-03'
+                            //and DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') <= '2022-11-03' and slogup.line_id = '3' ORDER BY slogup.created_on ASC";
+                            /* Default Query */
+                            $date_from = convertMDYToYMDwithTime($datefrom);
+                            $date_to = convertMDYToYMDwithTime($dateto);
+                            $q = $main_query . " and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
+                            $q11 = $main_query . " and DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
 
+                            $line = $_POST['station'];
+
+                            /* If Line is selected. */
+                            if ($line != null) {
                                 $line = $_POST['station'];
+                                $cur_date = convertMDYToYMDwithTime($curdate);
+                                $q = $main_query . "and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$cur_date' and slogup.line_id = '$line' ";
+                                $q11 = $main_query . "and DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$cur_date' and slogup.line_id = '$line' ";
+                            }
+
+                            /* Build the query to fetch the data*/
+                            if (count($_POST) > 0) {
+                                $line = $_POST['station'];
+                                $line_id = $_POST['station'];
+                                $dateto = $_POST['date_to'];
+                                $datefrom = $_POST['date_from'];
+                                $button = $_POST['button'];
+                                $button_event = $_POST['button_event'];
+                                $event_type = $_POST['event_type'];
+                                $event_category = $_POST['event_category'];
+                                $timezone = $_POST['timezone'];
+                                //event type
+                                $q = $main_query;
+                                $q11 = $main_query;
+                                $q12 = $main_query;
 
                                 /* If Line is selected. */
-                                if ($line != null) {
-                                    $line = $_POST['station'];
-                                    $cur_date = convertMDYToYMDwithTime($curdate);
-                                    $q = $main_query . "and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$cur_date' and slogup.line_id = '$line' ";
-                                    $q11 = $main_query . "and DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$cur_date' and slogup.line_id = '$line' ";
+                                if ($line_id != null) {
+                                    $q = $q . " and slogup.line_id = '$line_id' ";
+                                    $q11 = $q11 . " and slogup.line_id = '$line_id' ";
+                                    $q12 = $q12 . " and slogup.line_id = '$line_id' ";
+                                }
+                                if ($datefrom != "" && $dateto != "") {
+                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                    $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
+                                    $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+                                    $q12 = $q12 . " AND (slogup.end_time is NULL) and IGNORE_id = 0  ";
+                                } else if ($datefrom != "" && $dateto == "") {
+                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                    $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' ";
+                                    $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+                                    $q12 = $q12 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+                                } else if ($datefrom == "" && $dateto != "") {
+                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                    $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
                                 }
 
-                                /* Build the query to fetch the data*/
-                                if (count($_POST) > 0) {
-                                    $line = $_POST['station'];
-                                    $line_id = $_POST['station'];
-                                    $dateto = $_POST['date_to'];
-                                    $datefrom = $_POST['date_from'];
-                                    $button = $_POST['button'];
-                                    $button_event = $_POST['button_event'];
-                                    $event_type = $_POST['event_type'];
-                                    $event_category = $_POST['event_category'];
-                                    $timezone = $_POST['timezone'];
-                                    //event type
-                                    $q = $main_query;
-                                    $q11 = $main_query;
-                                    $q12 = $main_query;
-
-                                    /* If Line is selected. */
-                                    if ($line_id != null) {
-                                        $q = $q . " and slogup.line_id = '$line_id' ";
-                                        $q11 = $q11 . " and slogup.line_id = '$line_id' ";
-                                        $q12 = $q12 . " and slogup.line_id = '$line_id' ";
-                                    }
-                                    if ($datefrom != "" && $dateto != "") {
-                                        $date_from = convertMDYToYMDwithTime($datefrom);
-                                        $date_to = convertMDYToYMDwithTime($dateto);
-                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
-                                        $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
-                                        $q12 = $q12 . " AND (slogup.end_time is NULL) and IGNORE_id = 0  ";
-                                    } else if ($datefrom != "" && $dateto == "") {
-                                        $date_from = convertMDYToYMDwithTime($datefrom);
-                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' ";
-                                        $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
-                                        $q12 = $q12 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
-                                    } else if ($datefrom == "" && $dateto != "") {
-                                        $date_to = convertMDYToYMDwithTime($dateto);
-                                        $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
-                                    }
-
-                                    if ($event_type != "") {
-                                        $q = $q . " and slogup.event_type_id = '$event_type'";
-                                        $q11 = $q11 . " and slogup.event_type_id = '$event_type'";
-                                        $q12 = $q12 . " and slogup.event_type_id = '$event_type'";
-                                    }
-
-                                    if ($event_category != "") {
-                                        $q = $q . " AND  slogup.event_cat_id ='$event_category'";
-                                        $q11 = $q11 . " AND  slogup.event_cat_id ='$event_category'";
-                                        $q12 = $q12 . " AND  slogup.event_cat_id ='$event_category'";
-                                    }
-
-                                    $q = $q . " ORDER BY slogup.created_on  ASC";
-                                    $q11 = $q11 . " ORDER BY slogup.created_on  ASC";
-                                    $q12 = $q12 . " ORDER BY slogup.created_on  DESC";
-
+                                if ($event_type != "") {
+                                    $q = $q . " and slogup.event_type_id = '$event_type'";
+                                    $q11 = $q11 . " and slogup.event_type_id = '$event_type'";
+                                    $q12 = $q12 . " and slogup.event_type_id = '$event_type'";
                                 }
-								/* Execute the Query Built*/
-								$qur11 = mysqli_query($db, $q11);
-								$numrows = $qur11->num_rows;
-								if($numrows > 0){
-									while ($rowc = mysqli_fetch_array($qur11)) {
-										?>
-                                        <tr>
-											<?php
-											$un = $rowc['line_id'];
-											$qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
-											while ($rowc04 = mysqli_fetch_array($qur04)) {
-												$lnn = $rowc04["line_name"];
-											}
-											?>
-                                            <td><?php echo $lnn; ?></td>
-                                            <td><?php echo $rowc["e_type"]; ?></td>
-                                            <td><?php echo $rowc['p_num']; ?></td>
-                                            <td><?php echo $rowc['p_name']; ?></td>
-                                            <td><?php echo $rowc['pf_name']; ?></td>
-                                            <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
-											<?php
-											$diff = abs(strtotime($date_to) - strtotime($date_from));
-											$t = round(($diff/3600),2);
-											$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
-											if($is_true)
-											{
-												$end_time = dateReadFormat($date_to);
-												$t_time = $t;
-											}else{
-												$end_time = dateReadFormat($rowc['end_time']);
-												$dd = (strtotime($rowc['end_time']) - strtotime($date_from));
-												$t_time = round(($dd/3600),2);
-											}
-											?>
-                                            <td><?php echo $end_time; ?></td>
-                                            <td><?php echo $t_time; ?></td>
-                                        </tr>
-									<?php }
-                                }else{
-									$qur12 = mysqli_query($db, $q12);
-									while ($rowc = mysqli_fetch_array($qur12)) {
-										?>
-                                        <tr>
-											<?php
-											$un = $rowc['line_id'];
-											$qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
-											while ($rowc04 = mysqli_fetch_array($qur04)) {
-												$lnn = $rowc04["line_name"];
-											}
-											?>
-                                            <td><?php echo $lnn; ?></td>
-                                            <td><?php echo $rowc["e_type"]; ?></td>
-                                            <td><?php echo $rowc['p_num']; ?></td>
-                                            <td><?php echo $rowc['p_name']; ?></td>
-                                            <td><?php echo $rowc['pf_name']; ?></td>
-                                            <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
-											<?php
-											$diff = abs(strtotime($date_to) - strtotime($date_from));
-											$t = round(($diff/3600),2);
-											$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
-											$end_time = dateReadFormat($date_to);
-											$t_time = $t;
-											?>
-                                            <td><?php echo $end_time; ?></td>
-                                            <td><?php echo $t_time; ?></td>
-                                        </tr>
-									<?php }
+
+                                if ($event_category != "") {
+                                    $q = $q . " AND  slogup.event_cat_id ='$event_category'";
+                                    $q11 = $q11 . " AND  slogup.event_cat_id ='$event_category'";
+                                    $q12 = $q12 . " AND  slogup.event_cat_id ='$event_category'";
                                 }
-                                /* Execute the Query Built*/
-                                $qur = mysqli_query($db, $q);
-                                while ($rowc = mysqli_fetch_array($qur)) {
+
+                                $q = $q . " ORDER BY slogup.created_on  ASC";
+                                $q11 = $q11 . " ORDER BY slogup.created_on  ASC";
+                                $q12 = $q12 . " ORDER BY slogup.created_on  DESC";
+
+                            }
+                            /* Execute the Query Built*/
+                            $qur11 = mysqli_query($db, $q11);
+                            $numrows = $qur11->num_rows;
+                            if($numrows > 0){
+                                while ($rowc = mysqli_fetch_array($qur11)) {
                                     ?>
                                     <tr>
                                         <?php
@@ -640,45 +576,111 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         <td><?php echo $rowc['p_num']; ?></td>
                                         <td><?php echo $rowc['p_name']; ?></td>
                                         <td><?php echo $rowc['pf_name']; ?></td>
-                                        <td><?php echo dateReadFormat($rowc['start_time']); ?></td>
+                                        <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
                                         <?php
-                                        $diff = abs(strtotime($date_to) - strtotime($rowc['start_time']));
+                                        $diff = abs(strtotime($date_to) - strtotime($date_from));
                                         $t = round(($diff/3600),2);
-                                        //if end time is empty  calculate time using current time
-                                        $diff = abs(strtotime($curdate) - strtotime($rowc['start_time']));
-                                        $ct = round(($diff/3600),2);
-                                        $et = $rowc['end_time'];
-                                        if(!empty($et)){
-                                            $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
-                                            if($is_true)
-                                            {
-                                                $color = '#0a53be';
-                                                $end_time = dateReadFormat($date_to);
-                                                $t_time = $t;
-                                            }else{
-                                                $end_time = dateReadFormat($rowc['end_time']);
-                                                $t_time = $rowc['total_time'];
-                                            }
+                                        $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                        if($is_true)
+                                        {
+                                            $end_time = dateReadFormat($date_to);
+                                            $t_time = $t;
                                         }else{
-                                              $color = '#0a53be';
-                                              $t_time = $ct;
-                                              $end_time = dateReadFormat($cd);
+                                            $end_time = dateReadFormat($rowc['end_time']);
+                                            $dd = (strtotime($rowc['end_time']) - strtotime($date_from));
+                                            $t_time = round(($dd/3600),2);
                                         }
                                         ?>
-                                        <td style="color: <?php echo $color; ?>"><?php echo $end_time; ?></td>
+                                        <td><?php echo $end_time; ?></td>
                                         <td><?php echo $t_time; ?></td>
                                     </tr>
-                                <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                <?php }
+                            }else{
+                                $qur12 = mysqli_query($db, $q12);
+                                while ($rowc = mysqli_fetch_array($qur12)) {
+                                    ?>
+                                    <tr>
+                                        <?php
+                                        $un = $rowc['line_id'];
+                                        $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
+                                        while ($rowc04 = mysqli_fetch_array($qur04)) {
+                                            $lnn = $rowc04["line_name"];
+                                        }
+                                        ?>
+                                        <td><?php echo $lnn; ?></td>
+                                        <td><?php echo $rowc["e_type"]; ?></td>
+                                        <td><?php echo $rowc['p_num']; ?></td>
+                                        <td><?php echo $rowc['p_name']; ?></td>
+                                        <td><?php echo $rowc['pf_name']; ?></td>
+                                        <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
+                                        <?php
+                                        $diff = abs(strtotime($date_to) - strtotime($date_from));
+                                        $t = round(($diff/3600),2);
+                                        $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                        $end_time = dateReadFormat($date_to);
+                                        $t_time = $t;
+                                        ?>
+                                        <td><?php echo $end_time; ?></td>
+                                        <td><?php echo $t_time; ?></td>
+                                    </tr>
+                                <?php }
+                            }
+                            /* Execute the Query Built*/
+                            $qur = mysqli_query($db, $q);
+                            while ($rowc = mysqli_fetch_array($qur)) {
+                                ?>
+                                <tr>
+                                    <?php
+                                    $un = $rowc['line_id'];
+                                    $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
+                                    while ($rowc04 = mysqli_fetch_array($qur04)) {
+                                        $lnn = $rowc04["line_name"];
+                                    }
+                                    ?>
+                                    <td><?php echo $lnn; ?></td>
+                                    <td><?php echo $rowc["e_type"]; ?></td>
+                                    <td><?php echo $rowc['p_num']; ?></td>
+                                    <td><?php echo $rowc['p_name']; ?></td>
+                                    <td><?php echo $rowc['pf_name']; ?></td>
+                                    <td><?php echo dateReadFormat($rowc['start_time']); ?></td>
+                                    <?php
+                                    $diff = abs(strtotime($date_to) - strtotime($rowc['start_time']));
+                                    $t = round(($diff/3600),2);
+                                    //if end time is empty  calculate time using current time
+                                    $diff = abs(strtotime($curdate) - strtotime($rowc['start_time']));
+                                    $ct = round(($diff/3600),2);
+                                    $et = $rowc['end_time'];
+                                    if(!empty($et)){
+                                        $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                        if($is_true)
+                                        {
+                                            $color = '#0a53be';
+                                            $end_time = dateReadFormat($date_to);
+                                            $t_time = $t;
+                                        }else{
+                                            $end_time = dateReadFormat($rowc['end_time']);
+                                            $t_time = $rowc['total_time'];
+                                        }
+                                    }else{
+                                        $color = '#0a53be';
+                                        $t_time = $ct;
+                                        $end_time = dateReadFormat($cd);
+                                    }
+                                    ?>
+                                    <td style="color: <?php echo $color; ?>"><?php echo $end_time; ?></td>
+                                    <td><?php echo $t_time; ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <?php
-    }
-    ?>
+    </div>
+    <?php
+}
+?>
 </div>
 </div>
 <script>
@@ -697,54 +699,54 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
         });
     });
 </script>
-    <!-- /dashboard content -->
-    <script>
-        $(function () {
-            $('input:radio').change(function () {
-                var abc = $(this).val()
-                //  alert(abc);
-                if (abc == "button1") {
-                    $('#date_from').prop('disabled', false);
-                    $('#date_to').prop('disabled', false);
-                    $('#timezone').prop('disabled', true);
-                } else if (abc == "button2") {
-                    $('#date_from').prop('disabled', true);
-                    $('#date_to').prop('disabled', true);
-                    $('#timezone').prop('disabled', false);
-                } else if (abc == "button3") {
-                    $('#event_category').prop('disabled', true);
-                    $('#event_type').prop('disabled', false);
-                } else if (abc == "button4") {
-                    $('#event_type').prop('disabled', true);
-                    $('#event_category').prop('disabled', false);
-                }
+<!-- /dashboard content -->
+<script>
+    $(function () {
+        $('input:radio').change(function () {
+            var abc = $(this).val()
+            //  alert(abc);
+            if (abc == "button1") {
+                $('#date_from').prop('disabled', false);
+                $('#date_to').prop('disabled', false);
+                $('#timezone').prop('disabled', true);
+            } else if (abc == "button2") {
+                $('#date_from').prop('disabled', true);
+                $('#date_to').prop('disabled', true);
+                $('#timezone').prop('disabled', false);
+            } else if (abc == "button3") {
+                $('#event_category').prop('disabled', true);
+                $('#event_type').prop('disabled', false);
+            } else if (abc == "button4") {
+                $('#event_type').prop('disabled', true);
+                $('#event_category').prop('disabled', false);
+            }
 
 
-            });
         });
-    </script>
-    <script>
-        $("#update_btn").click(function (e) {
-            //          $(':input[type="button"]').prop('disabled', true);
-            $.ajax({
-                type: 'POST',
-                url: 'se_log_schedular.php',
-                async: false,
-                cache:false,
-                success: function (data) {
-                    event.preventDefault()
-                    window.scrollTo(0, 300);
-                }
-            });
-
-            // e.preventDefault();
+    });
+</script>
+<script>
+    $("#update_btn").click(function (e) {
+        //          $(':input[type="button"]').prop('disabled', true);
+        $.ajax({
+            type: 'POST',
+            url: 'se_log_schedular.php',
+            async: false,
+            cache:false,
+            success: function (data) {
+                event.preventDefault()
+                window.scrollTo(0, 300);
+            }
         });
-    </script>
-    <script>
-        window.onload = function () {
-            history.replaceState("", "", "<?php echo $siteURL; ?>log_module/sg_station_event_log.php");
-        }
-    </script>
+
+        // e.preventDefault();
+    });
+</script>
+<script>
+    window.onload = function () {
+        history.replaceState("", "", "<?php echo $siteURL; ?>log_module/sg_station_event_log2.php");
+    }
+</script>
 <?php include('../footer1.php') ?>
 
 </body>
