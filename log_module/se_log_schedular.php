@@ -3,6 +3,13 @@ $curdate = date('Y-m-d');
 
 $button = "";
 $temp = "";
+$reset = 1;
+if($reset == 1){
+	$sql_st_202 = "TRUNCATE sg_station_event_log_update;";
+	$result_st_202 = mysqli_query($db, $sql_st_202);
+	$sql_st_202 = "update sg_station_event_log set is_incomplete=0;";
+	$result_st_202 = mysqli_query($db, $sql_st_202);
+}
 
 $sql_st_202 = "SELECT line_id FROM cam_line  where enabled = 1 and is_deleted = 0 ORDER BY `cam_line`.`line_id` ASC;";
 $result_st_202 = mysqli_query($db, $sql_st_202);
