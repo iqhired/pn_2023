@@ -171,11 +171,14 @@ if(isset($_POST['submit_btn'])) {
                     $firstrow = mysqli_fetch_array($res);
                     $total_time = $firstrow['completed_time'];
 
-                    $qur4 = "update `sg_station_event_log` set total_time = '$total_time' , is_incomplete = '0' where station_event_log_id = '$prev_seq'";
+                    $tt_t = explode(':',$total_time);
+                    $tt = round(($tt_t[0]+($tt_t[1]/60)+($tt_t[2]/3600)),2);
+
+                    $qur4 = "update `sg_station_event_log` set total_time = '$total_time' ,end_time = '$chicagotime',tt = '$tt', is_incomplete = '0' where station_event_log_id = '$prev_seq'";
                     $result0 = mysqli_query($db, $qur4);
 
 
-                    $sql0 = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$next_seq','$event_type_id','$event_cat_id',1,'$chicagotime','$user_id')";
+                    $sql0 = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`line_id` ,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$station_id','$next_seq','$event_type_id','$event_cat_id',1,'$chicagotime','$user_id')";
                     $result0 = mysqli_query($db, $sql0);
 
 
@@ -222,6 +225,14 @@ if(isset($_POST['update_btn'])){
       if($event_type_id == 7){
                 $sql = "update sg_station_event set event_status = '0' ,event_type_id='$event_type_id', modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
                 $result1 = mysqli_query($db, $sql);
+                  $qur2="Select SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF('$chicagotime', created_on))) as completed_time from `sg_station_event_log` WHERE station_event_id = '$station_event_id' and event_seq = '$curr_seq'";
+                  $res = mysqli_query($db, $qur2);
+                  $firstrow = mysqli_fetch_array($res);
+                  $total_time = $firstrow['completed_time'];
+                  $tt_t = explode(':',$total_time);
+                  $tt = round(($tt_t[0]+($tt_t[1]/60)+($tt_t[2]/3600)),2);
+                  $qur3 = "update `sg_station_event_log` set total_time = '$total_time' ,end_time = '$chicagotime',tt = '$tt',is_incomplete = '0' where station_event_id = '$station_event_id' and event_seq = '$curr_seq'";
+                  $result0 = mysqli_query($db, $qur3);
                 if ($result1) {
                     $message_stauts_class = 'alert-success';
                     $import_status_message = 'Event Cycle Completed for the Station.';
@@ -233,7 +244,8 @@ if(isset($_POST['update_btn'])){
 					$_SESSION['message_stauts_class'] = $message_stauts_class;
 					$_SESSION['import_status_message'] = $import_status_message;
 				}
-                $sql = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`line_id`,`reason` ,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$station_id','$reason','$next_seq','$event_type_id','$event_cat_id',0,'$chicagotime','$user_id')";
+
+          $sql = "INSERT INTO `sg_station_event_log`(`station_event_id` ,`line_id`,`reason` ,`event_seq`, `event_type_id`,`event_cat_id`, `event_status` , `created_on` ,`created_by`) VALUES ('$station_event_id','$station_id','$reason','$next_seq','$event_type_id','$event_cat_id',0,'$chicagotime','$user_id')";
                 $result0 = mysqli_query($db, $sql);
 //		        $part_family_id = '';
 //		        $station_event_id = '';,`reason`
@@ -242,6 +254,17 @@ if(isset($_POST['update_btn'])){
                   header("Location:".$uuu);
                   exit;
         } else {
+          $qur2="Select SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF('$chicagotime', created_on))) as completed_time from `sg_station_event_log` WHERE station_event_id = '$station_event_id' and event_seq = '$curr_seq'";
+          $res = mysqli_query($db, $qur2);
+          $firstrow = mysqli_fetch_array($res);
+          $total_time = $firstrow['completed_time'];
+          $tt_t = explode(':',$total_time);
+          $tt = round(($tt_t[0]+($tt_t[1]/60)+($tt_t[2]/3600)),2);
+//          $tt = round((strtotime($total_time)/3600),2);
+
+          $qur3 = "update `sg_station_event_log` set total_time = '$total_time' ,end_time = '$chicagotime',tt = '$tt',is_incomplete = '0' where station_event_id = '$station_event_id' and event_seq = '$curr_seq'";
+          $result0 = mysqli_query($db, $qur3);
+
         $sql11 = "update sg_station_event set event_type_id='$event_type_id', reason='$reason' ,modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
         $result11 = mysqli_query($db, $sql11);
         if ($result11) {
