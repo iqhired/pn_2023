@@ -1,8 +1,10 @@
 <?php include '../config.php';
+$curdate = date('Y-m-d H:i');
+$cd = date('d-M-Y H:i:s');
 $taskboard = $_SESSION['taskboard'];
 $user = $_SESSION['user'];
 $date = $_SESSION['assign_date'];
-$curdate = date('Y-m-d');
+$curdate = date('Y-m-d H:i');
 $dateto = $_SESSION['date_to'];
 $datefrom = $_SESSION['date_from'];
 $button = $_SESSION['button_event'];
@@ -13,111 +15,117 @@ $line_id = $_SESSION['station'];
 $print_data='';
 
 if(empty($dateto)){
-    $curdate = date('Y-m-d',strtotime("-1 days"));
+    $curdate = date(mdYHi_FORMAT,strtotime("-1 days"));
     $dateto = $curdate;
 }
 
 if(empty($datefrom)){
-    $yesdate = date('Y-m-d',strtotime("-1 days"));
+    $yesdate = date(mdYHi_FORMAT,strtotime("-1 days"));
     $datefrom = $yesdate;
 }
 
-//$q = "SELECT cl.line_name as station,et.event_type_name as e_type,pn.part_number as p_num, pn.part_name as p_name , pf.part_family_name as pf_name,
-//cast(e_log.created_on AS date),cast(e_log.created_on AS Time),
-//cast(e_log.end_time AS Time),e_log.total_time as total_time from sg_station_event_log_update as e_log
-//left join sg_station_event as sg_events on e_log.station_event_id = sg_events.station_event_id
-//INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id
-//inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id
-//inner join event_type as et on e_log.event_type_id = et.event_type_id
-//inner join cam_line as cl on sg_events.line_id = cl.line_id ";
+$q = "select distinct slogup.line_id  , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type,
+( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
+pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt as total_time from sg_station_event_log as slogup
+inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
+inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1";
+$q11 = "select distinct slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type,
+( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
+pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt  as total_time from sg_station_event_log as slogup
+inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
+inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1";
 
-
-
-$q = "SELECT cl.line_name as station, ( select event_type_name from event_type where event_type_id = e_log.event_type_id) as e_type,
-pn.part_number as p_num, pn.part_name as p_name , pf.part_family_name as pf_name,
-cast(e_log.created_on AS date),cast(e_log.created_on AS Time), 
-cast(e_log.end_time AS Time),e_log.total_time as total_time from sg_station_event_log_update as e_log 
-inner join sg_station_event as sg_events on e_log.station_event_id = sg_events.station_event_id 
-INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
-inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id 
-inner join cam_line as cl on e_log.line_id = cl.line_id where 1  ";
-
-/* If Line is selected. */
 if ($line_id != null) {
     $qurtemp = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$line_id' ");
     while ($rowctemp = mysqli_fetch_array($qurtemp)) {
         $line_name = $rowctemp["line_name"];
-        $date_f = date('F j, Y',strtotime($datefrom));
-        $date_t = date('F j, Y',strtotime($dateto));
-        $print_data .= $date_f . '-' . $date_t . "\n";
     }
-    $q = $q . " and e_log.line_id = '$line_id' ";
-
+    $q = $q . " and slogup.line_id = '$line_id' ";
+    $q11 = $q11 . " and slogup.line_id = '$line_id' ";
 }
-
-
 if($datefrom != "" && $dateto != ""){
-    $q = $q . " AND DATE_FORMAT(e_log.created_on,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(e_log.created_on,'%Y-%m-%d') <= '$dateto' ";
+    $date_from = convertMDYToYMDwithTime($datefrom);
+    $date_to = convertMDYToYMDwithTime($dateto);
+    $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
+    $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
 }else if($datefrom != "" && $dateto == ""){
-    $q = $q . " AND DATE_FORMAT(e_log.created_on,'%Y-%m-%d') >= '$datefrom' ";
+    $date_from = convertMDYToYMDwithTime($datefrom);
+    $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' ";
+    $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
 }else if($datefrom == "" && $dateto != ""){
-    $q = $q . " AND DATE_FORMAT(e_log.created_on,'%Y-%m-%d') <= '$dateto'";
+    $date_to = convertMDYToYMDwithTime($dateto);
+    $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to'";
 }
 
-
+$print_data .=  "From Date : " . onlydateReadFormat($date_from) . '-' . "To Date : " . onlydateReadFormat($date_to). "\n";
 if ($event_type != "") {
-    $q = $q . " and e_log.event_type_id = '$event_type'";
+    $q = $q . " and slogup.event_type_id = '$event_type'";
+    $q11 = $q11 . " and slogup.event_type_id = '$event_type'";
 }
 
 if ($event_category != "") {
-    $q = $q . " AND  e_log.event_cat_id ='$event_category'";
+    $q = $q . " AND  slogup.event_cat_id ='$event_category'";
+    $q11 = $q11 . " AND  slogup.event_cat_id ='$event_category'";
 }
 
 if (empty($line_id)){
-    $q = $q . " ORDER BY e_log.line_id,e_log.created_on";
+    $q = $q . " ORDER BY slogup.line_id,slogup.created_on";
+    $q11 = $q11 . " ORDER BY slogup.line_id,slogup.created_on  ASC";
 }else{
-    $q = $q . " ORDER BY e_log.created_on  ASC";
+    $q = $q . " ORDER BY slogup.created_on  ASC";
+    $q11 = $q11 . " ORDER BY slogup.created_on  ASC";
 }
 
 
-$exportData = mysqli_query($db, $q);
+$exp = mysqli_query($db, $q11);
 $header = "Station" . "\t" ."Event Type" . "\t" . "Part Number" . "\t" . "Part Name" . "\t" . "Part Family" .  "\t"  . "Date" .  "\t". "Start Time" . "\t" ."End Time" . "\t" ."Total Time" . "\t" ;
-$result = '';
-//$fields = mysqli_num_fields($db, $exportData);
-//for ($i = 0; $i < $fields; $i++) {
-//	$header .= mysqli_field_name($db, $exportData, $i) . "\t";
-//}
-//$k =1;
-
-while ($row = mysqli_fetch_row($exportData)) {
-//	$date_n = $row[6];
-//	$date_ne = explode(' ',$date_n);
-//	$date_next = $date_ne[0];
+while ($row = mysqli_fetch_row($exp)) {
     $line = '';
     $j = 1;
-
-//	if (($datefrom == $date_next) && ($k == 1)) {
-//		$date_data = "\nDate : " . $date_next . "\n";
-//		$line .= "$date_data\n$header\n";
-//		$k =0;
-//	}else if ($datefrom < $date_next) {
-//		$line .= ".\n";
-//		$date_data = "Date : " . $date_next . "\n";
-//		$line .= "$date_data\n$header\n";
-//		$datefrom = $date_next;
-//	}
-//	$skipped = array('0', '2', '6' , '7');
-//	foreach ($row as $key => $value) {
-//		if(in_array($key, $skipped)) {
-//			continue;
-//		}
     foreach ($row as $value) {
-
         if ((!isset($value)) || ($value == "")) {
             $value = "\t";
         } else {
             $value = str_replace('"', '""', $value);
-
+            if ($j == 1) {
+                $un = $value;
+                $qurtemp = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un'");
+                while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                    $line_name = $rowctemp["line_name"];
+                }
+                $value = $line_name;
+            }
+            if ($j == 7) {
+                $un = $value;
+                $created_on = $un;
+                $value = $date_from;
+            }
+            if ($j == 8) {
+                $un = $value;
+                $end_time = $un;
+                $diff = abs(strtotime($date_to) - strtotime($date_from));
+                $t = round(($diff/3600),2);
+                $is_true = strtotime($end_time) > strtotime($date_to);
+                if($is_true)
+                {
+                    $end_t = $date_to;
+                }else{
+                    $end_t = $end_time;
+                }
+                $value = $end_t;
+            }
+            if ($j == 9) {
+                $un = $value;
+                $is_true = strtotime($end_time) > strtotime($date_to);
+                if($is_true)
+                {
+                    $t_t = $t;
+                }else{
+                    $dd = (strtotime($end_time) - strtotime($date_from));
+                    $t_t = round(($dd/3600),2);
+                }
+                $value = $t_t;
+            }
             $value = '"' . $value . '"' . "\t";
         }
         $line .= $value;
@@ -127,9 +135,75 @@ while ($row = mysqli_fetch_row($exportData)) {
     $result .= trim($line) . "\n";
 
 }
+$export = mysqli_query($db, $q);
+$header = "Station" . "\t" ."Event Type" . "\t" . "Part Number" . "\t" . "Part Name" . "\t" . "Part Family" .  "\t"  . "Date" .  "\t". "Start Time" . "\t" ."End Time" . "\t" ."Total Time" . "\t" ;
+while ($row = mysqli_fetch_row($export)) {
+    $line = '';
+    $j = 1;
+    foreach ($row as $value) {
 
-//$k++;
+        if ((!isset($value)) || ($value == "")) {
+            $value = "\t";
+        } else {
+            $value = str_replace('"', '""', $value);
+            if ($j == 1) {
+                $un = $value;
+                $qurtemp = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un'");
+                while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+                    $line_name = $rowctemp["line_name"];
+                }
+                $value = $line_name;
+            }
+            if ($j == 7) {
+                $un = $value;
+                $start_time = $un;
+                $value = dateReadFormat($start_time);
+            }
+            if ($j == 8) {
+                $un = $value;
+                $end_time = $un;
+                $diff = abs(strtotime($date_to) - strtotime($start_time));
+                $t = round(($diff/3600),2);
+                $df = abs(strtotime($curdate) - strtotime($start_time));
+                $ct = round(($df/3600),2);
+                if(!empty($end_time)){
+                    $is_true = strtotime($end_time) > strtotime($date_to);
+                    if($is_true)
+                    {
+                        $end_t = dateReadFormat($date_to);
+                    }else{
+                        $end_t = dateReadFormat($end_time);
+                    }
+                }else{
+                    $end_t = dateReadFormat($cd);
+                }
+                $value = $end_t;
+            }
+            if ($j == 9) {
+                $un = $value;
+                $tt = $un;
+                if(!empty($end_time)) {
+                    $is_true = strtotime($end_time) > strtotime($date_to);
+                    if($is_true)
+                    {
+                        $t_t = $t;
+                    }else{
+                        $t_t = $tt;
+                    }
+                }else{
+                    $t_t = $ct;
+                }
+                $value = $t_t;
+            }
+            $value = '"' . $value . '"' . "\t";
+        }
+        $line .= $value;
+        $j++;
 
+    }
+    $result .= trim($line) . "\n";
+
+}
 $result = str_replace("\r", "", $result);
 
 if ($result == "") {
