@@ -47,7 +47,7 @@ if($datefrom != "" && $dateto != ""){
     $date_from = convertMDYToYMDwithTime($datefrom);
     $date_to = convertMDYToYMDwithTime($dateto);
     $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
-    $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+    $q11 = $q11 . " AND (( DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' ) OR ((slogup.end_time IS NULL) OR (slogup.end_time = '') ))  and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
 }else if($datefrom != "" && $dateto == ""){
     $date_from = convertMDYToYMDwithTime($datefrom);
     $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' ";
@@ -70,10 +70,10 @@ if ($event_category != "") {
 
 if (empty($line_id)){
     $q = $q . " ORDER BY slogup.line_id,slogup.created_on";
-    $q11 = $q11 . " ORDER BY slogup.line_id,slogup.created_on  ASC";
+    $q11 = $q11 . " ORDER BY slogup.line_id,slogup.created_on DESC limit 1";
 }else{
     $q = $q . " ORDER BY slogup.created_on  ASC";
-    $q11 = $q11 . " ORDER BY slogup.created_on  ASC";
+    $q11 = $q11 . " ORDER BY slogup.created_on    DESC limit 1";
 }
 
 
@@ -83,7 +83,7 @@ while ($row = mysqli_fetch_row($exp)) {
     $line = '';
     $j = 1;
     foreach ($row as $value) {
-        if ((!isset($value)) || ($value == "")) {
+        if ((!isset($value)) || ($value == "") && (($j != 9) && (($j != 8)))) {
             $value = "\t";
         } else {
             $value = str_replace('"', '""', $value);
@@ -103,9 +103,13 @@ while ($row = mysqli_fetch_row($exp)) {
             if ($j == 8) {
                 $un = $value;
                 $end_time = $un;
-                $diff = abs(strtotime($date_to) - strtotime($date_from));
-                $t = round(($diff/3600),2);
-                $is_true = strtotime($end_time) > strtotime($date_to);
+                
+	
+				if(empty($end_time)){
+					$is_true = true;
+				}else{
+					$is_true = strtotime($end_time) > strtotime($date_to);
+				}
                 if($is_true)
                 {
                     $end_t = $date_to;
@@ -116,7 +120,14 @@ while ($row = mysqli_fetch_row($exp)) {
             }
             if ($j == 9) {
                 $un = $value;
-                $is_true = strtotime($end_time) > strtotime($date_to);
+                
+				$diff = abs(strtotime($date_to) - strtotime($date_from));
+				$t = round(($diff/3600),2);
+				if(empty($end_time)){
+					$is_true = true;
+				}else{
+					$is_true = strtotime($end_time) > strtotime($date_to);
+				}
                 if($is_true)
                 {
                     $t_t = $t;
@@ -141,10 +152,11 @@ while ($row = mysqli_fetch_row($export)) {
     $line = '';
     $j = 1;
     foreach ($row as $value) {
-	
-		if ((!isset($value)) || ($value == "")) {
-			$value = "\t";
-		} else {
+
+        if ((!isset($value)) || ($value == "") && (($j != 9) && (($j != 8)))) {
+            $value = "\t";
+            
+        } else {
             $value = str_replace('"', '""', $value);
             if ($j == 1) {
                 $un = $value;

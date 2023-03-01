@@ -528,7 +528,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     $date_from = convertMDYToYMDwithTime($datefrom);
                                     $date_to = convertMDYToYMDwithTime($dateto);
                                     $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
-                                    $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+                                    $q11 = $q11 . " AND ((DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from') OR ((slogup.end_time IS NULL) OR (slogup.end_time = '') )) and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
                                     $q12 = $q12 . " AND (slogup.end_time is NULL) and IGNORE_id = 0  ";
                                 } else if ($datefrom != "" && $dateto == "") {
                                     $date_from = convertMDYToYMDwithTime($datefrom);
@@ -553,7 +553,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 }
 
                                 $q = $q . " ORDER BY slogup.created_on  ASC";
-                                $q11 = $q11 . " ORDER BY slogup.created_on  ASC";
+                                $q11 = $q11 . " ORDER BY slogup.created_on  DESC limit 1;";
                                 $q12 = $q12 . " ORDER BY slogup.created_on  DESC";
 
                             }
@@ -580,7 +580,11 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         <?php
                                         $diff = abs(strtotime($date_to) - strtotime($date_from));
                                         $t = round(($diff/3600),2);
-                                        $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                        if(empty($rowc['end_time'])){
+                                            $is_true = true;
+                                        }else{
+											$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                        }
                                         if($is_true)
                                         {
                                             $end_time = dateReadFormat($date_to);
@@ -659,7 +663,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                             $t_time = $t;
                                         }else{
                                             $end_time = dateReadFormat($rowc['end_time']);
-                                            $t_time = $rowc['total_time'];
+                                            $t_time = $rowc['tt'];
                                         }
                                     }else{
                                         $color = '#0a53be';
@@ -668,7 +672,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     }
                                     ?>
                                     <td style="color: <?php echo $color; ?>"><?php echo $end_time; ?></td>
-                                    <td><?php echo $rowc['tt']; ?></td>
+                                    <td><?php echo $t_time; ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
