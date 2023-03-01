@@ -11,7 +11,6 @@ $assign_crew_log_id = "";
 //check user
 checkSession();
 
-
 $low_rate = 0;
 if (count($_POST) > 0){
 

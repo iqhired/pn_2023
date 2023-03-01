@@ -108,7 +108,7 @@ if (count($_POST) > 0) {
                     $sql5 = "update cam_station_pos_rel set assigned ='0' where line_id='$assign_line'";
                     $result5 = mysqli_query($db, $sql5);
                 }
-//first assign log become 0 into log table over
+                   //first assign log become 0 into log table over
                 mysqli_query($db, "COMMIT");
             } catch (\Throwable $e) {
                 // An exception has been thrown
