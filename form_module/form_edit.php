@@ -9,8 +9,6 @@ if (!isset($_SESSION['user'])) {
         header($redirect_logout_path);
     }
 }
-$tab_line = $_SESSION['tab_station'];
-$is_tab_login = $_SESSION['is_tab_user'];
 //Set the session duration for 10800 seconds - 3 hours
 $duration = $auto_logout_duration;
 //Read the request time of the user
@@ -30,9 +28,6 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
-$station = $_GET['station'];
-$cellID = $_GET['cell_id'];
-$c_name = $_GET['c_name'];
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $is_tab_login = $_SESSION['is_tab_user'];
@@ -44,6 +39,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -1525,11 +1521,12 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
                         </div>
                         </div>
                     </div>
+                    <input type="hidden" name="not_click_id" id="not_click_id"
+                           value="<?php echo $rowcount; ?>">
+                    <input type="hidden" name="formitemhiddenid[]" id="formitemhiddenid"
+                           value="<?php echo $rowcitem['form_item_id']; ?>">
+
                 </div>
-                <input type="hidden" name="not_click_id" id="not_click_id"
-                       value="<?php echo $rowcount; ?>">
-                <input type="hidden" name="formitemhiddenid[]" id="formitemhiddenid"
-                       value="<?php echo $rowcitem['form_item_id']; ?>">
 
                 <?php
                 $rowcount++;
