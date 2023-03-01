@@ -498,10 +498,6 @@ include("../admin_menu.php");
                      <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">USERS LIST</span>
                         </div>
-
-
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                                 <div class="col-md-1">
@@ -515,11 +511,6 @@ include("../admin_menu.php");
                                         
                             </div>
                         </div>
-
-
-
-
-
                         <div class="card-body pt-0">
                                     <button type="submit" name="import_data"class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 submit_btn">Import</button>
                                  
@@ -529,34 +520,60 @@ include("../admin_menu.php");
                                 </div>
                     </div>
                 </div>
-                
-            </form>
             </div>
-
         </div>
-
-
+        </form>
 
         <form action="delete_users_list.php"  id="update-form" method="post" class="form-horizontal">
-    <div class="row-body">
+            <div class="row-body">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
-                </div>
+                    <div class="row">
+                        <h4 class="card-title">
+                            <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
 
+
+                        </h4>
+                        <div class="col-md-3">
+                            <select class="form-control" name="choose" id="choose"  required>
+                                <option value="" disabled selected>Select Action </option>
+                                <option value="1" >Add to Group </option>
+                                <option value="2" >Remove from Group </option>
+                                <option value="3" >Add to Approver list </option>
+                                <option value="5" <?php if($ch == '5'){ echo "selected"; } ?>>Remove from Approver list</option>
+                                <option value="4" >Filter Trainee </option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-2 group_div" style="display:none">
+                            <select class="form-control" name="group_id" id="group_id"   required>
+                                <option value="" disabled selected>Select Group </option>
+                                <?php
+                                $sql1 = "SELECT * FROM `sg_group`";
+                                $result1 = $mysqli->query($sql1);
+                                while ($row1 = $result1->fetch_assoc()) {
+                                    echo "<option value='" . $row1['group_id'] . "'>" . $row1['group_name'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                           </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-primary" onclick="submitForm11('user_list_option_backend.php')"  style="background-color:#1e73be;">Go</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body pt-0 example1-table">
                     <div class="table-responsive">
                         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    
                                     <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
                                         <thead>
                                         <tr>
                                             <th><label class="ckbox"><input type="checkbox" id="checkAll"><span></span></label></th>
                                             <th>Sl. No</th>
-                                                <th>Action</th>
+                                            <th>Action</th>
                                             <th>Name</th>
                                             <th>Group </th>
                                             <th>Role</th>
@@ -629,13 +646,17 @@ $sessiontraiong = $_SESSION['training'];
                                     </tbody>
                                       
                                     </table>
-
-
-
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </form>
 
-                            <div id="modal_theme_primary" class="modal col-lg-12 col-md-12">
+        <div id="modal_theme_primary" class="modal col-lg-12 col-md-12">
     <div class="modal-dialog" style="width:100%">
         <div class="modal-content">
             <div class="card-header">
@@ -844,8 +865,6 @@ $sessiontraiong = $_SESSION['training'];
         </div>
     </div>
 </div>
-                   
-
 
 <div id="edit_modal_theme_primary" class="modal col-lg-12 col-md-12">
     <div class="modal-dialog" style="width:100%">
@@ -854,8 +873,6 @@ $sessiontraiong = $_SESSION['training'];
                 <button type="button" style="color: white;font-size: 1.9125rem;" class="close" data-dismiss="modal">&times;</button>
                 <span class="main-content-title mg-b-0 mg-b-lg-1">Update User</span>
             </div>
-
-
             <form action="" id="user_form" enctype="multipart/form-data" class="form-horizontal"
                   method="post">
                 <div class="card-body">
@@ -872,7 +889,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -884,10 +900,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
-                        
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -898,8 +910,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -910,8 +920,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -922,10 +930,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
-
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -945,8 +949,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -966,7 +968,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
                        <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -978,12 +979,7 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
-
-
-                        
-
-                         <div class="pd-30 pd-sm-20">
+                        <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
                                     <label class="form-label mg-b-0">Profile Pic</label>
@@ -993,9 +989,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -1022,7 +1015,6 @@ $sessiontraiong = $_SESSION['training'];
                                                     </div>
                             </div>
                         </div>
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs">
                             <div class="col-md-4">
@@ -1039,8 +1031,6 @@ $sessiontraiong = $_SESSION['training'];
                                                 </div>
                             </div>
                         </div>
-
-
                         <div class="pd-30 pd-sm-20">
                             <div class="row row-xs" id="edit_station_row" style="display:none;">
                             <div class="col-md-4">
@@ -1060,7 +1050,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
                          <div class="pd-30 pd-sm-20" >
                             <div class="row row-xs" id="edit_position_row" style="display:none;">
                             <div class="col-md-4">
@@ -1080,8 +1069,6 @@ $sessiontraiong = $_SESSION['training'];
                                 </div>
                             </div>
                         </div>
-
-
                          <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">SAVE</button>
@@ -1167,13 +1154,7 @@ $sessiontraiong = $_SESSION['training'];
     </div>
 </div>
 </div>
- </div>
-  </div> 
-</div> 
-</div> 
-</div> 
-</div> 
-</div>
+
     <script> $(document).on('click', '#delete', function () {
                             var element = $(this);
                             var del_id = element.attr("data-id");
@@ -1252,13 +1233,6 @@ $sessiontraiong = $_SESSION['training'];
                         });
                     </script>
 
-
-
-    
-
-
-
-</div>
 
 <script>
 window.onload = function() {
