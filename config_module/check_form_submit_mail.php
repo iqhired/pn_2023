@@ -15,7 +15,7 @@ while($rowc = mysqli_fetch_array($qur)){
 
     $arrteam1 = explode(':', $time);
     $hours = $arrteam1[0];
-    $a = phpvar;
+    $a = frequencyvariable;
     $h = $hours + $a;
     $minutes = $arrteam1[1];
     $sec = $arrteam1[2];
