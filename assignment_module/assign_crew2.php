@@ -10,6 +10,10 @@ $c_name = $_GET['c_name'];
 
 if (count($_POST) > 0) {
 //assign crew delete
+    $jm = $_POST['assign_line'];
+    if ($jm != "") {
+        $assign_line = $jm;
+    }
     $delete_check = $_POST['delete_check'];
     $delete_user = $_POST['delete_user'];
     $transaction = $_POST['transaction'];
@@ -44,8 +48,11 @@ if (count($_POST) > 0) {
         $assign_line = $_POST['assignline'];
     }
 }
-
-	$lnname = getLineNameByID($db,$station);
+$ps = $_SESSION['aasignline'];
+if ($ps != "") {
+    $assign_line = $ps;
+    $_SESSION['aasignline'] = "";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -284,7 +291,7 @@ if (count($_POST) > 0) {
             <div class="left-content">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Crews</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"> Crew Assignment</li>
+                    <li class="breadcrumb-item active" aria-current="page"> Assign Unassign Crew Members</li>
                 </ol>
             </div>
         </div>
@@ -299,7 +306,10 @@ if (count($_POST) > 0) {
             </div>
         </form>
         <?php
-			
+        if ($assign_line != "") {
+            $qur04 = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$assign_line' ");
+            $rowc04 = mysqli_fetch_array($qur04);
+            $lnname = $rowc04["line_name"];
             $sql_st_2022 = "update cam_station_pos_rel set assigned ='0' where line_id ='$assign_line' ";
             mysqli_query($db, $sql_st_2022);
             $sql_st_2021 = "SELECT * FROM cam_assign_crew WHERE line_id = '$assign_line' and resource_type = 'regular';";
@@ -315,7 +325,7 @@ if (count($_POST) > 0) {
                     <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                         <div class="card  box-shadow-0">
                             <div class="card-header">
-                                <span class="main-content-title mg-b-0 mg-b-lg-1">Assign / Un-Assign Crew for <?php echo $lnname; ?></span>
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">Assign / Un-Assign Crew for <?php echo $lnname; ?> - Positions</span>
                             </div>
                             <div class="card-body pt-0">
                                 <div class="pd-30 pd-sm-20">
@@ -344,8 +354,17 @@ if (count($_POST) > 0) {
                                                 $transidd = $rowc001["assign_crew_transaction_id"];
                                                 $asigncrewid = $rowc001["assign_crew_id"];
                                                 $res_type = $rowc001["resource_type"];
-                                                $cam_user_name = getUserNameByID($db,$usrr);
-												$positionname = getPositionNameByID($db, $rowc['position_id']);
+                                                $query002 = sprintf("SELECT * FROM  cam_users where users_id = '$usrr'; ");
+                                                $qur002 = mysqli_query($db, $query002);
+                                                while ($rowc002 = mysqli_fetch_array($qur002)) {
+                                                    $firstname = $rowc002["firstname"];
+                                                    $lastname = $rowc002["lastname"];
+                                                }
+                                                $query003 = sprintf("SELECT * FROM  cam_position where position_id = '$rowc[position_id]'; ");
+                                                $qur003 = mysqli_query($db, $query003);
+                                                while ($rowc003 = mysqli_fetch_array($qur003)) {
+                                                    $positionname = $rowc003["position_name"];
+                                                }
                                                 ?>
                                                 <div class="col-md-1">
                                                     <label class="ckbox">
@@ -357,13 +376,18 @@ if (count($_POST) > 0) {
                                                     <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
                                                 </div>
                                                 <div class="col-md-6 mg-t-5 mg-md-t-0">
-                                                    <input type="text" class="form-control" value="<?php echo $cam_user_name ?>" disabled>
+                                                    <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
                                                 </div>
                                                 <?php
                                             } else {
-												$positionname = getPositionNameByID($db, $rowc['position_id']);
                                                 ?>
-                                                
+                                                <?php
+                                                $query004 = sprintf("SELECT * FROM  cam_position where position_id = '$rowc[position_id]'; ");
+                                                $qur004 = mysqli_query($db, $query004);
+                                                while ($rowc004 = mysqli_fetch_array($qur004)) {
+                                                    $positionname = $rowc004["position_name"];
+                                                }
+                                                ?>
                                                 <div class="col-md-4">
                                                     <label class="form-label mg-b-0"><?php echo $positionname; ?>:</label>
                                                 </div>
@@ -401,8 +425,13 @@ if (count($_POST) > 0) {
                                         $assigncrewid = $rowctemp2["assign_crew_id"];
                                         $res_type = $rowctemp2["resource_type"];
                                         $po = $rowctemp2["position_id"];
-										$cam_user_name = getUserNameByID($db,$usrr);
-                                        $po_name =  getPositionNameByID($db, $po);
+                                        $qurtemp3 = mysqli_query($db, "SELECT firstname,lastname FROM cam_users WHERE users_id = '$userid'");
+                                        $rowctemp3 = mysqli_fetch_array($qurtemp3);
+                                        $firstname = $rowctemp3["firstname"];
+                                        $lastname = $rowctemp3["lastname"];
+                                        $qurtemp4 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$po'");
+                                        $rowctemp4 = mysqli_fetch_array($qurtemp4);
+                                        $po_name = $rowctemp4["position_name"];
                                         $priyantcount--;
                                         ?>
                                         <div class="row row-xs align-items-center mg-b-20">
@@ -416,7 +445,7 @@ if (count($_POST) > 0) {
                                                 <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
                                             </div>
                                             <div class="col-md-3 md">
-                                                <input type="text" class="form-control" value="<?php echo $cam_user_name; ?>" disabled>
+                                                <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
                                             </div>
                                             <div class="col-md-3 sd">
                                                 <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
@@ -436,7 +465,9 @@ if (count($_POST) > 0) {
                                                         $result1 = $mysqli->query($sql1);
                                                         while ($row1 = $result1->fetch_assoc()) {
                                                             $pid = $row1['position_id'];
-                                                            $p = getPositionNameByID($db, $pid);
+                                                            $qurtemp5 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$pid'");
+                                                            $rowctemp5 = mysqli_fetch_array($qurtemp5);
+                                                            $p = $rowctemp5["position_name"];
                                                             echo "<option value='" . $row1['position_id'] . "' >" . $p . "</option>";
                                                         }
                                                         ?>
@@ -484,8 +515,13 @@ if (count($_POST) > 0) {
                                         $assigncrewid = $rowctemp2["assign_crew_id"];
                                         $res_type = $rowctemp2["resource_type"];
                                         $po = $rowctemp2["position_id"];
-                                        $cam_user_name = getUserNameByID($db,$userid);
-                                        $po_name = getPositionNameByID($db, $po);
+                                        $qurtemp3 = mysqli_query($db, "SELECT firstname,lastname FROM cam_users WHERE users_id = '$userid'");
+                                        $rowctemp3 = mysqli_fetch_array($qurtemp3);
+                                        $firstname = $rowctemp3["firstname"];
+                                        $lastname = $rowctemp3["lastname"];
+                                        $qurtemp4 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$po'");
+                                        $rowctemp4 = mysqli_fetch_array($qurtemp4);
+                                        $po_name = $rowctemp4["position_name"];
                                         $priyantcount--;
                                         ?>
                                         <div class="row row-xs align-items-center mg-b-20">
@@ -499,7 +535,7 @@ if (count($_POST) > 0) {
                                                 <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
                                             </div>
                                             <div class="col-md-3 md">
-                                                <input type="text" class="form-control" value="<?php echo $cam_user_name; ?>" disabled>
+                                                <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
                                             </div>
                                             <div class="col-md-3 sd">
                                                 <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
@@ -520,7 +556,9 @@ if (count($_POST) > 0) {
                                                         $result1 = $mysqli->query($sql1);
                                                         while ($row1 = $result1->fetch_assoc()) {
                                                             $pid = $row1['position_id'];
-                                                            $p = getPositionNameByID($db, $pid);
+                                                            $qurtemp5 = mysqli_query($db, "SELECT position_name FROM cam_position WHERE position_id = '$pid'");
+                                                            $rowctemp5 = mysqli_fetch_array($qurtemp5);
+                                                            $p = $rowctemp5["position_name"];
                                                             echo "<option value='" . $row1['position_id'] . "' >" . $p . "</option>";
                                                         }
                                                         ?>
@@ -572,6 +610,7 @@ if (count($_POST) > 0) {
                     </div>
                 </div>
             </form>
+        <?php } ?>
     </div>
 </div>
 <script>
