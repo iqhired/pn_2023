@@ -142,8 +142,9 @@ while ($row = mysqli_fetch_row($export)) {
     $j = 1;
     foreach ($row as $value) {
 
-        if ((!isset($value)) || ($value == "")) {
+        if ((!isset($value)) || ($value == "") && (($j != 9) && (($j != 8)))) {
             $value = "\t";
+            
         } else {
             $value = str_replace('"', '""', $value);
             if ($j == 1) {

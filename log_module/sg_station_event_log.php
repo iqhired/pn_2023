@@ -441,7 +441,7 @@ include("../admin_menu.php");
                                         <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
                                     </div>
         </form>
-        <form action="export_se_log_new2.php" method="post" name="export_excel">
+        <form action="export_se_log_new.php" method="post" name="export_excel">
             <div class="col-md-1">
                 <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
             </div>
@@ -659,7 +659,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                             $t_time = $t;
                                         }else{
                                             $end_time = dateReadFormat($rowc['end_time']);
-                                            $t_time = $rowc['total_time'];
+                                            $t_time = $rowc['tt'];
                                         }
                                     }else{
                                         $color = '#0a53be';
@@ -668,7 +668,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     }
                                     ?>
                                     <td style="color: <?php echo $color; ?>"><?php echo $end_time; ?></td>
-                                    <td><?php echo $rowc['tt']; ?></td>
+                                    <td><?php echo $t_time; ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
