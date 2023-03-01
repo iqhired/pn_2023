@@ -1,33 +1,13 @@
 <?php include("../config.php");
 $temp = "";
-//$message_stauts_class = 'alert-danger';
-//$import_status_message = 'Error: Assignment Position Relation does not exist';
-$assign_line = $_GET['station'];
+//check user
+checkSession();
 
+$assign_line = $_GET['station'];
 $station = $_GET['station'];
 $cellID = $_GET['cell_id'];
 $c_name = $_GET['c_name'];
 
-if (!isset($_SESSION['user'])) {
-    header('location: logout.php');
-}
-
-//Set the session duration for 10800 seconds - 3 hours
-$duration = $auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    header($redirect_logout_path);
-//	header('location: ../logout.php');
-    exit;
-}
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
 if (count($_POST) > 0) {
 //assign crew delete
     $jm = $_POST['assign_line'];
@@ -290,9 +270,6 @@ if ($ps != "") {
 
                 <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12">
                     <?php
-                    //				if (!empty($import_status_message)) {
-                    //					echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                    //				}
                     displaySFMessage();
                     ?>
                     <div class="card">
@@ -397,8 +374,6 @@ if ($ps != "") {
                                     $query = sprintf("SELECT * FROM  cam_station_pos_rel where line_id = '$assign_line' ; ");
                                     $qur = mysqli_query($db, $query);
                                     while ($rowc = mysqli_fetch_array($qur)) {
-//                        $message_stauts_class = '';
-//                        $import_status_message = '';
                                         ?>
                                         <div class="row row-xs align-items-center mg-b-20">
                                             <?php

@@ -1,19 +1,12 @@
-<?php
-include("../config.php");
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-if (!$conn) {
-    $_SESSION['message_stauts_class'] = 'alert-danger';
-    $_SESSION['import_status_message'] = 'Error: Connection Error. Please Try Again';
-    die();
-}
+<?php include("../config.php");
 $sessionuser = $_SESSION["fullname"];
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
+//check user
+checkSession();
+
 $message_stauts_class = 'alert-danger';
 $import_status_message = 'Error: Assignment Position Relation does not exist';
-if (!isset($_SESSION['user'])) {
-    header('location: logout.php');
-}
 if (count($_POST) > 0) {
 //assign crew delete
     $jm = $_POST['assign_line'];
@@ -34,7 +27,7 @@ if (count($_POST) > 0) {
         for ($i = 0; $i < $cnt;) {
             try {
                 //here start transaction
-                mysqli_query($conn, "START TRANSACTION");
+                mysqli_query($db, "START TRANSACTION");
                 $query0001 = sprintf("SELECT * FROM  cam_assign_crew WHERE `assign_crew_id`='$delete_check[$i]' ");
                 $qur0001 = mysqli_query($db, $query0001);
                 $rowc0001 = mysqli_fetch_array($qur0001);
@@ -116,12 +109,12 @@ if (count($_POST) > 0) {
                     $result5 = mysqli_query($db, $sql5);
                 }
 //first assign log become 0 into log table over
-                mysqli_query($conn, "COMMIT");
+                mysqli_query($db, "COMMIT");
             } catch (\Throwable $e) {
                 // An exception has been thrown
                 // We must rollback the transaction
                 //$conn->rollback();
-                mysqli_query($conn, "ROLLBACK");
+                mysqli_query($db, "ROLLBACK");
                 $_SESSION['message_stauts_class'] = 'alert-danger';
                 $_SESSION['import_status_message'] = 'Error: Assign Un-Successful. Please Try Again';
                 //  throw $e; // but the error must be handled anyway
