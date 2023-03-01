@@ -101,13 +101,13 @@ if (count($_POST) > 0){
                                 } else {
                                 }
                             }
-                            $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+                           /* $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
                             $imapStream = imap_open($path, $mail->Username, $mail->Password);
                             $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
                             imap_close($imapStream);
                             $sql6 = "INSERT INTO `cam_email_log`(`station_id`, `position_id`, `user_id` , `email_message` , `email_to` , `email_cc` ,`assign_crew_transaction_id`,`created_at` ) VALUES ('$assignline','$p_name','$u_name','$emailmsg' ,'$emailto' ,'$emailcc' ,'$random','$chicagotime')";
                             $result6 = mysqli_query($db, $sql6);
-                            $email_notification = "1";
+                            $email_notification = "1";*/
                         }
                         $assign_crew_id01 = "";
                         //check for first assignment
