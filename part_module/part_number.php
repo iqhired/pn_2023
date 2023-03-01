@@ -318,6 +318,7 @@ if (count($_POST) > 0) {
         }
         .modal-dialog{
             width: 50% !important;
+            max-width: 100%;
         }
         .modal-title{
             color: #fff !important;
