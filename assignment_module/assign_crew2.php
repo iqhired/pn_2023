@@ -629,9 +629,9 @@ if ($ps != "") {
                                     if ($message_stauts_class == '') {
                                         ?>
                                         <div class="card-body pt-0">
-                                            <button type="submit" onclick="submitForm('assign_crew_submit.php')" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">ASSIGN CREW<span class="legitRipple-ripple" ></span></button>
+                                            <button type="submit" onclick="submitForm('assign_crew_submit2.php')" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">ASSIGN CREW<span class="legitRipple-ripple" ></span></button>
 
-                                            <button type="submit" onclick="submitForm11('assign_crew_unassign_submit.php')" class="btn btn-danger pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">UNASSIGN CREW<span class="legitRipple-ripple"></span></button>
+                                            <button type="submit" onclick="submitForm11('assign_crew_unassign_submit2.php')" class="btn btn-danger pd-x-30 mg-r-5 mg-t-5 legitRipple" id="form_submit_btn">UNASSIGN CREW<span class="legitRipple-ripple"></span></button>
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -644,7 +644,6 @@ if ($ps != "") {
         <?php } ?>
     </div>
 </div>
-<?php include('../footer1.php') ?>
 <script>
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
@@ -733,4 +732,5 @@ if ($ps != "") {
         });
     }
 </script>
+<?php include('../footer1.php') ?>
 </body>
