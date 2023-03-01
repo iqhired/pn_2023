@@ -316,6 +316,12 @@ if (count($_POST) > 0) {
 
             padding-top: 0px!important;
         }
+        .modal-dialog{
+            width: 50% !important;
+        }
+        .modal-title{
+            color: #fff !important;
+        }
         .dropdown .arrow {
 
             margin-top: -25px!important;
