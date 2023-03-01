@@ -341,9 +341,9 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
     <!-- row -->
     <?php
     if (!empty($import_status_message)) {
-        echo '<br/><div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+        echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
     }
-	displaySFMessage();
+    displaySFMessage();
     ?>
     <?php
     $id = $_GET['id'];
@@ -424,7 +424,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
                                 <div class="col-md-4">
                                     <label class="form-label mg-b-0">Station</label>
                                 </div>
-                                <div class="col-md-8 mg-t-5 mg-md-t-0" style="pointer-events: none;">
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
                                     <select name="station" id="station" class="form-control form-select select2" data-bs-placeholder="Select Country">
                                         <option value="" selected disabled> Select Station </option>
                                         <?php
