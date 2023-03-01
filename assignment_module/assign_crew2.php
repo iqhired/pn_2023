@@ -189,9 +189,30 @@ if ($ps != "") {
             .col-md-4.exa{
                 font-size: 11px!important;
             }
+            .col-md-4.md{
+                max-width: 80px!important;
+            }
+            .col-md-3.md{
+                max-width: 130px!important;
+            }
+            .col-md-3.sd{
+                max-width: 130px!important;
+            }
 
         }
+        @media (min-width: 614px) and (max-width: 874px) {
+            .col-md-4.md {
+                max-width: 80px !important;
+            }
 
+            .col-md-3.md {
+                max-width: 130px !important;
+            }
+
+            .col-md-3.sd {
+                max-width: 130px !important;
+            }
+        }
         @media (min-width: 481px) and (max-width: 768px) {
 
             .col-md-1 {
@@ -214,6 +235,15 @@ if ($ps != "") {
             }
             .col-md-4.exa{
                 font-size: 10px!important;
+            }
+            .col-md-4.md{
+                max-width: 80px!important;
+            }
+            .col-md-3.md{
+                max-width: 130px!important;
+            }
+            .col-md-3.sd{
+                max-width: 130px!important;
             }
 
         }
@@ -443,9 +473,14 @@ if ($ps != "") {
                                                 </div>
                                             <?php } ?>
                                         </div>
-                                        <br/>
                                         <?php $cnt++; ?>
                                     <?php } ?>
+                                    <div style="background-color: #f6f6f6;padding: 20px 50px;">
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-12">
+                                            <label class="form-label mg-b-0" style="color: #000000">Additional Personal Assignment</label><hr/>
+                                        </div>
+                                    </div>
                                     <?php
                                     $priyantcount = 2;
                                     $qurtemp2 = mysqli_query($db, "SELECT * FROM cam_assign_crew WHERE line_id = '$assign_line' and resource_type  NOT IN ('regular' , 'On Break' , 'Covering for break')   ORDER by created_at ");
@@ -470,17 +505,16 @@ if ($ps != "") {
                                                     <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
                                                 </label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 md">
                                                 <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3 md">
                                                 <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3 sd">
                                                 <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
                                             </div>
                                         </div>
-                                        <br/>
                                     <?php } ?>
                                     <?php
                                     if ($priyantcount != "0") {
@@ -525,7 +559,6 @@ if ($ps != "") {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <br/>
                                             <?php
                                             $i++;
                                             $cnt++;
@@ -562,13 +595,13 @@ if ($ps != "") {
                                                     <input type="hidden" id="res_type[]" name="res_type[]" value="<?php echo $res_type; ?>">
                                                 </label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 md">
                                                 <label class="form-label mg-b-0"><?php echo $po_name; ?>:</label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3 md">
                                                 <input type="text" class="form-control" value="<?php echo $firstname; ?>&nbsp;<?php echo $lastname; ?>" disabled>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3 sd">
                                                 <input type="text" class="form-control" value="<?php echo $res_type; ?>" disabled>
                                             </div>
                                         </div>
@@ -624,7 +657,7 @@ if ($ps != "") {
                                         }
                                     }
                                     ?>
-
+                                    </div>
                                     <?php
                                     if ($message_stauts_class == '') {
                                         ?>
