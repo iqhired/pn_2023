@@ -141,11 +141,10 @@ while ($row = mysqli_fetch_row($export)) {
     $line = '';
     $j = 1;
     foreach ($row as $value) {
-
-        if ((!isset($value)) || ($value == "") && (($j != 9) && (($j != 8)))) {
-            $value = "\t";
-            
-        } else {
+	
+		if ((!isset($value)) || ($value == "")) {
+			$value = "\t";
+		} else {
             $value = str_replace('"', '""', $value);
             if ($j == 1) {
                 $un = $value;

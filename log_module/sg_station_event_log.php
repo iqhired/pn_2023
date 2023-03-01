@@ -659,7 +659,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                             $t_time = $t;
                                         }else{
                                             $end_time = dateReadFormat($rowc['end_time']);
-                                            $t_time = $rowc['tt'];
+                                            $t_time = $rowc['total_time'];
                                         }
                                     }else{
                                         $color = '#0a53be';
@@ -668,7 +668,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     }
                                     ?>
                                     <td style="color: <?php echo $color; ?>"><?php echo $end_time; ?></td>
-                                    <td><?php echo $t_time; ?></td>
+                                    <td><?php echo $rowc['tt']; ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
