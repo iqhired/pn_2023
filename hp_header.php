@@ -34,7 +34,7 @@ while ($row1 = $result1->fetch_assoc()) {
 <style>
     .header {
         overflow: initial;
-        background-color: #060818;
+        background-color: e4eaef !important;
         padding: 25px 25px;
     }
 
@@ -46,7 +46,7 @@ while ($row1 = $result1->fetch_assoc()) {
 
     .header a {
         /*float: left;*/
-        color: #fff5f5;
+        color: white;
         /*text-align: center;*/
         padding: 2px;
         text-decoration: none;
