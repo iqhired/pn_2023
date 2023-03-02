@@ -142,6 +142,10 @@ $f_type = $cam3['form_type'];
         .caption text-center{
             color: #FFFFFF;
         }
+        .text-semibold {
+            font-weight: 500;
+            color: black;
+        }
     </style>
 </head>
 
@@ -213,7 +217,7 @@ include("../hp_header.php");
                     $calccurrdate = strtotime($curdate);
                     $date1 = $date;
                     if($date1 == $cur){
-                        $sqlv = "INSERT INTO `form_frequency_data`(`form_create_id`, `form_user_data_id`, `time`,`updated_at`) VALUES ('$form_create_id','$form_user_data_id','$f_time','$curdate')";
+                        $sqlv = "update `form_frequency_data` set form_create_id = '$form_create_id',form_user_data_id = '$form_user_data_id',updated_at = '$curdate' where station_event_id = '$station_event_id'";
                         $res = mysqli_query($db, $sqlv);
                         if (!$res) {
                             $_SESSION['message_stauts_class'] = 'alert-danger';
@@ -224,86 +228,89 @@ include("../hp_header.php");
                             $_SESSION['import_status_message'] = 'Form Frequency Updated Successfully.';
                         }
                     }
-
-                    $qur0354 = mysqli_query($db, "select DATE_FORMAT(date_add(updated_at,interval 1 minute), '%Y-%m-%d %H:%i') as updated_at from `form_frequency_data` where form_create_id = '$form_create_id' order by updated_at desc limit 1");
+                    $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and email_status != '1'");
                     $rowc0354 = mysqli_fetch_array($qur0354);
                     $updated_at = $rowc0354['updated_at'];
-                    if($updated_at == $cur)
-                    {
-                        require '../vendor/autoload.php';
-                        $mail = new PHPMailer();
-                        $mail->isSMTP();
-                        $mail->Host = 'smtp.gmail.com';
-                        $mail->Port = 587;
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                        $mail->SMTPAuth = true;
-                        $mail->Username = EMAIL_USER;
-                        $mail->Password = EMAIL_PASSWORD;
-                        $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
-                        $subject = $station2 . ' - ' .$form_type_name. " form needs to be filled";
-                        $query = sprintf("SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
-                        $qur = mysqli_query($db, $query);
-                        while ($rowc1 = mysqli_fetch_array($qur)) {
-                            $arrusrs = explode(',', $rowc1["notification_list"]);
-                        }
-                        $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Form Name : </strong> </td><td>" . $form_type_name . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
-                        $message .= "</table>";
-                        $message .= "<br/>";
-                        $message1 = "Form Last submitted at". ' : ' . $working_from_time;
-                        $message2 = '\n'."Please click on the following link to view the form that was you last submitted : ";
-                        $message3 = $siteURL . "form_module/view_form_data.php?id=" . $form_user_data_id;
-                        $signature = "- Plantnavigator Admin";
-                        $cnt = count($arrusrs);
-                        $structure = '<html><body>';
-                        $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > Hello,</span><br/><br/>";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > <a href=" . $message3 . ">View Form Data</a></span><br/> ";
-                        $structure .= "<br/><br/>";
-                        $structure .= $signature;
-                        $structure .= "</body></html>";
-                        for ($i = 0; $i < $cnt;) {
-                            $u_name = $arrusrs[$i];
-                            if(!empty($u_name)){
-                                $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
-                                $qur0003 = mysqli_query($db, $query0003);
-                                $rowc0003 = mysqli_fetch_array($qur0003);
-                                $email = $rowc0003["email"];
-                                $lasname = $rowc0003["lastname"];
-                                $firstname = $rowc0003["firstname"];
-                                $mail->addAddress($email, $firstname);
+                    if(!empty($updated_at)){
+                        if($curdate >= $updated_at)
+                        {
+                            require '../vendor/autoload.php';
+                            $mail = new PHPMailer();
+                            $mail->isSMTP();
+                            $mail->Host = 'smtp.gmail.com';
+                            $mail->Port = 587;
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                            $mail->SMTPAuth = true;
+                            $mail->Username = EMAIL_USER;
+                            $mail->Password = EMAIL_PASSWORD;
+                            $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
+                            $subject = $station2 . ' - ' .$form_type_name. " form needs to be filled";
+                            $qur = sprintf("update `form_frequency_data` set email_status = '1' where form_create_id = '$form_create_id'");
+                            $ress = mysqli_query($db, $qur);
+                            $query = sprintf("SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
+                            $qur = mysqli_query($db, $query);
+                            while ($rowc1 = mysqli_fetch_array($qur)) {
+                                $arrusrs = explode(',', $rowc1["notification_list"]);
+                            }
+                            $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Form Name : </strong> </td><td>" . $form_type_name . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
+                            $message .= "</table>";
+                            $message .= "<br/>";
+                            $message1 = "Form Last submitted at". ' : ' . $working_from_time;
+                            $message2 = "Please click on the following link to view the form that was you last submitted : ";
+                            $message3 = $siteURL . "form_module/view_form_data.php?id=" . $form_user_data_id;
+                            $signature = "- Plantnavigator Admin";
+                            $cnt = count($arrusrs);
+                            $structure = '<html><body>';
+                            $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > Hello,</span><br/><br/>";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > <a href=" . $message3 . ">View Form Data</a></span><br/> ";
+                            $structure .= "<br/><br/>";
+                            $structure .= $signature;
+                            $structure .= "</body></html>";
+                            for ($i = 0; $i < $cnt;) {
+                                $u_name = $arrusrs[$i];
+                                if(!empty($u_name)){
+                                    $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
+                                    $qur0003 = mysqli_query($db, $query0003);
+                                    $rowc0003 = mysqli_fetch_array($qur0003);
+                                    $email = $rowc0003["email"];
+                                    $lasname = $rowc0003["lastname"];
+                                    $firstname = $rowc0003["firstname"];
+                                    $mail->addAddress($email, $firstname);
+
+                                }
+                                $i++;
+                            }
+                            $mail->isHTML(true);
+                            $mail->Subject = $subject;
+                            $mail->Body = $structure;
+                            if(!$mail->Send()){
+                                echo "Mailer Error: " . $mail->ErrorInfo;
+                            }
+                            else{
+                                echo "  ";
+                            }
+
+                            function save_mail($mail)
+                            {
+                                $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+                                $imapStream = imap_open($path, $mail->Username, $mail->Password);
+                                $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+                                imap_close($imapStream);
+                                return $result;
 
                             }
-                            $i++;
-                        }
-                        $mail->isHTML(true);
-                        $mail->Subject = $subject;
-                        $mail->Body = $structure;
-                        if(!$mail->Send()){
-                            echo "Mailer Error: " . $mail->ErrorInfo;
-                        }
-                        else{
-                            echo "  ";
-                        }
-
-                        function save_mail($mail)
-                        {
-                            $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
-                            $imapStream = imap_open($path, $mail->Username, $mail->Password);
-                            $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
-                            imap_close($imapStream);
-                            return $result;
 
                         }
 
                     }
-
                     ?>
                     <div class="col-lg-3">
                         <div class="panel bg-blue-400">
@@ -433,10 +440,6 @@ include("../hp_header.php");
                             $part_family_id = $row['part_family_id'];
                             $part_number_id = $row['part_number_id'];
 
-                            $qur = mysqli_query($db, "SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
-                            $row1 = mysqli_fetch_array($qur);
-
-
                             //retrieve the part family name from the table
                             $qur0352 = mysqli_query($db, "SELECT * FROM `pm_part_family` where pm_part_family_id = '$part_family_id'");
                             $rowc0352 = mysqli_fetch_array($qur0352);
@@ -460,6 +463,98 @@ include("../hp_header.php");
                             $working_from_time = $rowc["line_up_time"];
                             $calcdatet = strtotime($date);
                             $calccurrdate = strtotime($curdate);
+                            $date1 = $date;
+                            if($date1 == $cur){
+                                $sqlv = "update `form_frequency_data` set line_updated_date = '$date1' WHERE station_event_id = '$station_event_id'";
+                                $res = mysqli_query($db, $sqlv);
+                                if (!$res) {
+                                    $_SESSION['message_stauts_class'] = 'alert-danger';
+                                    $_SESSION['import_status_message'] = 'Please Fill Pin';
+                                }
+                                else{
+                                    $_SESSION['message_stauts_class'] = 'alert-success';
+                                    $_SESSION['import_status_message'] = 'Form Frequency Updated Successfully.';
+                                }
+                            }
+                            $q5 = sprintf("SELECT * FROM  form_create where station = '$station1' and part_family = '$part_family_id' and part_number = '$part_number_id'");
+                            $q55 = mysqli_query($db, $q5);
+                            while($r5 = mysqli_fetch_array($q55)) {
+                                $arrusrs = explode(',', $r5["notification_list"]);
+                            }
+                            $sq = "select * from form_frequency_data where enabled != '0' and lab_mail != '1' and station_event_id = '$station_event_id'";
+                            $res = mysqli_query($db, $sq);
+                            $rowv = mysqli_fetch_array($res);
+                            $line_updated_date = $rowv['line_updated_date'];
+                            $line_up_time = $rowv['line_up_time'];
+                            if(!empty($line_updated_date)){
+                                if($curdate >= $line_updated_date) {
+                                    //after mail send update the mail status to be 1/*** @vck ***/
+                                    $q4 = sprintf("update form_frequency_data set lab_mail = '1' where station_event_id = '$station_event_id'");
+                                    $q44 = mysqli_query($db, $q4);
+                                    //send an email
+                                    require '../vendor/autoload.php';
+                                    $mail = new PHPMailer();
+                                    $mail->isSMTP();
+                                    $mail->Host = 'smtp.gmail.com';
+                                    $mail->Port = 587;
+                                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                                    $mail->SMTPAuth = true;
+                                    $mail->Username = EMAIL_USER;
+                                    $mail->Password = EMAIL_PASSWORD;
+                                    $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
+                                    $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
+                                    $message .= "</table>";
+                                    $message .= "<br/>";
+                                    $message1 = "Station line up time" . ' : ' . $line_up_time;
+                                    $message2 = "The Station is up and running for 2 hours and Parameter Sheet has not been submitted.";
+                                    $message3 = "Form Type - First Piece Sheet Lab";
+                                    $signature = "- Plantnavigator Admin";
+                                    $cnt = count($arrusrs);
+                                    $structure = '<html><body>';
+                                    $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;'> Hello,</span><br/><br/>";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message3 . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
+                                    $structure .= "<br/><br/>";
+                                    $structure .= $signature;
+                                    $structure .= "</body></html>";
+                                    for ($i = 0; $i < $cnt;) {
+                                        $u_name = $arrusrs[$i];
+                                        if (!empty($u_name)) {
+                                            $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
+                                            $qur0003 = mysqli_query($db, $query0003);
+                                            $rowc0003 = mysqli_fetch_array($qur0003);
+                                            $email = $rowc0003["email"];
+                                            $lasname = $rowc0003["lastname"];
+                                            $firstname = $rowc0003["firstname"];
+                                            $mail->addAddress($email, $firstname);
+
+                                        }
+                                        $i++;
+                                    }
+                                    $mail->isHTML(true);
+                                    $mail->Subject = $station2 . ' - First Piece Sheet Lab Not Submitted';
+                                    $mail->Body = $structure;
+                                    if (!$mail->Send()) {
+                                        echo "Mailer Error: " . $mail->ErrorInfo;
+                                    } else {
+                                    }
+                                    function save_mail($mail)
+                                    {
+                                        $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+                                        $imapStream = imap_open($path, $mail->Username, $mail->Password);
+                                        $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+                                        imap_close($imapStream);
+                                        return $result;
+
+                                    }
+                                }
+                            }
                             ?>
                             <div class="col-lg-3">
                             <div class="panel bg-blue-400">
@@ -595,21 +690,21 @@ include("../hp_header.php");
                     $t11 = $row1["frequency"];
                     $color = "";
 
-                    //retrieve the form type name from the table
-                    $qur0351 = mysqli_query($db, "SELECT * FROM `form_type` where form_type_id = '$form_type'");
-                    $rowc0351 = mysqli_fetch_array($qur0351);
-                    $form_type_name = $rowc0351['form_type_name'];
+                        //retrieve the form type name from the table
+                        $qur0351 = mysqli_query($db, "SELECT * FROM `form_type` where form_type_id = '$form_type'");
+                        $rowc0351 = mysqli_fetch_array($qur0351);
+                        $form_type_name = $rowc0351['form_type_name'];
 
-                    //retrieve the part family name from the table
-                    $qur0352 = mysqli_query($db, "SELECT * FROM `pm_part_family` where pm_part_family_id = '$part_family' ");
-                    $rowc0352 = mysqli_fetch_array($qur0352);
-                    $part_family_name = $rowc0352['part_family_name'];
+                        //retrieve the part family name from the table
+                        $qur0352 = mysqli_query($db, "SELECT * FROM `pm_part_family` where pm_part_family_id = '$part_family' ");
+                        $rowc0352 = mysqli_fetch_array($qur0352);
+                        $part_family_name = $rowc0352['part_family_name'];
 
-                    //retrieve the part number and part name from the table
-                    $qur0353 = mysqli_query($db, "SELECT * FROM `pm_part_number` where pm_part_number_id = '$part_number'  ");
-                    $rowc0353 = mysqli_fetch_array($qur0353);
-                    $part_number = $rowc0353['part_number'];
-                    $part_name = $rowc0353['part_name'];
+                        //retrieve the part number and part name from the table
+                        $qur0353 = mysqli_query($db, "SELECT * FROM `pm_part_number` where pm_part_number_id = '$part_number'  ");
+                        $rowc0353 = mysqli_fetch_array($qur0353);
+                        $part_number = $rowc0353['part_number'];
+                        $part_name = $rowc0353['part_name'];
 
                     $arrteam1 = explode(':', $t11);
                     $hours = $arrteam1[0];
@@ -623,97 +718,87 @@ include("../hp_header.php");
                     $working_from_time = $rowc["created_at"];
                     $calcdatet = strtotime($date);
                     $calccurrdate = strtotime($curdate);
-                    $date1 = $date;
-                    if($date1 == $cur){
-                        $sqlv = "INSERT INTO `form_frequency_data`(`form_create_id`, `form_user_data_id`, `time`,`updated_at`) VALUES ('$form_create_id','$form_user_data_id','$f_time','$curdate')";
-                        $res = mysqli_query($db, $sqlv);
-                        if (!$res) {
-                            $_SESSION['message_stauts_class'] = 'alert-danger';
-                            $_SESSION['import_status_message'] = 'Please Fill Pin';
-                        }
-                        else{
-                            $_SESSION['message_stauts_class'] = 'alert-success';
-                            $_SESSION['import_status_message'] = 'Form Frequency Updated Successfully.';
-                        }
-                    }
+                            $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and email_status != '1'");
+                            $rowc0354 = mysqli_fetch_array($qur0354);
+                            $updated_at = $rowc0354['updated_at'];
+                    if(!empty($updated_at)) {
+                        if($curdate >= $updated_at)
+                        {
+                            require '../vendor/autoload.php';
+                            $mail = new PHPMailer();
+                            $mail->isSMTP();
+                            $mail->Host = 'smtp.gmail.com';
+                            $mail->Port = 587;
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                            $mail->SMTPAuth = true;
+                            $mail->Username = EMAIL_USER;
+                            $mail->Password = EMAIL_PASSWORD;
+                            $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
+                            $subject = $station2 . ' - ' .$form_type_name. " form needs to be filled";
+                            $qur = sprintf("update `form_frequency_data` set email_status = '1' where form_create_id = '$form_create_id'");
+                            $ress = mysqli_query($db, $qur);
+                            $query = sprintf("SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
+                            $qur = mysqli_query($db, $query);
+                            while ($rowc1 = mysqli_fetch_array($qur)) {
+                                $arrusrs = explode(',', $rowc1["notification_list"]);
+                            }
+                            $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Form Name : </strong> </td><td>" . $form_type_name . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
+                            $message .= "</table>";
+                            $message .= "<br/>";
+                            $message1 = "Form Last submitted at". ' : ' . $working_from_time;
+                            $message2 = "Please click on the following link to view the form that was you last submitted : ";
+                            $message3 = $siteURL . "form_module/view_form_data.php?id=" . $form_user_data_id;
+                            $signature = "- Plantnavigator Admin";
+                            $cnt = count($arrusrs);
+                            $structure = '<html><body>';
+                            $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > Hello,</span><br/><br/>";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > <a href=" . $message3 . ">View Form Data</a></span><br/> ";
+                            $structure .= "<br/><br/>";
+                            $structure .= $signature;
+                            $structure .= "</body></html>";
+                            for ($i = 0; $i < $cnt;) {
+                                $u_name = $arrusrs[$i];
+                                if(!empty($u_name)){
+                                    $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
+                                    $qur0003 = mysqli_query($db, $query0003);
+                                    $rowc0003 = mysqli_fetch_array($qur0003);
+                                    $email = $rowc0003["email"];
+                                    $lasname = $rowc0003["lastname"];
+                                    $firstname = $rowc0003["firstname"];
+                                    $mail->addAddress($email, $firstname);
 
-                    $qur0354 = mysqli_query($db, "select DATE_FORMAT(date_add(updated_at,interval 1 minute), '%Y-%m-%d %H:%i') as updated_at from `form_frequency_data` where form_create_id = '$form_create_id' order by updated_at desc limit 1");
-                    $rowc0354 = mysqli_fetch_array($qur0354);
-                    $updated_at = $rowc0354['updated_at'];
-                    if($updated_at == $cur)
-                    {
-                        require '../vendor/autoload.php';
-                        $mail = new PHPMailer();
-                        $mail->isSMTP();
-                        $mail->Host = 'smtp.gmail.com';
-                        $mail->Port = 587;
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                        $mail->SMTPAuth = true;
-                        $mail->Username = EMAIL_USER;
-                        $mail->Password = EMAIL_PASSWORD;
-                        $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
-                        $subject = $station2 . ' - ' .$form_type_name. " form needs to be filled";
-                        $query = sprintf("SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
-                        $qur = mysqli_query($db, $query);
-                        while ($rowc1 = mysqli_fetch_array($qur)) {
-                            $arrusrs = explode(',', $rowc1["notification_list"]);
-                        }
-                        $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Form Name : </strong> </td><td>" . $form_type_name . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
-                        $message .= "</table>";
-                        $message .= "<br/>";
-                        $message1 = "Form Last submitted at". ' : ' . $working_from_time;
-                        $message2 = '\n'."Please click on the following link to view the form that was you last submitted : ";
-                        $message3 = $siteURL . "form_module/view_form_data.php?id=" . $form_user_data_id;
-                        $signature = "- Plantnavigator Admin";
-                        $cnt = count($arrusrs);
-                        $structure = '<html><body>';
-                        $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > Hello,</span><br/><br/>";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > <a href=" . $message3 . ">View Form Data</a></span><br/> ";
-                        $structure .= "<br/><br/>";
-                        $structure .= $signature;
-                        $structure .= "</body></html>";
-                        for ($i = 0; $i < $cnt;) {
-                            $u_name = $arrusrs[$i];
-                            if(!empty($u_name)){
-                                $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
-                                $qur0003 = mysqli_query($db, $query0003);
-                                $rowc0003 = mysqli_fetch_array($qur0003);
-                                $email = $rowc0003["email"];
-                                $lasname = $rowc0003["lastname"];
-                                $firstname = $rowc0003["firstname"];
-                                $mail->addAddress($email, $firstname);
+                                }
+                                $i++;
+                            }
+                            $mail->isHTML(true);
+                            $mail->Subject = $subject;
+                            $mail->Body = $structure;
+                            if(!$mail->Send()){
+                                echo "Mailer Error: " . $mail->ErrorInfo;
+                            }
+                            else{
+                                echo "  ";
+                            }
+
+                            function save_mail($mail)
+                            {
+                                $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+                                $imapStream = imap_open($path, $mail->Username, $mail->Password);
+                                $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+                                imap_close($imapStream);
+                                return $result;
 
                             }
-                            $i++;
-                        }
-                        $mail->isHTML(true);
-                        $mail->Subject = $subject;
-                        $mail->Body = $structure;
-                        if(!$mail->Send()){
-                            echo "Mailer Error: " . $mail->ErrorInfo;
-                        }
-                        else{
-                            echo "  ";
-                        }
-
-                        function save_mail($mail)
-                        {
-                            $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
-                            $imapStream = imap_open($path, $mail->Username, $mail->Password);
-                            $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
-                            imap_close($imapStream);
-                            return $result;
 
                         }
-
                     }
                     ?>
                     <div class="col-lg-3">
@@ -845,10 +930,6 @@ include("../hp_header.php");
                             $part_family_id = $row['part_family_id'];
                             $part_number_id = $row['part_number_id'];
 
-                            $qur = mysqli_query($db, "SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
-                            $row1 = mysqli_fetch_array($qur);
-
-
                             //retrieve the part family name from the table
                             $qur0352 = mysqli_query($db, "SELECT * FROM `pm_part_family` where pm_part_family_id = '$part_family_id'");
                             $rowc0352 = mysqli_fetch_array($qur0352);
@@ -872,6 +953,86 @@ include("../hp_header.php");
                             $working_from_time = $rowc["line_up_time"];
                             $calcdatet = strtotime($date);
                             $calccurrdate = strtotime($curdate);
+                            $q5 = sprintf("SELECT * FROM  form_create where station = '$station1' and part_family = '$part_family_id' and part_number = '$part_number_id'");
+                            $q55 = mysqli_query($db, $q5);
+                            while($r5 = mysqli_fetch_array($q55)) {
+                                $arrusrs = explode(',', $r5["notification_list"]);
+                            }
+                            $sq = "select * from form_frequency_data where enabled != '0' and op_mail != '1' and station_event_id = '$station_event_id'";
+                            $res = mysqli_query($db, $sq);
+                            $rowv = mysqli_fetch_array($res);
+                            $line_updated_date = $rowv['line_updated_date'];
+                            $line_up_time = $rowv['line_up_time'];
+                            if(!empty($line_updated_date)){
+
+                                if($curdate >= $line_updated_date) {
+                                    //after mail send update the mail status to be 1/*** @vck ***/
+                                    $q4 = sprintf("update form_frequency_data set op_mail = '1' where station_event_id = '$station_event_id'");
+                                    $q44 = mysqli_query($db, $q4);
+                                    //send an email
+                                    require '../vendor/autoload.php';
+                                    $mail = new PHPMailer();
+                                    $mail->isSMTP();
+                                    $mail->Host = 'smtp.gmail.com';
+                                    $mail->Port = 587;
+                                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                                    $mail->SMTPAuth = true;
+                                    $mail->Username = EMAIL_USER;
+                                    $mail->Password = EMAIL_PASSWORD;
+                                    $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
+                                    $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
+                                    $message .= "</table>";
+                                    $message .= "<br/>";
+                                    $message1 = "Station line up time" . ' : ' . $line_up_time;
+                                    $message2 = "The Station is up and running for 2 hours and Parameter Sheet has not been submitted.";
+                                    $message3 = "Form Type - First Piece Sheet Op";
+                                    $signature = "- Plantnavigator Admin";
+                                    $cnt = count($arrusrs);
+                                    $structure = '<html><body>';
+                                    $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;'> Hello,</span><br/><br/>";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message3 . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
+                                    $structure .= "<br/><br/>";
+                                    $structure .= $signature;
+                                    $structure .= "</body></html>";
+                                    for ($i = 0; $i < $cnt;) {
+                                        $u_name = $arrusrs[$i];
+                                        if (!empty($u_name)) {
+                                            $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
+                                            $qur0003 = mysqli_query($db, $query0003);
+                                            $rowc0003 = mysqli_fetch_array($qur0003);
+                                            $email = $rowc0003["email"];
+                                            $lasname = $rowc0003["lastname"];
+                                            $firstname = $rowc0003["firstname"];
+                                            $mail->addAddress($email, $firstname);
+
+                                        }
+                                        $i++;
+                                    }
+                                    $mail->isHTML(true);
+                                    $mail->Subject = $station2 . ' - First Piece Sheet Op Not Submitted';
+                                    $mail->Body = $structure;
+                                    if (!$mail->Send()) {
+                                        echo "Mailer Error: " . $mail->ErrorInfo;
+                                    } else {
+                                    }
+                                    function save_mail($mail)
+                                    {
+                                        $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+                                        $imapStream = imap_open($path, $mail->Username, $mail->Password);
+                                        $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+                                        imap_close($imapStream);
+                                        return $result;
+
+                                    }
+                                }
+                            }
                             ?>
                             <div class="col-lg-3">
                             <div class="panel bg-blue-400">
@@ -1005,21 +1166,21 @@ include("../hp_header.php");
                     $t11 = $row1["frequency"];
                     $color = "";
 
-                    //retrieve the form type name from the table
-                    $qur0351 = mysqli_query($db, "SELECT * FROM `form_type` where form_type_id = '$form_type'");
-                    $rowc0351 = mysqli_fetch_array($qur0351);
-                    $form_type_name = $rowc0351['form_type_name'];
+                        //retrieve the form type name from the table
+                        $qur0351 = mysqli_query($db, "SELECT * FROM `form_type` where form_type_id = '$form_type'");
+                        $rowc0351 = mysqli_fetch_array($qur0351);
+                        $form_type_name = $rowc0351['form_type_name'];
 
-                    //retrieve the part family name from the table
-                    $qur0352 = mysqli_query($db, "SELECT * FROM `pm_part_family` where pm_part_family_id = '$part_family' ");
-                    $rowc0352 = mysqli_fetch_array($qur0352);
-                    $part_family_name = $rowc0352['part_family_name'];
+                        //retrieve the part family name from the table
+                        $qur0352 = mysqli_query($db, "SELECT * FROM `pm_part_family` where pm_part_family_id = '$part_family' ");
+                        $rowc0352 = mysqli_fetch_array($qur0352);
+                        $part_family_name = $rowc0352['part_family_name'];
 
-                    //retrieve the part number and part name from the table
-                    $qur0353 = mysqli_query($db, "SELECT * FROM `pm_part_number` where pm_part_number_id = '$part_number'  ");
-                    $rowc0353 = mysqli_fetch_array($qur0353);
-                    $part_number = $rowc0353['part_number'];
-                    $part_name = $rowc0353['part_name'];
+                        //retrieve the part number and part name from the table
+                        $qur0353 = mysqli_query($db, "SELECT * FROM `pm_part_number` where pm_part_number_id = '$part_number'  ");
+                        $rowc0353 = mysqli_fetch_array($qur0353);
+                        $part_number = $rowc0353['part_number'];
+                        $part_name = $rowc0353['part_name'];
 
                     $arrteam1 = explode(':', $t11);
                     $hours = $arrteam1[0];
@@ -1033,96 +1194,87 @@ include("../hp_header.php");
                     $working_from_time = $rowc["created_at"];
                     $calcdatet = strtotime($date);
                     $calccurrdate = strtotime($curdate);
-                    $date1 = $date;
-                    if($date1 == $cur){
-                        $sqlv = "INSERT INTO `form_frequency_data`(`form_create_id`, `form_user_data_id`, `time`,`updated_at`) VALUES ('$form_create_id','$form_user_data_id','$f_time','$curdate')";
-                        $res = mysqli_query($db, $sqlv);
-                        if (!$res) {
-                            $_SESSION['message_stauts_class'] = 'alert-danger';
-                            $_SESSION['import_status_message'] = 'Please Fill Pin';
-                        }
-                        else{
-                            $_SESSION['message_stauts_class'] = 'alert-success';
-                            $_SESSION['import_status_message'] = 'Form Frequency Updated Successfully.';
-                        }
-                    }
-                    $qur0354 = mysqli_query($db, "select DATE_FORMAT(date_add(updated_at,interval 1 minute), '%Y-%m-%d %H:%i') as updated_at from `form_frequency_data` where form_create_id = '$form_create_id' order by updated_at desc limit 1");
+                    $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and email_status != '1'");
                     $rowc0354 = mysqli_fetch_array($qur0354);
                     $updated_at = $rowc0354['updated_at'];
-                    if($updated_at == $cur)
-                    {
-                        require '../vendor/autoload.php';
-                        $mail = new PHPMailer();
-                        $mail->isSMTP();
-                        $mail->Host = 'smtp.gmail.com';
-                        $mail->Port = 587;
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                        $mail->SMTPAuth = true;
-                        $mail->Username = EMAIL_USER;
-                        $mail->Password = EMAIL_PASSWORD;
-                        $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
-                        $subject = $station2 . ' - ' .$form_type_name. " form needs to be filled";
-                        $query = sprintf("SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
-                        $qur = mysqli_query($db, $query);
-                        while ($rowc1 = mysqli_fetch_array($qur)) {
-                            $arrusrs = explode(',', $rowc1["notification_list"]);
-                        }
-                        $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Form Name : </strong> </td><td>" . $form_type_name . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
-                        $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
-                        $message .= "</table>";
-                        $message .= "<br/>";
-                        $message1 = "Form Last submitted at". ' : ' . $working_from_time;
-                        $message2 = '\n'."Please click on the following link to view the form that was you last submitted : ";
-                        $message3 = $siteURL . "form_module/view_form_data.php?id=" . $form_user_data_id;
-                        $signature = "- Plantnavigator Admin";
-                        $cnt = count($arrusrs);
-                        $structure = '<html><body>';
-                        $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > Hello,</span><br/><br/>";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
-                        $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > <a href=" . $message3 . ">View Form Data</a></span><br/> ";
-                        $structure .= "<br/><br/>";
-                        $structure .= $signature;
-                        $structure .= "</body></html>";
-                        for ($i = 0; $i < $cnt;) {
-                            $u_name = $arrusrs[$i];
-                            if(!empty($u_name)){
-                                $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
-                                $qur0003 = mysqli_query($db, $query0003);
-                                $rowc0003 = mysqli_fetch_array($qur0003);
-                                $email = $rowc0003["email"];
-                                $lasname = $rowc0003["lastname"];
-                                $firstname = $rowc0003["firstname"];
-                                $mail->addAddress($email, $firstname);
+                    if(!empty($updated_at)) {
+                        if($curdate >= $updated_at)
+                        {
+                            require '../vendor/autoload.php';
+                            $mail = new PHPMailer();
+                            $mail->isSMTP();
+                            $mail->Host = 'smtp.gmail.com';
+                            $mail->Port = 587;
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                            $mail->SMTPAuth = true;
+                            $mail->Username = EMAIL_USER;
+                            $mail->Password = EMAIL_PASSWORD;
+                            $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
+                            $subject = $station2 . ' - ' .$form_type_name. " form needs to be filled";
+                            $qur = sprintf("update `form_frequency_data` set email_status = '1' where form_create_id = '$form_create_id'");
+                            $ress = mysqli_query($db, $qur);
+                            $query = sprintf("SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
+                            $qur = mysqli_query($db, $query);
+                            while ($rowc1 = mysqli_fetch_array($qur)) {
+                                $arrusrs = explode(',', $rowc1["notification_list"]);
+                            }
+                            $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Form Name : </strong> </td><td>" . $form_type_name . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
+                            $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
+                            $message .= "</table>";
+                            $message .= "<br/>";
+                            $message1 = "Form Last submitted at". ' : ' . $working_from_time;
+                            $message2 = "Please click on the following link to view the form that was you last submitted : ";
+                            $message3 = $siteURL . "form_module/view_form_data.php?id=" . $form_user_data_id;
+                            $signature = "- Plantnavigator Admin";
+                            $cnt = count($arrusrs);
+                            $structure = '<html><body>';
+                            $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > Hello,</span><br/><br/>";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
+                            $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > <a href=" . $message3 . ">View Form Data</a></span><br/> ";
+                            $structure .= "<br/><br/>";
+                            $structure .= $signature;
+                            $structure .= "</body></html>";
+                            for ($i = 0; $i < $cnt;) {
+                                $u_name = $arrusrs[$i];
+                                if(!empty($u_name)){
+                                    $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
+                                    $qur0003 = mysqli_query($db, $query0003);
+                                    $rowc0003 = mysqli_fetch_array($qur0003);
+                                    $email = $rowc0003["email"];
+                                    $lasname = $rowc0003["lastname"];
+                                    $firstname = $rowc0003["firstname"];
+                                    $mail->addAddress($email, $firstname);
+
+                                }
+                                $i++;
+                            }
+                            $mail->isHTML(true);
+                            $mail->Subject = $subject;
+                            $mail->Body = $structure;
+                            if(!$mail->Send()){
+                                echo "Mailer Error: " . $mail->ErrorInfo;
+                            }
+                            else{
+                                echo "  ";
+                            }
+
+                            function save_mail($mail)
+                            {
+                                $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+                                $imapStream = imap_open($path, $mail->Username, $mail->Password);
+                                $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+                                imap_close($imapStream);
+                                return $result;
 
                             }
-                            $i++;
-                        }
-                        $mail->isHTML(true);
-                        $mail->Subject = $subject;
-                        $mail->Body = $structure;
-                        if(!$mail->Send()){
-                            echo "Mailer Error: " . $mail->ErrorInfo;
-                        }
-                        else{
-                            echo "  ";
-                        }
-
-                        function save_mail($mail)
-                        {
-                            $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
-                            $imapStream = imap_open($path, $mail->Username, $mail->Password);
-                            $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
-                            imap_close($imapStream);
-                            return $result;
 
                         }
-
                     }
                     ?>
                     <div class="col-lg-3">
@@ -1247,15 +1399,10 @@ include("../hp_header.php");
                             $time = $rowc["up_time"];
                             $t11 = $rowc["up_time"];
                             $color = "";
-
                             $qur = mysqli_query($db, "SELECT * FROM `sg_station_event` where station_event_id = '$station_event_id'");
                             $row = mysqli_fetch_array($qur);
                             $part_family_id = $row['part_family_id'];
                             $part_number_id = $row['part_number_id'];
-
-                            $qur = mysqli_query($db, "SELECT * FROM `form_create` where form_create_id = '$form_create_id'");
-                            $row1 = mysqli_fetch_array($qur);
-
 
                             //retrieve the part family name from the table
                             $qur0352 = mysqli_query($db, "SELECT * FROM `pm_part_family` where pm_part_family_id = '$part_family_id'");
@@ -1280,6 +1427,85 @@ include("../hp_header.php");
                             $working_from_time = $rowc["line_up_time"];
                             $calcdatet = strtotime($date);
                             $calccurrdate = strtotime($curdate);
+                            $q5 = sprintf("SELECT * FROM  form_create where station = '$station1' and part_family = '$part_family_id' and part_number = '$part_number_id'");
+                            $q55 = mysqli_query($db, $q5);
+                            while($r5 = mysqli_fetch_array($q55)) {
+                                $arrusrs = explode(',', $r5["notification_list"]);
+                            }
+                            $sq = "select * from form_frequency_data where enabled != '0' and psheet_mail != '1' and station_event_id = '$station_event_id'";
+                            $res = mysqli_query($db, $sq);
+                            $rowv = mysqli_fetch_array($res);
+                            $line_updated_date = $rowv['line_updated_date'];
+                            $line_up_time = $rowv['line_up_time'];
+                            if(!empty($line_updated_date)){
+                                if($curdate >= $line_updated_date){
+                                    //after mail send update the mail status to be 1/*** @vck ***/
+                                    $q4 = sprintf("update form_frequency_data set psheet_mail = '1' where station_event_id = '$station_event_id'");
+                                    $q44 = mysqli_query($db, $q4);
+                                    //send an email
+                                    require '../vendor/autoload.php';
+                                    $mail = new PHPMailer();
+                                    $mail->isSMTP();
+                                    $mail->Host = 'smtp.gmail.com';
+                                    $mail->Port = 587;
+                                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                                    $mail->SMTPAuth = true;
+                                    $mail->Username = EMAIL_USER;
+                                    $mail->Password = EMAIL_PASSWORD;
+                                    $mail->setFrom('admin@plantnavigator.com', 'Admin Plantnavigator');
+                                    $message = '<br/><table rules=\"all\" style=\"border-color: #666;\" border=\"1\" cellpadding=\"10\">';
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Station : </strong> </td><td>" . $station2 . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Number : </strong> </td><td>" . $part_number . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Name : </strong> </td><td>" . $part_name . "</td></tr>";
+                                    $message .= "<tr><td style='background: #eee;padding: 5px 10px ;'><strong>Part Family : </strong> </td><td>" . $part_family_name . "</td></tr>";
+                                    $message .= "</table>";
+                                    $message .= "<br/>";
+                                    $message1 = "Station line up time" . ' : ' . $line_up_time;
+                                    $message2 = "The Station is up and running for 2 hours and Parameter Sheet has not been submitted.";
+                                    $message3 = "Form Type - Parameter Sheet";
+                                    $signature = "- Plantnavigator Admin";
+                                    $cnt = count($arrusrs);
+                                    $structure = '<html><body>';
+                                    $structure .= "<br/><br/><span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;'> Hello,</span><br/><br/>";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message3 . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message1 . "</span><br/> ";
+                                    $structure .= "<span style='font-family: 'Source Sans Pro', sans-serif;color:#757575;font-weight:600;' > " . $message2 . "</span><br/> ";
+                                    $structure .= "<br/><br/>";
+                                    $structure .= $signature;
+                                    $structure .= "</body></html>";
+                                    for ($i = 0; $i < $cnt;) {
+                                        $u_name = $arrusrs[$i];
+                                        if (!empty($u_name)) {
+                                            $query0003 = sprintf("SELECT * FROM  cam_users where users_id = '$u_name' ");
+                                            $qur0003 = mysqli_query($db, $query0003);
+                                            $rowc0003 = mysqli_fetch_array($qur0003);
+                                            $email = $rowc0003["email"];
+                                            $lasname = $rowc0003["lastname"];
+                                            $firstname = $rowc0003["firstname"];
+                                            $mail->addAddress($email, $firstname);
+
+                                        }
+                                        $i++;
+                                    }
+                                    $mail->isHTML(true);
+                                    $mail->Subject = $station2 . '- Parameter Sheet Not Submitted';
+                                    $mail->Body = $structure;
+                                    if (!$mail->Send()) {
+                                        echo "Mailer Error: " . $mail->ErrorInfo;
+                                    } else {
+                                    }
+                                    function save_mail($mail)
+                                    {
+                                        $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+                                        $imapStream = imap_open($path, $mail->Username, $mail->Password);
+                                        $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+                                        imap_close($imapStream);
+                                        return $result;
+
+                                    }
+                                }
+                            }
                             ?>
                             <div class="col-lg-3">
                             <div class="panel bg-blue-400">
