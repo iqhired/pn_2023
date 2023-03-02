@@ -34,13 +34,19 @@ while ($row1 = $result1->fetch_assoc()) {
 <style>
     .header {
         overflow: initial;
-        background-color: #060818;
+        background-color: e4eaef !important;
         padding: 25px 25px;
     }
 
+    .text-semibold {
+        font-weight: 500;
+        color: black;
+    }
+
+
     .header a {
         /*float: left;*/
-        color: #fff5f5;
+        color: white;
         /*text-align: center;*/
         padding: 2px;
         text-decoration: none;
@@ -175,7 +181,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
 <div class="header" style="height: 60px;">
 
     <a href="#" class="logo">
-        <img src="<?php echo $siteURL; ?>/assets/images/site_logo.png"  class = "logo_img" alt="logo">
+        <img src="<?php echo $siteURL; ?>/assets/img/site_logo.png"  class = "logo_img" alt="logo">
     </a>
 
         <h3 class="navbar-center" id="screen_header" style=""><span class="text-semibold"><?php echo $cam_page_header; ?></span></h3>

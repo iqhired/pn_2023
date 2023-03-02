@@ -66,6 +66,12 @@ $f_type = $cam3['form_type'];
 
             font-size: 14px;
         }
+
+        .text-semibold {
+            font-weight: 500;
+            color: black;
+        }
+
         .col-lg-3 {
             font-size: 12px!important;
         }

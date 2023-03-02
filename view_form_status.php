@@ -206,6 +206,7 @@ $assign_line = htmlspecialchars($_GET["station"]);
                 font-size: 60px !important;
             }
 
+
         }
 
 
@@ -318,6 +319,11 @@ $assign_line = htmlspecialchars($_GET["station"]);
             height: auto;
             width: 150px;
         }
+        .text-semibold {
+            font-weight: 500;
+            color: black;
+        }
+
         img.dropbtn_img {
             height: auto;
             width: 28px!important;
@@ -377,7 +383,8 @@ $cam_page_header = $linename . "- Status Overview";
 <div class="header">
 
     <a class="logo">
-        <img class = "logo_img" src="<?php $siteURL ?>assets/img/SGG_logo.png" alt="logo">
+        <img class = "logo_img" src="<?php $siteURL ?>assets/img/site_logo.png" alt="logo">
+
     </a>
 
     <h3 class="navbar-center" id="screen_header" style=""><span class="text-semibold"><?php echo $cam_page_header; ?></span></h3>
