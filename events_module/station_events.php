@@ -225,6 +225,8 @@ if(isset($_POST['update_btn'])){
       if($event_type_id == 7){
                 $sql = "update sg_station_event set event_status = '0' ,event_type_id='$event_type_id', modified_on='$chicagotime', modified_by='$user_id' where  station_event_id = '$station_event_id'";
                 $result1 = mysqli_query($db, $sql);
+                $sql11 = "update form_frequency_data set enabled = '0' where station_event_id = '$station_event_id'";
+                $result0 = mysqli_query($db, $sql11);
                   $qur2="Select SEC_TO_TIME(TIME_TO_SEC(TIMEDIFF('$chicagotime', created_on))) as completed_time from `sg_station_event_log` WHERE station_event_id = '$station_event_id' and event_seq = '$curr_seq'";
                   $res = mysqli_query($db, $qur2);
                   $firstrow = mysqli_fetch_array($res);
