@@ -1,4 +1,14 @@
-<?php include("../config.php"); ?>
+<?php
+include("../config.php");
+//include("../sup_config.php");
+$chicagotime = date("Y-m-d H:i:s");
+$temp = "";
+checkSession();
+$assign_by = $_SESSION["id"];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -192,93 +202,96 @@ include("../admin_menu.php");
                         <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">PART NUMBER</span>
                         </div>
-                        <div class="pd-30 pd-sm-20">
+                            <form action="" id="part_settings" enctype="multipart/form-data" method="post">
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="row row-xs">
+                                        <div class="col-md-1">
+                                            <label class="form-label mg-b-0">Part Number</label>
+                                        </div>
+                                        <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                            <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                                <option value="" selected> Select Part Number </option>
+                                                <?php
 
-                            <div class="row row-xs">
-                                <div class="col-md-1">
-                                    <label class="form-label mg-b-0">Part Number</label>
-                                </div>
-                                <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                    <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
-                                        <option value="" selected> Select Part Number </option>
-                                        <?php
+                                                $st_dashboard = $_POST['part_number'];
 
-                                        $sql1 = "SELECT * FROM `pm_part_number` where is_deleted != 1";
-                                        $result1 = $mysqli->query($sql1);
-                                        //                                            $entry = 'selected';
-                                        while ($row1 = $result1->fetch_assoc()) {
-//                                            if($st_dashboard == $row1['pm_part_number_id'])
-//                                            {
-//                                                $entry = 'selected';
-//                                            }
-//                                            else
-//                                            {
-//                                                $entry = '';
-//
-//                                            }
-                                            echo "<option value='" . $row1['pm_part_number_id'] . "' >" . $row1['part_number'] ."</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div id="main-container">
-                                    <div class="panel card container-item">
-                                                <div class="row row-xs">
-                                                    <div class="col-md-1">
-                                                        <label class="form-label mg-b-0">Part Number1</label>
-                                                    </div>
-                                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                                        <select name="part_number" id="part_number" class="form-control form-select select2" data-placeholder="Select Part Number">
-                                                            <option value="" selected> Select Part Number </option>
-                                                            <?php
+                                                $sql1 = "SELECT * FROM `pm_part_number` where is_deleted != 1";
+                                                $result1 = $mysqli->query($sql1);
+                                                //                                            $entry = 'selected';
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    if($st_dashboard == $row1['pm_part_number_id'])
+                                                    {
+                                                        $entry = 'selected';
+                                                    }
+                                                    else
+                                                    {
+                                                        $entry = '';
 
-                                                            $sql1 = "SELECT * FROM `pm_part_number` where is_deleted != 1";
-                                                            $result1 = $mysqli->query($sql1);
-                                                            //                                            $entry = 'selected';
-                                                            while ($row1 = $result1->fetch_assoc()) {
-//                                            if($st_dashboard == $row1['pm_part_number_id'])
-//                                            {
-//                                                $entry = 'selected';
-//                                            }
-//                                            else
-//                                            {
-//                                                $entry = '';
-//
-//                                            }
-                                                                echo "<option value='" . $row1['pm_part_number_id'] . "' >" . $row1['part_number'] ."</option>";
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-0.5"></div>
-                                                    <div class="col-md-1">
-                                                        <label class="form-label mg-b-0">Part Count</label>
-                                                    </div>
-
-                                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                                      <input type="text" name="part_count" class="form-control" placeholder="Enter part count">
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                            <a href="javascript:void(0)" class="remove-item btn btn-sm btn-danger remove-social-media"><i>
-                                                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                                                </i></a>
-                                                    </div>
-                                                </div>
-
+                                                    }
+                                                    echo "<option value='" . $row1['pm_part_number_id'] . "' $entry>" . $row1['part_number'] ."</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <div class="pd-30 pd-sm-20">
-                            <div class="card">
-                                <div>
-                                    <a class="btn btn-success btn-sm" id="add-more" href="javascript:;" role="button"> Add More</a>
-                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                <div class="pd-30 pd-sm-20">
+                                    <div id="main-container">
+                                            <div class="panel card container-item">
+                                                        <div class="row row-xs">
+                                                            <div class="col-md-1">
+                                                                <label class="form-label mg-b-0">Part Number</label>
+                                                            </div>
+                                                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                                                <select name="part_number_extra" id="part_number_extra" class="form-control form-select select2" data-placeholder="Select Part Number">
+                                                                    <option value="" selected> Select Part Number </option>
+                                                                    <?php
+                                                                    $part = $_POST['part_number'];
+
+                                                                    $sql1 = "SELECT * FROM `pm_part_number` where NOT (pm_part_number_id = '$part') AND is_deleted != 1";
+                                                                    $result1 = $mysqli->query($sql1);
+                                                                    //                                            $entry = 'selected';
+                                                                    while ($row1 = $result1->fetch_assoc()) {
+        //                                            if($st_dashboard == $row1['pm_part_number_id'])
+        //                                            {
+        //                                                $entry = 'selected';
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                $entry = '';
+        //
+        //                                            }
+                                                                        echo "<option value='" . $row1['pm_part_number_id'] . "' >" . $row1['part_number'] ."</option>";
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-0.5"></div>
+                                                            <div class="col-md-1">
+                                                                <label class="form-label mg-b-0">Part Count</label>
+                                                            </div>
+
+                                                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                                              <input type="text" name="part_count" class="form-control" placeholder="Enter part count">
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                    <a href="javascript:void(0)" class="remove-item btn btn-sm btn-danger remove-social-media"><i>
+                                                                            <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                                                                        </i></a>
+                                                            </div>
+                                                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="pd-30 pd-sm-20">
+                                    <div class="card">
+                                        <div>
+                                            <a class="btn btn-success btn-sm" id="add-more" href="javascript:;" role="button"> Add More</a>
+                                            <button type="submit" class="btn btn-primary btn-sm" id="part_submit">Submit</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -286,7 +299,15 @@ include("../admin_menu.php");
         </div>
     </div>
 </div>
+
+
 <script src="<?php echo $siteURL; ?>assets/js/form_js/cloneData.js" type="text/javascript"></script>
+<script>
+
+    $('#part_number').on('change', function (e) {
+        $("#part_settings").submit();
+    });
+</script>
 <script>
     $('a#add-more').cloneData({
         mainContainerId: 'main-container', // Main container Should be ID
@@ -322,7 +343,26 @@ include("../admin_menu.php");
     });
 
 </script>
-
+<script>
+    $(document).on("click","#part_submit",function() {
+        var data = $("#part_settings").serialize();
+        $.ajax({
+            type: "POST",
+            url: ,
+            async: false,
+            data: JSON.stringify(data),
+            success: function(data){
+                console.log(data);
+                return true;
+            },
+            complete: function() {},
+            error: function(xhr, textStatus, errorThrown) {
+                console.log('ajax loading error...');
+                return false;
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
