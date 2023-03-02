@@ -100,8 +100,8 @@ if(!empty($result1)) {
 
     }
     .dropbtn {
-        background-color: #060818;
-        color: white;
+        background-color: #e4eaef !important;
+        color: black;
         /*padding: 16px;*/
         font-size: 16px;
         border: none;

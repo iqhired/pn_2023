@@ -547,7 +547,9 @@ if(isset($_POST['update_btn'])){
                                                         } else {
                                                             $entry = '';
                                                         }
-                                                        echo "<option value='" . $row1['event_type_id'] ."_".$row1['event_cat_id']. "' $entry   >" . $row1['event_type_name'] . "</option>";
+														if(!(($e_type_id == 7) && ($row1['event_type_id'] == 7))){
+														    echo "<option value='" . $row1['event_type_id'] ."_".$row1['event_cat_id']. "' $entry   >" . $row1['event_type_name'] . "</option>";
+                                                        }
                                                         /* if ($count == 1) {
                                                              echo "<option disabled value='" . $row1['event_type_id'] . "' $entry >" . $row1['event_type_name'] . "</option>";
                                                          } else {

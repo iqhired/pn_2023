@@ -622,6 +622,17 @@ if (count($_POST) > 0) {
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
                                     <div class="col-md-1.5">
+                                        <label class="form-label mg-b-0">Stock </label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <input type=number name="net_weight" id="net_weight" class="form-control"
+                                               placeholder="Stock Available" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-1.5">
                                         <label class="form-label mg-b-0">File </label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -699,6 +710,8 @@ if (count($_POST) > 0) {
                                         <th>Part Name</th>
                                         <th>Station</th>
                                         <th>Part Family</th>
+                                        <th>Stock</th>
+
                                         <th>Color</th>
 
                                     </tr>
@@ -776,6 +789,7 @@ if (count($_POST) > 0) {
                                             }
                                             ?>
                                             <td><?php echo $part_family1; ?></td>
+                                            <td></td>
                                             <td><input type="color" id="color_code" name="color_code" value="<?php echo $rowc["color_code"]; ?>"  disabled></td>
                                         </tr>
                                     <?php } ?>
