@@ -54,11 +54,16 @@ if(empty($datefrom)){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $sitename; ?> | Assign Crew Log</title>
     <!-- Global stylesheets -->
+
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
+
+
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <script type="text/javascript" src="../assets/js/form_js/jquery-min.js"></script>
-    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"></script>
+    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/form_js/jquery-min.js"></script>
+    <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/libs/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/loaders/blockui.min.js"></script>
@@ -72,6 +77,7 @@ if(empty($datefrom)){
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
+
     <!--Internal  Datetimepicker-slider css -->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
     <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
@@ -87,7 +93,7 @@ if(empty($datefrom)){
     <!---Internal Fancy uploader css-->
     <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
     <!--Internal  Datepicker js -->
-<!--    <script src="--><?php //echo $siteURL; ?><!--assets/js/form_js/datepicker.js"></script>-->
+    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
     <!-- Internal Select2.min js -->
     <!--Internal  jquery.maskedinput js -->
     <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
@@ -214,7 +220,7 @@ include("../admin_menu.php");
                                     <div class="col-md-1">
                                         <label class="form-label mg-b-0">User : </label>
                                     </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                  <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select  name="usr" id="usr" class="form-control form-select select2"  style="float: left;width: initial;" data-placeholder="Select User">
                                             <option value="" selected disabled>--- Select User ---</option>
                                             <?php
