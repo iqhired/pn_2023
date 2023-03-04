@@ -10,8 +10,8 @@ if (!file_exists("../daily_report/" . $chicagotime)) {
     mkdir("../daily_report/" . $chicagotime, 0777, true);
 }
 //$exportData = mysqli_query($db, "SELECT line_name,line_id FROM `cam_line` where enabled = 1 and is_deleted != 1 order by line_id asc");
-$exportData = mysqli_query($db,"SELECT cl.line_name as station,/*e_log.station_event_id,*/sum(e_log.total_time) as total_time, 
-e_log.station_event_id,e_log.station_event_id,e_log.station_event_id,e_log.station_event_id,e_log.station_event_id,pn.part_number as p_num, pf.part_family_name as pf_name,pn.part_number as p_num, pn.part_name as p_name from sg_station_event_log_update as e_log  
+$exportData = mysqli_query($db,"SELECT cl.line_name as station,/*e_log.station_event_id,*/sum(e_log.tt) as total_time, 
+e_log.station_event_id,e_log.station_event_id,e_log.station_event_id,e_log.station_event_id,e_log.station_event_id,pn.part_number as p_num, pf.part_family_name as pf_name,pn.part_number as p_num, pn.part_name as p_name from sg_station_event_log as e_log  
 inner join sg_station_event as sg_events on e_log.station_event_id = sg_events.station_event_id 
 INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
 inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id 
