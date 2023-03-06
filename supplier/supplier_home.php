@@ -183,6 +183,7 @@ if (count($_POST) > 0) {
         }
     </style>    <!-- /theme JS files -->
 </head>
+
 <?php
 $cam_page_header = "Active Orders";
 include("./sup_header.php");
@@ -218,6 +219,7 @@ include("./sup_admin_menu.php");
                         <table id="order_details" class="table">
                             <thead>
                             <tr>
+
                                 <th>S.No</th>
                                 <th>Order Desc</th>
                                 <th>Ordered On</th>
