@@ -183,6 +183,7 @@ if (count($_POST) > 0) {
         }
     </style>    <!-- /theme JS files -->
 </head>
+
 <?php
 $cam_page_header = "Active Orders";
 include("./sup_header.php");
