@@ -14,8 +14,8 @@ $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 if (!empty($_POST['part_number'])){
     $part_number = $_POST["part_number"];
-    $part_number_extra = $_POST["part_number_extra"];
-    $part_count = $_POST["part_count"];
+    $part_number_extra = $_POST["part_number_extra_1"];
+    $part_count = $_POST["part_count_1"];
     $service_url = $rest_api_uri . "part/part_produced.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
