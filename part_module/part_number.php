@@ -18,6 +18,7 @@ if (count($_POST) > 0) {
     $length_range = $_POST['length_range'];
     $notes = $_POST['notes'];
     $color = $_POST['color_code'];
+    $stock = $_POST['stock'];
     $created_by = $_POST['created_by'];
 
     //create
@@ -81,7 +82,7 @@ if (count($_POST) > 0) {
             }
 
         }
-        $sql0 = "INSERT INTO `pm_part_number`(`part_images` ,`defect_part_images` ,`part_number` ,`part_name` , `customer_part_number`, `station` , `part_family` , `npr` , `through_put` , `budget_scrape_rate` , `net_weight` ,  `part_length`,`length_range`, `notes` ,`color_code`,`created_by`) VALUES ('$part_file','$fname_d','$name','$part_name','$customer_part_number','$station','$part_family','$npr','$through_put','$budget_scrape_rate','$net_weight','$part_length','$length_range','$notes','$color','$assign_by')";
+        $sql0 = "INSERT INTO `pm_part_number`(`part_images` ,`defect_part_images` ,`part_number` ,`part_name` , `customer_part_number`, `station` , `part_family` , `npr` , `through_put` , `budget_scrape_rate` , `net_weight` ,  `part_length`,`length_range`, `notes` ,`color_code`,`available_stock`,`created_by`) VALUES ('$part_file','$fname_d','$name','$part_name','$customer_part_number','$station','$part_family','$npr','$through_put','$budget_scrape_rate','$net_weight','$part_length','$length_range','$notes','$color','$stock','$assign_by')";
 
 //logo code over
 
@@ -115,8 +116,9 @@ if (count($_POST) > 0) {
         $e_part_length = $_POST['edit_part_length'];
         $e_length_range = $_POST['edit_length_range'];
         $e_notes = $_POST['edit_notes'];
+        $e_stock = $_POST['edit_stock'];
         $e_color = $_POST['edit_color_code'];
-        $sql = "update pm_part_number set part_number='$e_part_number',part_name='$e_part_name', customer_part_number='$e_cpn', station='$e_station', part_family='$e_pf', npr='$e_npr', through_put='$e_throughput',budget_scrape_rate='$e_bsr', net_weight='$e_netweight', part_length='$e_part_length',length_range='$e_length_range', notes='$e_notes',color_code='$e_color',created_by='$assign_by' where pm_part_number_id = '$id'";
+        $sql = "update pm_part_number set part_number='$e_part_number',part_name='$e_part_name', customer_part_number='$e_cpn', station='$e_station', part_family='$e_pf', npr='$e_npr', through_put='$e_throughput',budget_scrape_rate='$e_bsr', net_weight='$e_netweight', part_length='$e_part_length',length_range='$e_length_range', notes='$e_notes',color_code='$e_color',available_stock='$e_stock',created_by='$assign_by' where pm_part_number_id = '$id'";
         $result1 = mysqli_query($db, $sql);
 
         $query = sprintf("SELECT part_images FROM `pm_part_number` where pm_part_number_id = '$id'");
@@ -625,7 +627,7 @@ if (count($_POST) > 0) {
                                         <label class="form-label mg-b-0">Stock </label>
                                     </div>
                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <input type=number name="net_weight" id="net_weight" class="form-control"
+                                        <input type=number name="stock" id="stock" class="form-control"
                                                placeholder="Stock Available" >
                                     </div>
                                 </div>
@@ -741,6 +743,7 @@ if (count($_POST) > 0) {
                                                         data-part_length="<?php echo $rowc['part_length']; ?>"
                                                         data-length_range="<?php echo $rowc['length_range']; ?>"
                                                         data-color_code="<?php echo $rowc['color_code']; ?>"
+                                                        data-stock="<?php echo $rowc['available_stock']; ?>"
                                                         data-part_images="<?php
                                                         if(substr($rowc['part_images'] , 0 , 1)=== ","){
                                                             $str = ltrim($rowc['part_images'], ',');
@@ -956,6 +959,18 @@ if (count($_POST) > 0) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class ="pd-30 pd-sm-20">
+                                                <div class="row row-xs">
+
+                                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                                        <label class="form-label mg-b-0">Available Stock</label>
+                                                    </div>
+                                                    <div class="col-md-8 mg-t-10 mg-md-t-0">
+                                                        <input type="text" name="edit_stock" id="edit_stock"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="pd-30 pd-sm-20">
                                                 <div class="row row-xs">
                                                     <div class="col-md-4 mg-t-10 mg-md-t-0">
@@ -1071,6 +1086,7 @@ if (count($_POST) > 0) {
             var length_range = $(this).data("length_range");
             var notes = $(this).data("notes");
             var color = $(this).data("color_code");
+            var stock = $(this).data("stock");
             var part_images = $(this).data("part_images");
             var defect_images = $(this).data("defect_part_images");
             var image_path =  "./assets/images/part_images/"
@@ -1087,6 +1103,7 @@ if (count($_POST) > 0) {
             $("#edit_length_range").val(length_range);
             $("#edit_notes").val(notes);
             $("#edit_color_code").val(color);
+            $("#edit_stock").val(stock);
             if(part_images !== null && part_images !== '') {
                 $("#edit_p_image").attr("src","../assets/images/part_images/"+part_images);
 

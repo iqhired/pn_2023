@@ -5,7 +5,7 @@ if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|c
     header('Location: ./config/403.php');
 }
 require "../vendor/autoload.php";
-use \Firebase\JWT\JWT;
+use Firebase\JWT\JWT;
 $status = '0';
 $message = "";
 include("../config.php");
@@ -14,14 +14,17 @@ $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 if (!empty($_POST['part_number'])){
     $part_number = $_POST["part_number"];
-    $part_number_extra = $_POST["part_number_extra_1"];
-    $part_count = $_POST["part_count_1"];
+    $part_number_extra = $_POST["part_number_extra"];
+    $part_count = $_POST["part_count"];
+    $click_id = $_POST['click_id'];
+
     $service_url = $rest_api_uri . "part/part_produced.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
         'part_number' => $part_number,
         'part_number_extra' => $part_number_extra,
-        'part_count' => $part_count
+        'part_count' => $part_count,
+        'total_count' => $click_id
     );
     $secretkey = "SupportPassHTSSgmmi";
     $payload = array(
@@ -298,6 +301,9 @@ include("../admin_menu.php");
                                         </div>
                                     </div>
                                 </div>
+                                <div class="pd-30 pd-sm-20">
+                                    <input type="hidden" name="click_id" id="click_id" >
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -319,7 +325,7 @@ include("../admin_menu.php");
         var collapse_id = "collapse"+i;
         var count = i;
         $("#click_id").val(count);
-        var html_content = '<div id="'+collapse_id+'" class="collapse in"><div class="pd-30 pd-sm-20 part_rem_' + count + '" id="section_' + count + '"><div class="row row-xs"><div class="col-md-1"><label class="form-label mg-b-0">Part Number</label></div><div class="col-md-4 mg-t-10 mg-md-t-0"> <select name="part_number_extra_' + count + '" id="part_number_extra' + count + '" class="form-control form-select select2" data-placeholder="Select Part Number"></select></div><div class="col-md-0.5"></div> <div class="col-md-1"><label class="form-label mg-b-0">Part Count</label></div><div class="col-md-4 mg-t-10 mg-md-t-0"><input type="text" name="part_count_' + count + '" id="part_count_' + count + '" class="form-control" placeholder="Enter part count"></div><div class="col-md-1"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><button type="button" name="remove_btn" class="btn btn-sm btn-danger-light remove_btn" id="btn_id_' + count + '" data-id="' + count + '" fdprocessedid="7w26pm"><i class="fa fa-trash"></i></button></a></div></div></div></div>';
+        var html_content = '<div id="'+collapse_id+'" class="collapse in"><div class="pd-30 pd-sm-20 part_rem_' + count + '" id="section_' + count + '"><div class="row row-xs"><div class="col-md-1"><label class="form-label mg-b-0">Part Number</label></div><div class="col-md-4 mg-t-10 mg-md-t-0"> <select name="part_number_extra[]"  id="part_number_extra' + count + '" class="form-control form-select select2" data-placeholder="Select Part Number"></select></div><div class="col-md-0.5"></div> <div class="col-md-1"><label class="form-label mg-b-0">Part Count</label></div><div class="col-md-4 mg-t-10 mg-md-t-0"><input type="text" name="part_count[]" id="part_count_' + count + '" class="form-control" placeholder="Enter part count"></div><div class="col-md-1"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><button type="button" name="remove_btn" class="btn btn-sm btn-danger-light remove_btn" id="btn_id_' + count + '" data-id="' + count + '" fdprocessedid="7w26pm"><i class="fa fa-trash"></i></button></a></div></div></div></div>';
         $( ".query_rows" ).append( html_content );
         $.ajax({
             url: "retrive_part_number.php",
