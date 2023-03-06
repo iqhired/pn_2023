@@ -123,10 +123,7 @@ $iid = $_SESSION["id"];*/
         width: 28px!important;
         border-radius: 4px;
     }
-
-
     /*.dropdown a:hover {background-color: #ddd;}*/
-
     .show {display: block;}
 </style>
 <script>
@@ -284,7 +281,7 @@ $iid = $_SESSION["id"];*/
 <div class="navbar navbar-inverse " style="background-color:#191e3a;">
 	<div class="navbar-header" style="background-color:#f7f7f7;">
         <a href="#" class="logo">
-            <img src="<?php echo $link; ?>/assets/images/SGG_logo.png"  class = "logo_img" alt="logo">
+            <img src="<?php echo $link; ?>./assets/img/site_logo.png"  class = "logo_img" alt="logo">
         </a>
 		<ul class="nav navbar-nav visible-xs-block">
 			<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
