@@ -219,6 +219,7 @@ include("./sup_admin_menu.php");
                         <table id="order_details" class="table">
                             <thead>
                             <tr>
+
                                 <th>S.No</th>
                                 <th>Order Desc</th>
                                 <th>Ordered On</th>
