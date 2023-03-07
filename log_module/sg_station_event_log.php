@@ -518,12 +518,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 $q11 = $main_query;
                                 $q12 = $main_query;
 
-                                /* If Line is selected. */
-                                if ($line_id != null) {
-                                    $q = $q . " and slogup.line_id = '$line_id' ";
-                                    $q11 = $q11 . " and slogup.line_id = '$line_id' ";
-                                    $q12 = $q12 . " and slogup.line_id = '$line_id' ";
-                                }
+                                
                                 if ($datefrom != "" && $dateto != "") {
                                     $date_from = convertMDYToYMDwithTime($datefrom);
                                     $date_to = convertMDYToYMDwithTime($dateto);
@@ -551,9 +546,17 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     $q11 = $q11 . " AND  slogup.event_cat_id ='$event_category'";
                                     $q12 = $q12 . " AND  slogup.event_cat_id ='$event_category'";
                                 }
-
+	
+								/* If Line is selected. */
+								if ($line_id != null) {
+									$q = $q . " and slogup.line_id = '$line_id' ";
+									$q11 = $q11 . " and slogup.line_id = '$line_id'  ORDER BY slogup.created_on DESC  limit 1;";
+									$q12 = $q12 . " and slogup.line_id = '$line_id' ";
+								}else{
+									$q11 = $q11 . " ORDER BY slogup.line_id , slogup.created_on  DESC;";
+                                }
+								 
                                 $q = $q . " ORDER BY slogup.created_on  ASC";
-                                $q11 = $q11 . " ORDER BY slogup.created_on  DESC limit 1;";
                                 $q12 = $q12 . " ORDER BY slogup.created_on  DESC";
 
                             }
@@ -561,10 +564,14 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                             $qur11 = mysqli_query($db, $q11);
                             $numrows = $qur11->num_rows;
                             if($numrows > 0){
+                                $un = 0;
                                 while ($rowc = mysqli_fetch_array($qur11)) {
                                     ?>
                                     <tr>
                                         <?php
+                                            if($un == $rowc['line_id']){
+                                                continue;
+                                            }
                                         $un = $rowc['line_id'];
                                         $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
                                         while ($rowc04 = mysqli_fetch_array($qur04)) {
