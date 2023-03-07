@@ -29,6 +29,8 @@ if (!empty($_POST['part_number'])){
     $curl_post_data = array(
         'part_number' => $part_number,
         'dependant_parts' => $pno_extra,
+        'created_at' => $chicagotime,
+        'updated_at' => $chicagotime,
         'total_count' => $click_id
     );
     $secretkey = "SupportPassHTSSgmmi";
