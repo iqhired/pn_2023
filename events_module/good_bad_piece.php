@@ -61,11 +61,18 @@ $rowccus = $resultcus->fetch_assoc();
 $cus_name = $rowccus['c_name'];
 $logo = $rowccus['logo'];
 
-$sql2 = "SELECT SUM(good_pieces) AS good_pieces,SUM(bad_pieces)AS bad_pieces,SUM(rework) AS rework FROM `good_bad_pieces`  INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id where sg_station_event.line_id = '$p_line_id' and sg_station_event.event_status = 1" ;
+$sql2 = "SELECT SUM(good_pieces) AS good_pieces,SUM(bad_pieces)AS bad_pieces,SUM(rework) AS rework ,available_part_stock FROM `good_bad_pieces`  INNER JOIN sg_station_event ON good_bad_pieces.station_event_id = sg_station_event.station_event_id where sg_station_event.line_id = '$p_line_id' and sg_station_event.event_status = 1" ;
 $result2 = mysqli_query($db,$sql2);
 $total_time = 0;
 $row2=$result2->fetch_assoc();
 $total_gp =  $row2['good_pieces'] + $row2['rework'];
+//$part_stock = $row2['available_part_stock'];
+
+$sql_part = "select available_stock from pm_part_number where part_number = '$pm_part_number'";
+$result_part = mysqli_query($db,$sql_part);
+while ($row_part = $result_part->fetch_assoc()) {
+    $available_stock = $row_part['available_stock'];
+}
 
 $sql3 = "SELECT * FROM `sg_station_event_log` where 1 and event_status = 1 and station_event_id = '$station_event_id' and event_cat_id in (SELECT events_cat_id FROM `events_category` where npr = 1)" ;
 $result3 = mysqli_query($db,$sql3);
@@ -320,6 +327,12 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         .card .card{
             height: 48vh;
         }
+        .widget-part {
+            left: 62%;
+            margin-left: -45px;
+            position: absolute;
+            top: 210px;
+        }
     </style>
 
 </head>
@@ -378,9 +391,13 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                 <h5>Target Pieces - <?php echo $target_eff; ?></h5>
                                 <h5>Actual Pieces - <?php echo $actual_eff; ?></h5>
                                 <h5>Efficiency - <?php echo $eff; ?>%</h5>
-                                <br/>
-                            </div>
 
+
+                            </div>
+                            <div class="widget-part">
+                                <h5>Available Parts - <?php echo $available_stock; ?></h5>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -560,7 +577,6 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -610,7 +626,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                             <td class="text-center"><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["bad_pieces_id"]; ?>"><span></span></label></td>
                                             <td><?php echo ++$counter; ?></td>
                                             <td class="">
-                                                <?php   if($rowc['good_pieces'] != ""){ ?>
+                                                <?php if($rowc['good_pieces'] != ""){ ?>
                                                     <a  href="<?php echo $siteURL; ?>events_module/edit_good_piece.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station; ?>&station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
                                                         data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
                                                         data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
@@ -618,7 +634,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                                             <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
                                                         </i>
                                                     </a>
-                                                <?php } elseif($rowc['bad_pieces'] != ""){?>
+                                                <?php } elseif($rowc['bad_pieces'] != ""){ ?>
                                                     <a href="<?php echo $siteURL; ?>events_module/edit_bad_piece.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station; ?>&station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
                                                        data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
                                                        data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
@@ -631,7 +647,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                                            data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
                                                             <i class="fa fa-eye" style="padding: 4px;font-size: 14px;margin-left: -3px;"></i>
                                                         </a> <?php }else{ echo $line; } ?>
-                                                <?php } else{ ?>
+                                                <?php } else { ?>
                                                     <a href="<?php echo $siteURL; ?>events_module/rework_piece.php?cell_id=<?php echo $cellID; ?>&c_name=<?php echo $c_name; ?>&station=<?php echo $station; ?>&station_event_id=<?php echo $station_event_id; ?>&bad_pieces_id=<?php echo $bad_pieces_id;?>" data-id="<?php echo $rowc['good_bad_pieces_id']; ?>" data-gbid="<?php echo $rowc['bad_pieces_id']; ?>" data-seid="<?php echo $station_event_id; ?>" data-good_pieces="<?php echo $rowc['good_pieces']; ?>"
                                                        data-defect_name="<?php echo $rowc['defect_name']; ?>" data-bad_pieces="<?php echo $rowc['bad_pieces']; ?>" data-re_work="<?php echo $rowc['rework']; ?>" data-image="<?php echo $item_id; ?>"
                                                        data-image_name="<?php echo $image_name; ?>" class="btn btn-success btn-sm br-5 me-2" id="edit">
@@ -667,7 +683,6 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                                             if($rowc['rework'] != ""){ ?>
                                                 <td><span class="badge badge-primary">Rework Pieces</span></td>
                                             <?php } ?>
-
 
                                         </tr>
                                     <?php } ?>
@@ -897,7 +912,7 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                 var pe = this.data.split('&')[2].split("=")[1];
                 var ff1 = this.data.split('&')[3].split("=")[1];
                 var file1 = '../assets/label_files/' + line_id +'/g_'+ff1;
-                var file = '../assets/label_files/' + line_id +'/g_'+ff1;;
+                var file = '../assets/label_files/' + line_id +'/g_'+ff1;
                 var ipe = document.getElementById("ipe").value;
                 if(pe == '1'){
                     if(ipe == '1'){

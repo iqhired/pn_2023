@@ -32,12 +32,25 @@ if ($good_name != "") {
         $sql = "select * from good_bad_pieces  where station_event_id ='$station_event_id' and event_status = '1'";
         $result1 = mysqli_query($db, $sql);
         $rowc = mysqli_fetch_array($result1);
+
+        $part_sql = "select available_stock from pm_part_number where pm_part_number_id = '$part_number'";
+        $result_part = mysqli_query($db, $part_sql);
+        $rowc_part = mysqli_fetch_array($result_part);
+        $stock = $rowc_part['available_stock'];
+
+        $available_stock = $stock + $good_name;
+
+
         $g =(($rowc['good_pieces'] == null) || ($rowc['good_pieces'] == "" ) )?0:$rowc['good_pieces'] ;
         $good_bad_pieces_id =$rowc['good_bad_pieces_id'];
         if($good_bad_pieces_id == null || $good_bad_pieces_id == ""){
-            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `good_pieces`,  `created_at`, `created_by`) VALUES ('$station_event_id','$good_name','$chicagotime','$user')";
+            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `good_pieces`,`available_part_stock`, `created_at`, `created_by`) VALUES ('$station_event_id','$good_name','$available_stock','$chicagotime','$user')";
             $result11 = mysqli_query($db, $sql1);
-            $sqlquery = "INSERT INTO `good_bad_pieces`(`station_event_id`,`good_pieces`,`created_at`,`modified_at`) VALUES ('$station_event_id','$good_name','$chicagotime','$chicagotime')";
+            $sqlquery = "INSERT INTO `good_bad_pieces`(`station_event_id`,`good_pieces`,`available_part_stock`,`created_at`,`modified_at`) VALUES ('$station_event_id','$good_name','$available_stock','$chicagotime','$chicagotime')";
+
+            $sql_part = "update pm_part_number set available_stock = '$available_stock' where pm_part_number_id = '$part_number'";
+            $result11_part = mysqli_query($db, $sql_part);
+
             if (!mysqli_query($db, $sqlquery)) {
                 $_SESSION['message_stauts_class'] = 'alert-danger';
                 $_SESSION['import_status_message'] = 'Error: Error Adding Good Pieces';
@@ -56,7 +69,6 @@ if ($good_name != "") {
                 }
 
                 if($good_bad_pieces_id){
-
 
                     $sqlnumber = "SELECT * FROM `pm_part_number` where `pm_part_number_id` = '$part_number'";
                     $resultnumber = $mysqli->query($sqlnumber);
@@ -95,6 +107,9 @@ if ($good_name != "") {
             $result11 = mysqli_query($db, $sql1);
             $sql1 = "update good_bad_pieces set good_pieces ='$good_pieces' , modified_at = '$chicagotime' where station_event_id ='$station_event_id' and event_status = '1'";
             $result11 = mysqli_query($db, $sql1);
+
+
+
             if ($result11) {
                 $station_event_id = $_POST['station_event_id'];
                 $add_defect_name = $_POST['add_defect_name'];
@@ -115,7 +130,6 @@ if ($good_name != "") {
                     $part_number = $rowc['part_number_id'];
                 }
                 if($good_bad_pieces_id){
-
 
                     $sqlnumber = "SELECT * FROM `pm_part_number` where `pm_part_number_id` = '$part_number'";
                     $resultnumber = $mysqli->query($sqlnumber);
@@ -187,12 +201,24 @@ if ($good_name != "") {
         $sql = "select * from good_bad_pieces  where station_event_id ='$station_event_id' and event_status = '1'";
         $result1 = mysqli_query($db, $sql);
         $rowc = mysqli_fetch_array($result1);
+
+        $part_sql = "select available_stock from pm_part_number where pm_part_number_id = '$part_number'";
+        $result_part = mysqli_query($db, $part_sql);
+        $rowc_part = mysqli_fetch_array($result_part);
+        $stock = $rowc_part['available_stock'];
+
+        $available_stock = $stock + $label_quantity;
+
         $g = (($rowc['good_pieces'] == null) || ($rowc['good_pieces'] == "")) ? 0 : $rowc['good_pieces'];
         $good_bad_pieces_id = $rowc['good_bad_pieces_id'];
         if ($good_bad_pieces_id == null || $good_bad_pieces_id == "") {
-            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `good_pieces`,  `created_at`, `created_by`) VALUES ('$station_event_id','$good_name','$chicagotime','$user')";
+            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `good_pieces`, `available_part_stock`,  `created_at`, `created_by`) VALUES ('$station_event_id','$good_name','$available_stock','$chicagotime','$user')";
             $result11 = mysqli_query($db, $sql1);
-            $sqlquery = "INSERT INTO `good_bad_pieces`(`station_event_id`,`good_pieces`,`created_at`,`modified_at`) VALUES ('$station_event_id','$good_name','$chicagotime','$chicagotime')";
+            $sqlquery = "INSERT INTO `good_bad_pieces`(`station_event_id`,`good_pieces`,`available_part_stock`,`created_at`,`modified_at`) VALUES ('$station_event_id','$good_name','$available_stock','$chicagotime','$chicagotime')";
+
+            $sql_part = "update pm_part_number set available_stock = '$available_stock' where pm_part_number_id = '$part_number'";
+            $result11_part = mysqli_query($db, $sql_part);
+
             if (!mysqli_query($db, $sqlquery)) {
                 $_SESSION['message_stauts_class'] = 'alert-danger';
                 $_SESSION['import_status_message'] = 'Error: Error Adding Good Pieces';
@@ -243,10 +269,15 @@ if ($good_name != "") {
             }
         } else {
             $good_pieces = $g + $good_name;
-            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `good_pieces`,  `created_at`, `created_by`) VALUES ('$station_event_id','$good_name','$chicagotime','$user')";
+            $available_stock = $stock - $good_pieces;
+            $sql1 = "INSERT INTO `good_bad_pieces_details`(`station_event_id`, `good_pieces`, `available_part_stock`, `created_at`, `created_by`) VALUES ('$station_event_id','$good_name','$available_stock','$chicagotime','$user')";
             $result11 = mysqli_query($db, $sql1);
-            $sql1 = "update good_bad_pieces set good_pieces ='$good_pieces' , modified_at = '$chicagotime' where station_event_id ='$station_event_id' and event_status = '1'";
+            $sql1 = "update good_bad_pieces set good_pieces ='$good_pieces' ,available_part_stock ='$available_stock' , modified_at = '$chicagotime' where station_event_id ='$station_event_id' and event_status = '1'";
             $result11 = mysqli_query($db, $sql1);
+
+            $sql_part = "update pm_part_number set available_stock = '$available_stock' where pm_part_number_id = '$part_number'";
+            $result11_part = mysqli_query($db, $sql_part);
+
             if ($result11) {
                 $station_event_id = $_POST['station_event_id'];
                 $add_defect_name = $_POST['add_defect_name'];
@@ -670,15 +701,24 @@ $edit_file = $_FILES['edit_image']['name'];
 if($editgood_name != "")
 {
 
-    $query = sprintf("SELECT ('$editgood_name' - good_pieces) as total from good_bad_pieces_details where `station_event_id` = '$edit_seid' and bad_pieces_id = '$edit_gbid'");
+    $query = sprintf("SELECT ('$editgood_name' - good_pieces) as total , ( available_part_stock + ('$editgood_name' - good_pieces))  as part_stock from good_bad_pieces_details where `station_event_id` = '$edit_seid' and bad_pieces_id = '$edit_gbid'");
     $qur = mysqli_query($db, $query);
     while ($rowc = mysqli_fetch_array($qur)) {
         $gps =  $rowc['total'];
 
-        $sql1 = "update good_bad_pieces_details set good_pieces ='$editgood_name' ,modified_by='$user', modified_at = '$chicagotime'  where bad_pieces_id ='$edit_gbid'";
+        $stock = $rowc['part_stock'];
+
+      // $available_stock = $stock - $editgood_name;
+
+        $sql1 = "update good_bad_pieces_details set good_pieces ='$editgood_name',available_part_stock ='$stock' ,modified_by='$user', modified_at = '$chicagotime'  where bad_pieces_id ='$edit_gbid'";
         $result11 = mysqli_query($db, $sql1);
-        $sql1 = "update good_bad_pieces set good_pieces =(good_pieces + '$gps') , modified_at = '$chicagotime'  where good_bad_pieces_id ='$edit_id'";
+        $sql1 = "update good_bad_pieces set good_pieces =(good_pieces + '$gps') , available_part_stock ='$stock' , modified_at = '$chicagotime'  where good_bad_pieces_id ='$edit_id'";
         $result11 = mysqli_query($db, $sql1);
+
+        $sql_part = "update pm_part_number set available_stock = '$stock' where pm_part_number_id = '$part_number'";
+        $result11_part = mysqli_query($db, $sql_part);
+
+
         if ($result11) {
             $_SESSION['message_stauts_class'] = 'alert-success';
             $_SESSION['import_status_message'] = 'Good Pieces Updated Sucessfully.';

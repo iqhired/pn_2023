@@ -294,7 +294,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                             <input type="hidden" name="ipe" id="ipe" value="<?php echo $individualenabled; ?>">
                             <input type="hidden" name="cell_id" value="<?php echo $cellID; ?>">
                             <input type="hidden" name="c_name" value="<?php echo $c_name; ?>">
-                              <input type="hidden" name="c_station" value="<?php echo $station; ?>">
+                            <input type="hidden" name="c_station" value="<?php echo $station; ?>">
        
         <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -347,7 +347,7 @@ $idddd = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo
                 var pe = this.data.split('&')[2].split("=")[1];
                 var ff1 = this.data.split('&')[3].split("=")[1];
                 var file1 = '../assets/label_files/' + line_id +'/g_'+ff1;
-                var file = '../assets/label_files/' + line_id +'/g_'+ff1;;
+                var file = '../assets/label_files/' + line_id +'/g_'+ff1;
                 var ipe = document.getElementById("ipe").value;
                 if(pe == '1'){
                     if(ipe == '1'){
