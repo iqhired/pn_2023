@@ -20,21 +20,15 @@ if (!empty($_POST['part_number'])){
     $part_number_extra = $_POST['part_number_extra'];
     $part_count = $_POST['part_count'];
 
-    $results = [];
-
     foreach ($part_number_extra as $count => $result) {
-        $results[] = [$result, $part_count[$count]];
+		$pno_extra .= $part_number_extra[$count] .'~'.$part_count[$count].',';
     }
-
-    $result = json_encode( ["results" => $results] );
-
 
     $service_url = $rest_api_uri . "part/part_produced.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
         'part_number' => $part_number,
-        'part_number_extra' => $part_number_extra,
-        'part_count' => $part_count,
+        'dependant_parts' => $pno_extra,
         'total_count' => $click_id
     );
     $secretkey = "SupportPassHTSSgmmi";
