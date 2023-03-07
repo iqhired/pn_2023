@@ -9,7 +9,7 @@ $id = $_GET['id'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Job Title</title>
+        <?php echo $sitename; ?> |View Historical Order</title>
     <!-- Global stylesheets -->
 
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
