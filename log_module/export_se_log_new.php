@@ -28,12 +28,12 @@ $q = "select distinct slogup.line_id  , ( select event_type_name from event_type
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
 pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt as total_time from sg_station_event_log as slogup
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
-inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1";
+inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1  and slogup.ignore_id = 0 ";
 $q11 = "select  slogup.line_id , ( select event_type_name from event_type where event_type_id = slogup.event_type_id) as e_type,
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
 pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.tt  as total_time from sg_station_event_log as slogup
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
-inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1 ";
+inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1  and slogup.ignore_id = 0 ";
 
 if ($line_id != null) {
     $q = $q . " and slogup.line_id = '$line_id' ";
