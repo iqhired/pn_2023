@@ -165,7 +165,7 @@ function checkSession(){
 	}
 
 //Set the session duration for 10800 seconds - 3 hours
-	$duration = auto_logout_duration;
+	$duration = '10800';
 //Read the request time of the user
 	$time = $_SERVER['REQUEST_TIME'];
 //Check the user's session exist or not
