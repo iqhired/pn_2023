@@ -95,7 +95,7 @@ $logo = $rowccus['logo'];
     <script type="text/javascript" src="../assets/js/pages/form_bootstrap_select.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="../assets/js/plugins/ui/ripple.min.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">x
+    <link href="<?php echo $siteURL; ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/core.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/components.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $siteURL; ?>assets/css/colors.css" rel="stylesheet" type="text/css">
