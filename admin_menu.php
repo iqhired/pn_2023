@@ -907,6 +907,12 @@ $msg = explode(',', $msg); ?>
                                     <span class="ms-2 ">Task Crew Log</span>
                                 </a>
                             </div>
+                        <?php } if (in_array('21', $msg)) { ?>
+                            <div class="mt-3">
+                                <a href="<?php echo $siteURL; ?>table.php" class="text-muted mobile">
+                                    <span class="ms-2 ">Training Matrix</span>
+                                </a>
+                            </div>
                         <?php } ?>
                     </div>
                 </div>
@@ -1377,6 +1383,11 @@ $msg = explode(',', $msg); ?>
                                 if (in_array('40', $msg)) { ?>
                                     <li><a href="<?php echo $siteURL; ?>log_module/task_crew_log.php">Task Crew Log</a>
                                     </li>
+                                <?php }  if (in_array('21', $msg)) { ?>
+
+                                    <li><a href="<?php echo $siteURL; ?>table.php">Training Matrix</a>
+                                    </li>
+                              
                                 <?php } ?>
                             </ul>
                         </div>
