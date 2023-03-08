@@ -108,6 +108,9 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
     <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
 
     <style>
+        .app-content{
+            margin-top: 80px;
+        }
         .navbar {
 
             padding-top: 0px!important;
@@ -1147,7 +1150,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                         // document.getElementsByClassName("reason").style.display = "none";
                         if (bypass_approve == 'yes'){
                             $('#success_msg_app').text('Form submitted Successfully').css('background-color', '#0080004f');
-                            window.scrollTo(0, 0);
+                            window.location.reload();
                         }
                     }
 
@@ -1171,7 +1174,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                     $('#btnSubmit_app').attr('disabled', 'disabled');
                     $('#success_msg_app').text('Form submitted Successfully').css('background-color','#0080004f');
                     $("form :input").prop("disabled", true);
-                    window.scrollTo(0, 0);
+                    window.location.reload();
 
                 }
             });
