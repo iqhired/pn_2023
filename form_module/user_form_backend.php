@@ -232,7 +232,8 @@ inner join pm_part_number as pn on fc.part_number=pn.pm_part_number_id where for
 
                 }
             }
-
+			$_SESSION['message_stauts_class'] = 'alert-success';
+			$_SESSION['import_status_message'] = 'Form Submitted Sucessfully.';
 // mail code over
         } else {
             $_SESSION['message_stauts_class'] = 'alert-danger';
