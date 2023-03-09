@@ -386,14 +386,14 @@ include("admin_menu.php");
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 42%;">
-                                                <div class="tr-row">Part Number : </div>
+                                            <td style="width: 40%;">
+                                                <div class="tr-row">Part No : </div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_num;
                                                     $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 42%;">
+                                            <td style="width: 40%;">
                                                 <div class="tr-row">Part Name :</div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_name;
@@ -440,13 +440,13 @@ include("admin_menu.php");
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 42%;">
-                                                <div class="tr-row">Part Number : </div>
+                                            <td style="width: 40%;">
+                                                <div class="tr-row">Part No : </div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_num;  $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 42%;">
+                                            <td style="width: 40%;">
                                                 <div>Part Name :</div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_name;  $p_name = ''; ?></span></td>
@@ -528,15 +528,15 @@ include("admin_menu.php");
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 42%;">
-                                                <div class="tr-row">Part Number :</div>
+                                            <td style="width: 40%;">
+                                                <div class="tr-row">Part No :</div>
                                             </td>
                                             <td style="width: 60%;">
                                     <span><?php echo $p_num;
                                         $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 42%;">
+                                            <td style="width: 40%;">
                                                 <div class="tr-row">Part Name :</div>
                                             </td>
                                             <td style="width: 60%;">
@@ -586,14 +586,14 @@ include("admin_menu.php");
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 42%;">
-                                                <div class="tr-row">Part Number :</div>
+                                            <td style="width: 40%;">
+                                                <div class="tr-row">Part No :</div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_num;
                                                     $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 42%;">
+                                            <td style="width: 40%;">
                                                 <div class="tr-row">Part Name :</div>
                                             </td>
                                             <td style="width: 60%;">
