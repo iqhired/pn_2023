@@ -400,8 +400,6 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
                             </div>
                             <div class="widget-part">
                                 <h5>Available Parts - <?php echo $available_stock; ?></h5>
-                                <h5>Parts Used - <?php echo $available_stock; ?></h5>
-
                             </div>
                         </div>
                     </div>
@@ -628,7 +626,9 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
 
                                         ?>
                                         <tr>
-                                            <td class="text-center"><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["bad_pieces_id"]; ?>"><span></span></label></td>
+                                            <td class="text-center"><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]" value="<?php echo $rowc["bad_pieces_id"]; ?>"><span></span></label>
+                                                <input type="hidden" name="del_part_no" value="<?php echo $part_number; ?>">
+                                            </td>
                                             <td><?php echo ++$counter; ?></td>
                                             <td class="">
                                                 <?php if($rowc['good_pieces'] != ""){ ?>
@@ -1076,139 +1076,6 @@ if( $actual_eff ===0 || $target_eff === 0 || $target_eff === 0.0){
         });
     }
 </script>
-<script>
-    //window.onload = function() {
-    //    history.replaceState("", "", "<?php //echo $scriptName; ?>//events_module/good_bad_piece_new.php?station=<?php //echo $station;?>//&station_event_id=<?php //echo $station_event_id; ?>//");
-    //}
-</script>
-<script>
-    // Upload
-
-    $("#file").on("change", function () {
-        var fd = new FormData();
-        var files = $('#file')[0].files[0];
-        fd.append('file', files);
-        fd.append('request', 1);
-
-        // AJAX request
-        $.ajax({
-            url: 'add_delete_good_bad_piece_image.php',
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-
-                if (response != 0) {
-                    var count = $('.container .content_img').length;
-                    count = Number(count) + 1;
-
-                    // Show image preview with Delete button
-                    $('.container').append("<div class='content_img' id='content_img_" + count + "' ><img src='" + response + "' width='100' height='100'><span class='delete' id='delete_" + count + "'>Delete</span></div>");
-                }
-            }
-        });
-    });
-
-
-    // Remove file
-    $('.container').on('click', '.content_img .delete', function () {
-
-        var id = this.id;
-        var split_id = id.split('_');
-        var num = split_id[1];
-        // Get image source
-        var imgElement_src = $('#content_img_' + num)[0].children[0].src;
-        //var deleteFile = confirm("Do you really want to Delete?");
-        var succ = false;
-        // AJAX request
-        $.ajax({
-            url: 'add_delete_good_bad_piece_image.php',
-            type: 'post',
-            data: {path: imgElement_src, request: 2},
-            async: false,
-            success: function (response) {
-                // Remove <div >
-                if (response == 1) {
-                    succ = true;
-                }
-            }, complete: function (data) {
-                if (succ) {
-                    var id = 'content_img_' + num;
-                    // $('#content_img_'+num)[0].remove();
-                    var elem = document.getElementById(id);
-                    document.getElementById(id).style.display = 'none';
-                    var nodes = $(".container")[2].childNodes;
-                    for (var i = 0; i < nodes.length; i++) {
-                        var node = nodes[i];
-                        if (node.id == id) {
-                            node.style.display = 'none';
-                        }
-                    }
-                }
-            }
-        });
-    });
-
-</script>
-<script>
-
-    $("#file-input").on("change", function(e) {
-        var files = e.target.files,
-            filesLength = files.length;
-        for (var i = 0; i < filesLength; i++) {
-            var f = files[i]
-            var fileReader = new FileReader();
-            fileReader.onload = (function(e) {
-                var file = e.target;
-                $("<span class=\"pip\">" +
-                    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                    "<br/><span class=\"remove\">Remove image</span>" +
-                    "</span>").insertAfter("#file-input");
-                $(".remove").click(function(){
-                    $(this).parent(".pip").remove();
-                });
-
-            });
-            fileReader.readAsDataURL(f);
-        }
-    });
-
-    function previewImages() {
-        $("#preview").html(" ");
-        var preview = document.querySelector('#preview');
-
-        if (this.files) {
-            [].forEach.call(this.files, readAndPreview);
-        }
-
-        function readAndPreview(file) {
-
-            // Make sure `file.name` matches our extensions criteria
-            if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
-                return alert(file.name + " is not an image");
-            } // else...
-
-            var reader = new FileReader();
-
-            reader.addEventListener("load", function() {
-                var image = new Image();
-                image.height = 100;
-                image.title  = file.name;
-                image.src    = this.result;
-                preview.appendChild(image);
-            });
-
-            reader.readAsDataURL(file);
-
-        }
-
-    }
-
-    document.querySelector('#file-input').addEventListener("change", previewImages);
-</script>
-
-
 
 </body>
 </html>
