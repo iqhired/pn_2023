@@ -364,7 +364,7 @@ include("../heading_banner.php");
         </div>
 <!-- /page container -->
     <script>
-        $('#station').on('change', function (e) {
+  /*      $('#station').on('change', function (e) {
             var data = $("#line_data").serialize();
             $.ajax({
                 type: 'POST',
@@ -377,7 +377,7 @@ include("../heading_banner.php");
                 }
             });
             $("#line_data").submit();
-        });
+        });*/
         //daily data
         anychart.onDocumentReady(function () {
             var data = $("#line_data").serialize();
@@ -688,10 +688,6 @@ include("../heading_banner.php");
 
         });
 
-    </script>
-    <script>
-        $("#update_btn").click(function (e) {
-        });
     </script>
     <script>
         anychart.onDocumentReady(function () {

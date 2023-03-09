@@ -33,7 +33,11 @@ if (count($_POST) > 0) {
     $button = $_POST['button'];
     $timezone = $_POST['timezone'];
     $diff = abs(strtotime($datefrom) - strtotime($dateto));
-    $t = ($diff/3600);
+    if($datefrom == $dateto){
+        $t = 24;
+    }else{
+        $t = ($diff/3600);
+    }
 }
 if (count($_POST) > 0) {
     $st = $_POST['station'];
@@ -42,7 +46,7 @@ if (count($_POST) > 0) {
     $dateto = $curdate;
 }
 //select other data
-$sql11 = "SELECT round(sum(total_time), 2) as t0 FROM sg_station_event_log_update  WHERE `line_id` = '$st' and event_cat_id not in ('2','3','4')"." and DATE_FORMAT(`created_on`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_on`,'%Y-%m-%d') <= '$dateto' ";
+$sql11 = "SELECT round(sum(tt), 2) as t0 FROM sg_station_event_log  WHERE `line_id` = '$st' and event_cat_id not in ('2','3','4')"." and DATE_FORMAT(`created_on`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`end_time`,'%Y-%m-%d') <= '$dateto'";
 $result11 = mysqli_query($db,$sql11);
 $row11 = $result11->fetch_assoc();
 $t0 = $row11['t0'];
@@ -52,7 +56,7 @@ if(empty($t0)){
     $d0 = $t0;
 }
 
-$sql1 = "SELECT round(sum(total_time),2) as t1 FROM `sg_station_event_log_update` WHERE `line_id` = '$st' and event_cat_id = 2"." and DATE_FORMAT(`created_on`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_on`,'%Y-%m-%d') <= '$dateto' ";
+$sql1 = "SELECT round(sum(tt),2) as t1 FROM `sg_station_event_log` WHERE `line_id` = '$st' and event_cat_id = 2"." and DATE_FORMAT(`created_on`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`end_time`,'%Y-%m-%d') <= '$dateto' ";
 $result1 = mysqli_query($db,$sql1);
 $row1 = $result1->fetch_assoc();
 $t1 = $row1['t1'];
@@ -62,7 +66,7 @@ if(empty($t1)){
     $d1 = $t1;
 }
 
-$sql2 = "SELECT round(sum(total_time),2) as t2 FROM `sg_station_event_log_update` WHERE `line_id` = '$st' and event_cat_id = 3"." and DATE_FORMAT(`created_on`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_on`,'%Y-%m-%d') <= '$dateto' ";
+$sql2 = "SELECT round(sum(tt),2) as t2 FROM `sg_station_event_log` WHERE `line_id` = '$st' and event_cat_id = 3"." and DATE_FORMAT(`created_on`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`end_time`,'%Y-%m-%d') <= '$dateto' ";
 $result2 = mysqli_query($db,$sql2);
 $row2 = $result2->fetch_assoc();
 $t2 = $row2['t2'];
@@ -72,7 +76,7 @@ if(empty($t2)){
     $d2 = $t2;
 }
 
-$sql3 = "SELECT round(sum(total_time),2) as t3 FROM `sg_station_event_log_update` WHERE `line_id` = '$st' and event_cat_id = 4"." and DATE_FORMAT(`created_on`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`created_on`,'%Y-%m-%d') <= '$dateto' ";
+$sql3 = "SELECT round(sum(tt),2) as t3 FROM `sg_station_event_log` WHERE `line_id` = '$st' and event_cat_id = 4"." and DATE_FORMAT(`created_on`,'%Y-%m-%d') >= '$datefrom' and DATE_FORMAT(`end_time`,'%Y-%m-%d') <= '$dateto' ";
 $response = array();
 $posts = array();
 $result3 = mysqli_query($db,$sql3);
