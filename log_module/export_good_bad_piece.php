@@ -123,7 +123,7 @@ while ($row = mysqli_fetch_row($exportData)) {
 			$value = "-"."\t";
 		} else {
 			$value = str_replace('"', '""', $value);
-            if ($j == 9) {
+            if ($j == 10) {
                 $un = $value;
                 $c_date = $un;
                 $cc = onlydateReadFormat($c_date);
