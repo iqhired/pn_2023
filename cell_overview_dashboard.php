@@ -253,7 +253,7 @@ if (isset($cellID)) {
         }
         .card {
             border-radius: 5px;
-            height: 286px;
+            height: 340px;
         }
         .tr-row {
             padding: 3px;
@@ -375,7 +375,7 @@ include("admin_menu.php");
                                 <div class="card-body">
                                     <table>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Family :</div></td>
 
                                             <td style="width: 60%;">
@@ -386,14 +386,14 @@ include("admin_menu.php");
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Number : </div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_num;
                                                     $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Name :</div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_name;
@@ -429,7 +429,7 @@ include("admin_menu.php");
                                 <div class="card-body">
                                     <table>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Family : </div>
                                             </td>
                                             <td style="width: 60%;">
@@ -440,13 +440,13 @@ include("admin_menu.php");
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Number : </div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_num;  $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div>Part Name :</div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_name;  $p_name = ''; ?></span></td>
@@ -517,7 +517,7 @@ include("admin_menu.php");
                                 <div class="card-body">
                                     <table>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Family :</div>
                                             </td>
                                             <td style="width: 60%;">
@@ -528,7 +528,7 @@ include("admin_menu.php");
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Number :</div>
                                             </td>
                                             <td style="width: 60%;">
@@ -536,7 +536,7 @@ include("admin_menu.php");
                                         $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Name :</div>
                                             </td>
                                             <td style="width: 60%;">
@@ -574,7 +574,7 @@ include("admin_menu.php");
                                 <div class="card-body">
                                     <table>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Family :</div>
                                             </td>
 
@@ -586,14 +586,14 @@ include("admin_menu.php");
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Number :</div>
                                             </td>
                                             <td style="width: 60%;"><span><?php echo $p_num;
                                                     $p_num = ''; ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 40%;">
+                                            <td style="width: 42%;">
                                                 <div class="tr-row">Part Name :</div>
                                             </td>
                                             <td style="width: 60%;">
