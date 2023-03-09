@@ -1,10 +1,14 @@
 <?php
 include("../config.php");
 
-$part = $_POST['part_number'];
-if (!empty($part)) {
+$part = $_GET['part_number'];
+$part_extra = $_GET['part_number_extra'];
+
+if (!empty($part) && $part_extra == 'undefined') {
     $sql = "SELECT * FROM `pm_part_number` where NOT (pm_part_number_id = '$part') AND is_deleted != 1";
-}else{
+}else if (!empty($part_extra)){
+    $sql = "SELECT * FROM `pm_part_number` where NOT (pm_part_number_id = '$part_extra') AND is_deleted != 1";
+ }else{
     $sql = "SELECT * FROM `pm_part_number` where  is_deleted != 1";
 }
 $result = $mysqli->query($sql);
