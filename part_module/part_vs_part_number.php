@@ -18,51 +18,73 @@ if (!empty($_POST['part_number'])){
     $click_id = $_POST['click_id'];
 
     $part_number_extra = $_POST['part_number_extra'];
-    $part_count = $_POST['part_count'];
-	$pno_extra = '[';
-    foreach ($part_number_extra as $count => $result) {
-		$pno_extra .= $part_number_extra[$count] .'~'.$part_count[$count].'_';
-    }
-	$pno_extra .= ']';
+    if(!empty($part_number_extra)){
+        $part_count = $_POST['part_count'];
+        $pno_extra = '[';
+        foreach ($part_number_extra as $count => $result) {
+            $pno_extra .= $part_number_extra[$count] .'~'.$part_count[$count].',';
+        }
+        $pno_extra .= ']';
 
-    $service_url = $rest_api_uri . "part/part_produced.php";
-    $curl = curl_init($service_url);
-    $curl_post_data = array(
-        'part_number' => $part_number,
-        'dependant_parts' => $pno_extra,
-        'created_at' => $chicagotime,
-        'updated_at' => $chicagotime,
-        'total_count' => $click_id
-    );
-    $secretkey = "SupportPassHTSSgmmi";
-    $payload = array(
-        "author" => "Saargummi to HTS",
-        "exp" => time()+1000
-    );
-    try{
-        $jwt = JWT::encode($payload, $secretkey , 'HS256');
-    }catch (UnexpectedValueException $e) {
-        echo $e->getMessage();
-    }
-    $headers = array(
-        "Accept: application/json",
-        "access-token: " . $jwt . '"',
-    );
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
-    $curl_response = curl_exec($curl);
-    if ($curl_response === false) {
-        $info = curl_getinfo($curl);
+        $service_url = $rest_api_uri . "part/part_produced.php";
+        $curl = curl_init($service_url);
+        $curl_post_data = array(
+            'part_number' => $part_number,
+            'dependant_parts' => $pno_extra,
+            'created_at' => $chicagotime,
+            'updated_at' => $chicagotime,
+            'total_count' => $click_id
+        );
+        $secretkey = "SupportPassHTSSgmmi";
+        $payload = array(
+            "author" => "Saargummi to HTS",
+            "exp" => time()+1000
+        );
+        try{
+            $jwt = JWT::encode($payload, $secretkey , 'HS256');
+        }catch (UnexpectedValueException $e) {
+            echo $e->getMessage();
+        }
+        $headers = array(
+            "Accept: application/json",
+            "access-token: " . $jwt . '"',
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+        $curl_response = curl_exec($curl);
+        if ($curl_response === false) {
+            $info = curl_getinfo($curl);
+            curl_close($curl);
+            die('error occured during curl exec. Additioanl info: ' . var_export($info));
+        }
         curl_close($curl);
-        die('error occured during curl exec. Additioanl info: ' . var_export($info));
+        $decoded = json_decode($curl_response);
+        if (isset($decoded->status) && $decoded->status == 'ERROR') {
+            die('error occured: ' . $decoded->errormessage);
+        }
+
+        $aray_item_cnt = 0;
+        $sql_part_prod = "select dependant_parts from pno_vs_pproduced;";
+        $result_part_prod = mysqli_query($db,$sql_part_prod);
+        while($row_part_prod = mysqli_fetch_array($result_part_prod)) {
+            $dependent = $row_part_prod['dependant_parts'];
+            $removed_last_one = substr($dependent, 1, -1);
+
+
+            $arrteam = explode(',', $removed_last_one);
+            $expVal = $arrteam[$aray_item_cnt];
+            $ccnt = substr_count($expVal, '~');
+            if ($ccnt > 0) {
+                $itemVal = explode('~', $expVal)[0];
+                $itemCount = explode('~', $expVal)[1];
+            }
+
+        }
+
     }
-    curl_close($curl);
-    $decoded = json_decode($curl_response);
-    if (isset($decoded->status) && $decoded->status == 'ERROR') {
-        die('error occured: ' . $decoded->errormessage);
-    }
+
 
 
 }
@@ -70,7 +92,6 @@ checkSession();
 $assign_by = $_SESSION["id"];
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -265,6 +286,7 @@ include("../admin_menu.php");
                             <span class="main-content-title mg-b-0 mg-b-lg-1">PART NUMBER</span>
                         </div>
                             <form action="" id="part_settings" enctype="multipart/form-data" method="post">
+
                                 <div class="pd-30 pd-sm-20">
                                     <div class="row row-xs">
                                         <div class="col-md-1">
@@ -320,23 +342,71 @@ include("../admin_menu.php");
         </div>
     </div>
 </div>
+<script>
+    $(function() {
+        /********
+         * Function to disable the currently selected options
+         *   on all sibling select elements.
+         ********/
+        $(".myselect").on("change", function() {
+            // Get the list of all selected options in this select element.
+            var currentSelectEl = $(this);
+            var selectedOptions = currentSelectEl.find("option:checked");
+
+            // otherOptions is used to find non-selected, non-disabled options
+            //  in the current select. This will allow for unselecting. Added
+            //  this to support extended multiple selects.
+            var otherOptions = currentSelectEl.find("option").not(":checked").not(":disabled");
+
+            // Iterate over the otherOptions collection, and using
+            //   each value, re-enable the unselected options that
+            //   match in all other selects.
+            otherOptions.each(function() {
+                var myVal = $(this).val();
+                currentSelectEl.siblings(".myselect")
+                    .children("option[value='" + myVal + "']")
+                    .attr("disabled", false);
+            })
+
+            // iterate through and disable selected options.
+            selectedOptions.each(function() {
+                var valToDisable = $(this).val();
+                currentSelectEl.siblings('.myselect')
+                    .children("option[value='" + valToDisable + "']")
+                    .attr("disabled", true);
+            })
+
+        })
+    })
+</script>
 
 <script>
 
     $('#part_number').on('change', function (e) {
         $("#part_settings").submit();
     });
+
+    var i = $('#collapse_id').val();
+    var count = i;
+    $('#part_number_extra' + count).on('change', function (e) {
+        $("#part_settings").submit();
+    });
 </script>
 <script>
     $(document).on("click","#add_more",function() {
         var i = $('#collapse_id').val();
+        var pa = $('#part_number').val();
+
         var collapse_id = "collapse"+i;
         var count = i;
+
         $("#click_id").val(count);
         var html_content = '<div id="'+collapse_id+'" class="collapse in"><div class="pd-30 pd-sm-20 part_rem_' + count + '" id="section_' + count + '"><div class="row row-xs"><div class="col-md-1"><label class="form-label mg-b-0">Part Number</label></div><div class="col-md-4 mg-t-10 mg-md-t-0"> <select name="part_number_extra[]"  id="part_number_extra' + count + '" class="form-control form-select select2" data-placeholder="Select Part Number"></select></div><div class="col-md-0.5"></div> <div class="col-md-1"><label class="form-label mg-b-0">Part Count</label></div><div class="col-md-4 mg-t-10 mg-md-t-0"><input type="text" name="part_count[]" id="part_count_' + count + '" class="form-control" placeholder="Enter part count"></div><div class="col-md-1"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><button type="button" name="remove_btn" class="btn btn-sm btn-danger-light remove_btn" id="btn_id_' + count + '" data-id="' + count + '" fdprocessedid="7w26pm"><i class="fa fa-trash"></i></button></a></div></div></div></div>';
         $( ".query_rows" ).append( html_content );
+        var part_count = count - 1;
+        var pa_ex = $('#part_number_extra' + part_count).val();
         $.ajax({
-            url: "retrive_part_number.php",
+            url: "retrive_part_number.php?part_number=" + pa + "&part_number_extra=" + pa_ex,
             dataType: 'Json',
             data: {},
             success: function (data) {

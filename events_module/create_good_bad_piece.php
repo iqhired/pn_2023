@@ -40,6 +40,34 @@ if ($good_name != "") {
 
         $available_stock = $stock + $good_name;
 
+        $aray_item_cnt = 0;
+        $sql_part_prod = "select dependant_parts from pno_vs_pproduced where part_number = '$part_number'";
+        $result_part_prod = mysqli_query($db,$sql_part_prod);
+        while($row_part_prod = mysqli_fetch_array($result_part_prod)){
+            $dependent = $row_part_prod['dependant_parts'];
+            $removed_last_one   = substr($dependent, 1, -1);
+
+
+            $arrteam = explode(',', $removed_last_one);
+            $expVal = $arrteam[$aray_item_cnt];
+            $ccnt = substr_count($expVal, '~');
+            if ($ccnt > 0) {
+                $itemVal = explode('~', $expVal)[0];
+                $itemCount = explode('~', $expVal)[1];
+            }
+
+            $sql_pp = "select available_stock from pm_part_number where pm_part_number_id = '$itemVal'";
+            $result_pp = mysqli_query($db,$sql_pp);
+            $rr_pp = mysqli_fetch_assoc($result_pp);
+            $part_rr = $rr_pp['available_stock'];
+
+            $stock_avail = $part_rr - $itemCount;
+
+            $sql_part_pp = "update pm_part_number set available_stock = '$stock_avail' where pm_part_number_id = '$itemVal'";
+            $result11_part_pp = mysqli_query($db, $sql_part_pp);
+
+        }
+
 
         $g =(($rowc['good_pieces'] == null) || ($rowc['good_pieces'] == "" ) )?0:$rowc['good_pieces'] ;
         $good_bad_pieces_id =$rowc['good_bad_pieces_id'];
@@ -209,6 +237,48 @@ if ($good_name != "") {
 
         $available_stock = $stock + $label_quantity;
 
+        $part_sql = "select available_stock from pm_part_number where pm_part_number_id = '$part_number'";
+        $result_part = mysqli_query($db, $part_sql);
+        $rowc_part = mysqli_fetch_array($result_part);
+        $stock = $rowc_part['available_stock'];
+
+        $available_stock = $stock + $good_name;
+
+        $aray_item_cnt = 0;
+        $sql_part_prod = "select dependant_parts from pno_vs_pproduced where part_number = '$part_number'";
+        $result_part_prod = mysqli_query($db,$sql_part_prod);
+        while($row_part_prod = mysqli_fetch_array($result_part_prod)){
+            $dependent = $row_part_prod['dependant_parts'];
+            $removed_last_one   = substr($dependent, 1, -1);
+
+
+            $arrteam = explode(',', $removed_last_one);
+            foreach ($arrteam as $arr){
+                if(!empty($arr)){
+                    $ccnt = substr_count($arr, '~');
+                    if ($ccnt > 0) {
+                        $itemVal = explode('~', $arr)[0];
+                        $itemCount = explode('~', $arr)[1];
+
+
+                        $sql_pp = "select available_stock from pm_part_number where pm_part_number_id = '$itemVal'";
+                        $result_pp = mysqli_query($db, $sql_pp);
+                        $rr_pp = mysqli_fetch_assoc($result_pp);
+                        $part_rr = $rr_pp['available_stock'];
+
+                        $stock_avail = $part_rr - $itemCount;
+
+                        $sql_part_pp = "update pm_part_number set available_stock = '$stock_avail' where pm_part_number_id = '$itemVal'";
+                        $result11_part_pp = mysqli_query($db, $sql_part_pp);
+
+                    }
+                }
+            }
+
+
+        }
+
+
         $g = (($rowc['good_pieces'] == null) || ($rowc['good_pieces'] == "")) ? 0 : $rowc['good_pieces'];
         $good_bad_pieces_id = $rowc['good_bad_pieces_id'];
         if ($good_bad_pieces_id == null || $good_bad_pieces_id == "") {
@@ -277,6 +347,9 @@ if ($good_name != "") {
 
             $sql_part = "update pm_part_number set available_stock = '$available_stock' where pm_part_number_id = '$part_number'";
             $result11_part = mysqli_query($db, $sql_part);
+
+
+
 
             if ($result11) {
                 $station_event_id = $_POST['station_event_id'];
@@ -709,6 +782,40 @@ if($editgood_name != "")
         $stock = $rowc['part_stock'];
 
       // $available_stock = $stock - $editgood_name;
+
+
+        $aray_item_cnt = 0;
+        $sql_part_prod = "select dependant_parts from pno_vs_pproduced where part_number = '$part_number'";
+        $result_part_prod = mysqli_query($db,$sql_part_prod);
+        while($row_part_prod = mysqli_fetch_array($result_part_prod)){
+            $dependent = $row_part_prod['dependant_parts'];
+            $removed_last_one   = substr($dependent, 1, -1);
+
+
+            $arrteam = explode(',', $removed_last_one);
+            foreach ($arrteam as $arr){
+                if(!empty($arr)){
+                    $ccnt = substr_count($arr, '~');
+                    if ($ccnt > 0) {
+                        $itemVal = explode('~', $arr)[0];
+                        $itemCount = explode('~', $arr)[1];
+
+                        $sql_pp = "select available_stock from pm_part_number where pm_part_number_id = '$itemVal'";
+                        $result_pp = mysqli_query($db, $sql_pp);
+                        $rr_pp = mysqli_fetch_assoc($result_pp);
+                        $part_rr = $rr_pp['available_stock'];
+
+                        $stock_avail = $part_rr - $itemCount;
+
+                        $sql_part_pp = "update pm_part_number set available_stock = '$stock_avail' where pm_part_number_id = '$itemVal'";
+                        $result11_part_pp = mysqli_query($db, $sql_part_pp);
+
+                    }
+                }
+            }
+
+
+        }
 
         $sql1 = "update good_bad_pieces_details set good_pieces ='$editgood_name',available_part_stock ='$stock' ,modified_by='$user', modified_at = '$chicagotime'  where bad_pieces_id ='$edit_gbid'";
         $result11 = mysqli_query($db, $sql1);
