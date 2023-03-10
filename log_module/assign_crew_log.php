@@ -442,37 +442,27 @@ include("../admin_menu.php");
 													<?php
 													$unas = $rowc["unassign_time"];
 													$as = $rowc["assign_time"];
-                                                      /*  if($date_from > $as) {
-                                                            $assgn = dateReadFormat($as);
-                                                        }else{
-                                                            $color = '#0a53be';
-                                                            $assgn = dateReadFormat($date_from);
-                                                        }*/
                                                         if($unas > $date_to)
                                                         {
-                                                            $unasign = dateReadFormat($date_to);
+                                                            $unasign = $date_to;
                                                         } else if($unas == $date_from)
                                                         {
                                                             $unasign = "Still Assigned";
                                                         } else
                                                         {
-                                                            $unasign = dateReadFormat($unas);
+                                                            $unasign = $unas;
                                                         }
-                                                        $diffrence = abs(strtotime($unas) - strtotime($date_from));
+                                                        $diffrence = abs(strtotime($unasign) - strtotime($date_from));
                                                         $t_time = round(($diffrence/3600),2);
                                                         $diff = abs(strtotime($date_to) - strtotime($as));
                                                         $t = round(($diff/3600),2);
                                                         ?>
                                                         <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
-                                                        <td><?php echo $unasign; ?></td>
+                                                        <td><?php echo dateReadFormat($unasign); ?></td>
 													<?php
 													$zero_time = '00:00:00';
 													$database_time = $rowc["time"];
-                                                    if($date_from > $as) {
-                                                        $df = abs(strtotime($unas) - strtotime($date_from));
-                                                        $tf = round(($df/3600),2);
-                                                        $database_time = $tf;
-                                                    }else if ($zero_time == $database_time) {
+                                                    if ($zero_time == $database_time) {
                                                         $database_time = '0';
                                                     }else{
                                                         $database_time = $t_time;
