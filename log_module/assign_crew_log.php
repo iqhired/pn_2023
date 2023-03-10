@@ -437,16 +437,17 @@ include("../admin_menu.php");
 													}
 													?>
                                                     <td><?php echo $pnn; ?></td>
-                                                    <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
+                                                    <?php ?>
+
 													<?php
 													$unas = $rowc["unassign_time"];
 													$as = $rowc["assign_time"];
-
-													/* if ($unas == $as) {
-														 $unasign = "Still Assigned";
-													 } else {
-														 $unasign = $unas;
-													 }*/
+                                                      /*  if($date_from > $as) {
+                                                            $assgn = dateReadFormat($as);
+                                                        }else{
+                                                            $color = '#0a53be';
+                                                            $assgn = dateReadFormat($date_from);
+                                                        }*/
                                                         if($unas > $date_to)
                                                         {
                                                             $unasign = dateReadFormat($date_to);
@@ -457,20 +458,25 @@ include("../admin_menu.php");
                                                         {
                                                             $unasign = dateReadFormat($unas);
                                                         }
-                                                        $diffrence = abs(strtotime($unasign) - strtotime($date_from));
+                                                        $diffrence = abs(strtotime($unas) - strtotime($date_from));
                                                         $t_time = round(($diffrence/3600),2);
                                                         $diff = abs(strtotime($date_to) - strtotime($as));
                                                         $t = round(($diff/3600),2);
                                                         ?>
+                                                        <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
                                                         <td><?php echo $unasign; ?></td>
 													<?php
 													$zero_time = '00:00:00';
 													$database_time = $rowc["time"];
-													if ($zero_time == $database_time) {
-														$database_time = "Still Assigned";
-													}else{
-														$database_time = $t_time;
-													}
+                                                    if($date_from > $as) {
+                                                        $df = abs(strtotime($unas) - strtotime($date_from));
+                                                        $tf = round(($df/3600),2);
+                                                        $database_time = $tf;
+                                                    }else if ($zero_time == $database_time) {
+                                                        $database_time = '0';
+                                                    }else{
+                                                        $database_time = $t_time;
+                                                    }
 													?>
                                                     <td><?php echo $database_time; ?></td>
                                                 </tr>
@@ -522,15 +528,14 @@ include("../admin_menu.php");
                                                 {
                                                     $color1 = '#0a53be';
                                                     $unasign = dateReadFormat($date_to);
-                                                } else if($unas == $as)
-                                                {
-                                                    $unasign = dateReadFormat($cd);
+                                                }else if($as == $unas) {
+                                                    $unasign = dateReadFormat($unas);
                                                 } else
                                                 {
                                                     $unasign = dateReadFormat($unas);
                                                 }
                                                 ?>
-                                             <td><?php echo $unasign; ?></td>
+                                             <td style="color:"><?php echo $unasign; ?></td>
                                                 <?php
                                                 $zero_time = '00:00:00';
                                                 $database_time = $rowc["time"];
@@ -540,11 +545,12 @@ include("../admin_menu.php");
                                                     $database_time = $t_time;
                                                 }
                                                 ?>
-                                                <!--<td><?php /*echo $database_time; */?></td>-->
                                             <?php if($unas > $date_to){ ?>
                                                     <td><?php echo $t; ?></td>
-                                                <?php }else{ ?>
-                                                    <td><?php echo $database_time; ?></td>
+                                                <?php }else if($as == $unas){ ?>
+                                                    <td><?php echo $t_time; ?></td>
+                                                <?php }else { ?>
+                                                <td><?php echo $database_time; ?></td>
                                                 <?php } ?>
 
 
