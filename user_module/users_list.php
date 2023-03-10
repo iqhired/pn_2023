@@ -524,19 +524,19 @@ include("../admin_menu.php");
         </div>
         </form>
 
-        <form action="delete_users_list.php"  id="update-form" method="post" class="form-horizontal">
-            <div class="row-body">
+        <form action=""  id="update-form" method="post" class="form-horizontal">
+       <div class="row-body">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <div class="row">
+                        <div>
                         <h4 class="card-title">
-                            <button type="submit" class="btn btn-danger submit_btn" style=""><i class="fa fa-trash-o" style="font-size:20px"></i></button>
-
-
+                            <button type="submit" class="btn btn-danger submit_btn" style="" onclick="submitForm('delete_users_list.php')"><i class="fa fa-trash-o" style="font-size:20px"></i></button>
                         </h4>
+                        </div>
                         <div class="col-md-3">
-                            <select class="form-control" name="choose" id="choose"  required>
+                            <select class="form-control" name="choose" id="choose" >
                                 <option value="" disabled selected>Select Action </option>
                                 <option value="1" >Add to Group </option>
                                 <option value="2" >Remove from Group </option>
