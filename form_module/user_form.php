@@ -998,7 +998,7 @@ if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'
                                                             while ($row1 = $result1->fetch_assoc()) {
 
                                                                 $user_id = $row1['user_id'];
-                                                                $qurtemp = mysqli_query($db, "SELECT firstname,lastname FROM `cam_users` where users_id = '$user_id' and pin_flag = '1' ");
+                                                                $qurtemp = mysqli_query($db, "SELECT firstname,lastname FROM `cam_users` where users_id = '$user_id' and is_deleted != 1 and pin_flag = '1' ");
                                                                 $rowctemp = mysqli_fetch_array($qurtemp);
                                                                 if ($rowctemp != NULL) {
                                                                     $fullnn = $rowctemp["firstname"] . " " . $rowctemp["lastname"];
