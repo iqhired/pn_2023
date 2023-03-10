@@ -43,6 +43,9 @@ if ($delete_check != "") {
                         $sql_part_pp = "update pm_part_number set available_stock = '$stock_avail' where pm_part_number_id = '$itemVal'";
                         $result11_part_pp = mysqli_query($db, $sql_part_pp);
 
+                        $sql_part_pp1 = "update pm_part_number set available_stock =  ('$part_rr' + '$gp')  where pm_part_number_id = '$part_number'";
+                        $result11_part_pp1 = mysqli_query($db, $sql_part_pp1);
+
                     }
                 }
             }
