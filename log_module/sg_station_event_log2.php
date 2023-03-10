@@ -441,7 +441,7 @@ include("../admin_menu.php");
                                         <button type="button" class="btn btn-primary mg-t-5" onclick="window.location.reload();">Reset</button>
                                     </div>
         </form>
-        <form action="export_se_log_new2.php" method="post" name="export_excel">
+        <form action="export_se_log_new.php" method="post" name="export_excel">
             <div class="col-md-1">
                 <button type="submit" style="width: 180px!important" class="btn btn-primary mg-t-5" id="export" name="export">Export Data</button>
             </div>
@@ -475,6 +475,7 @@ if(count($_POST) > 0)
                                 <th>Start Time</th>
                                 <th>End Time</th>
                                 <th>Total Time</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -483,7 +484,7 @@ if(count($_POST) > 0)
 ( select events_cat_name from events_category where events_cat_id = slogup.event_cat_id) as cat_name , pn.part_number as p_num, pn.part_name as p_name , 
 pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time as end_time ,slogup.total_time as total_time from sg_station_event_log as slogup
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
-inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1 ";
+inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1 and slogup.ignore_id = 0 ";
                             //where DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') >= '2022-11-03'
                             //and DATE_FORMAT(sg_events.created_on,'%Y-%m-%d') <= '2022-11-03' and slogup.line_id = '3' ORDER BY slogup.created_on ASC";
                             /* Default Query */
@@ -518,17 +519,12 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 $q11 = $main_query;
                                 $q12 = $main_query;
 
-                                /* If Line is selected. */
-                                if ($line_id != null) {
-                                    $q = $q . " and slogup.line_id = '$line_id' ";
-                                    $q11 = $q11 . " and slogup.line_id = '$line_id' ";
-                                    $q12 = $q12 . " and slogup.line_id = '$line_id' ";
-                                }
+
                                 if ($datefrom != "" && $dateto != "") {
                                     $date_from = convertMDYToYMDwithTime($datefrom);
                                     $date_to = convertMDYToYMDwithTime($dateto);
                                     $q = $q . " AND DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_to' ";
-                                    $q11 = $q11 . " AND DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
+                                    $q11 = $q11 . " AND ((DATE_FORMAT(slogup.end_time,'%Y-%m-%d %H:%i') >= '$date_from') OR ((slogup.end_time IS NULL) OR (slogup.end_time = '') )) and DATE_FORMAT(slogup.created_on,'%Y-%m-%d %H:%i') <= '$date_from' ";
                                     $q12 = $q12 . " AND (slogup.end_time is NULL) and IGNORE_id = 0  ";
                                 } else if ($datefrom != "" && $dateto == "") {
                                     $date_from = convertMDYToYMDwithTime($datefrom);
@@ -552,19 +548,33 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     $q12 = $q12 . " AND  slogup.event_cat_id ='$event_category'";
                                 }
 
+                                /* If Line is selected. */
+                                if ($line_id != null) {
+                                    $q = $q . " and slogup.line_id = '$line_id' ";
+                                    $q11 = $q11 . " and slogup.line_id = '$line_id'  ORDER BY slogup.created_on DESC  limit 1;";
+                                    $q12 = $q12 . " and slogup.line_id = '$line_id' ";
+                                }else{
+                                    $q11 = $q11 . " ORDER BY slogup.line_id , slogup.created_on  DESC;";
+                                }
+
                                 $q = $q . " ORDER BY slogup.created_on  ASC";
-                                $q11 = $q11 . " ORDER BY slogup.created_on  ASC";
                                 $q12 = $q12 . " ORDER BY slogup.created_on  DESC";
 
                             }
                             /* Execute the Query Built*/
                             $qur11 = mysqli_query($db, $q11);
                             $numrows = $qur11->num_rows;
+                            $i = 1;
                             if($numrows > 0){
+                                $un = 0;
+
                                 while ($rowc = mysqli_fetch_array($qur11)) {
                                     ?>
                                     <tr>
                                         <?php
+                                        if($un == $rowc['line_id']){
+                                            continue;
+                                        }
                                         $un = $rowc['line_id'];
                                         $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
                                         while ($rowc04 = mysqli_fetch_array($qur04)) {
@@ -576,11 +586,15 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         <td><?php echo $rowc['p_num']; ?></td>
                                         <td><?php echo $rowc['p_name']; ?></td>
                                         <td><?php echo $rowc['pf_name']; ?></td>
-                                        <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
+                                        <td style="color: #0a53be" id="start_time<?php echo $i;?>" value="<?php echo dateReadFormat($date_from); ?>"><?php echo dateReadFormat($date_from); ?></td>
                                         <?php
                                         $diff = abs(strtotime($date_to) - strtotime($date_from));
                                         $t = round(($diff/3600),2);
-                                        $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                        if(empty($rowc['end_time'])){
+                                            $is_true = true;
+                                        }else{
+                                            $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                        }
                                         if($is_true)
                                         {
                                             $end_time = dateReadFormat($date_to);
@@ -591,10 +605,14 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                             $t_time = round(($dd/3600),2);
                                         }
                                         ?>
-                                        <td><?php echo $end_time; ?></td>
+                                        <td id="end_time<?php echo $i;?>" value="<?php echo dateReadFormat($end_time); ?>"><?php echo $end_time; ?></td>
                                         <td><?php echo $t_time; ?></td>
+                                        <td>
+                                            <button type="button" id="edit_button<?php echo $i ?>" class="btn btn-primary btn-xs submit_btn" style="" onclick="edit_row('<?php echo $i ?>')">Edit</button>
+                                            <button type="button" id="save_button<?php echo $i ?>"  class="save btn btn-primary legitRipple" style="" onclick="save_row('<?php echo $i ?>')"><i class="fa fa-save"></i></button>
+                                        </td>
                                     </tr>
-                                <?php }
+                                    <?php $i++;  }
                             }else{
                                 $qur12 = mysqli_query($db, $q12);
                                 while ($rowc = mysqli_fetch_array($qur12)) {
@@ -612,7 +630,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         <td><?php echo $rowc['p_num']; ?></td>
                                         <td><?php echo $rowc['p_name']; ?></td>
                                         <td><?php echo $rowc['pf_name']; ?></td>
-                                        <td style="color: #0a53be"><?php echo dateReadFormat($date_from); ?></td>
+                                        <td style="color: #0a53be" id="start_time<?php echo $i;?>" value="<?php echo dateReadFormat($date_from); ?>"><?php echo dateReadFormat($date_from); ?></td>
                                         <?php
                                         $diff = abs(strtotime($date_to) - strtotime($date_from));
                                         $t = round(($diff/3600),2);
@@ -620,12 +638,18 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         $end_time = dateReadFormat($date_to);
                                         $t_time = $t;
                                         ?>
-                                        <td><?php echo $end_time; ?></td>
+                                        <td id="end_time<?php echo $i;?>" value="<?php echo $end_time; ?>"><?php echo $end_time; ?></td>
                                         <td><?php echo $t_time; ?></td>
+                                        <td>
+                                            <button type="button" id="edit_button<?php echo $i ?>" class="btn btn-primary btn-xs submit_btn" style="" onclick="edit_row('<?php echo $i ?>')">Edit</button>
+                                            <button type="button" id="save_button<?php echo $i ?>"  class="save btn btn-primary legitRipple" style="" onclick="save_row('<?php echo $i ?>')"><i class="fa fa-save"></i></button>
+
+                                        </td>
                                     </tr>
-                                <?php }
+                                    <?php   $i++; }
                             }
                             /* Execute the Query Built*/
+
                             $qur = mysqli_query($db, $q);
                             while ($rowc = mysqli_fetch_array($qur)) {
                                 ?>
@@ -637,12 +661,13 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         $lnn = $rowc04["line_name"];
                                     }
                                     ?>
+
                                     <td><?php echo $lnn; ?></td>
                                     <td><?php echo $rowc["e_type"]; ?></td>
                                     <td><?php echo $rowc['p_num']; ?></td>
                                     <td><?php echo $rowc['p_name']; ?></td>
                                     <td><?php echo $rowc['pf_name']; ?></td>
-                                    <td><?php echo dateReadFormat($rowc['start_time']); ?></td>
+                                    <td id="start_time<?php echo $i;?>" value="<?php echo dateReadFormat($rowc['start_time']); ?>"><?php echo dateReadFormat($rowc['start_time']); ?></td>
                                     <?php
                                     $diff = abs(strtotime($date_to) - strtotime($rowc['start_time']));
                                     $t = round(($diff/3600),2);
@@ -659,7 +684,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                             $t_time = $t;
                                         }else{
                                             $end_time = dateReadFormat($rowc['end_time']);
-                                            $t_time = $rowc['total_time'];
+                                            $t_time = $rowc['tt'];
                                         }
                                     }else{
                                         $color = '#0a53be';
@@ -667,10 +692,15 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         $end_time = dateReadFormat($cd);
                                     }
                                     ?>
-                                    <td style="color: <?php echo $color; ?>"><?php echo $end_time; ?></td>
-                                    <td><?php echo $rowc['tt']; ?></td>
+                                    <td style="color: <?php echo $color; ?>" id="end_time<?php echo $i;?>" value="<?php echo $end_time; ?>"><?php echo $end_time; ?></td>
+                                    <td><?php echo $t_time; ?></td>
+                                    <td>
+                                        <button type="button" id="edit_button<?php echo $i ?>" class="btn btn-primary btn-xs submit_btn" style="" onclick="edit_row('<?php echo $i ?>')">Edit</button>
+                                        <button type="button" id="save_button<?php echo $i ?>"  class="save btn btn-primary legitRipple" style="" onclick="save_row('<?php echo $i ?>')"><i class="fa fa-save"></i></button>
+
+                                    </td>
                                 </tr>
-                            <?php } ?>
+                                <?php $i++; } ?>
                             </tbody>
                         </table>
                     </div>
@@ -684,8 +714,46 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
 </div>
 </div>
 <script>
-    $('#date_to').datetimepicker({format: 'mm-dd-yyyy hh:ii'});
-    $('#date_from').datetimepicker({format: 'mm-dd-yyyy hh:ii'});
+    function edit_row(no)
+    {
+        document.getElementById("edit_button"+no).style.display="none";
+        document.getElementById("save_button"+no).style.display="block";
+
+        var start_time=document.getElementById("start_time"+no);
+        var end_time=document.getElementById("end_time"+no);
+
+        var start_data=start_time.innerText;
+        var end_data=end_time.innerText;
+
+        $('#start_time').datetimepicker({format: 'mm-dd-yyyy hh:ii' , minuteStep:30});
+        $('#end_time').datetimepicker({format: 'mm-dd-yyyy hh:ii' , minuteStep:30});
+
+        start_time.innerHTML="<div class='input-group'><input type='text' name = 'start_time' id='start_time"+no+"' value='"+start_data+"' class='form-control' placeholder='MM/DD/YYYY'></div>";
+        end_time.innerHTML="<input type='text'  id='end_time"+no+"' value='"+end_data+"' class='form-control' placeholder='MM/DD/YYYY'>";
+
+    }
+    function save_row(no)
+    {
+        var info = {
+            start_val: $("#start_time"+no).val(),
+            end_val:   $("#end_time"+no).val(),
+        };
+        $.ajax({
+            type: "POST",
+            url: "edit_station_event_log.php",
+            data: info,
+            success: function (data) {
+                document.getElementById("edit_button"+no).style.display="block";
+                document.getElementById("save_button"+no).style.display="none";
+                location.reload();
+            }
+        });
+    }
+</script>
+<script>
+    $('#date_to').datetimepicker({format: 'mm-dd-yyyy hh:ii' , minuteStep:30});
+    $('#date_from').datetimepicker({format: 'mm-dd-yyyy hh:ii' , minuteStep:30});
+
     $(function () {
         $('input:radio').change(function () {
             var abc = $(this).val()
@@ -744,7 +812,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
 </script>
 <script>
     window.onload = function () {
-        history.replaceState("", "", "<?php echo $siteURL; ?>log_module/sg_station_event_log2.php");
+        history.replaceState("", "", "<?php echo $siteURL; ?>log_module/sg_station_event_log.php");
     }
 </script>
 <?php include('../footer1.php') ?>
