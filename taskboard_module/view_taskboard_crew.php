@@ -193,7 +193,7 @@ $curdate = date('Y-m-d H:i:s');
                                         var x = setInterval(function () {
                                             // Get today's date and time
                                             // var now = new Date().getTime();
-                                            var now = calcTime('Chicago', '-6');
+                                            var now = calcTime('Chicago', '-5');
                                             // Find the distance between now and the count down date
                                             //aaya change karvano che	
                                             var distance = countDownDate<?php echo $countervariable; ?> - now;

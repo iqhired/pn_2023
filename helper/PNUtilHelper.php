@@ -156,13 +156,13 @@ function addTextToCell($img, $cellX, $cellWidth, $cellY, $cellHeight, $text) {
  * and then to redirect to appropriate Login screen
  */
 function checkSession(){
-	if (!isset($_SESSION['user'])) {
-		if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
-			header('location:'.site_URL.'/tab_logout.php');
-		} else {
-			header('location:'.site_URL.'/logout.php');
-		}
-	}
+//	if (!isset($_SESSION['user'])) {
+//		if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
+//			header('location:'.site_URL.'/tab_logout.php');
+//		} else {
+//			header('location:'.site_URL.'/logout.php');
+//		}
+//	}
 
 //Set the session duration for 10800 seconds - 3 hours
 	$duration = '10800';
