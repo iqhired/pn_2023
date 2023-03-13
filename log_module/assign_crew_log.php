@@ -703,8 +703,8 @@ include("../admin_menu.php");
     </div>
 </div>
 <script>
-    $('#date_to').datetimepicker({format: 'mm-dd-yyyy hh:ii'});
-    $('#date_from').datetimepicker({format: 'mm-dd-yyyy hh:ii'});
+    $('#date_to').datetimepicker({format: 'mm-dd-yyyy hh:ii' ,minuteStep:30});
+    $('#date_from').datetimepicker({format: 'mm-dd-yyyy hh:ii' ,minuteStep:30});
     $(function () {
         $('input:radio').change(function () {
             var abc = $(this).val();
