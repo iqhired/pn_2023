@@ -26,6 +26,15 @@ while ($row = mysqli_fetch_row($exportData)) {
             $value = "\t";
         } else {
             $value = str_replace('"', '""', $value);
+            if ($j == 1) {
+                $un = $value;
+                $line_name = $un;
+                $sql = "select line_id,line_name from cam_line where line_name = '$line_name' and enabled = 1 and is_deleted != 1";
+                $qur = mysqli_query($db,$sql);
+                $res = mysqli_fetch_array($qur);
+                $line_id = $res['line_id'];
+                $value = $line_name;
+            }
             if ($j == 3) {
                 $un = $value;
                 $qur05 = mysqli_query($db, "SELECT sum(good_pieces) as good_pieces FROM good_bad_pieces_details where station_event_id = '$un' and DATE_FORMAT(created_at,'%m-%d-%Y') = '$chicagotime2'");
@@ -157,7 +166,8 @@ while ($row = mysqli_fetch_row($exportData)) {
     }
     $result .= trim($line) . "\n";
 }
-$result = str_replace("\r", "", $result);
+$ext_line = '/*** Note : Rest of the Stations do not have data for Good Bad Piece(s) ***/';
+$result = str_replace("\r", "", $result . "\n\n" . $ext_line);
 if ($result == "") {
     $result = "\nNo Record(s) Found!\n";
 }
