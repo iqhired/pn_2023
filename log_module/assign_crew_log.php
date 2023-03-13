@@ -1,6 +1,7 @@
 <?php include("../config.php");
 $curdate = date('Y-m-d H:i');
 $cd = date('d-M-Y H:i:s');
+$button_event = "button4";
 //$dateto = $curdate;
 //$datefrom = $curdate;
 $button = "";
@@ -8,32 +9,36 @@ $temp = "";
 checkSession();
 $_SESSION['usr'] = "";
 $_SESSION['station'] = "";
+$_SESSION['cell'] = "";
 //$_SESSION['date_from'] = "";
 //$_SESSION['date_to'] = "";
 $_SESSION['button'] = "";
 $_SESSION['timezone'] = "";
+$_SESSION['button_event'] = "";
 if (count($_POST) > 0) {
     $_SESSION['usr'] = $_POST['usr'];
     $_SESSION['station'] = $_POST['station'];
+    $_SESSION['cell'] = $_POST['cell'];
     $_SESSION['date_from'] = $_POST['date_from'];
     $_SESSION['date_to'] = $_POST['date_to'];
     $_SESSION['button'] = $_POST['button'];
     $_SESSION['timezone'] = $_POST['timezone'];
+    $_SESSION['button_event'] = $_POST['button_event'];
     $name = $_POST['usr'];
     $station = $_POST['station'];
     $dateto = $_POST['date_to'];
     $datefrom = $_POST['date_from'];
     $button = $_POST['button'];
     $timezone = $_POST['timezone'];
+    $button_event = $_POST['button_event'];
 }
 if (count($_GET) > 0) {
     $station = $_GET['station'];
-    $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$station1' ");
+    $qurtemp = mysqli_query($db, "SELECT * FROM  cam_line where line_id = '$station'");
     while ($rowctemp = mysqli_fetch_array($qurtemp)) {
         $station_name = $rowctemp["line_name"];
     }
 }
-
 if(empty($dateto)){
     $curdate = date(mdYHi_FORMAT);
     $dateto = $curdate;
@@ -54,13 +59,9 @@ if(empty($datefrom)){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $sitename; ?> | Assign Crew Log</title>
     <!-- Global stylesheets -->
-
     <link href="../assets/css/core.css" rel="stylesheet" type="text/css">
-
-
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
     <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/form_js/jquery-min.js"></script>
     <script type="text/javascript" src="<?php echo site_URL; ?>/assets/js/libs/jquery-3.4.1.min.js"></script>
 
@@ -182,8 +183,64 @@ if(empty($datefrom)){
             width: 100px;
             height: 23px;
         }
-
+        @media (min-width: 481px) and (max-width: 768px)
+            .col-md-2 {
+                width: 16%;
+            }
+        .col-md-2.btn_bottom{
+            margin-right: -64px;
+        }
+        .col-md-1.media{
+           display: none!important;
+        }
     </style>
+    <!-- event -->
+    <?php
+    if ($button == "button2") {
+        ?>
+        <script>
+            $(function () {
+                $('#date_from').prop('disabled', true);
+                $('#date_to').prop('disabled', true);
+                $('#timezone').prop('disabled', false);
+            });
+        </script>
+    <?php
+    } else {
+    ?>
+        <script>
+            $(function () {
+                $('#date_from').prop('disabled', false);
+                $('#date_to').prop('disabled', false);
+                $('#timezone').prop('disabled', true);
+            });
+        </script>
+        <?php
+    }
+    ?>
+
+    <!-- event -->
+    <?php
+    if ($button_event == "button4") {
+        ?>
+        <script>
+            $(function () {
+                $('#cell').prop('disabled', true);
+                $('#station').prop('disabled', false);
+            });
+        </script>
+    <?php
+    } else {
+    ?>
+        <script>
+            $(function () {
+                $('#cell').prop('disabled', false);
+                $('#station').prop('disabled', true);
+            });
+        </script>
+        <?php
+    }
+    ?>
 </head>
 <body class="ltr main-body app horizontal">
 <?php
@@ -214,42 +271,24 @@ include("../admin_menu.php");
                          <div class="card-header">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Assign Crew Log</span>
                         </div>
-
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
                                     <div class="col-md-1">
-                                        <label class="form-label mg-b-0">User : </label>
-                                    </div>
-                                  <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select  name="usr" id="usr" class="form-control form-select select2"  style="float: left;width: initial;" data-placeholder="Select User">
-                                            <option value="" selected disabled>--- Select User ---</option>
-                                            <?php
-                                            $sql1 =  mysqli_query($db, "SELECT DISTINCT `user_id` FROM `cam_assign_crew_log` order by user_id asc");
-                                            while ($row1 = mysqli_fetch_array($sql1)) {
-                                                $lin = $row1['user_id'];
-                                                $qur05 ="SELECT * FROM  cam_users where users_id = '$lin' and is_deleted != 1";
-                                                $result11 = $mysqli->query($qur05);
-                                                while ($rowc05 = $result11->fetch_assoc()) {
-                                                    $first1 = $rowc05["firstname"];
-                                                    $last1 = $rowc05["lastname"];
-                                                    $fulllname = $first1 . " " . $last1;
-                                                    if ($lin == $name) {
-                                                        $entry = 'selected';
-                                                    } else {
-                                                        $entry = '';
-                                                    }
-                                                    echo "<option value='" . $row1['user_id'] . "' $entry >$fulllname</option>";
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-1">
                                         <label class="form-label mg-b-0">Station : </label>
                                     </div>
-                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
-                                        <select  name="station" id="station" class="form-control form-select select2" style="float: left;width: initial;" data-placeholder="Select Station">
+                                    <?php
+                                    if ($button_event == "button4") {
+                                        $checked = "checked";
+                                    } else {
+                                        $checked = "";
+                                    }
+                                    ?>
+                                    <div class="col-md-0.5">
+                                        <label class="rdiobox">  <input type="radio" name="button_event" id="button4" value="button4"
+                                                                        class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0" style="max-width: 351px!important;">
+                                        <select  name="station" id="station" class="form-control form-select select2" data-placeholder="All">
                                             <option value="" selected disabled>--- Select Station ---</option>
                                             <?php
                                             $sql1 = "SELECT DISTINCT `station_id` FROM `cam_assign_crew_log`";
@@ -271,9 +310,75 @@ include("../admin_menu.php");
                                             ?>
                                         </select>
                                     </div>
+                                    <div class="col-md-1 media"></div>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Cell : </label>
+                                    </div>
+                                    <?php
+                                    if ($button_event == "button3") {
+                                        $checked = "checked";
+                                    } else {
+                                        $checked = "";
+                                    }
+                                    ?>
+                                    <div class="col-md-0.5">
+                                        <label class="rdiobox"><input type="radio" name="button_event" id="button3" value="button3"
+                                                                      class="form-control"
+                                                                      style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                    </div>
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0" style="max-width: 351px!important;">
+                                        <select name="cell" id="cell" class="form-control form-select select2" data-placeholder="Select Cell">
+                                            <option value="" selected>--- Select Cell ---</option>
+                                            <?php
+                                            $ev_ty_post = $_POST['cell'];
+                                            $sql1 = "SELECT * FROM `cell_grp` where enabled != '0' and is_deleted != 1 ORDER BY `c_id` ASC";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                $lin = $row1['c_id'];
+                                                if ($lin == $ev_ty_post) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option value='" . $row1['c_id'] . "' $entry >" . $row1['c_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="pd-30 pd-sm-20">
+                          <div class="pd-20 pd-sm-20">
+                              <div class="row row-xs">
+                                  <div class="col-md-1">
+                                      <label class="form-label mg-b-0">User : </label>
+                                  </div>
+                                  <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                      <select  name="usr" id="usr" class="form-control form-select select2"  style="float: left;width: initial;" data-placeholder="Select User">
+                                          <option value="" selected disabled>--- Select User ---</option>
+                                          <?php
+                                          $sql1 =  mysqli_query($db, "SELECT DISTINCT `user_id` FROM `cam_assign_crew_log` order by user_id asc");
+                                          while ($row1 = mysqli_fetch_array($sql1)) {
+                                              $lin = $row1['user_id'];
+                                              $qur05 ="SELECT * FROM  cam_users where users_id = '$lin' and is_deleted != 1";
+                                              $result11 = $mysqli->query($qur05);
+                                              while ($rowc05 = $result11->fetch_assoc()) {
+                                                  $first1 = $rowc05["firstname"];
+                                                  $last1 = $rowc05["lastname"];
+                                                  $fulllname = $first1 . " " . $last1;
+                                                  if ($lin == $name) {
+                                                      $entry = 'selected';
+                                                  } else {
+                                                      $entry = '';
+                                                  }
+                                                  echo "<option value='" . $row1['user_id'] . "' $entry >$fulllname</option>";
+                                              }
+                                          }
+                                          ?>
+                                      </select>
+                                  </div>
+                              </div>
+                             </div>
+                            <div class="pd-20 pd-sm-20">
                                 <div class="row row-xs">
                                     <div class="col-md-1">
                                         <label class="form-label mg-b-0">Date From : </label>
@@ -284,7 +389,6 @@ include("../admin_menu.php");
                                                 <i class="fa fa-calendar"></i>
                                             </div>
                                             <input class="form-control" name="date_from" id="date_from" type="text" value="<?php echo $datefrom; ?>" placeholder="MM/DD/YYYY">
-                                            <!--<input class="form-control fc-datepicker" name="date_from" id="date_from" value="<?php /*echo $datefrom; */?>" placeholder="MM/DD/YYYY" type="text">-->
                                         </div>
                                     </div>
                                     <div class="col-md-1"></div>
@@ -307,7 +411,7 @@ include("../admin_menu.php");
                             }
                             displaySFMessage();
                             ?>
-                            <div class="pd-30 pd-sm-20">
+                            <div class="pd-20 pd-sm-20">
                                 <div class="row row-xs">
                                     <div class="col-md-2 btn_bottom">
                                     <button type="submit" class="btn btn-primary mg-t-5 submit_btn">Search</button>
@@ -368,40 +472,78 @@ include("../admin_menu.php");
                                         if (count($_POST) > 0) {
                                             $name = $_POST['usr'];
                                             $station = $_POST['station'];
+                                            $cell = $_POST['cell'];
                                             $dateto = $_POST['date_to'];
                                             $datefrom = $_POST['date_from'];
-
-                                            if ($name != "" && $station != "" && $datefrom != "" && $dateto != "") {
-                                                $date_from = convertMDYToYMDwithTime($datefrom);
-                                                $date_to = convertMDYToYMDwithTime($dateto);
-												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$cur_date' and `station_id` = '$ln' order by assign_time asc";
-												$qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `user_id` = '$name' and `station_id` = '$station' order by assign_time asc");
-                                            } else if ($name != "" && $station != "" && $datefrom == "" && $dateto == "") {
-												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$cur_date' and `station_id` = '$ln' order by assign_time asc";
-												$qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station' and `user_id` = '$name'");
-                                            } else if ($name != "" && $station == "" && $datefrom != "" && $dateto != "") {
-                                                $date_from = convertMDYToYMDwithTime($datefrom);
-                                                $date_to = convertMDYToYMDwithTime($dateto);
-												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `user_id` = '$name' order by assign_time asc";
-												$qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `user_id` = '$name' order by assign_time asc");
-                                            } else if ($name != "" && $station == "" && $datefrom == "" && $dateto == "") {
-//												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE `user_id` = '$name'";
-												$qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE `user_id` = '$name'");
-                                            } else if ($name == "" && $station != "" && $datefrom != "" && $dateto != "") {
-                                                $date_from = convertMDYToYMDwithTime($datefrom);
-                                                $date_to = convertMDYToYMDwithTime($dateto);
-												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log`  WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `station_id` = '$station' order by assign_time asc";
-												$qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `station_id` = '$station' order by assign_time asc");
-                                            } else if ($name == "" && $station != "" && $datefrom == "" && $dateto == "") {
-//												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station'";
-												$qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station'");
-                                            } else if ($name == "" && $station == "" && $datefrom != "" && $dateto != "") {
-                                                $date_from = convertMDYToYMDwithTime($datefrom);
-                                                $date_to = convertMDYToYMDwithTime($dateto);
-												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' order by assign_time asc";
-												$qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' order by assign_time asc");
+                                            $query0003 = sprintf("SELECT SUBSTRING(stations,1,length(stations)-1) as stns FROM cell_grp where c_id = '$cell'");
+                                            $qur0003 = mysqli_query($db, $query0003);
+                                            while ($rowc0003 = mysqli_fetch_array($qur0003)) {
+                                                $stt = $rowc0003["stns"];
                                             }
+                                            if(!empty($cell)){
+                                                if ($name != "" && $stt != "" && $datefrom != "" && $dateto != "") {
+                                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$cur_date' and `station_id` in ($stt) order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `user_id` = '$name' and `station_id` in ($stt) order by assign_time asc");
+                                                } else if ($name != "" && $stt != "" && $datefrom == "" && $dateto == "") {
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$cur_date' and `station_id` in ($stt) order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` in ($stt) and `user_id` = '$name'");
+                                                } else if ($name != "" && $stt == "" && $datefrom != "" && $dateto != "") {
+                                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `user_id` = '$name' order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `user_id` = '$name' order by assign_time asc");
+                                                } else if ($name != "" && $stt == "" && $datefrom == "" && $dateto == "") {
+//												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE `user_id` = '$name'";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE `user_id` = '$name'");
+                                                } else if ($name == "" && $stt != "" && $datefrom != "" && $dateto != "") {
+                                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log`  WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `station_id` in ($stt) order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `station_id` in ($stt) order by assign_time asc");
+                                                } else if ($name == "" && $stt != "" && $datefrom == "" && $dateto == "") {
+//												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station'";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE `station_id` in ($stt)");
+                                                } else if ($name == "" && $stt == "" && $datefrom != "" && $dateto != "") {
+                                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `station_id` in ($stt) order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `station_id` in ($stt) order by assign_time asc");
+                                                }
+                                            }else{
 
+                                                if ($name != "" && $station != "" && $datefrom != "" && $dateto != "") {
+                                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$cur_date' and `station_id` = '$ln' order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `user_id` = '$name' and `station_id` = '$station' order by assign_time asc");
+                                                } else if ($name != "" && $station != "" && $datefrom == "" && $dateto == "") {
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$cur_date' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$cur_date' and `station_id` = '$ln' order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station' and `user_id` = '$name'");
+                                                } else if ($name != "" && $station == "" && $datefrom != "" && $dateto != "") {
+                                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `user_id` = '$name' order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `user_id` = '$name' order by assign_time asc");
+                                                } else if ($name != "" && $station == "" && $datefrom == "" && $dateto == "") {
+//												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE `user_id` = '$name'";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE `user_id` = '$name'");
+                                                } else if ($name == "" && $station != "" && $datefrom != "" && $dateto != "") {
+                                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log`  WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' and `station_id` = '$station' order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' and `station_id` = '$station' order by assign_time asc");
+                                                } else if ($name == "" && $station != "" && $datefrom == "" && $dateto == "") {
+//												$ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station'";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE  `station_id` = '$station'");
+                                                } else if ($name == "" && $station == "" && $datefrom != "" && $dateto != "") {
+                                                    $date_from = convertMDYToYMDwithTime($datefrom);
+                                                    $date_to = convertMDYToYMDwithTime($dateto);
+                                                    $ss1 = "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`unassign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_from' order by assign_time asc";
+                                                    $qur = mysqli_query($db, "SELECT `user_id`,`station_id`,`position_id`,`assign_time`,`unassign_time`,`total_time`  as time FROM `cam_assign_crew_log` WHERE DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') >= '$date_from' and DATE_FORMAT(`assign_time`,'%Y-%m-%d %H:%i') <= '$date_to' order by assign_time asc");
+                                                }
+                                            }
                                         }
                                         if(!empty($ss1)){
                                             $qur1 = mysqli_query($db,$ss1);
@@ -612,6 +754,31 @@ include("../admin_menu.php");
 
         $('#date_to').attr('max', maxDate);
         $('#date_from').attr('max', maxDate);
+    });
+</script>
+<script>
+    $(function () {
+        $('input:radio').change(function () {
+            var abc = $(this).val()
+            //  alert(abc);
+            if (abc == "button1") {
+                $('#date_from').prop('disabled', false);
+                $('#date_to').prop('disabled', false);
+                $('#timezone').prop('disabled', true);
+            } else if (abc == "button2") {
+                $('#date_from').prop('disabled', true);
+                $('#date_to').prop('disabled', true);
+                $('#timezone').prop('disabled', false);
+            } else if (abc == "button3") {
+                $('#station').prop('disabled', true);
+                $('#cell').prop('disabled', false);
+            } else if (abc == "button4") {
+                $('#cell').prop('disabled', true);
+                $('#station').prop('disabled', false);
+            }
+
+
+        });
     });
 </script>
 <script>
