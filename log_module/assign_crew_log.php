@@ -183,16 +183,19 @@ if(empty($datefrom)){
             width: 100px;
             height: 23px;
         }
-        @media (min-width: 481px) and (max-width: 768px)
+        @media (min-width: 481px) and (max-width: 768px){
+            .col-md-1.media{
+                display: none!important;
+            }
             .col-md-2 {
                 width: 16%;
             }
+        }
+
         .col-md-2.btn_bottom{
             margin-right: -64px;
         }
-        .col-md-1.media{
-           display: none!important;
-        }
+        /**/
     </style>
     <!-- event -->
     <?php
