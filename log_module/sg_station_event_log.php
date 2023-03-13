@@ -266,7 +266,7 @@ include("../admin_menu.php");
             <div class="left-content">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Logs</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"> Station event log</li>
+                    <li class="breadcrumb-item active" aria-current="page"> Station Event Log</li>
                 </ol>
             </div>
         </div>
@@ -278,6 +278,87 @@ include("../admin_menu.php");
                             <div class="card-header">
                                 <span class="main-content-title mg-b-0 mg-b-lg-1">Station Event Log</span>
                             </div>
+
+                            <div class="pd-20 pd-sm-10">
+                                <div class="row row-xs">
+                                    <div class="col-md-1" >
+                                        <label class="form-label mg-b-0">Station </label>
+                                    </div>
+                                    <div class="col-md-0.5"></div>
+                                    <?php
+                                    if ($button_event == "button5") {
+                                        $checked = "checked";
+                                    } else {
+                                        $checked = "";
+                                    }
+                                    ?>
+
+                                    <div class="col-md-0.5">
+                                        <label class="rdiobox"><input type="radio" name="button_event" id="button5" value="button5" class="form-control" style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                    </div>
+
+                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                        <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
+                                            <option value="" selected disabled>--- Select Station ---</option>
+                                            <?php
+                                            $entry = '';
+                                            $a = 'All';
+                                            $b = '0';
+                                            echo "<option value='". $b ."'  $entry selected>" . $a . "</option>";
+                                            $st_dashboard = $_POST['station'];
+                                            $sql1 = "SELECT * FROM `cam_line` where  enabled = 1 and is_deleted != 1 ORDER BY `cam_line`.`line_id` ASC;";
+                                            $result1 = $mysqli->query($sql1);
+                                            // $entry = 'selected';
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                if ($st_dashboard == $row1['line_id']) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+
+                                                }
+                                                echo "<option value='" . $row1['line_id'] . "'  $entry>" . $row1['line_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1">
+                                        <label class="form-label mg-b-0">Cell </label>
+                                    </div>
+                                    <?php
+                                    if ($button_event == "button6") {
+                                        $checked = "checked";
+                                    } else {
+                                        $checked = "";
+                                    }
+                                    ?>
+                                    <div class="col-md-0.5">
+                                        <label class="rdiobox">  <input type="radio" name="button_event" id="button6" value="button6"
+                                                                        class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                    </div>
+                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                        <select name="cell" id="cell" class="form-control form-select select2" data-placeholder="Select Cell">
+                                            <option value="" selected disabled>--- Select Cell---</option>
+                                            <?php
+                                            $ev_ty_post = $_POST['cell'];
+                                            $sql1 = "SELECT * FROM `cell_grp` where enabled != '0' and is_deleted != 1 ORDER BY `c_id` ASC";
+                                            $result1 = $mysqli->query($sql1);
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                $lin = $row1['c_id'];
+                                                if ($lin == $ev_ty_post) {
+                                                    $entry = 'selected';
+                                                } else {
+                                                    $entry = '';
+                                                }
+                                                echo "<option value='" . $row1['c_id'] . "' $entry >" . $row1['c_name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="pd-20 pd-sm-10">
                                 <div class="row row-xs">
                                     <div class="col-md-1">
@@ -290,13 +371,11 @@ include("../admin_menu.php");
                                         $checked = "";
                                     }
                                     ?>
-
                                     <div class="col-md-0.5">
                                         <label class="rdiobox"><input type="radio" name="button_event" id="button3" value="button3"
                                                                       class="form-control"
                                                                       style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
                                     </div>
-
                                     <div class="col-md-3 mg-t-10 mg-md-t-0">
                                         <select name="event_type" id="event_type" class="form-control form-select select2" data-placeholder="Select Event Type">
                                             <option value="" selected>--- Select Event Type ---</option>
@@ -356,35 +435,6 @@ include("../admin_menu.php");
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="pd-20 pd-sm-10">
-                                <div class="row row-xs">
-                                    <div class="col-md-1" >
-                                        <label class="form-label mg-b-0">Station  </label>
-                                    </div>
-                                    <div class="col-md-0.5"></div>
-                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                        <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
-                                            <option value="" selected disabled>--- Select Station ---</option>
-                                            <?php
-                                            $sql1 = "SELECT * FROM `cam_line` where  enabled = 1 and is_deleted != 1 ORDER BY `cam_line`.`line_id` ASC;";
-                                            $result1 = $mysqli->query($sql1);
-                                            //                                            $entry = 'selected';
-                                            while ($row1 = $result1->fetch_assoc()) {
-                                                $lin = $row1['line_id'];
-
-                                                if ($lin == $station) {
-                                                    $entry = 'selected';
-                                                } else {
-                                                    $entry = '';
-                                                }
-                                                echo "<option value='" . $row1['line_id'] . "' $entry >" . $row1['line_name'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-
                             </div>
                             <div class="pd-20 pd-sm-10">
                                 <div class="row row-xs">
@@ -518,7 +568,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 $q11 = $main_query;
                                 $q12 = $main_query;
 
-                                
+
                                 if ($datefrom != "" && $dateto != "") {
                                     $date_from = convertMDYToYMDwithTime($datefrom);
                                     $date_to = convertMDYToYMDwithTime($dateto);
@@ -546,16 +596,16 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     $q11 = $q11 . " AND  slogup.event_cat_id ='$event_category'";
                                     $q12 = $q12 . " AND  slogup.event_cat_id ='$event_category'";
                                 }
-	
-								/* If Line is selected. */
-								if ($line_id != null) {
-									$q = $q . " and slogup.line_id = '$line_id' ";
-									$q11 = $q11 . " and slogup.line_id = '$line_id'  ORDER BY slogup.created_on DESC  limit 1;";
-									$q12 = $q12 . " and slogup.line_id = '$line_id' ";
-								}else{
-									$q11 = $q11 . " ORDER BY slogup.line_id , slogup.created_on  DESC;";
+
+                                /* If Line is selected. */
+                                if ($line_id != null) {
+                                    $q = $q . " and slogup.line_id = '$line_id' ";
+                                    $q11 = $q11 . " and slogup.line_id = '$line_id'  ORDER BY slogup.created_on DESC  limit 1;";
+                                    $q12 = $q12 . " and slogup.line_id = '$line_id' ";
+                                }else{
+                                    $q11 = $q11 . " ORDER BY slogup.line_id , slogup.created_on  DESC;";
                                 }
-								 
+
                                 $q = $q . " ORDER BY slogup.created_on  ASC";
                                 $q12 = $q12 . " ORDER BY slogup.created_on  DESC";
 
@@ -569,9 +619,9 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                     ?>
                                     <tr>
                                         <?php
-                                            if($un == $rowc['line_id']){
-                                                continue;
-                                            }
+                                        if($un == $rowc['line_id']){
+                                            continue;
+                                        }
                                         $un = $rowc['line_id'];
                                         $qur04 = mysqli_query($db, "SELECT line_name FROM  cam_line where line_id = '$un' ");
                                         while ($rowc04 = mysqli_fetch_array($qur04)) {
@@ -590,7 +640,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                         if(empty($rowc['end_time'])){
                                             $is_true = true;
                                         }else{
-											$is_true = strtotime($rowc['end_time']) > strtotime($date_to);
+                                            $is_true = strtotime($rowc['end_time']) > strtotime($date_to);
                                         }
                                         if($is_true)
                                         {
@@ -730,6 +780,12 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
             } else if (abc == "button4") {
                 $('#event_type').prop('disabled', true);
                 $('#event_category').prop('disabled', false);
+            }else if (abc == "button5") {
+                $('#cell').prop('disabled', true);
+                $('#station').prop('disabled', false);
+            } else if (abc == "button6") {
+                $('#station').prop('disabled', true);
+                $('#cell').prop('disabled', false);
             }
 
 
