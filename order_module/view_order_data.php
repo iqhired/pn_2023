@@ -182,7 +182,7 @@ include("../admin_menu.php");
                     <div class="card">
                         <div class="">
                             <div class="card-header">
-                                <span class="main-content-title mg-b-0 mg-b-lg-1">View ORDER</span>
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">VIEW ORDER</span>
                             </div>
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs align-items-center mg-b-20">
@@ -219,7 +219,6 @@ include("../admin_menu.php");
                                         <input type="text" name="o_desc" id="o_desc" class="form-control" value="<?php echo $order_desc; ?>" disabled>
                                     </div>
                                 </div>
-
 
                                 <div class="row row-xs align-items-center mg-b-20">
                                     <div class="col-md-2">
@@ -272,7 +271,7 @@ include("../admin_menu.php");
                     <div class="card">
                         <div class="">
                             <div class="card-header">
-                                <span class="main-content-title mg-b-0 mg-b-lg-1">Shipment Details</span>
+                                <span class="main-content-title mg-b-0 mg-b-lg-1">SHIPMENT DETAILS</span>
                             </div>
 
                             <div class="pd-30 pd-sm-20">
@@ -319,12 +318,8 @@ include("../admin_menu.php");
                                     <div class="col-md-8 mg-t-5 mg-md-t-0">
                                         <a href="../supplier/order_invoices/<?php echo $file_name; ?>" target="_blank">
 
-
-
-
                                             <input type="text" name="att_doc" class="form-control pn_none" id="att_doc"
                                                    value="<?php echo $file_name4; ?>">
-
 
                                     </div>
                                     </a>
@@ -337,3 +332,4 @@ include("../admin_menu.php");
         </div>
 <?php include('../footer1.php') ?>
 </body>
+</html>
