@@ -17,10 +17,18 @@ $result2 = mysqli_query($db, $sql2);
 $cam2 = mysqli_fetch_array($result2);
 $station_event_id = $cam2['station_event_id'];
 
-$sql3 = "SELECT * FROM `form_user_data` WHERE station_event_id = '$station_event_id'";
+$sql3 = "SELECT * FROM `form_user_data` WHERE `station` = '$station' and form_type = 4 and station_event_id = '$station_event_id' order by created_at desc limit 1";
 $result3 = mysqli_query($db, $sql3);
 $cam3 = mysqli_fetch_array($result3);
 $f_type = $cam3['form_type'];
+$sql31 = "SELECT * FROM `form_user_data` WHERE `station` = '$station' and form_type = 5 and station_event_id = '$station_event_id' order by created_at desc limit 1";
+$result31 = mysqli_query($db, $sql31);
+$cam31 = mysqli_fetch_array($result31);
+$ff_type = $cam31['form_type'];
+$sql32 = "SELECT * FROM `form_user_data` WHERE `station` = '$station' and form_type = 3 and station_event_id = '$station_event_id' order by created_at desc limit 1";
+$result32 = mysqli_query($db, $sql32);
+$cam32 = mysqli_fetch_array($result32);
+$fff_type = $cam32['form_type'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,14 +156,11 @@ $f_type = $cam3['form_type'];
         }
     </style>
 </head>
-
-
 <!-- Main navbar -->
 <?php
 $cam_page_header = "Station - " . $station2;
 include("../hp_header.php");
 ?>
-
 <body>
 <!-- Page container -->
 <div class="page-container">
@@ -164,7 +169,8 @@ include("../hp_header.php");
         <div class="panel panel-flat panel-full-height padding_top_50px">
             <div class="panel-heading">
                 <div class="row">
-                    <?php if(!empty($f_type)){ ?>
+                    <?php
+                    if($f_type == 4){ ?>
                     <?php
                     $countervariable = 0;
                     //select the form based on station
@@ -217,7 +223,7 @@ include("../hp_header.php");
                     $calccurrdate = strtotime($curdate);
                     $date1 = $date;
                     if($date1 == $cur){
-                        $sqlv = "update `form_frequency_data` set form_create_id = '$form_create_id',form_user_data_id = '$form_user_data_id',updated_at = '$curdate' where station_event_id = '$station_event_id'";
+                        $sqlv = "update `form_frequency_data` set form_create_id = '$form_create_id',form_user_data_id = '$form_user_data_id',form_type = '$form_type',updated_at = '$curdate' where station_event_id = '$station_event_id'";
                         $res = mysqli_query($db, $sqlv);
                         if (!$res) {
                             $_SESSION['message_stauts_class'] = 'alert-danger';
@@ -228,7 +234,7 @@ include("../hp_header.php");
                             $_SESSION['import_status_message'] = 'Form Frequency Updated Successfully.';
                         }
                     }
-                    $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and email_status != '1'");
+                    $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and form_type = '4' and email_status != '1'");
                     $rowc0354 = mysqli_fetch_array($qur0354);
                     $updated_at = $rowc0354['updated_at'];
                     if(!empty($updated_at)){
@@ -667,7 +673,7 @@ include("../hp_header.php");
                         ?>
                         </div>
                     <?php }  ?>
-                    <?php if($f_type == 5){ ?>
+                    <?php if($ff_type == 5){ ?>
                     <?php
                     $countervariable++;
                     //select the form based on station
@@ -718,9 +724,22 @@ include("../hp_header.php");
                     $working_from_time = $rowc["created_at"];
                     $calcdatet = strtotime($date);
                     $calccurrdate = strtotime($curdate);
-                            $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and email_status != '1'");
-                            $rowc0354 = mysqli_fetch_array($qur0354);
-                            $updated_at = $rowc0354['updated_at'];
+                    $date1 = $date;
+                    if($date1 == $cur){
+                        $sqlv = "update `form_frequency_data` set form_create_id = '$form_create_id',form_user_data_id = '$form_user_data_id',form_type = '$form_type',email_status = '0',updated_at = '$curdate' where station_event_id = '$station_event_id'";
+                        $res = mysqli_query($db, $sqlv);
+                            if (!$res) {
+                                $_SESSION['message_stauts_class'] = 'alert-danger';
+                                $_SESSION['import_status_message'] = 'Please Fill Pin';
+                            }
+                            else{
+                                $_SESSION['message_stauts_class'] = 'alert-success';
+                                $_SESSION['import_status_message'] = 'Form Frequency Updated Successfully.';
+                            }
+                        }
+                    $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and form_type = '5' and email_status != '1'");
+                    $rowc0354 = mysqli_fetch_array($qur0354);
+                    $updated_at = $rowc0354['updated_at'];
                     if(!empty($updated_at)) {
                         if($curdate >= $updated_at)
                         {
@@ -1145,7 +1164,7 @@ include("../hp_header.php");
                         ?>
                         </div>
                     <?php }  ?>
-                    <?php if($f_type == 3){ ?>
+                    <?php if($fff_type == 3){ ?>
                     <?php
                     $countervariable++;
                     //select the form based on station
@@ -1194,7 +1213,20 @@ include("../hp_header.php");
                     $working_from_time = $rowc["created_at"];
                     $calcdatet = strtotime($date);
                     $calccurrdate = strtotime($curdate);
-                    $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and email_status != '1'");
+                    $date1 = $date;
+                    if($date1 == $cur){
+                        $sqlv = "update `form_frequency_data` set form_create_id = '$form_create_id',form_user_data_id = '$form_user_data_id',form_type = '$form_type',email_status = '0',updated_at = '$curdate' where station_event_id = '$station_event_id'";
+                        $res = mysqli_query($db, $sqlv);
+                            if (!$res) {
+                                $_SESSION['message_stauts_class'] = 'alert-danger';
+                                $_SESSION['import_status_message'] = 'Please Fill Pin';
+                            }
+                            else{
+                                $_SESSION['message_stauts_class'] = 'alert-success';
+                                $_SESSION['import_status_message'] = 'Form Frequency Updated Successfully.';
+                            }
+                        }
+                    $qur0354 = mysqli_query($db, "select * from `form_frequency_data` where form_create_id = '$form_create_id' and form_type = '3' and email_status != '1'");
                     $rowc0354 = mysqli_fetch_array($qur0354);
                     $updated_at = $rowc0354['updated_at'];
                     if(!empty($updated_at)) {
@@ -1622,9 +1654,6 @@ include("../hp_header.php");
         </div>
         <!-- /page content -->
     </div>
-    <?php
-
-    ?>
     <script>
         setTimeout(function () {
             location.reload();
