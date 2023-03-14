@@ -1,5 +1,6 @@
 <?php include("../config.php");
 $button_event = "button3";
+$button_event1 = "button5";
 $curdate = date('Y-m-d H:i');
 $cd = date('d-M-Y H:i:s');
 //$dateto = $curdate;
@@ -15,6 +16,7 @@ $_SESSION['date_to'] = "";
 $_SESSION['button'] = "";
 $_SESSION['timezone'] = "";
 $_SESSION['button_event'] = "";
+$_SESSION['button_event1'] = "";
 $_SESSION['event_type'] = "";
 $_SESSION['event_category'] = "";
 
@@ -25,9 +27,11 @@ if (count($_POST) > 0) {
     $_SESSION['button'] = $_POST['button'];
     $_SESSION['timezone'] = $_POST['timezone'];
     $_SESSION['button_event'] = $_POST['button_event'];
+    $_SESSION['button_event1'] = $_POST['button_event1'];
     $_SESSION['event_type'] = $_POST['event_type'];
     $_SESSION['event_category'] = $_POST['event_category'];
     $button_event = $_POST['button_event'];
+    $button_event1 = $_POST['button_event1'];
     $event_type = $_POST['event_type'];
     $event_category = $_POST['event_category'];
     $station = $_POST['station'];
@@ -247,6 +251,28 @@ if(empty($datefrom)){
         <?php
     }
     ?>
+    <!-- event -->
+    <?php
+    if ($button_event1 == "button5") {
+        ?>
+        <script>
+            $(function () {
+                $('#cell').prop('disabled', true);
+                $('#station').prop('disabled', false);
+            });
+        </script>
+    <?php
+    } else {
+    ?>
+        <script>
+            $(function () {
+                $('#cell').prop('disabled', false);
+                $('#station').prop('disabled', true);
+            });
+        </script>
+        <?php
+    }
+    ?>
 
 </head>
 <body class="ltr main-body app horizontal">
@@ -286,7 +312,7 @@ include("../admin_menu.php");
                                     </div>
                                     <div class="col-md-0.5"></div>
                                     <?php
-                                    if ($button_event == "button5") {
+                                    if ($button_event1 == "button5") {
                                         $checked = "checked";
                                     } else {
                                         $checked = "";
@@ -294,17 +320,13 @@ include("../admin_menu.php");
                                     ?>
 
                                     <div class="col-md-0.5">
-                                        <label class="rdiobox"><input type="radio" name="button_event" id="button5" value="button5" class="form-control" style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
+                                        <label class="rdiobox"><input type="radio" name="button_event1" id="button5" value="button5" class="form-control" style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
                                     </div>
 
-                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
-                                        <select name="station" id="station" class="form-control form-select select2" data-placeholder="Select Station">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                        <select name="station" id="station" class="form-control form-select select2" data-placeholder="All">
                                             <option value="" selected disabled>--- Select Station ---</option>
                                             <?php
-                                            $entry = '';
-                                            $a = 'All';
-                                            $b = '0';
-                                            echo "<option value='". $b ."'  $entry selected>" . $a . "</option>";
                                             $st_dashboard = $_POST['station'];
                                             $sql1 = "SELECT * FROM `cam_line` where  enabled = 1 and is_deleted != 1 ORDER BY `cam_line`.`line_id` ASC;";
                                             $result1 = $mysqli->query($sql1);
@@ -327,17 +349,17 @@ include("../admin_menu.php");
                                         <label class="form-label mg-b-0">Cell </label>
                                     </div>
                                     <?php
-                                    if ($button_event == "button6") {
+                                    if ($button_event1 == "button6") {
                                         $checked = "checked";
                                     } else {
                                         $checked = "";
                                     }
                                     ?>
                                     <div class="col-md-0.5">
-                                        <label class="rdiobox">  <input type="radio" name="button_event" id="button6" value="button6"
+                                        <label class="rdiobox">  <input type="radio" name="button_event1" id="button6" value="button6"
                                                                         class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
                                     </div>
-                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select name="cell" id="cell" class="form-control form-select select2" data-placeholder="Select Cell">
                                             <option value="" selected disabled>--- Select Cell---</option>
                                             <?php
@@ -364,6 +386,7 @@ include("../admin_menu.php");
                                     <div class="col-md-1">
                                         <label class="form-label mg-b-0">Event Type  </label>
                                     </div>
+                                    <div class="col-md-0.5"></div>
                                     <?php
                                     if ($button_event == "button3") {
                                         $checked = "checked";
@@ -376,7 +399,7 @@ include("../admin_menu.php");
                                                                       class="form-control"
                                                                       style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
                                     </div>
-                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select name="event_type" id="event_type" class="form-control form-select select2" data-placeholder="Select Event Type">
                                             <option value="" selected>--- Select Event Type ---</option>
                                             <?php
@@ -413,7 +436,7 @@ include("../admin_menu.php");
                                                                         class="form-control"  style="float: left;width: initial;" <?php echo $checked; ?>> <span></span></label>
                                     </div>
 
-                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <select name="event_category" id="event_category" class="form-control form-select select2" data-placeholder="Select Event Category">
                                             <option value="" selected disabled>--- Select Event Catagory ---</option>
                                             <?php
@@ -449,7 +472,7 @@ include("../admin_menu.php");
                                         <label class="form-label mg-b-0">Date From  </label>
                                     </div>
                                     <div class="col-md-0.5"></div>
-                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <div class="input-group">
                                             <div class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
@@ -463,7 +486,7 @@ include("../admin_menu.php");
                                         <label class="form-label mg-b-0">Date To  </label>
                                     </div>
                                     <div class="col-md-0.5"></div>
-                                    <div class="col-md-3 mg-t-10 mg-md-t-0">
+                                    <div class="col-md-4 mg-t-10 mg-md-t-0">
                                         <div class="input-group">
                                             <div class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
