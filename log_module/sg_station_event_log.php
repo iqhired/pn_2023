@@ -19,6 +19,7 @@ $_SESSION['button_event'] = "";
 $_SESSION['button_event1'] = "";
 $_SESSION['event_type'] = "";
 $_SESSION['event_category'] = "";
+$_SESSION['cell'] = "";
 
 if (count($_POST) > 0) {
     $_SESSION['station'] = $_POST['station'];
@@ -30,6 +31,7 @@ if (count($_POST) > 0) {
     $_SESSION['button_event1'] = $_POST['button_event1'];
     $_SESSION['event_type'] = $_POST['event_type'];
     $_SESSION['event_category'] = $_POST['event_category'];
+    $_SESSION['cell'] = $_POST['cell'];
     $button_event = $_POST['button_event'];
     $button_event1 = $_POST['button_event1'];
     $event_type = $_POST['event_type'];
@@ -39,6 +41,7 @@ if (count($_POST) > 0) {
     $datefrom = $_POST['date_from'];
     $button = $_POST['button'];
     $timezone = $_POST['timezone'];
+    $cell = $_POST['cell'];
 }
 if (count($_POST) > 0) {
     $station1 = $_POST['station'];
@@ -468,6 +471,7 @@ include("../admin_menu.php");
                                         $checked == "";
                                     }
                                     ?>
+                                    <div class="col-md-0.5"></div>
                                     <div class="col-md-1">
                                         <label class="form-label mg-b-0">Date From  </label>
                                     </div>
@@ -583,9 +587,16 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 $datefrom = $_POST['date_from'];
                                 $button = $_POST['button'];
                                 $button_event = $_POST['button_event'];
+                                $button_event1 = $_POST['button_event1'];
                                 $event_type = $_POST['event_type'];
                                 $event_category = $_POST['event_category'];
                                 $timezone = $_POST['timezone'];
+                                $cell = $_POST['cell'];
+                                $query0003 = sprintf("SELECT SUBSTRING(stations,1,length(stations)-1) as stns FROM cell_grp where c_id = '$cell'");
+                                $qur0003 = mysqli_query($db, $query0003);
+                                while ($rowc0003 = mysqli_fetch_array($qur0003)) {
+                                    $stt = $rowc0003["stns"];
+                                }
                                 //event type
                                 $q = $main_query;
                                 $q11 = $main_query;
@@ -621,17 +632,21 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
                                 }
 
                                 /* If Line is selected. */
-                                if ($line_id != null) {
-                                    $q = $q . " and slogup.line_id = '$line_id' ";
-                                    $q11 = $q11 . " and slogup.line_id = '$line_id'  ORDER BY slogup.created_on DESC  limit 1;";
-                                    $q12 = $q12 . " and slogup.line_id = '$line_id' ";
+                                if(!empty($cell)){
+                                    $q = $q . " and slogup.line_id in ($stt)";
+                                    $q11 = $q11 . " and slogup.line_id in ($stt)";
+                                    $q12 = $q12 . " and slogup.line_id in ($stt)";
                                 }else{
-                                    $q11 = $q11 . " ORDER BY slogup.line_id , slogup.created_on  DESC;";
+                                    if ($line_id != null) {
+                                        $q = $q . " and slogup.line_id = '$line_id'";
+                                        $q11 = $q11 . " and slogup.line_id = '$line_id'  ORDER BY slogup.created_on DESC  limit 1";
+                                        $q12 = $q12 . " and slogup.line_id = '$line_id'";
+                                    }else{
+                                        $q11 = $q11 . " ORDER BY slogup.line_id , slogup.created_on DESC;";
+                                    }
                                 }
-
                                 $q = $q . " ORDER BY slogup.created_on  ASC";
                                 $q12 = $q12 . " ORDER BY slogup.created_on  DESC";
-
                             }
                             /* Execute the Query Built*/
                             $qur11 = mysqli_query($db, $q11);

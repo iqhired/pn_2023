@@ -8,10 +8,17 @@ $curdate = date('Y-m-d H:i');
 $dateto = $_SESSION['date_to'];
 $datefrom = $_SESSION['date_from'];
 $button = $_SESSION['button_event'];
+$button1 = $_SESSION['button_event1'];
 $timezone = $_SESSION['timezone'];
 $event_type = $_SESSION['event_type'];
 $event_category = $_SESSION['event_category'];
 $line_id = $_SESSION['station'];
+$cell = $_SESSION['cell'];
+$query0003 = sprintf("SELECT SUBSTRING(stations,1,length(stations)-1) as stns FROM cell_grp where c_id = '$cell'");
+$qur0003 = mysqli_query($db, $query0003);
+while ($rowc0003 = mysqli_fetch_array($qur0003)) {
+    $stt = $rowc0003["stns"];
+}
 $print_data='';
 
 if(empty($dateto)){
@@ -35,10 +42,16 @@ pf.part_family_name as pf_name,slogup.created_on as start_time , slogup.end_time
 inner join sg_station_event as sg_events on slogup.station_event_id = sg_events.station_event_id INNER JOIN pm_part_family as pf on sg_events.part_family_id = pf.pm_part_family_id 
 inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_id where 1  and slogup.ignore_id = 0 ";
 
-if ($line_id != null) {
-    $q = $q . " and slogup.line_id = '$line_id' ";
-    $q11 = $q11 . " and slogup.line_id = '$line_id' ";
+if(!empty($cell)){
+    $q = $q . " and slogup.line_id in ($stt)";
+    $q11 = $q11 . " and slogup.line_id in ($stt)";
+}else{
+    if ($line_id != null) {
+        $q = $q . " and slogup.line_id = '$line_id' ";
+        $q11 = $q11 . " and slogup.line_id = '$line_id' ";
+    }
 }
+
 if($datefrom != "" && $dateto != ""){
     $date_from = convertMDYToYMDwithTime($datefrom);
     $date_to = convertMDYToYMDwithTime($dateto);
@@ -68,8 +81,8 @@ if (empty($line_id)){
     $q = $q . " ORDER BY slogup.line_id,slogup.created_on";
     $q11 = $q11 . " ORDER BY  slogup.line_id , slogup.created_on  DESC ";
 }else{
-    $q = $q . " ORDER BY slogup.created_on  ASC";
-    $q11 = $q11 . " ORDER BY slogup.created_on    DESC limit 1";
+    $q = $q . " ORDER BY slogup.created_on ASC";
+    $q11 = $q11 . " ORDER BY slogup.created_on DESC limit 1";
 }
 	
 	$unl =0;
