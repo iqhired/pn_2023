@@ -481,12 +481,23 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
                                         $result1 = $mysqli->query($sql1);
                                         //                                            $entry = 'selected';
                                         while ($row1 = $result1->fetch_assoc()) {
+                                            $p_fam = $row1['part_family'];
+                                            $part_st = $row1['station'];
+
+                                            $part_fam = "select part_family_name from `pm_part_family` where pm_part_family_id = '$p_fam'";
+                                            $result_fam = $mysqli->query($part_fam);
+                                            $part_fam = mysqli_fetch_assoc($result_fam);
+
+                                            $part_st = "select line_name from `cam_line` where line_id = '$part_st'";
+                                            $result_st = $mysqli->query($part_st);
+                                            $part_st = mysqli_fetch_assoc($result_st);
+
                                             if ($part_number == $row1['pm_part_number_id']) {
                                                 $entry = 'selected';
                                             } else {
                                                 $entry = '';
                                             }
-                                            echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . "</option>";
+                                            echo "<option value='" . $row1['pm_part_number_id'] . "' $entry >" . $row1['part_number'] . " - " . $row1['part_name'] . " - " . $part_fam['part_family_name'] . " - " . $part_st['line_name'] ."</option>";
                                         }
                                         ?>
                                     </select>
