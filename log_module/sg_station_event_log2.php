@@ -721,15 +721,15 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
 
         var start_time=document.getElementById("start_time"+no);
         var end_time=document.getElementById("end_time"+no);
+        var st = 'start_time'+no;
+        var et = 'end_time'+no;
 
         var start_data=start_time.innerText;
         var end_data=end_time.innerText;
-
-        $('#start_time').datetimepicker({format: 'mm-dd-yyyy hh:ii' , minuteStep:30});
-        $('#end_time').datetimepicker({format: 'mm-dd-yyyy hh:ii' , minuteStep:30});
-
-        start_time.innerHTML="<div class='input-group'><input type='text' name = 'start_time' id='start_time"+no+"' value='"+start_data+"' class='form-control' placeholder='MM/DD/YYYY'></div>";
-        end_time.innerHTML="<input type='text'  id='end_time"+no+"' value='"+end_data+"' class='form-control' placeholder='MM/DD/YYYY'>";
+        start_time.innerHTML="<input class='form-control' name='"+st+"' id='"+st+"' value='"+start_data+"' type='text' placeholder='MM/DD/YYYY'>";
+        end_time.innerHTML="<input class='form-control' name='"+et+"' id='"+et+"' value='"+end_data+"' type='text' placeholder='MM/DD/YYYY'>";
+        $('#start_time'+no).datetimepicker({format: 'mm-dd-yyyy hh:ii' , minuteStep:30});
+        $('#end_time'+no).datetimepicker({format: 'mm-dd-yyyy hh:ii' , minuteStep:30});
 
     }
     function save_row(no)
@@ -812,7 +812,7 @@ inner join pm_part_number as pn on sg_events.part_number_id = pn.pm_part_number_
 </script>
 <script>
     window.onload = function () {
-        history.replaceState("", "", "<?php echo $siteURL; ?>log_module/sg_station_event_log.php");
+        history.replaceState("", "", "<?php echo $siteURL; ?>log_module/sg_station_event_log2.php");
     }
 </script>
 <?php include('../footer1.php') ?>

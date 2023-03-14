@@ -693,7 +693,7 @@ if(!empty($is_cell_login) && $is_cell_login == 1){
                                     }
 
                                     ?>
-                                    <label class="ckbox"><input checked type="checkbox" name="approval_list" id="approval_list" <?php echo $select_a ?>><span></span></label>
+                                    <label class="ckbox"><input type="checkbox" name="approval_list" id="approval_list" <?php echo $select_a ?>><span></span></label>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
